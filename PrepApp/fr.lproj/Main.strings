@@ -1,0 +1,147 @@
+
+/* Class = "UINavigationItem"; title = "Défi duo"; ObjectID = "2A9-pF-PgA"; */
+"2A9-pF-PgA.title" = "Défi duo";
+
+/* Class = "UINavigationItem"; title = "Entraînement"; ObjectID = "4Vj-K9-aaB"; */
+"4Vj-K9-aaB.title" = "Entraînement";
+
+/* Class = "UILabel"; text = "Profil"; ObjectID = "AUT-7Z-alE"; */
+"AUT-7Z-alE.text" = "Profil";
+
+/* Class = "UINavigationItem"; title = "Aide"; ObjectID = "BXc-9l-4z5"; */
+"BXc-9l-4z5.title" = "Aide";
+
+/* Class = "UIViewController"; title = "Prep'App Kiné"; ObjectID = "C6n-Re-BNF"; */
+"C6n-Re-BNF.title" = "Prep'App Kiné";
+
+/* Class = "UIViewController"; title = "Défi solo"; ObjectID = "Cpx-Ts-0mG"; */
+"Cpx-Ts-0mG.title" = "Défi solo";
+
+/* Class = "UIViewController"; title = "AIde"; ObjectID = "CzN-aK-ifq"; */
+"CzN-aK-ifq.title" = "AIde";
+
+/* Class = "UITextField"; placeholder = "Mot de passe"; ObjectID = "Dma-It-3SB"; */
+"Dma-It-3SB.placeholder" = "Mot de passe";
+
+/* Class = "UIViewController"; title = "Concours"; ObjectID = "EGs-tW-rEi"; */
+"EGs-tW-rEi.title" = "Concours";
+
+/* Class = "UINavigationItem"; title = "Profil"; ObjectID = "GRf-h3-CSr"; */
+"GRf-h3-CSr.title" = "Profil";
+
+/* Class = "UITextField"; placeholder = "Confirmation"; ObjectID = "H69-bH-ejW"; */
+"H69-bH-ejW.placeholder" = "Confirmation";
+
+/* Class = "UILabel"; text = "Concours"; ObjectID = "IBN-tV-HSm"; */
+"IBN-tV-HSm.text" = "Concours";
+
+/* Class = "UIViewController"; title = "Entraînement"; ObjectID = "Ir2-cz-PBY"; */
+"Ir2-cz-PBY.title" = "Entraînement";
+
+/* Class = "UINavigationItem"; title = "Préférences"; ObjectID = "JDe-Ng-WRF"; */
+"JDe-Ng-WRF.title" = "Préférences";
+
+/* Class = "UIButton"; normalTitle = "Modifier"; ObjectID = "Jze-HC-QJQ"; */
+"Jze-HC-QJQ.normalTitle" = "Modifier";
+
+/* Class = "UILabel"; text = "Entraînement"; ObjectID = "KOR-vh-wHL"; */
+"KOR-vh-wHL.text" = "Entraînement";
+
+/* Class = "UIViewController"; title = "Défi duo"; ObjectID = "LtT-CV-61z"; */
+"LtT-CV-61z.title" = "Défi duo";
+
+/* Class = "UILabel"; text = "Chapitre ="; ObjectID = "MxR-tt-w0Y"; */
+"MxR-tt-w0Y.text" = "Chapitre =";
+
+/* Class = "UILabel"; text = "Matière ="; ObjectID = "O91-7g-JYB"; */
+"O91-7g-JYB.text" = "Matière =";
+
+/* Class = "UINavigationItem"; title = "Défi solo"; ObjectID = "PVk-qO-t8k"; */
+"PVk-qO-t8k.title" = "Défi solo";
+
+/* Class = "UINavigationController"; title = "Training"; ObjectID = "Q20-H2-akI"; */
+"Q20-H2-akI.title" = "Training";
+
+/* Class = "UIButton"; normalTitle = "Se connecter"; ObjectID = "Q6A-KH-lfQ"; */
+"Q6A-KH-lfQ.normalTitle" = "Se connecter";
+
+/* Class = "UILabel"; text = "Prep'App Kiné"; ObjectID = "QD2-SX-3N8"; */
+"QD2-SX-3N8.text" = "Prep'App Kiné";
+
+/* Class = "UILabel"; text = "Bonjour!"; ObjectID = "Qxe-OB-Mmo"; */
+"Qxe-OB-Mmo.text" = "Bonjour!";
+
+/* Class = "UITextField"; placeholder = "id"; ObjectID = "XlY-Zj-RPm"; */
+"XlY-Zj-RPm.placeholder" = "id";
+
+/* Class = "UILabel"; text = "Défi duo"; ObjectID = "XuF-Gb-gBL"; */
+"XuF-Gb-gBL.text" = "Défi duo";
+
+/* Class = "UINavigationController"; title = "Settings"; ObjectID = "YIQ-le-JF7"; */
+"YIQ-le-JF7.title" = "Settings";
+
+/* Class = "UINavigationController"; title = "Solo"; ObjectID = "Z5P-zY-itP"; */
+"Z5P-zY-itP.title" = "Solo";
+
+/* Class = "UILabel"; text = "Préférences"; ObjectID = "ctW-xK-1Rf"; */
+"ctW-xK-1Rf.text" = "Préférences";
+
+/* Class = "UILabel"; text = "Aide"; ObjectID = "czF-00-8jz"; */
+"czF-00-8jz.text" = "Aide";
+
+/* Class = "UILabel"; text = "Type = "; ObjectID = "fLp-n5-eSI"; */
+"fLp-n5-eSI.text" = "Type = ";
+
+/* Class = "UILabel"; text = "Défi solo"; ObjectID = "h6v-lZ-qCe"; */
+"h6v-lZ-qCe.text" = "Défi solo";
+
+/* Class = "UIButton"; normalTitle = "Se déconnecter"; ObjectID = "jpn-U4-STX"; */
+"jpn-U4-STX.normalTitle" = "Se déconnecter";
+
+/* Class = "UINavigationController"; title = "Help"; ObjectID = "kDZ-0J-0fk"; */
+"kDZ-0J-0fk.title" = "Help";
+
+/* Class = "UINavigationItem"; title = "Concours"; ObjectID = "kes-Rd-h2X"; */
+"kes-Rd-h2X.title" = "Concours";
+
+/* Class = "UINavigationController"; title = "Accueil"; ObjectID = "knK-1U-k0E"; */
+"knK-1U-k0E.title" = "Accueil";
+
+/* Class = "UINavigationController"; title = "Duo"; ObjectID = "lmf-3H-IB0"; */
+"lmf-3H-IB0.title" = "Duo";
+
+/* Class = "UIViewController"; title = "Préférences"; ObjectID = "rUx-R3-kpb"; */
+"rUx-R3-kpb.title" = "Préférences";
+
+/* Class = "UITextField"; placeholder = "Adresse Email"; ObjectID = "rmc-PG-fwb"; */
+"rmc-PG-fwb.placeholder" = "Adresse Email";
+
+/* Class = "UINavigationController"; title = "Profile"; ObjectID = "rsx-zm-KUu"; */
+"rsx-zm-KUu.title" = "Profile";
+
+/* Class = "UILabel"; text = "Téléchargement du contenu en cours. Veuillez patienter..."; ObjectID = "t12-T3-ZOd"; */
+"t12-T3-ZOd.text" = "Téléchargement du contenu en cours. Veuillez patienter...";
+
+/* Class = "UILabel"; text = "Changer le mot de passe"; ObjectID = "tPz-T4-Y2M"; */
+"tPz-T4-Y2M.text" = "Changer le mot de passe";
+
+/* Class = "UILabel"; text = "Question ID ="; ObjectID = "thj-rJ-Zv8"; */
+"thj-rJ-Zv8.text" = "Question ID =";
+
+/* Class = "UINavigationItem"; title = "Accueil Prep'App Kiné"; ObjectID = "tlC-4Q-9kN"; */
+"tlC-4Q-9kN.title" = "Accueil Prep'App Kiné";
+
+/* Class = "UITextField"; placeholder = "Nouveau mot de passe"; ObjectID = "vRm-qT-Xcn"; */
+"vRm-qT-Xcn.placeholder" = "Nouveau mot de passe";
+
+/* Class = "UIButton"; normalTitle = "GO!"; ObjectID = "vYO-v6-fEn"; */
+"vYO-v6-fEn.normalTitle" = "GO!";
+
+/* Class = "UINavigationController"; title = "Contest"; ObjectID = "w8h-D0-bRK"; */
+"w8h-D0-bRK.title" = "Contest";
+
+/* Class = "UILabel"; text = "Accueil"; ObjectID = "wbu-pJ-hY8"; */
+"wbu-pJ-hY8.text" = "Accueil";
+
+/* Class = "UIViewController"; title = "Profil"; ObjectID = "xTP-p3-Wzx"; */
+"xTP-p3-Wzx.title" = "Profil";
