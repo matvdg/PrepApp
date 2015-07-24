@@ -16,6 +16,7 @@ class ImageManager {
     var sizeToDownload: Int = 0
     var sizeDownloaded: Int = 0
     var hasFinishedSync: Bool = false
+    let realm = FactoryRealm.getRealmImages()
        
 	
     func sync(){
@@ -36,7 +37,7 @@ class ImageManager {
 	private func compare(onlineUploads: [Image]){
         
 		// Query a Realm
-		let offlineUploads = Realm(path: "\(Factory.path)/images.realm").objects(Image)
+		let offlineUploads = self.realm.objects(Image)
 		
 		
 		// we check what has been removed
@@ -78,7 +79,7 @@ class ImageManager {
         for objectToAdd in objectsToAdd {
             self.sizeToDownload += objectToAdd.size
         }
-        println("Size of images to download = \(self.sizeToDownload/1000) KB")
+        //println("Size of images to download = \(self.sizeToDownload/1000) KB")
         
         if self.sizeToDownload == 0 {
             self.hasFinishedSync = true
@@ -87,11 +88,10 @@ class ImageManager {
     }
     
 	private func deleteImages(idsToRemove: [Int]){
-        let realm = Realm(path: "\(Factory.path)/images.realm")
         for idToRemove in idsToRemove {
             var objectToRemove = realm.objects(Image).filter("id=\(idToRemove)")
-            realm.write {
-                realm.delete(objectToRemove)
+            self.realm.write {
+                self.realm.delete(objectToRemove)
             }
             self.removeFile("/\(idToRemove).png")
         }
@@ -131,7 +131,7 @@ class ImageManager {
                 
             } else {
                 self.sizeDownloaded += data.length
-                println("size downloaded = \(self.sizeDownloaded/1000) Ko")
+                //println("size downloaded = \(self.sizeDownloaded/1000) KB")
 
                 let imagesPath = Factory.path + "/images"
                 NSFileManager.defaultManager().createDirectoryAtPath(imagesPath, withIntermediateDirectories: false, attributes: nil, error: nil)
@@ -139,9 +139,8 @@ class ImageManager {
                 if let fetchedImage = UIImage(data: data) {
                     NSFileManager.defaultManager().createFileAtPath(imagePath, contents: data, attributes: nil)
                     //image saved in directory, we updrade Realm DB
-                    let realm = Realm(path: "\(Factory.path)/images.realm")
-                    realm.write {
-                        realm.add(objectToAdd)
+                    self.realm.write {
+                        self.realm.add(objectToAdd)
                     }
                 }
             }

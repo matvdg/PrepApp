@@ -17,6 +17,7 @@ class Factory {
     private static let chapterManager = ChapterManager()
     private static let questionManager = QuestionManager()
     private static let subjectManager = SubjectManager()
+    private static let realm = FactoryRealm.getRealm()
     
     /*LOCAL OR DISTANT DB*/
     //private static let domain = NSURL(string: "http://p.com/PrepApp")
@@ -53,9 +54,9 @@ class Factory {
     //Called in SyncViewController.swift
     class func sync() {
         println(self.path)
-        let realm = Realm()
-        realm.write {
-            realm.deleteAll()
+        
+        self.realm.write {
+            self.realm.deleteAll()
         }
         println("default Realm database cleaned")
         Factory.getImageManager().sync()

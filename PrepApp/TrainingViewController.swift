@@ -7,23 +7,27 @@
 //
 
 import UIKit
+import RealmSwift
 
 class TrainingViewController: UIViewController {
     
-    var chapter: Chapter?
+    var subject: Subject?
+    let realm = FactoryRealm.getRealm()
 
 	@IBOutlet var menuButton: UIBarButtonItem!
 	
     @IBAction func bio(sender: AnyObject) {
-        
+        self.subject = realm.objects(Subject).filter("name='biologie'")[0]
         self.performSegueWithIdentifier("showChapters", sender: self)
     }
 
     @IBAction func phy(sender: AnyObject) {
+        self.subject = realm.objects(Subject).filter("name='physique'")[0]
         self.performSegueWithIdentifier("showChapters", sender: self)
     }
 	
     @IBAction func chi(sender: AnyObject) {
+        self.subject = realm.objects(Subject).filter("name='chimie'")[0]
         self.performSegueWithIdentifier("showChapters", sender: self)
     }
 	
@@ -46,11 +50,7 @@ class TrainingViewController: UIViewController {
         // Get the new view controller using [segue destinationViewController].
         var chaptersVC = segue.destinationViewController as! ChaptersTableViewController
         // Pass the selected object to the new view controller.
-//        if let indexPath = self.tableView.indexPathForSelectedRow() {
-//            let selectedPhoto = photos[indexPath.row]
-//            secondScene.currentPhoto = selectedPhoto
-//        }
-        
+        chaptersVC.subject = self.subject
     }
 	
 	

@@ -9,9 +9,13 @@
 import UIKit
 
 class QuestionViewController: UIViewController {
+    
+    var chapter: Chapter?
+    let realm = FactoryRealm.getRealm()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        println(chapter!)
 
         // Do any additional setup after loading the view.
     }

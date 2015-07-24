@@ -17,6 +17,7 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
     var sizeToDownload: Int = 0
     var statusCode = 0
     var hasFinishedSync: Bool = false
+    let realm = FactoryRealm.getRealm()
     
     func saveQuestions() {
         self.getQuestions()
@@ -24,11 +25,10 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
     
     private func saveQuestion(data: NSDictionary) {
         
-        let realm = Realm()
         var newQuestion: Question = Question()
         newQuestion.id =  data["id_question"] as! Int
         let id = data["id_chapter"] as! Int
-        let chapter = realm.objects(Chapter).filter("id=\(id)")[0]
+        let chapter = self.realm.objects(Chapter).filter("id=\(id)")[0]
         newQuestion.chapter = chapter
         newQuestion.wording = data["wording"] as! String
         newQuestion.imagesQuestion = data["images_question"] as! String
@@ -47,8 +47,8 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
         newQuestion.correction = data["correction"] as! String
         newQuestion.imagesCorrection = data["images_correction"] as! String
     
-        realm.write {
-            realm.add(newQuestion)
+        self.realm.write {
+            self.realm.add(newQuestion)
         }
     }
     
@@ -63,7 +63,7 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
     /* delegate methods */
         func connection(connection: NSURLConnection, didReceiveData data: NSData){
             self.sizeDownloaded = self.data.length
-            println("Size of questions downloaded = \(self.sizeDownloaded) KB")
+            //println("Size of questions downloaded = \(self.sizeDownloaded/1000) KB")
             self.data.appendData(data)
         }
     
@@ -80,7 +80,7 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
                     self.sizeToDownload = (value as! String).toInt()!
                 }
             }
-            println("Size of questions to download = \(self.sizeToDownload) KB")
+            //println("Size of questions to download = \(self.sizeToDownload/1000) KB")
             
             
         }

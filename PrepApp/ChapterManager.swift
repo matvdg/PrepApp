@@ -14,6 +14,7 @@ import RealmSwift
 
 class ChapterManager {
     
+    let realm = FactoryRealm.getRealm()
     
     func saveChapters() {
         self.getChapters({ (chapters) -> Void in
@@ -28,7 +29,7 @@ class ChapterManager {
     }
     
     private func saveChapter(data: NSDictionary) {
-        let realm = Realm()
+        
         var newChapter = Chapter()
         newChapter.id = data["id"] as! Int
         let id = data["id_subject"] as! Int
@@ -37,8 +38,8 @@ class ChapterManager {
         newChapter.number = data["number"] as! Int
         newChapter.name = data["name"] as! String
         
-        realm.write {
-            realm.add(newChapter)
+        self.realm.write {
+            self.realm.add(newChapter)
         }
     }
     

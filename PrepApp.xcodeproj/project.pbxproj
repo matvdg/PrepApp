@@ -35,6 +35,7 @@
 		F64630A31B5E663C006A5F71 /* SubjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64630A21B5E663C006A5F71 /* SubjectManager.swift */; };
 		F64630A51B5E6959006A5F71 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64630A41B5E6959006A5F71 /* Factory.swift */; };
 		F64630A71B5FD451006A5F71 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F64630A61B5FD451006A5F71 /* LocalAuthentication.framework */; };
+		F66771811B61A31900042145 /* FactoryRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66771801B61A31900042145 /* FactoryRealm.swift */; };
 		F6767C211B5D5DFB0066FC64 /* QuestionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6767C201B5D5DFB0066FC64 /* QuestionManager.swift */; };
 		F68320DA1B03C6F1006B974E /* TrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68320D91B03C6F1006B974E /* TrainingViewController.swift */; };
 		F6987A6D1B16321B002989C6 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6987A6C1B16321B002989C6 /* ImageManager.swift */; };
@@ -103,6 +104,7 @@
 		F64630A21B5E663C006A5F71 /* SubjectManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubjectManager.swift; sourceTree = "<group>"; };
 		F64630A41B5E6959006A5F71 /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		F64630A61B5FD451006A5F71 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		F66771801B61A31900042145 /* FactoryRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryRealm.swift; sourceTree = "<group>"; };
 		F6767C201B5D5DFB0066FC64 /* QuestionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionManager.swift; sourceTree = "<group>"; };
 		F68320D91B03C6F1006B974E /* TrainingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingViewController.swift; sourceTree = "<group>"; };
 		F6987A6C1B16321B002989C6 /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				F6322A1E1B615E360074549E /* Chapter.swift */,
 				F6322A201B615E3E0074549E /* Image.swift */,
 				F6322A221B615E460074549E /* Subject.swift */,
+				F66771801B61A31900042145 /* FactoryRealm.swift */,
 			);
 			name = "Realm objects";
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				F68320DA1B03C6F1006B974E /* TrainingViewController.swift in Sources */,
 				F6FBFAB81AFA1F5E0020B074 /* User.swift in Sources */,
 				F61A1CDF1B0041CD00777584 /* MenuController.swift in Sources */,
+				F66771811B61A31900042145 /* FactoryRealm.swift in Sources */,
 				F605AF0E1B04146C00E90596 /* SoloViewController.swift in Sources */,
 				F6ECC1101AF6DFE8008F18E3 /* SyncViewController.swift in Sources */,
 				F6C3095C1B0365B100B8FAC9 /* HomeViewController.swift in Sources */,

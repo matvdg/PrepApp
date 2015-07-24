@@ -67,7 +67,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             } else {
                 self.mail.text = User.currentUser!.email
                 self.pass.text = "hidden"
-                self.performSegueWithIdentifier("loginDidSucceded", sender: self)
+                //self.performSegueWithIdentifier("loginDidSucceded", sender: self)
+                //without sync // test mode
+                self.performSegueWithIdentifier("testMode", sender: self)
+                println(Factory.path)
             }
 		}
 	}

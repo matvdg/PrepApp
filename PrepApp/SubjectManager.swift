@@ -12,6 +12,7 @@ import RealmSwift
 
 class SubjectManager {
     
+    let realm = FactoryRealm.getRealm()
     
     func saveSubjects() {
         self.getSubjects({ (subjects) -> Void in
@@ -30,9 +31,8 @@ class SubjectManager {
         var newSubject = Subject()
         newSubject.id =  data["id"] as! Int
         newSubject.name = data["name"] as! String
-        let realm = Realm()
-        realm.write {
-            realm.add(newSubject)
+        self.realm.write {
+            self.realm.add(newSubject)
         }
     }
     
