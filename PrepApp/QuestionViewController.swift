@@ -64,6 +64,7 @@ class QuestionViewController: UIViewController {
     @IBOutlet weak var buttonF: UIButton!
     
     @IBAction func answerA(sender: AnyObject) {
+        
     }
     
     @IBAction func answerB(sender: AnyObject) {
@@ -99,7 +100,12 @@ class QuestionViewController: UIViewController {
     func loadQuestion() {
         self.question.text = "Question n°\(self.currentQuestion+1)/\(self.counter)"
         self.wording.loadHTMLString(self.questions[self.currentQuestion].wording, baseURL: nil)
-       // self.buttonA.setTitle(self.questions[self.currentQuestion]., forState: <#UIControlState#>)
+        self.buttonA.setTitle((self.questions[self.currentQuestion].answerOne).htmlToString, forState: UIControlState.Normal)
+        self.buttonB.setTitle((self.questions[self.currentQuestion].answerTwo).htmlToString, forState: UIControlState.Normal)
+        self.buttonC.setTitle((self.questions[self.currentQuestion].answerThree).htmlToString, forState: UIControlState.Normal)
+        self.buttonD.setTitle((self.questions[self.currentQuestion].answerFour).htmlToString, forState: UIControlState.Normal)
+        self.buttonE.setTitle((self.questions[self.currentQuestion].answerFive).htmlToString, forState: UIControlState.Normal)
+        self.buttonF.setTitle((self.questions[self.currentQuestion].answerSix).htmlToString, forState: UIControlState.Normal)
 
     }
     

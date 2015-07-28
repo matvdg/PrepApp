@@ -658,11 +658,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aze-o2-J1l" userLabel="BIO">
-                                <rect key="frame" x="-4" y="64" width="608" height="181.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="608" id="18V-nP-21E"/>
-                                    <constraint firstAttribute="height" constant="181.5" id="cJu-Wh-431"/>
-                                </constraints>
+                                <rect key="frame" x="0.0" y="64" width="600" height="178.5"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="60"/>
                                 <state key="normal" backgroundImage="bio">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -672,7 +668,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NAj-JJ-6z1" userLabel="PHY">
-                                <rect key="frame" x="-4" y="245" width="608" height="181"/>
+                                <rect key="frame" x="0.0" y="242" width="600" height="179"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="60"/>
                                 <state key="normal" backgroundImage="phy">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -682,7 +678,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYV-LY-s4f" userLabel="CHI">
-                                <rect key="frame" x="-4" y="426" width="608" height="181.5"/>
+                                <rect key="frame" x="0.0" y="421" width="600" height="178.5"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="60"/>
                                 <state key="normal" backgroundImage="chi">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -693,31 +689,19 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PHYSIQUE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltt-Hn-CPp">
-                                <rect key="frame" x="77" y="294" width="446" height="84"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="84" id="FrG-yP-LEb"/>
-                                    <constraint firstAttribute="width" constant="446" id="vpt-bb-4bm"/>
-                                </constraints>
+                                <rect key="frame" x="0.0" y="242.5" width="600" height="178.5"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BIOLOGIE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMw-N9-580">
-                                <rect key="frame" x="77" y="112" width="446" height="84"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="84" id="9mD-Z4-RIR"/>
-                                    <constraint firstAttribute="width" constant="446" id="iYo-xq-TU3"/>
-                                </constraints>
+                                <rect key="frame" x="0.0" y="64" width="600" height="178.5"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CHIMIE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GfA-GH-d8L">
-                                <rect key="frame" x="77" y="475" width="446" height="84"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="84" id="Inf-2N-BVx"/>
-                                    <constraint firstAttribute="width" constant="446" id="btl-jW-bHX"/>
-                                </constraints>
+                                <rect key="frame" x="0.0" y="421" width="600" height="179"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -726,26 +710,33 @@
                         <color key="backgroundColor" red="0.92549020051956177" green="0.92549020051956177" blue="0.92549020051956177" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.1058823529" green="0.50588235290000005" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="aze-o2-J1l" firstAttribute="height" secondItem="hYV-LY-s4f" secondAttribute="height" id="4Af-ye-U7o"/>
-                            <constraint firstItem="aze-o2-J1l" firstAttribute="top" secondItem="0VL-5E-wbo" secondAttribute="bottom" id="EYn-DB-QS7"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="NAj-JJ-6z1" secondAttribute="trailing" constant="-20" id="Id2-Yc-jJE"/>
-                            <constraint firstItem="aze-o2-J1l" firstAttribute="height" secondItem="NAj-JJ-6z1" secondAttribute="height" id="JXn-Ol-3A4"/>
-                            <constraint firstItem="hYV-LY-s4f" firstAttribute="centerY" secondItem="GfA-GH-d8L" secondAttribute="centerY" id="PdH-YS-7sG"/>
-                            <constraint firstItem="hYV-LY-s4f" firstAttribute="top" secondItem="NAj-JJ-6z1" secondAttribute="bottom" id="VY5-ke-a1Z"/>
-                            <constraint firstItem="NAj-JJ-6z1" firstAttribute="centerX" secondItem="ltt-Hn-CPp" secondAttribute="centerX" id="WRs-ZI-hbp"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="aze-o2-J1l" secondAttribute="trailing" constant="-20" id="aLN-bg-Sdk"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="hYV-LY-s4f" secondAttribute="bottom" constant="-8" id="aUa-Ek-Xtv"/>
-                            <constraint firstItem="hYV-LY-s4f" firstAttribute="top" secondItem="NAj-JJ-6z1" secondAttribute="bottom" id="bDI-HA-IHl"/>
-                            <constraint firstItem="aze-o2-J1l" firstAttribute="centerX" secondItem="dMw-N9-580" secondAttribute="centerX" id="bis-jb-1Ga"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="hYV-LY-s4f" secondAttribute="trailing" constant="-20" id="ci2-yy-win"/>
-                            <constraint firstItem="aze-o2-J1l" firstAttribute="leading" secondItem="nyh-dh-A1k" secondAttribute="leadingMargin" constant="-20" id="fn8-TS-3Nd"/>
-                            <constraint firstItem="hYV-LY-s4f" firstAttribute="centerX" secondItem="GfA-GH-d8L" secondAttribute="centerX" id="hhz-i4-7v8"/>
-                            <constraint firstItem="hYV-LY-s4f" firstAttribute="leading" secondItem="nyh-dh-A1k" secondAttribute="leadingMargin" constant="-20" id="m0C-gR-Iw1"/>
-                            <constraint firstItem="NAj-JJ-6z1" firstAttribute="leading" secondItem="nyh-dh-A1k" secondAttribute="leadingMargin" constant="-20" id="mOX-Vl-LaJ"/>
-                            <constraint firstItem="NAj-JJ-6z1" firstAttribute="top" secondItem="aze-o2-J1l" secondAttribute="bottom" id="quh-7W-XRq"/>
-                            <constraint firstItem="NAj-JJ-6z1" firstAttribute="top" secondItem="aze-o2-J1l" secondAttribute="bottom" id="r4c-RN-lyg"/>
-                            <constraint firstItem="aze-o2-J1l" firstAttribute="centerY" secondItem="dMw-N9-580" secondAttribute="centerY" id="sPF-2t-uai"/>
-                            <constraint firstItem="NAj-JJ-6z1" firstAttribute="centerY" secondItem="ltt-Hn-CPp" secondAttribute="centerY" id="t8U-HJ-8ed"/>
+                            <constraint firstItem="aze-o2-J1l" firstAttribute="top" secondItem="0VL-5E-wbo" secondAttribute="bottom" id="01K-uK-0EJ"/>
+                            <constraint firstItem="ltt-Hn-CPp" firstAttribute="top" secondItem="dMw-N9-580" secondAttribute="bottom" id="0YS-FK-u3T"/>
+                            <constraint firstItem="hYV-LY-s4f" firstAttribute="top" secondItem="NAj-JJ-6z1" secondAttribute="bottom" id="3Iw-uP-1hp"/>
+                            <constraint firstItem="NAj-JJ-6z1" firstAttribute="height" secondItem="aze-o2-J1l" secondAttribute="height" id="5S3-0B-BUn"/>
+                            <constraint firstItem="dMw-N9-580" firstAttribute="leading" secondItem="nyh-dh-A1k" secondAttribute="leading" id="6za-QP-rTO"/>
+                            <constraint firstItem="dMw-N9-580" firstAttribute="top" secondItem="0VL-5E-wbo" secondAttribute="bottom" id="BBK-me-IT9"/>
+                            <constraint firstItem="NAj-JJ-6z1" firstAttribute="top" secondItem="dMw-N9-580" secondAttribute="bottom" id="DYL-qd-zQC"/>
+                            <constraint firstAttribute="trailing" secondItem="NAj-JJ-6z1" secondAttribute="trailing" id="DiV-wn-pNB"/>
+                            <constraint firstItem="aze-o2-J1l" firstAttribute="leading" secondItem="nyh-dh-A1k" secondAttribute="leading" id="Elf-7l-0Fl"/>
+                            <constraint firstItem="GfA-GH-d8L" firstAttribute="top" secondItem="NAj-JJ-6z1" secondAttribute="bottom" id="GPf-Ii-guk"/>
+                            <constraint firstItem="GfA-GH-d8L" firstAttribute="leading" secondItem="nyh-dh-A1k" secondAttribute="leading" id="Hbc-Yn-3sX"/>
+                            <constraint firstItem="hYV-LY-s4f" firstAttribute="leading" secondItem="nyh-dh-A1k" secondAttribute="leading" id="OIH-rK-dbc"/>
+                            <constraint firstItem="hYV-LY-s4f" firstAttribute="top" secondItem="NAj-JJ-6z1" secondAttribute="bottom" id="OTA-1L-Icz"/>
+                            <constraint firstAttribute="trailing" secondItem="GfA-GH-d8L" secondAttribute="trailing" id="OnS-kP-oW6"/>
+                            <constraint firstAttribute="trailing" secondItem="dMw-N9-580" secondAttribute="trailing" id="PZa-gN-8WV"/>
+                            <constraint firstAttribute="trailing" secondItem="hYV-LY-s4f" secondAttribute="trailing" id="SH6-Ku-cUE"/>
+                            <constraint firstItem="3jY-05-Sg3" firstAttribute="top" secondItem="GfA-GH-d8L" secondAttribute="bottom" id="WEd-9V-pLz"/>
+                            <constraint firstItem="ltt-Hn-CPp" firstAttribute="leading" secondItem="nyh-dh-A1k" secondAttribute="leading" id="Yk0-dN-J8A"/>
+                            <constraint firstItem="hYV-LY-s4f" firstAttribute="top" secondItem="ltt-Hn-CPp" secondAttribute="bottom" id="biF-Ai-TKD"/>
+                            <constraint firstAttribute="bottom" secondItem="hYV-LY-s4f" secondAttribute="bottom" id="fgY-vu-rYW"/>
+                            <constraint firstItem="NAj-JJ-6z1" firstAttribute="width" secondItem="hYV-LY-s4f" secondAttribute="width" id="gPW-G8-6fy"/>
+                            <constraint firstAttribute="trailing" secondItem="ltt-Hn-CPp" secondAttribute="trailing" id="irB-sY-wK9"/>
+                            <constraint firstItem="NAj-JJ-6z1" firstAttribute="width" secondItem="aze-o2-J1l" secondAttribute="width" id="loc-rN-tkX"/>
+                            <constraint firstItem="NAj-JJ-6z1" firstAttribute="leading" secondItem="nyh-dh-A1k" secondAttribute="leading" id="n6W-z1-Y0a"/>
+                            <constraint firstItem="NAj-JJ-6z1" firstAttribute="top" secondItem="aze-o2-J1l" secondAttribute="bottom" id="nHD-qu-3Jv"/>
+                            <constraint firstAttribute="trailing" secondItem="aze-o2-J1l" secondAttribute="trailing" id="wAu-fx-06W"/>
+                            <constraint firstItem="NAj-JJ-6z1" firstAttribute="height" secondItem="hYV-LY-s4f" secondAttribute="height" id="yZp-SU-Uln"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Entraînement" id="4Vj-K9-aaB">

@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func touchID() {
         //println("Touch ID function")
-        println(User.authenticated)
+        //println(User.authenticated)
         if !User.authenticated {
             if (User.instantiateUserStored()){
                 if (User.currentUser!.touchId) {
@@ -96,7 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 if complete {
                                     println("authentication successful")
                                     User.authenticated = true
-                                    println(User.authenticated)
+                                    //println(User.authenticated)
                                 } else {
                                     println("authentication failed")
                                     NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
