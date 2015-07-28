@@ -20,6 +20,14 @@ class ContestViewController: UIViewController {
 			self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
 		}
 	}
+    
+    override func viewDidAppear(animated: Bool) {
+        if User.authenticated == false {
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+    }
 
 
     override func didReceiveMemoryWarning() {

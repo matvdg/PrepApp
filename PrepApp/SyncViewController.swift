@@ -40,6 +40,14 @@ class SyncViewController: UIViewController {
     
 	}
     
+    override func viewDidAppear(animated: Bool) {
+        if User.authenticated == false {
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+    }
+    
     func sync(){
         Factory.sync()
         timer = NSTimer.scheduledTimerWithTimeInterval(0.030, target: self, selector: Selector("result"), userInfo: nil, repeats: true)
@@ -91,22 +99,18 @@ class SyncViewController: UIViewController {
             
         } else {
             
+            var sentences = ["Prep'App est la clef de votre réussite ! ","Entraînez-vous contre la montre dans défi solo...","...ou affrontez d'autres étudiants dans défi duo !","Evaluez-vous grâce aux concours !" ]
+            
             if  (Factory.getImageManager().hasFinishedSync == false || Factory.getQuestionManager().hasFinishedSync == false) {
                 if self.nbrFrame != 0 {
                     var name = "l\(self.nbrFrame)"
                     self.logo.image = UIImage(named: name)
-                    if self.nbrFrame < 100 {
+                    if self.nbrFrame < 200 {
                         self.progression.text = "Téléchargement du contenu en cours...\n \(self.percentage)%"
-                    } else if (self.nbrFrame < 200) {
-                        self.progression.text = "Veuillez patienter, les questions arrivent.\n \(self.percentage)%"
-                    } else if (self.nbrFrame < 300){
-                        self.progression.text = "On y est presque...\n \(self.percentage)%"
-                    } else if (self.nbrFrame < 325) {
-                        self.progression.text = "Préchauffez votre cerveau...\n \(self.percentage)%"
-                    } else if (self.nbrFrame < 340) {
-                        self.progression.text = "Feu !\n \(self.percentage)%"
+                    } else if (self.nbrFrame < 320) {
+                        self.progression.text = "Veuillez patienter \n \(self.percentage)%"
                     } else {
-                        self.progression.text = "Go !\n \(self.percentage)%"
+                        self.progression.text = "Plus que quelques instants !\n \(self.percentage)%"
                     }
                 }
                 

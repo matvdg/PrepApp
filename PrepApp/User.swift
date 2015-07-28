@@ -11,6 +11,7 @@ import Foundation
 class User {
     
     static var currentUser: User?
+    static var authenticated: Bool = false
 	
     var firstName: String
     var lastName: String
@@ -138,6 +139,8 @@ class User {
 			success: data["success"] as! Int,
             touchId: false
 			)
+        
+        User.authenticated = true
 	}
 	
 	static func instantiateUserStored() -> Bool {
@@ -158,6 +161,7 @@ class User {
                 failed: (data[6] as String).toInt()!,
                 success: (data[7] as String).toInt()!,
                 touchId: (data[8] as String).toBool()! )
+            
 			return true
 		} else {
 			return false

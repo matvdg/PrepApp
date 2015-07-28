@@ -18,12 +18,19 @@ class ChaptersTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        println(self.subject!)
         self.chaptersRealm = realm.objects(Chapter).filter("subject == %@", subject!)
         for chapter in self.chaptersRealm! {
             self.chapters.append(chapter)
         }
 
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        if User.authenticated == false {
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
 
     // MARK: - Table view data source
@@ -57,7 +64,7 @@ class ChaptersTableViewController: UITableViewController {
         
         if let indexPath = self.tableView.indexPathForSelectedRow() {
             let selectedChapter = chapters[indexPath.row]
-            questionVC.chapter = selectedChapter
+            questionVC.currentChapter = selectedChapter
         }
 
     }

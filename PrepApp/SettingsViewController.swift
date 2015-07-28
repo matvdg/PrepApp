@@ -24,12 +24,26 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
 	}
 	
     @IBAction func touchIDaction(sender: AnyObject) {
-        if self.touchIDswitch.enabled {
+        if self.touchIDswitch.on {
             User.currentUser!.touchId = true
             User.currentUser!.saveUser()
+            // create alert controller
+            let myAlert = UIAlertController(title: "Touch ID activé", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+            // add an "OK" button
+            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            // show the alert
+            self.presentViewController(myAlert, animated: true, completion: nil)
+
         } else {
             User.currentUser!.touchId = false
             User.currentUser!.saveUser()
+            // create alert controller
+            let myAlert = UIAlertController(title: "Touch ID désactivé", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+            // add an "OK" button
+            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            // show the alert
+            self.presentViewController(myAlert, animated: true, completion: nil)
+
         }
     }
     
@@ -104,9 +118,22 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
             println("TouchID available")
             self.touchIDlabel.hidden = false
             self.touchIDswitch.hidden = false
+            self.touchIDswitch.setOn(User.currentUser!.touchId, animated: true)
+            
         }
 
 	}
+    
+    
+    override func viewDidAppear(animated: Bool) {
+        println("viewAppear")
+        if User.authenticated == false {
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+    }
+    
 	
 	override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
 		self.view.endEditing(true)

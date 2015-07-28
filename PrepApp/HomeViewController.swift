@@ -20,6 +20,14 @@ class HomeViewController: UIViewController {
 		hello.text = User.currentUser?.printUser()
 		welcome.text = "Bonjour, \(User.currentUser!.firstName) \(User.currentUser!.lastName)"
 	}
+    
+    override func viewDidAppear(animated: Bool) {
+        if User.authenticated == false {
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

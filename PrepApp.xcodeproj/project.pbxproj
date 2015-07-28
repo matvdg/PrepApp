@@ -235,7 +235,7 @@
 			name = Contest;
 			sourceTree = "<group>";
 		};
-		F6322A1D1B615DFF0074549E /* Realm objects */ = {
+		F6322A1D1B615DFF0074549E /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 				F6322A1B1B615DFA0074549E /* Question.swift */,
@@ -244,7 +244,7 @@
 				F6322A221B615E460074549E /* Subject.swift */,
 				F66771801B61A31900042145 /* FactoryRealm.swift */,
 			);
-			name = "Realm objects";
+			name = Entities;
 			sourceTree = "<group>";
 		};
 		F64630A81B5FD5C9006A5F71 /* Sync */ = {
@@ -336,7 +336,7 @@
 		F6FBFAB91AFA1F6E0020B074 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F6322A1D1B615DFF0074549E /* Realm objects */,
+				F6322A1D1B615DFF0074549E /* Entities */,
 				F64630A81B5FD5C9006A5F71 /* Sync */,
 				F6FBFAB71AFA1F5E0020B074 /* User.swift */,
 				F6FBFAC21AFA98D40020B074 /* Lib.swift */,
