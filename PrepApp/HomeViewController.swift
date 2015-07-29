@@ -8,6 +8,7 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
 
 		if self.revealViewController() != nil {
 			menuButton.target = self.revealViewController()
@@ -22,6 +23,7 @@ class HomeViewController: UIViewController {
 	}
     
     override func viewDidAppear(animated: Bool) {
+        
         if User.authenticated == false {
             NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
             NSUserDefaults.standardUserDefaults().synchronize()

@@ -17,8 +17,6 @@ class ChaptersTableViewController: UITableViewController {
     var image = ""
     let realm = FactoryRealm.getRealm()
 
-    @IBOutlet var table: UITableView!
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,11 +24,24 @@ class ChaptersTableViewController: UITableViewController {
         for chapter in self.chaptersRealm! {
             self.chapters.append(chapter)
         }
+        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
+        switch (self.subject!.name) {
+        case "physique" :
+            self.image = "phyBar"
+        case "chimie" :
+            self.image = "chiBar"
+        case "biologie" :
+            self.image = "bioBar"
+        default :
+            self.image = ""
+        }
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: image)!, forBarMetrics: UIBarMetrics.Default)
+        self.navigationController?.navigationBar.translucent = true
 
     }
     
+    
     override func viewDidAppear(animated: Bool) {
-        self.table.backgroundColor = UIColor(patternImage: UIImage(named: image)!)
         
         if User.authenticated == false {
             NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
@@ -71,6 +82,7 @@ class ChaptersTableViewController: UITableViewController {
         if let indexPath = self.tableView.indexPathForSelectedRow() {
             let selectedChapter = chapters[indexPath.row]
             questionVC.currentChapter = selectedChapter
+            questionVC.currentSubject = subject
         }
 
     }

@@ -38,10 +38,8 @@ class TrainingViewController: UIViewController {
     }
 	
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-
-		if self.revealViewController() != nil {
+                if self.revealViewController() != nil {
 			menuButton.target = self.revealViewController()
 			menuButton.action = "revealToggle:"
 			self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
@@ -52,6 +50,12 @@ class TrainingViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
+        
+        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
+        self.navigationController?.navigationBar.setBackgroundImage(nil, forBarMetrics: UIBarMetrics.Default)
+        self.navigationController?.navigationBar.translucent = true
+
+
         if User.authenticated == false {
             NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
             NSUserDefaults.standardUserDefaults().synchronize()

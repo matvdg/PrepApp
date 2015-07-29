@@ -31,7 +31,7 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
             imagesArray = images.componentsSeparatedByString(",")
             counter = imagesArray.count
             for index in 1...counter {
-                input = input.stringByReplacingOccurrencesOfString("{\(index)}", withString: "<img src=\"images/\(getImageByIndex(index, imagesArray: imagesArray))\"/>", options: nil, range: nil)
+                input = input.stringByReplacingOccurrencesOfString("{\(index)}", withString: "<img width=\"300\" src=\"images/\(getImageByIndex(index, imagesArray: imagesArray))\"/>", options: nil, range: nil)
             }
         }
         return input

@@ -17,6 +17,7 @@ class CorrectionViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
+        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         if User.authenticated == false {
             NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
             NSUserDefaults.standardUserDefaults().synchronize()

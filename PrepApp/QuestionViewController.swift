@@ -12,6 +12,7 @@ import RealmSwift
 class QuestionViewController: UIViewController {
     
     var currentChapter: Chapter?
+    var currentSubject: Subject?
     var currentQuestion: Int = 0
     let realm = FactoryRealm.getRealm()
     var questionsRealm: Results<Question>?
@@ -21,7 +22,9 @@ class QuestionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.wording.backgroundColor = UIColor.clearColor()
+        
+        self.title = self.currentSubject!.name.uppercaseString
+        self.wording.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         self.designButtons()
         //debug  AND type = 0
         self.questionsRealm = realm.objects(Question).filter("chapter = %@", currentChapter!)
@@ -32,6 +35,7 @@ class QuestionViewController: UIViewController {
         //println(self.counter)
         //println(self.questions)
         self.loadQuestion()
+        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.chapter.text = "Chapitre n° \(self.currentChapter!.number) : \(self.currentChapter!.name)"
         
         

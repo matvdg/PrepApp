@@ -126,6 +126,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     
     
     override func viewDidAppear(animated: Bool) {
+        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         println("viewAppear")
         if User.authenticated == false {
             NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
