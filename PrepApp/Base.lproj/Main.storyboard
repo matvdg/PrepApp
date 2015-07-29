@@ -111,7 +111,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoHD" translatesAutoresizingMaskIntoConstraints="NO" id="Zwp-3S-REo">
-                                <rect key="frame" x="215.5" y="20" width="169" height="169"/>
+                                <rect key="frame" x="216" y="20" width="169" height="169"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Zwp-3S-REo" secondAttribute="height" multiplier="1:1" id="Sax-lB-Sv8"/>
                                 </constraints>
@@ -658,9 +658,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aze-o2-J1l" userLabel="BIO">
-                                <rect key="frame" x="0.0" y="64" width="600" height="178.5"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="179"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="60"/>
-                                <state key="normal" backgroundImage="bio1">
+                                <state key="normal" backgroundImage="bio">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -668,9 +668,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NAj-JJ-6z1" userLabel="PHY">
-                                <rect key="frame" x="0.0" y="242" width="600" height="179"/>
+                                <rect key="frame" x="0.0" y="243" width="600" height="178"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="60"/>
-                                <state key="normal" backgroundImage="phy2">
+                                <state key="normal" backgroundImage="phy">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -678,9 +678,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYV-LY-s4f" userLabel="CHI">
-                                <rect key="frame" x="0.0" y="421" width="600" height="178.5"/>
+                                <rect key="frame" x="0.0" y="421" width="600" height="179"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="60"/>
-                                <state key="normal" backgroundImage="chi4">
+                                <state key="normal" backgroundImage="chi">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -689,13 +689,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PHYSIQUE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltt-Hn-CPp">
-                                <rect key="frame" x="0.0" y="242.5" width="600" height="178.5"/>
+                                <rect key="frame" x="0.0" y="243" width="600" height="178"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BIOLOGIE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMw-N9-580">
-                                <rect key="frame" x="0.0" y="64" width="600" height="178.5"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="179"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -1437,8 +1437,8 @@
     </scenes>
     <resources>
         <image name="bg" width="2880" height="1620"/>
-        <image name="bio1" width="1400" height="600"/>
-        <image name="chi4" width="1400" height="600"/>
+        <image name="bio" width="1400" height="600"/>
+        <image name="chi" width="1400" height="600"/>
         <image name="concours" width="66" height="66"/>
         <image name="duo" width="66" height="66"/>
         <image name="help" width="66" height="66"/>
@@ -1447,7 +1447,7 @@
         <image name="logout" width="66" height="66"/>
         <image name="menu" width="22" height="22"/>
         <image name="next" width="40" height="40"/>
-        <image name="phy2" width="1400" height="600"/>
+        <image name="phy" width="1400" height="600"/>
         <image name="previous" width="40" height="40"/>
         <image name="profile" width="66" height="66"/>
         <image name="separator" width="1000" height="1"/>
@@ -1456,7 +1456,7 @@
         <image name="training" width="66" height="66"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2V6-ZR-wfX"/>
+        <segue reference="xbe-Fm-nd1"/>
         <segue reference="WYj-iM-Hx0"/>
     </inferredMetricsTieBreakers>
 </document>

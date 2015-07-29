@@ -86,6 +86,7 @@ class QuestionViewController: UIViewController {
 
     @IBAction func previous(sender: AnyObject) {
         self.currentQuestion = (self.currentQuestion - 1) % self.counter
+        self.currentQuestion = (self.currentQuestion < 0) ? (self.currentQuestion + self.counter):(self.currentQuestion)
         self.loadQuestion()
     }
     
