@@ -12,6 +12,8 @@ import RealmSwift
 
 // Image model
 class Image : Object {
+
     dynamic var id: Int = 0
     dynamic var size: Int = 0
+        
 }

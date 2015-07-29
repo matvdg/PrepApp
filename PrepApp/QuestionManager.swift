@@ -23,29 +23,49 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
         self.getQuestions()
     }
     
+    private func parseNplaceImage(var input: String, images: String) -> String {
+        
+        if images != "" {
+            var counter = 0
+            var imagesArray: [String] = []
+            imagesArray = images.componentsSeparatedByString(",")
+            counter = imagesArray.count
+            for index in 1...counter {
+                input = input.stringByReplacingOccurrencesOfString("{\(index)}", withString: "<img src=\"images/\(getImageByIndex(index, imagesArray: imagesArray))\"/>", options: nil, range: nil)
+            }
+        }
+        return input
+    }
+    
+    
+    private func getImageByIndex(index: Int, imagesArray: [String]) -> String {
+        return imagesArray[index-1]
+    }
+    
     private func saveQuestion(data: NSDictionary) {
         
         var newQuestion: Question = Question()
         newQuestion.id =  data["id_question"] as! Int
         let id = data["id_chapter"] as! Int
         let chapter = self.realm.objects(Chapter).filter("id=\(id)")[0]
-        newQuestion.chapter = chapter
-        newQuestion.wording = data["wording"] as! String
         newQuestion.imagesQuestion = data["images_question"] as! String
-        newQuestion.answerOne = data["answer_1"] as! String
-        newQuestion.answerTwo = data["answer_2"] as! String
-        newQuestion.answerThree = data["answer_3"] as! String
-        newQuestion.answerFour = data["answer_4"] as! String
-        newQuestion.answerFive = data["answer_5"] as! String
-        newQuestion.answerSix = data["answer_6"] as! String
+        newQuestion.imagesCorrection = data["images_correction"] as! String
+        newQuestion.chapter = chapter
+        newQuestion.wording = parseNplaceImage(data["wording"] as! String, images: newQuestion.imagesQuestion)
+        newQuestion.answerOne = parseNplaceImage(data["answer_1"] as! String, images: newQuestion.imagesQuestion)
+        newQuestion.answerTwo = parseNplaceImage(data["answer_2"] as! String, images: newQuestion.imagesQuestion)
+        newQuestion.answerThree = parseNplaceImage(data["answer_3"] as! String, images: newQuestion.imagesQuestion)
+        newQuestion.answerFour = parseNplaceImage(data["answer_4"] as! String, images: newQuestion.imagesQuestion)
+        newQuestion.answerFive = parseNplaceImage(data["answer_5"] as! String, images: newQuestion.imagesQuestion)
+        newQuestion.answerSix = parseNplaceImage(data["answer_6"] as! String, images: newQuestion.imagesQuestion)
         newQuestion.goodAnswers = data["good_answers"] as! String
         newQuestion.calculator = data["calculator"] as! Bool
         newQuestion.info = data["info"] as! String
         newQuestion.type = data["type"] as! Int
         newQuestion.idDuo = data["id_group_duo"] as! Int
         newQuestion.idConcours = data["id_group_duo"] as! Int
-        newQuestion.correction = data["correction"] as! String
-        newQuestion.imagesCorrection = data["images_correction"] as! String
+        newQuestion.correction = parseNplaceImage(data["correction"] as! String, images: newQuestion.imagesCorrection)
+        
     
         self.realm.write {
             self.realm.add(newQuestion)

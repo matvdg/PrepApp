@@ -660,7 +660,7 @@
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aze-o2-J1l" userLabel="BIO">
                                 <rect key="frame" x="0.0" y="64" width="600" height="178.5"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="60"/>
-                                <state key="normal" backgroundImage="bio">
+                                <state key="normal" backgroundImage="bio1">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -670,7 +670,7 @@
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NAj-JJ-6z1" userLabel="PHY">
                                 <rect key="frame" x="0.0" y="242" width="600" height="179"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="60"/>
-                                <state key="normal" backgroundImage="phy">
+                                <state key="normal" backgroundImage="phy2">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -680,7 +680,7 @@
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYV-LY-s4f" userLabel="CHI">
                                 <rect key="frame" x="0.0" y="421" width="600" height="178.5"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="60"/>
-                                <state key="normal" backgroundImage="chi">
+                                <state key="normal" backgroundImage="chi4">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -745,7 +745,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="bioButton" destination="aze-o2-J1l" id="NNU-Z1-x7K"/>
+                        <outlet property="chiButton" destination="hYV-LY-s4f" id="T3M-uh-0CT"/>
                         <outlet property="menuButton" destination="Mml-Fz-VSf" id="jg2-sX-g0H"/>
+                        <outlet property="phyButton" destination="NAj-JJ-6z1" id="UNX-Q7-rns"/>
                         <segue destination="k1j-NV-P1H" kind="show" identifier="showChapters" id="vdt-2O-v7Z"/>
                     </connections>
                 </viewController>
@@ -760,11 +763,13 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="NFJ-vZ-08R">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.92549020051956177" green="0.92549020051956177" blue="0.92549020051956177" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.1058823529" green="0.50588235290000005" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" red="0.1058823529" green="0.50588235290000005" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexBackgroundColor" red="0.92549020051956177" green="0.92549020051956177" blue="0.92549020051956177" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexTrackingBackgroundColor" red="0.92549020051956177" green="0.92549020051956177" blue="0.92549020051956177" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="chapter" id="c2L-Fp-p96">
+                            <tableViewCell opaque="NO" contentMode="scaleAspectFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="chapter" id="c2L-Fp-p96">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c2L-Fp-p96" id="sBP-1Q-Mq9">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -780,6 +785,9 @@
                             <outlet property="delegate" destination="k1j-NV-P1H" id="igu-HZ-adV"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="table" destination="NFJ-vZ-08R" id="khP-Kz-BKV"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d75-il-4GO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1429,8 +1437,8 @@
     </scenes>
     <resources>
         <image name="bg" width="2880" height="1620"/>
-        <image name="bio" width="1400" height="600"/>
-        <image name="chi" width="1400" height="600"/>
+        <image name="bio1" width="1400" height="600"/>
+        <image name="chi4" width="1400" height="600"/>
         <image name="concours" width="66" height="66"/>
         <image name="duo" width="66" height="66"/>
         <image name="help" width="66" height="66"/>
@@ -1439,7 +1447,7 @@
         <image name="logout" width="66" height="66"/>
         <image name="menu" width="22" height="22"/>
         <image name="next" width="40" height="40"/>
-        <image name="phy" width="1400" height="600"/>
+        <image name="phy2" width="1400" height="600"/>
         <image name="previous" width="40" height="40"/>
         <image name="profile" width="66" height="66"/>
         <image name="separator" width="1000" height="1"/>

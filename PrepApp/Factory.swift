@@ -53,8 +53,6 @@ class Factory {
     
     //Called in SyncViewController.swift
     class func sync() {
-        println(self.path)
-        
         self.realm.write {
             self.realm.deleteAll()
         }

@@ -23,7 +23,8 @@ class QuestionViewController: UIViewController {
         super.viewDidLoad()
         self.wording.backgroundColor = UIColor.clearColor()
         self.designButtons()
-        self.questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 0 ", currentChapter!)
+        //debug  AND type = 0
+        self.questionsRealm = realm.objects(Question).filter("chapter = %@", currentChapter!)
         for question in self.questionsRealm! {
             self.questions.append(question)
         }
@@ -48,6 +49,7 @@ class QuestionViewController: UIViewController {
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
+    
     @IBOutlet weak var submitButton: UIBarButtonItem!
     
     @IBOutlet weak var chapter: UILabel!
@@ -99,13 +101,16 @@ class QuestionViewController: UIViewController {
     
     func loadQuestion() {
         self.question.text = "Question n°\(self.currentQuestion+1)/\(self.counter)"
-        self.wording.loadHTMLString(self.questions[self.currentQuestion].wording, baseURL: nil)
-        self.buttonA.setTitle((self.questions[self.currentQuestion].answerOne).htmlToString, forState: UIControlState.Normal)
-        self.buttonB.setTitle((self.questions[self.currentQuestion].answerTwo).htmlToString, forState: UIControlState.Normal)
-        self.buttonC.setTitle((self.questions[self.currentQuestion].answerThree).htmlToString, forState: UIControlState.Normal)
-        self.buttonD.setTitle((self.questions[self.currentQuestion].answerFour).htmlToString, forState: UIControlState.Normal)
-        self.buttonE.setTitle((self.questions[self.currentQuestion].answerFive).htmlToString, forState: UIControlState.Normal)
-        self.buttonF.setTitle((self.questions[self.currentQuestion].answerSix).htmlToString, forState: UIControlState.Normal)
+        var question = self.questions[self.currentQuestion]
+        println(question.wording)
+        let baseUrl = NSURL(fileURLWithPath: Factory.path, isDirectory: true)!
+        self.wording.loadHTMLString((question.wording), baseURL: baseUrl)
+        self.buttonA.setTitle((question.answerOne).htmlToString, forState: UIControlState.Normal)
+        self.buttonB.setTitle((question.answerTwo).htmlToString, forState: UIControlState.Normal)
+        self.buttonC.setTitle((question.answerThree).htmlToString, forState: UIControlState.Normal)
+        self.buttonD.setTitle((question.answerFour).htmlToString, forState: UIControlState.Normal)
+        self.buttonE.setTitle((question.answerFive).htmlToString, forState: UIControlState.Normal)
+        self.buttonF.setTitle((question.answerSix).htmlToString, forState: UIControlState.Normal)
 
     }
     

@@ -31,9 +31,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             self.pass.text = "hidden"
         
             User.authenticated = true
-            //self.performSegueWithIdentifier("loginDidSucceded", sender: self)
+            self.performSegueWithIdentifier("loginDidSucceded", sender: self)
             //without sync // test mode
-            self.performSegueWithIdentifier("testMode", sender: self)
+            //self.performSegueWithIdentifier("testMode", sender: self)
             println(Factory.path)
             
         } else {

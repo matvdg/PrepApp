@@ -14,8 +14,12 @@ class ChaptersTableViewController: UITableViewController {
     var subject: Subject?
     var chaptersRealm: Results<Chapter>?
     var chapters: [Chapter] = []
+    var image = ""
     let realm = FactoryRealm.getRealm()
 
+    @IBOutlet var table: UITableView!
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.chaptersRealm = realm.objects(Chapter).filter("subject == %@", subject!)
@@ -26,6 +30,8 @@ class ChaptersTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
+        self.table.backgroundColor = UIColor(patternImage: UIImage(named: image)!)
+        
         if User.authenticated == false {
             NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
             NSUserDefaults.standardUserDefaults().synchronize()
