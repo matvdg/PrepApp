@@ -34,7 +34,7 @@ class Factory {
     static let imageUrl = NSURL(string: "\(Factory.apiUrl!)/uploads/get")
     static let path: String = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
     
-        
+    
     class func getImageManager() -> ImageManager {
         return self.imageManager
     }

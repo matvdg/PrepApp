@@ -46,6 +46,7 @@
 		F6C3095C1B0365B100B8FAC9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C309581B0365B100B8FAC9 /* HomeViewController.swift */; };
 		F6C3095E1B037ACF00B8FAC9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6C3095D1B037ACF00B8FAC9 /* Images.xcassets */; };
 		F6ECC1101AF6DFE8008F18E3 /* SyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ECC10F1AF6DFE8008F18E3 /* SyncViewController.swift */; };
+		F6F22A971B70EC5E00A3049B /* HelpPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F22A961B70EC5E00A3049B /* HelpPopUpViewController.swift */; };
 		F6FBFAB81AFA1F5E0020B074 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FBFAB71AFA1F5E0020B074 /* User.swift */; };
 		F6FBFABF1AFA33CD0020B074 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FBFABE1AFA33CD0020B074 /* LoginViewController.swift */; };
 		F6FBFAC31AFA98D40020B074 /* Lib.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FBFAC21AFA98D40020B074 /* Lib.swift */; };
@@ -119,6 +120,7 @@
 		F6C309581B0365B100B8FAC9 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F6C3095D1B037ACF00B8FAC9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F6ECC10F1AF6DFE8008F18E3 /* SyncViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncViewController.swift; sourceTree = "<group>"; };
+		F6F22A961B70EC5E00A3049B /* HelpPopUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpPopUpViewController.swift; sourceTree = "<group>"; };
 		F6FBB4B71B160CE300A18600 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		F6FBB4B81B160CE300A18600 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		F6FBFAB71AFA1F5E0020B074 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				F605AF171B04154800E90596 /* ProfileViewController.swift */,
 				F605AF131B04153200E90596 /* SettingsViewController.swift */,
 				F605AF151B04153C00E90596 /* HelpViewController.swift */,
+				F6F22A961B70EC5E00A3049B /* HelpPopUpViewController.swift */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -474,6 +477,7 @@
 				F66771811B61A31900042145 /* FactoryRealm.swift in Sources */,
 				F605AF0E1B04146C00E90596 /* SoloViewController.swift in Sources */,
 				F6ECC1101AF6DFE8008F18E3 /* SyncViewController.swift in Sources */,
+				F6F22A971B70EC5E00A3049B /* HelpPopUpViewController.swift in Sources */,
 				F6C3095C1B0365B100B8FAC9 /* HomeViewController.swift in Sources */,
 				F6AAE6D61AF433E100195E11 /* AppDelegate.swift in Sources */,
 				F6322A231B615E460074549E /* Subject.swift in Sources */,
