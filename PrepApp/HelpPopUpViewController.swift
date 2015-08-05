@@ -11,13 +11,20 @@ import UIKit
 class HelpPopUpViewController: UIViewController {
     
     var help: String = ""
+    var helpTopic: String = ""
+    var helpPic: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.okButton.layer.cornerRadius = 6
-        self.helpText.text = help
+        self.helpText.text = self.help
+       // self.helpText.contentInset = UIEdgeInsetsMake(-7.0,0.0,0,0.0)
         self.helpText.textColor = UIColor.whiteColor()
         self.helpText.font = UIFont(name: "Segoe UI", size: 17)
+        self.helpTitle.text = self.helpTopic
+        self.helpText.setContentOffset(CGPointZero, animated: true)
+        self.helpText.scrollRangeToVisible(NSRange(location: 0, length: 0))
+        self.helpImage.image = UIImage(named: self.helpPic)
 
         // Do any additional setup after loading the view.
     }
@@ -33,15 +40,10 @@ class HelpPopUpViewController: UIViewController {
     
     @IBOutlet weak var helpText: UITextView!
 
+    @IBOutlet weak var helpImage: UIImageView!
+    
+    @IBOutlet weak var helpTitle: UILabel!
+    
     @IBOutlet weak var okButton: UIButton!
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -10,9 +10,9 @@ import UIKit
 
 class HelpViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    var helpPics = ["training","solo","duo","concours","profile","settings","home"]
-    var helpTopics = ["Entraînement","Défi solo","Défi duo","Concours","Profil","Réglages","Crédits"]
-    var helpText = ["Entraînement : entraînez-vous à volonté en choisissant vos matières, chapitres et questions.","Défi solo : mesurez-vous contre la montre ","Défi duo : Affrontez un ami","Concours : participez aux concours Prep'App et comparez-vous aux autres étudiants","Profil : ANP c'est votre assiduité, votre niveau et votre performance mesurées dans cette section ","Réglages : changez votre mot de passe, activez la protection Touch ID si disponible","Crédits Prep'App© Maximilien Rochaix, Julien Perennou, Julien Sergent, Jonathan Carlasade, Mathieu Vandeginste"]
+    var helpPics = ["home","training","solo","duo","contest","profile","settings","credits"]
+    var helpTopics = ["Accueil","Entraînement","Défi solo","Défi duo","Concours","Profil","Réglages","Mentions légales"]
+    var helpTexts = ["Dans l'accueil Prep'App vous pouvez consulter d'un coup d'oeil votre niveau, votre assiduité.  Glissez vers la droite pour accéder à votre graphe ANP (assiduité/niveau/performance) et glissez encore pour consulter le fil d'actualité.","Entraînez-vous à volonté en choisissant vos matières, chapitres et questions.","Mesurez-vous contre la montre. Utilisez le trigramme pour choisir une matière précise, ou une combinaison de deux ou trois matièrs. 6 questions de biologie, 2 de physique, 1 de chimie. Vous avez 20 minutes. Les questions du défi solo n'ont jamais été rencontrées dans entraînement et basculent dans la section entraînement une fois le défi terminé, afin de voir les corrections et de refaire les questions échouées. ","Affrontez un ami en lui envoyant un défi ! Il recevra une notification Prep'App et pourra répondre au challenge dans les 24h. Vous pourrez alors comparer vos résultats. 6 questions de biologie, 2 de physique, 1 de chimie. Vous avez 20 minutes. Les questions du défi duo n'ont jamais été rencontrées dans entraînement ou défi solo et basculent dans la section entraînement une fois le défi duo terminé, afin de voir les corrections et de refaire les questions échouées.","Participez aux concours Prep'App et comparez-vous aux autres étudiants. 60 questions de biologie, 20 de physique, 10 de chimie. Vous avez 3h20. Les questions du concours n'ont jamais été rencontrées dans entraînement ou défi solo/duo et sont uniques (crées pour Prep'App, elles ne proviennent pas d'annales). Elles basculent dans la section entraînement une fois le concours terminé, ou dans défi duo si vous n'avez pas participé au concours, afin de voir les corrections et de refaire les questions échouées.","Profil : ANP c'est votre assiduité, votre niveau et votre performance mesurées dans cette section. Votre assiduité est calculée aux nombres de questions passées, réussies ou échouées, tandis que votre niveau mesure votre succès. Votre performance est l'indice mesurant votre taux de réussite par rapport à vos échecs. ","Dans cette section vous pouvez changer votre mot de passe, activer la protection Touch ID si disponible","© Prep'App est une société par actions simplifiées au capital de 10000€. L'équipe Prep'App est composée de Maximilien Rochaix, Julien Perennou, Julien Sergent, Jonathan Carsalade et de Mathieu Vandeginste. Cette app a été développée en Swift à l'aide de © Realm, base de donnée locale orientée objects -www.realm.io- a Y combinator company."]
     var selectedHelp: Int = -1
 
     @IBOutlet weak var collectionView: UICollectionView!
@@ -54,9 +54,11 @@ class HelpViewController: UIViewController, UICollectionViewDataSource, UICollec
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! UICollectionViewCellHelp
         var image = UIImage(named: self.helpPics[indexPath.row])
         cell.image.image = image
-        cell.label.text = self.helpTopics[indexPath.row]
         cell.label.textColor = UIColor.whiteColor()
-        cell.label.font = UIFont(name: "Segoe UI", size: 17)
+        cell.label.font = UIFont(name: "Segoe UI", size: 15)
+        cell.label.numberOfLines = 3
+        cell.label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        cell.label.text = self.helpTopics[indexPath.row]
         // Configure the cell
         return cell
     
@@ -77,7 +79,9 @@ class HelpViewController: UIViewController, UICollectionViewDataSource, UICollec
         // Pass the selected object to the new view controller.
         
         if self.selectedHelp != -1 {
-            helpVC.help = self.helpText[self.selectedHelp]
+            helpVC.help = self.helpTexts[self.selectedHelp]
+            helpVC.helpTopic = self.helpTopics[self.selectedHelp]
+            helpVC.helpPic = self.helpPics[self.selectedHelp]
         }
 
     }

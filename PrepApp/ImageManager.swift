@@ -50,14 +50,16 @@ class ImageManager {
 				}
 			}
 			if willBeRemoved {
-                idsToRemove.append(offlineUpload.id)
+                self.realm.write {
+                    self.realm.delete(offlineUpload)
+                }
+                //idsToRemove.append(offlineUpload.id)
 			}
 		}
-        self.deleteImages(idsToRemove)
+        //self.deleteImages(idsToRemove)
 		
 		
 		// we check what we have to add
-        
         var objectsToAdd = [Image]()
 		for onlineUpload in onlineUploads {
 			var willBeAdded = true
