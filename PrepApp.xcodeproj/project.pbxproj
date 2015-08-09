@@ -43,6 +43,9 @@
 		F6AAE6DD1AF433E100195E11 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6AAE6DB1AF433E100195E11 /* Main.storyboard */; };
 		F6AAE6E21AF433E100195E11 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6AAE6E01AF433E100195E11 /* LaunchScreen.xib */; };
 		F6AAE6EE1AF433E100195E11 /* PrepAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AAE6ED1AF433E100195E11 /* PrepAppTests.swift */; };
+		F6C02C421B760B960021ABE1 /* ChoiceQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C02C411B760B960021ABE1 /* ChoiceQuestionViewController.swift */; };
+		F6C02C441B7628AB0021ABE1 /* UICollectionViewCellHelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C02C431B7628AB0021ABE1 /* UICollectionViewCellHelp.swift */; };
+		F6C02C461B762A810021ABE1 /* UITableViewCellAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C02C451B762A810021ABE1 /* UITableViewCellAnswer.swift */; };
 		F6C3095C1B0365B100B8FAC9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C309581B0365B100B8FAC9 /* HomeViewController.swift */; };
 		F6C3095E1B037ACF00B8FAC9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6C3095D1B037ACF00B8FAC9 /* Images.xcassets */; };
 		F6ECC1101AF6DFE8008F18E3 /* SyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ECC10F1AF6DFE8008F18E3 /* SyncViewController.swift */; };
@@ -117,6 +120,9 @@
 		F6AAE6E71AF433E100195E11 /* PrepAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrepAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6AAE6EC1AF433E100195E11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6AAE6ED1AF433E100195E11 /* PrepAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepAppTests.swift; sourceTree = "<group>"; };
+		F6C02C411B760B960021ABE1 /* ChoiceQuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceQuestionViewController.swift; sourceTree = "<group>"; };
+		F6C02C431B7628AB0021ABE1 /* UICollectionViewCellHelp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewCellHelp.swift; sourceTree = "<group>"; };
+		F6C02C451B762A810021ABE1 /* UITableViewCellAnswer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellAnswer.swift; sourceTree = "<group>"; };
 		F6C309581B0365B100B8FAC9 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F6C3095D1B037ACF00B8FAC9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F6ECC10F1AF6DFE8008F18E3 /* SyncViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncViewController.swift; sourceTree = "<group>"; };
@@ -210,6 +216,7 @@
 				F6322A151B6157F60074549E /* ChaptersTableViewController.swift */,
 				F6322A171B6158230074549E /* QuestionViewController.swift */,
 				F6322A191B6158300074549E /* CorrectionViewController.swift */,
+				F6C02C411B760B960021ABE1 /* ChoiceQuestionViewController.swift */,
 			);
 			name = Training;
 			sourceTree = "<group>";
@@ -322,6 +329,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F6C02C491B7647C10021ABE1 /* ViewLogic */ = {
+			isa = PBXGroup;
+			children = (
+				F6C02C451B762A810021ABE1 /* UITableViewCellAnswer.swift */,
+				F6C02C431B7628AB0021ABE1 /* UICollectionViewCellHelp.swift */,
+			);
+			name = ViewLogic;
+			sourceTree = "<group>";
+		};
 		F6FBFAB61AFA1F490020B074 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -339,6 +355,7 @@
 		F6FBFAB91AFA1F6E0020B074 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F6C02C491B7647C10021ABE1 /* ViewLogic */,
 				F6322A1D1B615DFF0074549E /* Entities */,
 				F64630A81B5FD5C9006A5F71 /* Sync */,
 				F6FBFAB71AFA1F5E0020B074 /* User.swift */,
@@ -478,6 +495,8 @@
 				F605AF0E1B04146C00E90596 /* SoloViewController.swift in Sources */,
 				F6ECC1101AF6DFE8008F18E3 /* SyncViewController.swift in Sources */,
 				F6F22A971B70EC5E00A3049B /* HelpPopUpViewController.swift in Sources */,
+				F6C02C461B762A810021ABE1 /* UITableViewCellAnswer.swift in Sources */,
+				F6C02C441B7628AB0021ABE1 /* UICollectionViewCellHelp.swift in Sources */,
 				F6C3095C1B0365B100B8FAC9 /* HomeViewController.swift in Sources */,
 				F6AAE6D61AF433E100195E11 /* AppDelegate.swift in Sources */,
 				F6322A231B615E460074549E /* Subject.swift in Sources */,
@@ -486,6 +505,7 @@
 				F6322A1C1B615DFA0074549E /* Question.swift in Sources */,
 				F6767C211B5D5DFB0066FC64 /* QuestionManager.swift in Sources */,
 				F6322A181B6158230074549E /* QuestionViewController.swift in Sources */,
+				F6C02C421B760B960021ABE1 /* ChoiceQuestionViewController.swift in Sources */,
 				F6987A6D1B16321B002989C6 /* ImageManager.swift in Sources */,
 				F6322A1A1B6158300074549E /* CorrectionViewController.swift in Sources */,
 				F605AF141B04153200E90596 /* SettingsViewController.swift in Sources */,

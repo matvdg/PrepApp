@@ -9,41 +9,47 @@
 import UIKit
 import RealmSwift
 
-class QuestionViewController: UIViewController {
+class QuestionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate, UIWebViewDelegate {
     
-    var currentChapter: Chapter?
-    var currentSubject: Subject?
-    var currentQuestion: Int = 0
+    
     let realm = FactoryRealm.getRealm()
     var questionsRealm: Results<Question>?
     var questions: [Question] = []
+    var currentChapter: Chapter?
+    var currentSubject: Subject?
+    var currentNumber: Int = 0
+    var currentQuestion: Question?
     var counter: Int = 0
+    var wording = UIWebView()
+    var answers = UITableView()
+    var didLoadWording = false
+    var sizeAnswerCells: [CGFloat] = []
+    var numberOfAnswers = 0
     
+    let baseUrl = NSURL(fileURLWithPath: Factory.path, isDirectory: true)!
+    
+    
+    var scrollView: UIScrollView!
+    
+    
+    //let goodAnswers = self.questions[self.currentNumber].goodAnswers.componentsSeparatedByString(",").count
 
     override func viewDidLoad() {
-        super.viewDidLoad()
         
+        //display the subject
+        self.numberOfAnswers = 0
+        self.sizeAnswerCells.removeAll(keepCapacity: true)
+        self.counter = 0
         self.title = self.currentSubject!.name.uppercaseString
-        self.wording.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
-        self.designButtons()
-        //debug  AND type = 0
-        self.questionsRealm = realm.objects(Question).filter("chapter = %@", currentChapter!)
-        for question in self.questionsRealm! {
-            self.questions.append(question)
-        }
-        self.counter = self.questions.count
-        //println(self.counter)
-        //println(self.questions)
-        self.loadQuestion()
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
+        //display the chapter
         self.chapter.text = "Chapitre n° \(self.currentChapter!.number) : \(self.currentChapter!.name)"
+        //load the questions
+        self.loadQuestions()
+        //display the first question
+        self.loadQuestion()
         
         
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -54,114 +60,248 @@ class QuestionViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var submitButton: UIBarButtonItem!
-    
     @IBOutlet weak var chapter: UILabel!
     
-    @IBOutlet weak var question: UILabel!
+    @IBOutlet weak var questionNumber: UIBarButtonItem!
     
-    @IBOutlet weak var wording: UIWebView!
-    
-    @IBOutlet weak var buttonA: UIButton!
-    @IBOutlet weak var buttonB: UIButton!
-    @IBOutlet weak var buttonC: UIButton!
-    @IBOutlet weak var buttonD: UIButton!
-    @IBOutlet weak var buttonE: UIButton!
-    @IBOutlet weak var buttonF: UIButton!
-    
-    @IBAction func answerA(sender: AnyObject) {
-        
-    }
-    
-    @IBAction func answerB(sender: AnyObject) {
-    }
-  
-    @IBAction func answerC(sender: AnyObject) {
-    }
-    
-    @IBAction func answerD(sender: AnyObject) {
-    }
-    
-    @IBAction func answerE(sender: AnyObject) {
-    }
-    
-    @IBAction func answerF(sender: AnyObject) {
-    }
+    @IBOutlet weak var calc: UIBarButtonItem!
 
     @IBAction func previous(sender: AnyObject) {
-        self.currentQuestion = (self.currentQuestion - 1) % self.counter
-        self.currentQuestion = (self.currentQuestion < 0) ? (self.currentQuestion + self.counter):(self.currentQuestion)
+        self.sizeAnswerCells.removeAll(keepCapacity: true)
+        self.currentNumber = (self.currentNumber - 1) % self.counter
+        self.currentNumber = (self.currentNumber < 0) ? (self.currentNumber + self.counter):(self.currentNumber)
         self.loadQuestion()
     }
     
     @IBAction func next(sender: AnyObject) {
-        self.currentQuestion = (self.currentQuestion + 1) % self.counter
+        self.sizeAnswerCells.removeAll(keepCapacity: true)
+        self.currentNumber = (self.currentNumber + 1) % self.counter
+        self.view.reloadInputViews()
         self.loadQuestion()
     }
     
-    
-    @IBAction func submit(sender: AnyObject) {
-    }
-    
-    
-    func loadQuestion() {
-        self.question.text = "Question n°\(self.currentQuestion+1)/\(self.counter)"
-        var question = self.questions[self.currentQuestion]
-        println(question.wording)
-        let baseUrl = NSURL(fileURLWithPath: Factory.path, isDirectory: true)!
-        self.wording.loadHTMLString((question.wording), baseURL: baseUrl)
-        self.buttonA.setTitle((question.answerOne).htmlToString, forState: UIControlState.Normal)
-        self.buttonB.setTitle((question.answerTwo).htmlToString, forState: UIControlState.Normal)
-        self.buttonC.setTitle((question.answerThree).htmlToString, forState: UIControlState.Normal)
-        self.buttonD.setTitle((question.answerFour).htmlToString, forState: UIControlState.Normal)
-        self.buttonE.setTitle((question.answerFive).htmlToString, forState: UIControlState.Normal)
-        self.buttonF.setTitle((question.answerSix).htmlToString, forState: UIControlState.Normal)
+    @IBAction func calcPopUp(sender: AnyObject) {
+        var message = self.questions[self.currentNumber].calculator ? "Calculatrice autorisée" : "Calculatrice interdite"
+       
+        // create alert controller
+        let myAlert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        // add an "OK" button
+        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        // show the alert
+        self.presentViewController(myAlert, animated: true, completion: nil)
 
     }
     
-    func designButtons () {
-        buttonA.backgroundColor = UIColor.clearColor()
-        buttonA.layer.cornerRadius = 5
-        buttonA.layer.borderWidth = 1
-        buttonA.layer.borderColor = UIColor.darkGrayColor().CGColor
+    @IBAction func questionPopOver(sender: AnyObject) {
+        let storyboard : UIStoryboard = UIStoryboard(
+            name: "Main",
+            bundle: nil)
+        var choiceQuestion: ChoiceQuestionViewController = storyboard.instantiateViewControllerWithIdentifier("ChoiceQuestionViewController") as! ChoiceQuestionViewController
+        choiceQuestion.modalPresentationStyle = .Popover
+        choiceQuestion.preferredContentSize = CGSizeMake(280, 40)
         
-        buttonB.backgroundColor = UIColor.clearColor()
-        buttonB.layer.cornerRadius = 5
-        buttonB.layer.borderWidth = 1
-        buttonB.layer.borderColor = UIColor.darkGrayColor().CGColor
-        
-        buttonC.backgroundColor = UIColor.clearColor()
-        buttonC.layer.cornerRadius = 5
-        buttonC.layer.borderWidth = 1
-        buttonC.layer.borderColor = UIColor.darkGrayColor().CGColor
-        
-        buttonD.backgroundColor = UIColor.clearColor()
-        buttonD.layer.cornerRadius = 5
-        buttonD.layer.borderWidth = 1
-        buttonD.layer.borderColor = UIColor.darkGrayColor().CGColor
-        
-        buttonE.backgroundColor = UIColor.clearColor()
-        buttonE.layer.cornerRadius = 5
-        buttonE.layer.borderWidth = 1
-        buttonE.layer.borderColor = UIColor.darkGrayColor().CGColor
-        
-        buttonF.backgroundColor = UIColor.clearColor()
-        buttonF.layer.cornerRadius = 5
-        buttonF.layer.borderWidth = 1
-        buttonF.layer.borderColor = UIColor.darkGrayColor().CGColor
-        
-        
-
+        let popoverChoiceQuestionViewController = choiceQuestion.popoverPresentationController
+        popoverChoiceQuestionViewController?.permittedArrowDirections = UIPopoverArrowDirection.Up
+        popoverChoiceQuestionViewController?.delegate = self
+        popoverChoiceQuestionViewController?.barButtonItem = sender as! UIBarButtonItem
+        presentViewController(
+            choiceQuestion,
+            animated: true,
+            completion: nil)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+            return .None
     }
-    */
+    
+    private func loadQuestions() {
+        //debug AND type = 0
+        self.questionsRealm = realm.objects(Question).filter("chapter = %@ ", currentChapter!)
+        for question in self.questionsRealm! {
+            self.questions.append(question)
+        }
+        self.counter = self.questions.count
+    }
+    
+    private func loadQuestion() {
+        
+        self.questionNumber.title = "Question n°\(self.currentNumber+1)/\(self.counter)"
+        self.currentQuestion = self.questions[self.currentNumber]
+        self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "calc") : UIImage(named: "nocalc"))
+        self.didLoadWording = false
+        self.countAnswers()
+        self.loadWording()
+        
+    }
+    
+    private func loadWording(){
+        
+        self.wording =  UIWebView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 1))
+        self.wording.delegate = self
+        self.wording.loadHTMLString( self.currentQuestion!.wording, baseURL: self.baseUrl)
+        let scrollFrame = CGRect(x: 0, y: 152, width: self.view.bounds.width, height: self.view.bounds.height-152)
+        self.scrollView = UIScrollView(frame: scrollFrame)
+        self.scrollView.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
+        self.scrollView.addSubview(self.wording)
+        self.view.addSubview(scrollView)
+    }
+        
+    private func loadAnswers(y: CGFloat){
+        self.answers.frame = CGRectMake(0, y, self.view.bounds.width, 400)
+        self.answers.scrollEnabled = false
+        self.answers.userInteractionEnabled = true
+        self.answers.delegate = self
+        self.answers.dataSource = self
+        self.answers.registerClass(UITableViewCellAnswer.self, forCellReuseIdentifier: "answerCell")
+        self.scrollView.addSubview(self.answers)
+        self.answers.reloadData()
+        
+        
+    }
+    
+    private func loadSubmit(){
+        var tableHeight: CGFloat = 0
+        for height in self.sizeAnswerCells {
+            tableHeight += height
+        }
+        let submit = UIButton(frame: CGRectMake(self.view.bounds.width/2 - 50, self.wording.bounds.size.height + tableHeight + 30 , 100, 40))
+        submit.setTitle("Validez", forState: .Normal)
+        submit.layer.cornerRadius = 6
+        submit.titleLabel?.font = UIFont(name: "Segoe UI", size: 15)
+        submit.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        submit.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+        var scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 100)
+        self.scrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
+        self.scrollView.contentSize =  scrollSize
+        self.scrollView.addSubview(submit)
+    }
+    
+    private func countAnswers() {
+        var numberOfAnswers = 2
+        if self.questions[self.currentNumber].answerThree != "" {
+            numberOfAnswers++
+            if self.questions[self.currentNumber].answerFour != "" {
+                numberOfAnswers++
+                if self.questions[self.currentNumber].answerFive != "" {
+                    numberOfAnswers++
+                    if self.questions[self.currentNumber].answerSix != "" {
+                        numberOfAnswers++
+                    }
+                }
+            }
+        }
+        println(numberOfAnswers)
+        self.numberOfAnswers = numberOfAnswers
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        println("il y a \(self.numberOfAnswers) cellules")
+        return self.numberOfAnswers
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("answerCell", forIndexPath: indexPath) as! UITableViewCellAnswer
+        // Configure the cell...
+        let answerNumber = indexPath.row
+        var letter = "X"
+        var html = "html"
+        switch answerNumber {
+        case 0:
+            letter = "A"
+            html = self.questions[self.currentNumber].answerOne
+        case 1:
+            letter = "B"
+            html = self.questions[self.currentNumber].answerTwo
+        case 2:
+            letter = "C"
+            html = self.questions[self.currentNumber].answerThree
+        case 3:
+            letter = "D"
+            html = self.questions[self.currentNumber].answerFour
+        case 4:
+            letter = "E"
+            html = self.questions[self.currentNumber].answerFive
+        case 5:
+            letter = "F"
+            html = self.questions[self.currentNumber].answerSix
+        default:
+            letter = "X"
+            html = "html"
+        }
+        
+        cell.number.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+        cell.answer.scrollView.scrollEnabled = false
+        cell.answer.userInteractionEnabled = false
+        cell.answer.frame = CGRectMake(40, 0, self.view.bounds.width - 40, 40)
+        cell.answer.backgroundColor = UIColor.clearColor()
+        cell.number!.font = UIFont(name: "Segoe UI", size: 14)
+        cell.number!.textColor = UIColor.whiteColor()
+        cell.number!.textAlignment = NSTextAlignment.Center
+        cell.number!.text = letter
+        cell.answer.delegate = self
+        cell.answer.loadHTMLString(html, baseURL: self.baseUrl)
+        
+        if (self.sizeAnswerCells.count == self.numberOfAnswers) {
+            cell.number!.frame = CGRectMake(0, 0, 40, self.sizeAnswerCells[indexPath.row])
+            cell.answer!.frame = CGRectMake(40, 0, self.view.bounds.width - 40, self.sizeAnswerCells[indexPath.row])
+        }
+        
+
+        
+        return cell
+        
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if self.sizeAnswerCells.count == self.numberOfAnswers {
+            return self.sizeAnswerCells[indexPath.row]
+        } else {
+            return 40
+        }
+        
+    }
+    
+    func webViewDidFinishLoad(webView: UIWebView) {
+        if (self.sizeAnswerCells.count != self.numberOfAnswers) {
+            //Asks the view to calculate and return the size that best fits its subviews.
+            var fittingSize = webView.sizeThatFits(CGSizeZero)
+            //bug DB #F9F9F9 span after image
+            
+            self.wording.opaque = false
+            self.wording.scrollView.scrollEnabled = false
+            webView.frame = CGRectMake(0, 0, self.view.bounds.width, fittingSize.height)
+            self.scrollView.contentSize =  self.wording.bounds.size
+            println(fittingSize.height)
+            
+            if self.didLoadWording {
+                println("webview answer")
+                webView.frame = CGRectMake(40, 0, self.view.bounds.width - 40, fittingSize.height)
+                self.sizeAnswerCells.append(fittingSize.height)
+                println(self.sizeAnswerCells)
+                
+                if self.sizeAnswerCells.count == self.numberOfAnswers {
+                    println("self.sizeAnswerCells.count = \(self.sizeAnswerCells.count)")
+                    println("numberOfAnswers = \(self.numberOfAnswers)")
+                    println("cell sizes computed, refreshing table")
+                    self.answers.reloadData()
+                    self.loadSubmit()
+                }
+                
+            } else {
+                self.sizeAnswerCells.removeAll(keepCapacity: true)
+                println("webview wording")
+                webView.frame = CGRectMake(0, 0, self.view.bounds.width, fittingSize.height)
+                self.wording.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+                self.didLoadWording = true
+                self.loadAnswers(fittingSize.height)
+            }
+
+        }
+    }
 
 }
+
+
+
+    
+

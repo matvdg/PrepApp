@@ -50,13 +50,10 @@ class ImageManager {
 				}
 			}
 			if willBeRemoved {
-                self.realm.write {
-                    self.realm.delete(offlineUpload)
-                }
-                //idsToRemove.append(offlineUpload.id)
+                idsToRemove.append(offlineUpload.id)
 			}
 		}
-        //self.deleteImages(idsToRemove)
+        self.deleteImages(idsToRemove)
 		
 		
 		// we check what we have to add
