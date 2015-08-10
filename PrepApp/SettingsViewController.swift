@@ -14,6 +14,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
 	@IBOutlet weak var designButton: UIButton!
     @IBOutlet weak var touchIDlabel: UILabel!
     
+    @IBOutlet weak var soundSwitch: UISwitch!
     @IBOutlet weak var touchIDswitch: UISwitch!
 	@IBOutlet var menuButton: UIBarButtonItem!
 	@IBOutlet weak var newPwd: UITextField!
@@ -44,6 +45,19 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
 
+        }
+    }
+    
+    @IBAction func soundAction(sender: AnyObject) {
+        if self.soundSwitch.on {
+            User.currentUser!.sounds = true
+            User.currentUser!.saveUser()
+            Sound.playTrack("true")
+        } else {
+            Sound.playTrack("false")
+            User.currentUser!.sounds = false
+            User.currentUser!.saveUser()
+            
         }
     }
     
@@ -104,6 +118,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
 			menuButton.action = "revealToggle:"
 			self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
 		}
+        self.soundSwitch.setOn(User.currentUser!.sounds, animated: true)
+        
         var authenticationObject = LAContext()
         var authenticationError: NSError?
         

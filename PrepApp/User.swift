@@ -22,8 +22,9 @@ class User {
     var failed: Int
     var success: Int
     var touchId: Bool
+    var sounds: Bool
     
-    init(firstName :String,lastName :String,email :String,encryptedPassword :String,level : Int,assiduity : Int,failed : Int,success : Int, touchId: Bool) {
+    init(firstName :String,lastName :String,email :String,encryptedPassword :String,level : Int,assiduity : Int,failed : Int,success : Int, touchId: Bool, sounds: Bool) {
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
@@ -33,6 +34,7 @@ class User {
         self.failed = failed
         self.success = success
         self.touchId = touchId
+        self.sounds = sounds
     }
 	
 	func printUser() -> String {
@@ -79,7 +81,8 @@ class User {
             String(self.assiduity),
             String(self.failed),
             String(self.success),
-            String(stringInterpolationSegment: self.touchId)
+            String(stringInterpolationSegment: self.touchId),
+            String(stringInterpolationSegment: self.sounds)
         ]
 		NSUserDefaults.standardUserDefaults().setObject(savedUser, forKey: "user")
 		NSUserDefaults.standardUserDefaults().synchronize()
@@ -137,7 +140,8 @@ class User {
 			assiduity: data["assiduity"]as! Int,
             failed: data["failed"] as! Int,
 			success: data["success"] as! Int,
-            touchId: false
+            touchId: false,
+            sounds: true
 			)
         
         User.authenticated = true
@@ -160,7 +164,8 @@ class User {
                 assiduity: (data[5] as String).toInt()!,
                 failed: (data[6] as String).toInt()!,
                 success: (data[7] as String).toInt()!,
-                touchId: (data[8] as String).toBool()! )
+                touchId: (data[8] as String).toBool()!,
+                sounds: (data[9] as String).toBool()!)
             
 			return true
 		} else {

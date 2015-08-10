@@ -67,6 +67,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var calc: UIBarButtonItem!
 
     @IBAction func previous(sender: AnyObject) {
+        Sound.playTrack("next")
         self.sizeAnswerCells.removeAll(keepCapacity: true)
         self.currentNumber = (self.currentNumber - 1) % self.counter
         self.currentNumber = (self.currentNumber < 0) ? (self.currentNumber + self.counter):(self.currentNumber)
@@ -74,6 +75,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @IBAction func next(sender: AnyObject) {
+        Sound.playTrack("next")
         self.sizeAnswerCells.removeAll(keepCapacity: true)
         self.currentNumber = (self.currentNumber + 1) % self.counter
         self.view.reloadInputViews()
@@ -164,16 +166,33 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         for height in self.sizeAnswerCells {
             tableHeight += height
         }
+        //resizing the answers table (the cells have already been resized independently
+        self.answers.frame.size = CGSizeMake(self.view.bounds.width, tableHeight)
+        //displaying the button AFTER the wording and the answers table, and centering
         let submit = UIButton(frame: CGRectMake(self.view.bounds.width/2 - 50, self.wording.bounds.size.height + tableHeight + 30 , 100, 40))
         submit.setTitle("Validez", forState: .Normal)
         submit.layer.cornerRadius = 6
         submit.titleLabel?.font = UIFont(name: "Segoe UI", size: 15)
         submit.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         submit.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+        
+        //resizing the scroll view in order to fit all the elements
         var scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 100)
         self.scrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
         self.scrollView.contentSize =  scrollSize
+        //adding button and action
+        submit.addTarget(self, action: "submit", forControlEvents: UIControlEvents.TouchUpInside)
         self.scrollView.addSubview(submit)
+    }
+    
+    func submit() {
+        // create alert controller
+        let myAlert = UIAlertController(title: "coucou", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        // add an "OK" button
+        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        // show the alert
+        self.presentViewController(myAlert, animated: true, completion: nil)
+
     }
     
     private func countAnswers() {
@@ -233,7 +252,6 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.answer.scrollView.scrollEnabled = false
         cell.answer.userInteractionEnabled = false
         cell.answer.frame = CGRectMake(40, 0, self.view.bounds.width - 40, 40)
-        cell.answer.backgroundColor = UIColor.clearColor()
         cell.number!.font = UIFont(name: "Segoe UI", size: 14)
         cell.number!.textColor = UIColor.whiteColor()
         cell.number!.textAlignment = NSTextAlignment.Center
@@ -265,7 +283,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         if (self.sizeAnswerCells.count != self.numberOfAnswers) {
             //Asks the view to calculate and return the size that best fits its subviews.
             var fittingSize = webView.sizeThatFits(CGSizeZero)
-            //bug DB #F9F9F9 span after image
+            
             
             self.wording.opaque = false
             self.wording.scrollView.scrollEnabled = false
@@ -290,6 +308,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             } else {
                 self.sizeAnswerCells.removeAll(keepCapacity: true)
                 println("webview wording")
+                //bug DB #F9F9F9 span after image
                 webView.frame = CGRectMake(0, 0, self.view.bounds.width, fittingSize.height)
                 self.wording.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
                 self.didLoadWording = true
