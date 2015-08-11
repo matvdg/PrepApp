@@ -35,6 +35,8 @@
 		F64630A71B5FD451006A5F71 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F64630A61B5FD451006A5F71 /* LocalAuthentication.framework */; };
 		F649ED961B7A5F5800293BB7 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F649ED941B7A5F5800293BB7 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F649ED971B7A5F5800293BB7 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F649ED951B7A5F5800293BB7 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F663E3181B7A620800F23294 /* QuestionHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F663E3171B7A620800F23294 /* QuestionHistory.swift */; };
+		F663E31C1B7A6BD000F23294 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = F663E31B1B7A6BD000F23294 /* History.swift */; };
 		F66771811B61A31900042145 /* FactoryRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66771801B61A31900042145 /* FactoryRealm.swift */; };
 		F6767C211B5D5DFB0066FC64 /* QuestionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6767C201B5D5DFB0066FC64 /* QuestionManager.swift */; };
 		F68320DA1B03C6F1006B974E /* TrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68320D91B03C6F1006B974E /* TrainingViewController.swift */; };
@@ -111,6 +113,8 @@
 		F64630A61B5FD451006A5F71 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		F649ED941B7A5F5800293BB7 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		F649ED951B7A5F5800293BB7 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		F663E3171B7A620800F23294 /* QuestionHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionHistory.swift; sourceTree = "<group>"; };
+		F663E31B1B7A6BD000F23294 /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		F66771801B61A31900042145 /* FactoryRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryRealm.swift; sourceTree = "<group>"; };
 		F6767C201B5D5DFB0066FC64 /* QuestionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionManager.swift; sourceTree = "<group>"; };
 		F68320D91B03C6F1006B974E /* TrainingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingViewController.swift; sourceTree = "<group>"; };
@@ -252,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				F6322A1B1B615DFA0074549E /* Question.swift */,
+				F663E3171B7A620800F23294 /* QuestionHistory.swift */,
 				F6322A1E1B615E360074549E /* Chapter.swift */,
 				F6322A201B615E3E0074549E /* Image.swift */,
 				F6322A221B615E460074549E /* Subject.swift */,
@@ -270,6 +275,24 @@
 				F64630A41B5E6959006A5F71 /* Factory.swift */,
 			);
 			name = Sync;
+			sourceTree = "<group>";
+		};
+		F663E3191B7A6BA600F23294 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				F6FBFAC21AFA98D40020B074 /* Lib.swift */,
+				F63B5AE81B77C116002C0A79 /* SoundSystem.swift */,
+			);
+			name = Other;
+			sourceTree = "<group>";
+		};
+		F663E31A1B7A6BB800F23294 /* User History */ = {
+			isa = PBXGroup;
+			children = (
+				F6FBFAB71AFA1F5E0020B074 /* User.swift */,
+				F663E31B1B7A6BD000F23294 /* History.swift */,
+			);
+			name = "User History";
 			sourceTree = "<group>";
 		};
 		F6AAE6C71AF433E100195E11 = {
@@ -362,9 +385,8 @@
 				F6C02C491B7647C10021ABE1 /* ViewLogic */,
 				F6322A1D1B615DFF0074549E /* Realm Entities */,
 				F64630A81B5FD5C9006A5F71 /* Sync */,
-				F6FBFAB71AFA1F5E0020B074 /* User.swift */,
-				F6FBFAC21AFA98D40020B074 /* Lib.swift */,
-				F63B5AE81B77C116002C0A79 /* SoundSystem.swift */,
+				F663E31A1B7A6BB800F23294 /* User History */,
+				F663E3191B7A6BA600F23294 /* Other */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -511,6 +533,8 @@
 				F605AF181B04154800E90596 /* ProfileViewController.swift in Sources */,
 				F6322A161B6157F60074549E /* ChaptersTableViewController.swift in Sources */,
 				F6322A1C1B615DFA0074549E /* Question.swift in Sources */,
+				F663E3181B7A620800F23294 /* QuestionHistory.swift in Sources */,
+				F663E31C1B7A6BD000F23294 /* History.swift in Sources */,
 				F6767C211B5D5DFB0066FC64 /* QuestionManager.swift in Sources */,
 				F6322A181B6158230074549E /* QuestionViewController.swift in Sources */,
 				F6C02C421B760B960021ABE1 /* ChoiceQuestionViewController.swift in Sources */,

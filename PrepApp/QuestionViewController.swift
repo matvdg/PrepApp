@@ -71,12 +71,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var calc: UIBarButtonItem!
 
     @IBAction func previous(sender: AnyObject) {
-        self.submitButton.removeFromSuperview()
-        self.infos.removeFromSuperview()
-        self.wording.removeFromSuperview()
-        self.answers.removeFromSuperview()
-        self.scrollView!.removeFromSuperview()
-        Sound.playTrack("next")
+        self.cleanView()
         self.sizeAnswerCells.removeAll(keepCapacity: true)
         self.currentNumber = (self.currentNumber - 1) % self.counter
         self.currentNumber = (self.currentNumber < 0) ? (self.currentNumber + self.counter):(self.currentNumber)
@@ -84,16 +79,19 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @IBAction func next(sender: AnyObject) {
+        self.cleanView()
+        self.sizeAnswerCells.removeAll(keepCapacity: true)
+        self.currentNumber = (self.currentNumber + 1) % self.counter
+        self.loadQuestion()
+    }
+    
+    private func cleanView() {
         self.submitButton.removeFromSuperview()
         self.infos.removeFromSuperview()
         self.wording.removeFromSuperview()
         self.answers.removeFromSuperview()
         self.scrollView!.removeFromSuperview()
         Sound.playTrack("next")
-        self.sizeAnswerCells.removeAll(keepCapacity: true)
-        self.currentNumber = (self.currentNumber + 1) % self.counter
-        self.view.reloadInputViews()
-        self.loadQuestion()
     }
     
     @IBAction func calcPopUp(sender: AnyObject) {
@@ -127,8 +125,16 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             completion: nil)
     }
     
-    func saveChoice(var choice: Int){
+    func applyChoice(var choice: Int){
         self.choiceFilter = choice
+        println(choice)
+        self.cleanView()
+        self.questions.removeAll(keepCapacity: true)
+        //load the questions
+        self.loadQuestions()
+        //display the first question
+        self.currentNumber = 0
+        self.loadQuestion()
     }
     
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -136,11 +142,65 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     private func loadQuestions() {
-        //debug AND type = 0
-        self.questionsRealm = realm.objects(Question).filter("chapter = %@ ", currentChapter!)
+        var tempQuestions = [Question]()
+        //fetching training questions
+        // AND type = 0
+        self.questionsRealm = realm.objects(Question).filter("chapter = %@", currentChapter!)
         for question in self.questionsRealm! {
-            self.questions.append(question)
+            tempQuestions.append(question)
         }
+        
+//        //fetching solo questions already DONE
+//        self.questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 1", currentChapter!)
+//        for question in self.questionsRealm! {
+//            if History.isQuestionDone(question.id){
+//                tempQuestions.append(question)
+//            }
+//            
+//        }
+//        
+//        //fetching duo questions already DONE
+//        self.questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 2", currentChapter!)
+//        for question in self.questionsRealm! {
+//            if History.isQuestionDone(question.id){
+//                tempQuestions.append(question)
+//            }
+//            
+//        }
+//        
+//        //now applying the filter choosen by user
+//        switch choiceFilter {
+//        case 0: //ALL
+//            self.questions = tempQuestions
+//        case 1: //FAILED
+//            for question in tempQuestions {
+//                if History.isQuestionFail(question.id){
+//                    self.questions.append(question)
+//                }
+//            }
+//            self.questions = tempQuestions
+//        case 2: //SUCCEEDED
+//            for question in tempQuestions {
+//                if History.isQuestionSuccess(question.id){
+//                    self.questions.append(question)
+//                }
+//            }
+//        case 3: //NEW
+//            
+//            
+//            //TODO : implement a solo/duo history to fetch the solo/duo DONE in theses modes not in training mode and then filter here only the solo/duo questions done in this mode
+//            for question in tempQuestions {
+//                if History.isQuestionDone(question.id){
+//                    self.questions.append(question)
+//                }
+//            }
+//        default:
+//            self.questions = tempQuestions
+//            
+//        }
+        
+        self.questions = tempQuestions
+    
         self.counter = self.questions.count
     }
     
@@ -159,7 +219,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             
         }
         
-        println("Bonne(s) réponse(s) = \(self.goodAnswers)")
+        //println("Bonne(s) réponse(s) = \(self.goodAnswers)")
         self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "calc") : UIImage(named: "nocalc"))
         self.didLoadWording = false
         self.countAnswers()
@@ -173,7 +233,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.wording.loadHTMLString( self.currentQuestion!.wording, baseURL: self.baseUrl)
         let scrollFrame = CGRect(x: 0, y: 152, width: self.view.bounds.width, height: self.view.bounds.height-152)
         self.scrollView = UIScrollView(frame: scrollFrame)
-        self.scrollView.backgroundColor = UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
+        self.scrollView.backgroundColor = UIColor.whiteColor()
         self.scrollView.addSubview(self.wording)
         self.view.addSubview(scrollView)
     }
@@ -233,33 +293,45 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
         } else {
+            var historyQuestion = QuestionHistory()
             self.answers.userInteractionEnabled = false
+            historyQuestion.id = self.currentQuestion!.id
             if self.checkAnswers() {
                 //true
                 Sound.playTrack("true")
+                historyQuestion.success = true
+                //colouring the results
                 for answer in self.goodAnswers {
                     let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                     let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
-                    cell.number.backgroundColor = UIColor.greenColor()
+                    cell.number.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
                     cell.number.textColor = UIColor.blackColor()
+                    //green
                 }
                 
             } else {
                 //false
+                historyQuestion.success = false
                 Sound.playTrack("false")
+                 //colouring the results
                 for answer in self.selectedAnswers {
                     let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                     let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
-                    cell.number.backgroundColor = UIColor.redColor()
+                    cell.number.backgroundColor = UIColor(red: 223/255, green: 52/255, blue: 46/255, alpha: 1)
+                    //red
                 }
                 for answer in self.goodAnswers {
                     let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                     let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
-                    cell.number.backgroundColor = UIColor.greenColor()
+                    cell.number.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+                    //green
                     cell.number.textColor = UIColor.blackColor()
                 }
                 
             }
+            //saving the question result in history
+            History.addQuestionToHistory(historyQuestion)
+            //displaying and animating the correction button
             self.submitButton.setTitle("Correction", forState: UIControlState.Normal)
             self.submitButton.removeTarget(self, action: "submit", forControlEvents: UIControlEvents.TouchUpInside)
             self.submitButton.addTarget(self, action: "showCorrection", forControlEvents: UIControlEvents.TouchUpInside)
@@ -376,7 +448,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             html = "html"
         }
         cell.selectionStyle = UITableViewCellSelectionStyle.None
-        cell.number.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+        cell.number.backgroundColor = UIColor.lightGrayColor()
         cell.answer.scrollView.scrollEnabled = false
         cell.answer.userInteractionEnabled = false
         cell.answer.frame = CGRectMake(40, 0, self.view.bounds.width - 80, 40)
@@ -436,13 +508,14 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             } else {
                 self.sizeAnswerCells.removeAll(keepCapacity: true)
                 webView.frame = CGRectMake(0, 0, self.view.bounds.width, fittingSize.height)
-                self.wording.backgroundColor = UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
+                self.wording.backgroundColor = UIColor.whiteColor()
                 self.didLoadWording = true
                 self.loadAnswers(fittingSize.height)
             }
 
         } else {
-            self.infos.backgroundColor = UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
+            self.infos.backgroundColor = UIColor.whiteColor()
+                //UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
         }
     }
     
@@ -453,15 +526,14 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         if (cell.accessoryType != UITableViewCellAccessoryType.Checkmark) {
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
             self.selectedAnswers.append(indexPath.row)
-            println(self.selectedAnswers)
         }
         else
         {
             cell.accessoryType = UITableViewCellAccessoryType.None
             var index = find(self.selectedAnswers, indexPath.row)
             self.selectedAnswers.removeAtIndex(index!)
-            println(self.selectedAnswers)
         }
+        //println(self.selectedAnswers)
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation

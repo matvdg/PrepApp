@@ -21,7 +21,8 @@ class CorrectionViewController: UIViewController, UIWebViewDelegate {
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
-        webView.backgroundColor = UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
+        webView.backgroundColor = UIColor.whiteColor()
+            //UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
     }
     
     override func viewDidLoad() {

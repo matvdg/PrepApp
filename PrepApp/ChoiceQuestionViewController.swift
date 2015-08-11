@@ -17,7 +17,7 @@ class ChoiceQuestionViewController: UIViewController {
     
     @IBAction func choice(sender: AnyObject) {
         self.choiceFilter = self.selectedChoice.selectedSegmentIndex
-        self.delegate?.saveChoice(self.choiceFilter)
+        self.delegate?.applyChoice(self.choiceFilter)
         self.dismissViewControllerAnimated(true, completion: nil )
     }
     override func viewDidLoad() {

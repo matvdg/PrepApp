@@ -63,7 +63,7 @@ class SyncViewController: UIViewController {
             self.blur.hidden = true
             self.nbrFrame = (Factory.getImageManager().sizeDownloaded + Factory.getQuestionManager().sizeDownloaded) * frames / (Factory.getImageManager().sizeToDownload + Factory.getQuestionManager().sizeToDownload)
             self.percentage = self.nbrFrame * 100 / self.frames
-            println("Downloading... \((Factory.getImageManager().sizeDownloaded + Factory.getQuestionManager().sizeDownloaded)/1000) KB/\((Factory.getImageManager().sizeToDownload + Factory.getQuestionManager().sizeToDownload)/1000) KB")
+            //println("Downloading... \((Factory.getImageManager().sizeDownloaded + Factory.getQuestionManager().sizeDownloaded)/1000) KB/\((Factory.getImageManager().sizeToDownload + Factory.getQuestionManager().sizeToDownload)/1000) KB")
         } else {
             self.blur.hidden = false
             //before getting sizes, waiting for server response

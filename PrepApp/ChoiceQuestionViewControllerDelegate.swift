@@ -9,5 +9,5 @@
 
 
 protocol ChoiceQuestionViewControllerDelegate {
-    func saveChoice(var choice: Int)
+    func applyChoice(var choice: Int)
 }
