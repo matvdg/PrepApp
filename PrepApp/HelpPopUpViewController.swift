@@ -18,7 +18,6 @@ class HelpPopUpViewController: UIViewController {
         super.viewDidLoad()
         self.okButton.layer.cornerRadius = 6
         self.helpText.text = self.help
-       // self.helpText.contentInset = UIEdgeInsetsMake(-7.0,0.0,0,0.0)
         self.helpText.textColor = UIColor.whiteColor()
         self.helpText.font = UIFont(name: "Segoe UI", size: 17)
         self.helpTitle.text = self.helpTopic

@@ -45,6 +45,7 @@
 		F6AAE6DD1AF433E100195E11 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6AAE6DB1AF433E100195E11 /* Main.storyboard */; };
 		F6AAE6E21AF433E100195E11 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6AAE6E01AF433E100195E11 /* LaunchScreen.xib */; };
 		F6AAE6EE1AF433E100195E11 /* PrepAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AAE6ED1AF433E100195E11 /* PrepAppTests.swift */; };
+		F6AC7B4D1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AC7B4C1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift */; };
 		F6C02C421B760B960021ABE1 /* ChoiceQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C02C411B760B960021ABE1 /* ChoiceQuestionViewController.swift */; };
 		F6C02C441B7628AB0021ABE1 /* UICollectionViewCellHelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C02C431B7628AB0021ABE1 /* UICollectionViewCellHelp.swift */; };
 		F6C02C461B762A810021ABE1 /* UITableViewCellAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C02C451B762A810021ABE1 /* UITableViewCellAnswer.swift */; };
@@ -124,6 +125,7 @@
 		F6AAE6E71AF433E100195E11 /* PrepAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrepAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6AAE6EC1AF433E100195E11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6AAE6ED1AF433E100195E11 /* PrepAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepAppTests.swift; sourceTree = "<group>"; };
+		F6AC7B4C1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceQuestionViewControllerDelegate.swift; sourceTree = "<group>"; };
 		F6C02C411B760B960021ABE1 /* ChoiceQuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceQuestionViewController.swift; sourceTree = "<group>"; };
 		F6C02C431B7628AB0021ABE1 /* UICollectionViewCellHelp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewCellHelp.swift; sourceTree = "<group>"; };
 		F6C02C451B762A810021ABE1 /* UITableViewCellAnswer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellAnswer.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				F605AF171B04154800E90596 /* ProfileViewController.swift */,
 				F605AF131B04153200E90596 /* SettingsViewController.swift */,
 				F605AF151B04153C00E90596 /* HelpViewController.swift */,
+				F6C02C431B7628AB0021ABE1 /* UICollectionViewCellHelp.swift */,
 				F6F22A961B70EC5E00A3049B /* HelpPopUpViewController.swift */,
 			);
 			name = Other;
@@ -249,7 +252,7 @@
 			name = Contest;
 			sourceTree = "<group>";
 		};
-		F6322A1D1B615DFF0074549E /* Entities */ = {
+		F6322A1D1B615DFF0074549E /* Realm Entities */ = {
 			isa = PBXGroup;
 			children = (
 				F6322A1B1B615DFA0074549E /* Question.swift */,
@@ -258,7 +261,7 @@
 				F6322A221B615E460074549E /* Subject.swift */,
 				F66771801B61A31900042145 /* FactoryRealm.swift */,
 			);
-			name = Entities;
+			name = "Realm Entities";
 			sourceTree = "<group>";
 		};
 		F64630A81B5FD5C9006A5F71 /* Sync */ = {
@@ -338,7 +341,7 @@
 			isa = PBXGroup;
 			children = (
 				F6C02C451B762A810021ABE1 /* UITableViewCellAnswer.swift */,
-				F6C02C431B7628AB0021ABE1 /* UICollectionViewCellHelp.swift */,
+				F6AC7B4C1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift */,
 			);
 			name = ViewLogic;
 			sourceTree = "<group>";
@@ -361,7 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				F6C02C491B7647C10021ABE1 /* ViewLogic */,
-				F6322A1D1B615DFF0074549E /* Entities */,
+				F6322A1D1B615DFF0074549E /* Realm Entities */,
 				F64630A81B5FD5C9006A5F71 /* Sync */,
 				F6FBFAB71AFA1F5E0020B074 /* User.swift */,
 				F6FBFAC21AFA98D40020B074 /* Lib.swift */,
@@ -501,6 +504,7 @@
 				F66771811B61A31900042145 /* FactoryRealm.swift in Sources */,
 				F63B5AE91B77C116002C0A79 /* SoundSystem.swift in Sources */,
 				F605AF0E1B04146C00E90596 /* SoloViewController.swift in Sources */,
+				F6AC7B4D1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift in Sources */,
 				F6ECC1101AF6DFE8008F18E3 /* SyncViewController.swift in Sources */,
 				F6F22A971B70EC5E00A3049B /* HelpPopUpViewController.swift in Sources */,
 				F6C02C461B762A810021ABE1 /* UITableViewCellAnswer.swift in Sources */,

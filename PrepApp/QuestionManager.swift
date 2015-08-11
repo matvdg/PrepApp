@@ -30,8 +30,9 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
             var imagesArray: [String] = []
             imagesArray = images.componentsSeparatedByString(",")
             counter = imagesArray.count
+            
             for index in 1...counter {
-                input = input.stringByReplacingOccurrencesOfString("{\(index)}", withString: "<img width=\"300\" src=\"images/\(getImageByIndex(index, imagesArray: imagesArray))\"/>", options: nil, range: nil)
+                input = input.stringByReplacingOccurrencesOfString("{\(index)}", withString: "<img width=\"\(SyncViewController.widthImage)\" src=\"images/\(getImageByIndex(index, imagesArray: imagesArray))\"/>", options: nil, range: nil)
                 input = input.stringByReplacingOccurrencesOfString("#f9f9f9", withString: "transparent", options: nil, range: nil)
             }
         }

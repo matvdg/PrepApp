@@ -9,23 +9,23 @@
 import UIKit
 
 class ChoiceQuestionViewController: UIViewController {
+    
+    var choiceFilter = 0 // 0=ALL 1=FAILED 2=SUCCEEDED 3=NEW
+    var delegate: ChoiceQuestionViewControllerDelegate?
 
+    @IBOutlet weak var selectedChoice: UISegmentedControl!
+    
     @IBAction func choice(sender: AnyObject) {
-        //TODO: implement choice filter
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.choiceFilter = self.selectedChoice.selectedSegmentIndex
+        self.delegate?.saveChoice(self.choiceFilter)
+        self.dismissViewControllerAnimated(true, completion: nil )
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.selectedChoice.selectedSegmentIndex = self.choiceFilter
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
     
 
 }
+
+

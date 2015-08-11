@@ -8,37 +8,37 @@
 
 import UIKit
 
-class CorrectionViewController: UIViewController {
+class CorrectionViewController: UIViewController, UIWebViewDelegate {
+    
+    var correctionHTML = ""
+    let baseUrl = NSURL(fileURLWithPath: Factory.path, isDirectory: true)!
 
+    @IBOutlet weak var correction: UIWebView!
+    @IBOutlet weak var dismissButton: UIButton!
+    
+    @IBAction func dismiss(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func webViewDidFinishLoad(webView: UIWebView) {
+        webView.backgroundColor = UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.correction.opaque = false
+        self.dismissButton.layer.cornerRadius = 6
+        self.correction.delegate = self
+        
+        self.correction.loadHTMLString(self.correctionHTML, baseURL: self.baseUrl)
     }
     
     override func viewDidAppear(animated: Bool) {
-        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         if User.authenticated == false {
             NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
             NSUserDefaults.standardUserDefaults().synchronize()
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

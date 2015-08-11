@@ -54,7 +54,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
             User.currentUser!.saveUser()
             Sound.playTrack("true")
         } else {
-            Sound.playTrack("false")
             User.currentUser!.sounds = false
             User.currentUser!.saveUser()
             

@@ -10,6 +10,7 @@ import UIKit
 
 class SyncViewController: UIViewController {
 	
+    static var widthImage: CGFloat = 300
 
 	var timer = NSTimer()
     var waiter = NSTimer()
@@ -32,6 +33,8 @@ class SyncViewController: UIViewController {
     }
 
 	override func viewDidLoad() {
+        println(self.view.frame.width)
+        SyncViewController.widthImage = self.view.frame.width - 20
 		super.viewDidLoad()
         self.blur.alpha = 0
         self.tryAgainButton.layer.cornerRadius = 6
@@ -84,6 +87,7 @@ class SyncViewController: UIViewController {
         if Factory.errorNetwork {
             self.blur.hidden = true
             timer.invalidate()
+            Sound.playTrack("error")
             // create alert controller
             let myAlert = UIAlertController(title: "Erreur de téléchargement", message: "Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
             // add an "OK" button

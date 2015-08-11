@@ -19,6 +19,7 @@ class Sound {
             
             if let path = NSBundle.mainBundle().pathForResource(mediapath, ofType: "caf") {
                 player = AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: path), fileTypeHint: "caf", error: nil)
+                player!.volume = 0.1
                 player!.numberOfLoops = 0
                 player!.prepareToPlay()
                 player?.play()
