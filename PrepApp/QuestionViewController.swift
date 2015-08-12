@@ -28,6 +28,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     var timer = NSTimer()
     var stopTimer = NSTimer()
     var senseTimer: Bool = true
+    var bugTimer: Bool = false
     var choiceFilter = 0 // 0=ALL 1=FAILED 2=SUCCEEDED 3=NEW
     let baseUrl = NSURL(fileURLWithPath: Factory.path, isDirectory: true)!
     
@@ -72,37 +73,47 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var calc: UIBarButtonItem!
 
     @IBAction func previous(sender: AnyObject) {
-        self.cleanView()
-        self.sizeAnswerCells.removeAll(keepCapacity: false)
-        self.currentNumber = (self.currentNumber - 1) % self.counter
-        self.currentNumber = (self.currentNumber < 0) ? (self.currentNumber + self.counter):(self.currentNumber)
-        self.loadQuestion()
+        
+        if !self.bugTimer {
+            Sound.playTrack("next")
+            self.bugTimer = true
+            let delay = 0.5 * Double(NSEC_PER_SEC)
+            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+            dispatch_after(time, dispatch_get_main_queue()) {
+                self.cleanView()
+                self.sizeAnswerCells.removeAll(keepCapacity: false)
+                self.currentNumber = (self.currentNumber - 1) % self.counter
+                self.currentNumber = (self.currentNumber < 0) ? (self.currentNumber + self.counter):(self.currentNumber)
+
+                self.loadQuestion()
+                
+                self.bugTimer = false
+            }
+        }
     }
     
     @IBAction func next(sender: AnyObject) {
         
-        self.cleanView()
-        self.sizeAnswerCells.removeAll(keepCapacity: false)
-        self.currentNumber = (self.currentNumber + 1) % self.counter
-        self.loadQuestion()
-    }
-    
-    private func cleanView() {
-        self.timer.invalidate()
-        self.submitButton.frame.size.width = 100
-        self.submitButton.frame.size.height = 40
-        self.submitButton.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
-        self.submitButton.removeFromSuperview()
-        self.infos.removeFromSuperview()
-        self.wording.removeFromSuperview()
-        self.answers.removeFromSuperview()
-        self.scrollView!.removeFromSuperview()
-        Sound.playTrack("next")
+        if !self.bugTimer {
+            Sound.playTrack("next")
+            self.bugTimer = true
+            let delay = 0.5 * Double(NSEC_PER_SEC)
+            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+            dispatch_after(time, dispatch_get_main_queue()) {
+                self.cleanView()
+                self.sizeAnswerCells.removeAll(keepCapacity: false)
+                self.currentNumber = (self.currentNumber + 1) % self.counter
+                self.loadQuestion()
+                
+                self.bugTimer = false
+            }
+        }
+        
     }
     
     @IBAction func calcPopUp(sender: AnyObject) {
         var message = self.questions[self.currentNumber].calculator ? "Calculatrice autorisée" : "Calculatrice interdite"
-       
+        Sound.playTrack("calc")
         // create alert controller
         let myAlert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         // add an "OK" button
@@ -133,18 +144,9 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func applyChoice(var choice: Int){
-        self.numberOfAnswers = 0
-        self.sizeAnswerCells.removeAll(keepCapacity: false)
-        self.counter = 0
         self.choiceFilter = choice
-        self.currentNumber = 0
-        self.cleanView()
-        self.questions.removeAll(keepCapacity: false)
-        println("after cleaned count = \(self.questions.count)")
-        //load the questions
-        self.loadQuestions()
-        //display the first question
-        self.loadQuestion()
+        self.refreshView()
+        Sound.playTrack("next")
     }
     
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -183,10 +185,10 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         //now applying the filter choosen by user
         switch choiceFilter {
         case 0: //ALL
-            println("case all")
+            //println("case all")
             self.questions = tempQuestions
         case 1: //FAILED
-             println("case failed")
+            //println("case failed")
             for question in tempQuestions {
                 if History.isQuestionFail(question.id){
                     println("question failed ajoutée id=\(question.id)")
@@ -194,7 +196,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
             }
         case 2: //SUCCEEDED
-             println("case succeeded")
+            //println("case succeeded")
             for question in tempQuestions {
                 if History.isQuestionSuccess(question.id){
                     println("question succeeded ajoutée id=\(question.id)")
@@ -202,7 +204,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
             }
         case 3: //NEW
-             println("case new")
+             //println("case new")
             
             //TODO : implement a solo/duo history to fetch the solo/duo DONE in theses modes not in training mode and then filter here only the solo/duo questions done in this mode
             for question in tempQuestions {
@@ -215,10 +217,10 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             println("default")
             
         }
-        println(self.questions.count)
+        //println(self.questions.count)
     
         self.counter = self.questions.count
-        println(self.counter)
+        //println(self.counter)
         //println(self.questions)
     }
     
@@ -260,7 +262,6 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     private func loadAnswers(y: CGFloat){
         self.answers.frame = CGRectMake(0, y, self.view.bounds.width, 400)
         self.answers.scrollEnabled = false
-        
         self.answers.userInteractionEnabled = true
         self.answers.allowsMultipleSelection = false
         self.answers.delegate = self
@@ -270,6 +271,44 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.answers.reloadData()
         
         
+    }
+    
+    private func cleanView() {
+        self.timer.invalidate()
+        self.submitButton.frame.size.width = 100
+        self.submitButton.frame.size.height = 40
+        self.submitButton.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+        self.submitButton.removeFromSuperview()
+        self.infos.removeFromSuperview()
+        self.wording.removeFromSuperview()
+        self.answers.removeFromSuperview()
+        self.scrollView!.removeFromSuperview()
+    }
+
+    private func refreshView(){
+        //println("refreshView")
+        self.cleanView()
+        self.numberOfAnswers = 0
+        self.sizeAnswerCells.removeAll(keepCapacity: false)
+        self.counter = 0
+        self.currentNumber = 0
+        self.questions.removeAll(keepCapacity: false)
+        println("after cleaned count = \(self.questions.count)")
+        //load the questions
+        self.loadQuestions()
+        //display the first question
+        self.loadQuestion()
+    }
+    
+    private func refreshQuestion(){
+        let delay = 1 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        dispatch_after(time, dispatch_get_main_queue()) {
+            //println("refreshQuestion")
+            self.cleanView()
+            self.sizeAnswerCells.removeAll(keepCapacity: false)
+            self.loadQuestion()
+        }
     }
     
     private func loadSubmit(){
@@ -307,6 +346,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     func submit() {
         
         if self.selectedAnswers.isEmpty {
+            Sound.playTrack("error")
             // create alert controller
             let myAlert = UIAlertController(title: "Vous devez sélectionner au moins une réponse !", message: "Touchez les cases pour cocher une ou plusieurs réponses", preferredStyle: UIAlertControllerStyle.Alert)
             // add an "OK" button
@@ -492,8 +532,16 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.accessoryType = UITableViewCellAccessoryType.None
         
         if (self.sizeAnswerCells.count == self.numberOfAnswers) {
-            cell.number!.frame = CGRectMake(0, 0, 40, self.sizeAnswerCells[indexPath.row]!)
-            cell.answer!.frame = CGRectMake(40, 0, self.view.bounds.width - 80, self.sizeAnswerCells[indexPath.row]!)
+            if let height = self.sizeAnswerCells[indexPath.row]{
+                cell.number!.frame = CGRectMake(0, 0, 40, height)
+                cell.answer!.frame = CGRectMake(40, 0, self.view.bounds.width - 80, height)
+            }
+            else {
+                println("error loading too fast, delegates not finished")
+                self.refreshQuestion()
+            }
+            
+            
         }
         
 
@@ -504,7 +552,14 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if self.sizeAnswerCells.count == self.numberOfAnswers {
-            return self.sizeAnswerCells[indexPath.row]!
+            if let height = self.sizeAnswerCells[indexPath.row] {
+                return height
+            } else {
+                println("error loading too fast, delegates not finished")
+                self.refreshQuestion()
+                return 40
+            }
+            
         } else {
             return 40
         }
@@ -537,7 +592,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             self.wording.scrollView.scrollEnabled = false
             webView.frame = CGRectMake(0, 0, self.view.bounds.width, fittingSize.height)
             self.scrollView.contentSize =  self.wording.bounds.size
-            println(fittingSize.height)
+            //println(fittingSize.height)
             //TODO: fixing the ORDER to store the size, to avoid REVERSE sizes bugs (good sizes, wrong cells)
             
             if self.didLoadWording {
@@ -545,9 +600,11 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
                 //println("we have just loaded the Answers webviews")
                 webView.frame = CGRectMake(40, 0, self.view.bounds.width - 40, fittingSize.height)
                 //we save the computed sizes
-                let webViewAnswer = webView as! UIWebViewAnswer
-                self.sizeAnswerCells[webViewAnswer.position!] = fittingSize.height
-                println(self.sizeAnswerCells)
+                if let webViewAnswer = webView as? UIWebViewAnswer {
+                    self.sizeAnswerCells[webViewAnswer.position!] = fittingSize.height
+                }
+                
+                //println(self.sizeAnswerCells)
                 
                 //if we have computed ALL the answers webview, then we refresh the table to display the proper sizes
                 if self.sizeAnswerCells.count == self.numberOfAnswers {

@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 class Sound {
-    static var player: AVAudioPlayer?
+    private static var player: AVAudioPlayer?
     
     class func playTrack(sound: String) {
         
