@@ -13,7 +13,6 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     
     
     let realm = FactoryRealm.getRealm()
-    var questionsRealm: Results<Question>?
     var questions: [Question] = []
     var currentChapter: Chapter?
     var currentSubject: Subject?
@@ -23,9 +22,11 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     var goodAnswers: [Int] = []
     var selectedAnswers: [Int] = []
     var didLoadWording = false
-    var sizeAnswerCells: [CGFloat] = []
+    var didLoadAnswers = false
+    var sizeAnswerCells: [Int:CGFloat] = [:]
     var numberOfAnswers = 0
     var timer = NSTimer()
+    var stopTimer = NSTimer()
     var senseTimer: Bool = true
     var choiceFilter = 0 // 0=ALL 1=FAILED 2=SUCCEEDED 3=NEW
     let baseUrl = NSURL(fileURLWithPath: Factory.path, isDirectory: true)!
@@ -42,7 +43,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         
         //display the subject
         self.numberOfAnswers = 0
-        self.sizeAnswerCells.removeAll(keepCapacity: true)
+        self.sizeAnswerCells.removeAll(keepCapacity: false)
         self.counter = 0
         self.title = self.currentSubject!.name.uppercaseString
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
@@ -72,20 +73,25 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
 
     @IBAction func previous(sender: AnyObject) {
         self.cleanView()
-        self.sizeAnswerCells.removeAll(keepCapacity: true)
+        self.sizeAnswerCells.removeAll(keepCapacity: false)
         self.currentNumber = (self.currentNumber - 1) % self.counter
         self.currentNumber = (self.currentNumber < 0) ? (self.currentNumber + self.counter):(self.currentNumber)
         self.loadQuestion()
     }
     
     @IBAction func next(sender: AnyObject) {
+        
         self.cleanView()
-        self.sizeAnswerCells.removeAll(keepCapacity: true)
+        self.sizeAnswerCells.removeAll(keepCapacity: false)
         self.currentNumber = (self.currentNumber + 1) % self.counter
         self.loadQuestion()
     }
     
     private func cleanView() {
+        self.timer.invalidate()
+        self.submitButton.frame.size.width = 100
+        self.submitButton.frame.size.height = 40
+        self.submitButton.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
         self.submitButton.removeFromSuperview()
         self.infos.removeFromSuperview()
         self.wording.removeFromSuperview()
@@ -115,6 +121,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         choiceQuestion.preferredContentSize = CGSizeMake(280, 40)
         choiceQuestion.delegate = self
         choiceQuestion.choiceFilter = self.choiceFilter
+        choiceQuestion.currentChapter = self.currentChapter
         let popoverChoiceQuestionViewController = choiceQuestion.popoverPresentationController
         popoverChoiceQuestionViewController?.permittedArrowDirections = UIPopoverArrowDirection.Up
         popoverChoiceQuestionViewController?.delegate = self
@@ -126,14 +133,17 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func applyChoice(var choice: Int){
+        self.numberOfAnswers = 0
+        self.sizeAnswerCells.removeAll(keepCapacity: false)
+        self.counter = 0
         self.choiceFilter = choice
-        println(choice)
+        self.currentNumber = 0
         self.cleanView()
-        self.questions.removeAll(keepCapacity: true)
+        self.questions.removeAll(keepCapacity: false)
+        println("after cleaned count = \(self.questions.count)")
         //load the questions
         self.loadQuestions()
         //display the first question
-        self.currentNumber = 0
         self.loadQuestion()
     }
     
@@ -142,74 +152,82 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     private func loadQuestions() {
+        
         var tempQuestions = [Question]()
         //fetching training questions
-        // AND type = 0
-        self.questionsRealm = realm.objects(Question).filter("chapter = %@", currentChapter!)
-        for question in self.questionsRealm! {
+        //AND type = 0
+        var questionsRealm = realm.objects(Question).filter("chapter = %@ ", currentChapter!)
+        for question in questionsRealm {
             tempQuestions.append(question)
         }
         
 //        //fetching solo questions already DONE
-//        self.questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 1", currentChapter!)
-//        for question in self.questionsRealm! {
+//        questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 1", currentChapter!)
+//        for question in questionsRealm {
 //            if History.isQuestionDone(question.id){
 //                tempQuestions.append(question)
+//                println("ajout solo")
 //            }
-//            
 //        }
 //        
 //        //fetching duo questions already DONE
-//        self.questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 2", currentChapter!)
-//        for question in self.questionsRealm! {
+//        questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 2", currentChapter!)
+//        for question in questionsRealm {
 //            if History.isQuestionDone(question.id){
 //                tempQuestions.append(question)
+//                println("ajout duo")
 //            }
-//            
-//        }
-//        
-//        //now applying the filter choosen by user
-//        switch choiceFilter {
-//        case 0: //ALL
-//            self.questions = tempQuestions
-//        case 1: //FAILED
-//            for question in tempQuestions {
-//                if History.isQuestionFail(question.id){
-//                    self.questions.append(question)
-//                }
-//            }
-//            self.questions = tempQuestions
-//        case 2: //SUCCEEDED
-//            for question in tempQuestions {
-//                if History.isQuestionSuccess(question.id){
-//                    self.questions.append(question)
-//                }
-//            }
-//        case 3: //NEW
-//            
-//            
-//            //TODO : implement a solo/duo history to fetch the solo/duo DONE in theses modes not in training mode and then filter here only the solo/duo questions done in this mode
-//            for question in tempQuestions {
-//                if History.isQuestionDone(question.id){
-//                    self.questions.append(question)
-//                }
-//            }
-//        default:
-//            self.questions = tempQuestions
 //            
 //        }
         
-        self.questions = tempQuestions
+        //now applying the filter choosen by user
+        switch choiceFilter {
+        case 0: //ALL
+            println("case all")
+            self.questions = tempQuestions
+        case 1: //FAILED
+             println("case failed")
+            for question in tempQuestions {
+                if History.isQuestionFail(question.id){
+                    println("question failed ajoutée id=\(question.id)")
+                    self.questions.append(question)
+                }
+            }
+        case 2: //SUCCEEDED
+             println("case succeeded")
+            for question in tempQuestions {
+                if History.isQuestionSuccess(question.id){
+                    println("question succeeded ajoutée id=\(question.id)")
+                    self.questions.append(question)
+                }
+            }
+        case 3: //NEW
+             println("case new")
+            
+            //TODO : implement a solo/duo history to fetch the solo/duo DONE in theses modes not in training mode and then filter here only the solo/duo questions done in this mode
+            for question in tempQuestions {
+                if History.isQuestionDone(question.id){
+                    println("question done ajoutée id=\(question.id)")
+                    self.questions.append(question)
+                }
+            }
+        default:
+            println("default")
+            
+        }
+        println(self.questions.count)
     
         self.counter = self.questions.count
+        println(self.counter)
+        //println(self.questions)
     }
     
     private func loadQuestion() {
-        self.selectedAnswers.removeAll(keepCapacity: true)
+        self.selectedAnswers.removeAll(keepCapacity: false)
         self.questionNumber.title = "Question n°\(self.currentNumber+1)/\(self.counter)"
         self.currentQuestion = self.questions[self.currentNumber]
         let answers = self.currentQuestion!.goodAnswers.componentsSeparatedByString(",")
-        self.goodAnswers.removeAll(keepCapacity: true)
+        self.goodAnswers.removeAll(keepCapacity: false)
         for answer in answers {
             if let answerIndex = answer.toInt() {
                 self.goodAnswers.append(answerIndex - 1)
@@ -222,6 +240,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         //println("Bonne(s) réponse(s) = \(self.goodAnswers)")
         self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "calc") : UIImage(named: "nocalc"))
         self.didLoadWording = false
+        self.didLoadAnswers = false
         self.countAnswers()
         self.loadWording()
         
@@ -233,7 +252,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.wording.loadHTMLString( self.currentQuestion!.wording, baseURL: self.baseUrl)
         let scrollFrame = CGRect(x: 0, y: 152, width: self.view.bounds.width, height: self.view.bounds.height-152)
         self.scrollView = UIScrollView(frame: scrollFrame)
-        self.scrollView.backgroundColor = UIColor.whiteColor()
+        self.scrollView.backgroundColor = UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
         self.scrollView.addSubview(self.wording)
         self.view.addSubview(scrollView)
     }
@@ -241,6 +260,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     private func loadAnswers(y: CGFloat){
         self.answers.frame = CGRectMake(0, y, self.view.bounds.width, 400)
         self.answers.scrollEnabled = false
+        
         self.answers.userInteractionEnabled = true
         self.answers.allowsMultipleSelection = false
         self.answers.delegate = self
@@ -254,7 +274,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     
     private func loadSubmit(){
         var tableHeight: CGFloat = 0
-        for height in self.sizeAnswerCells {
+        for (id,height) in self.sizeAnswerCells {
             tableHeight += height
         }
         //resizing the answers table (the cells have already been resized independently
@@ -262,9 +282,10 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         
         
         //displaying the infos and button AFTER the wording and the answers table, and centering
-        self.infos = UIWebView(frame: CGRectMake(0, self.wording.bounds.size.height + tableHeight , self.view.bounds.width, 40))
+        self.infos = UIWebView(frame: CGRectMake(0, self.wording.bounds.size.height + 10 + tableHeight , self.view.bounds.width, 40))
         self.infos.delegate = self
         self.infos.opaque = false
+        self.infos.userInteractionEnabled = false
         self.infos.loadHTMLString(self.currentQuestion!.info, baseURL: self.baseUrl)
         self.submitButton = UIButton(frame: CGRectMake(self.view.bounds.width/2 - 50, self.wording.bounds.size.height + tableHeight + 50 , 100, 40))
         self.submitButton.setTitle("Validez", forState: .Normal)
@@ -336,6 +357,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             self.submitButton.removeTarget(self, action: "submit", forControlEvents: UIControlEvents.TouchUpInside)
             self.submitButton.addTarget(self, action: "showCorrection", forControlEvents: UIControlEvents.TouchUpInside)
             self.timer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: Selector("animateButton"), userInfo: nil, repeats: true)
+            self.stopTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "stopAnimation", userInfo: nil, repeats: false)
         }
         
     }
@@ -363,6 +385,13 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         
         
+    }
+    
+    func stopAnimation(){
+        self.timer.invalidate()
+        self.submitButton.frame.size.width = 100
+        self.submitButton.frame.size.height = 40
+        self.submitButton.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
     }
     
     func showCorrection() {
@@ -413,6 +442,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.numberOfAnswers = numberOfAnswers
     }
     
+    //tableview methods
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //println("il y a \(self.numberOfAnswers) cellules")
         return self.numberOfAnswers
@@ -457,12 +487,13 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.number!.textAlignment = NSTextAlignment.Center
         cell.number!.text = letter
         cell.answer.delegate = self
+        cell.answer.position = answerNumber
         cell.answer.loadHTMLString(html, baseURL: self.baseUrl)
         cell.accessoryType = UITableViewCellAccessoryType.None
         
         if (self.sizeAnswerCells.count == self.numberOfAnswers) {
-            cell.number!.frame = CGRectMake(0, 0, 40, self.sizeAnswerCells[indexPath.row])
-            cell.answer!.frame = CGRectMake(40, 0, self.view.bounds.width - 80, self.sizeAnswerCells[indexPath.row])
+            cell.number!.frame = CGRectMake(0, 0, 40, self.sizeAnswerCells[indexPath.row]!)
+            cell.answer!.frame = CGRectMake(40, 0, self.view.bounds.width - 80, self.sizeAnswerCells[indexPath.row]!)
         }
         
 
@@ -473,50 +504,11 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if self.sizeAnswerCells.count == self.numberOfAnswers {
-            return self.sizeAnswerCells[indexPath.row]
+            return self.sizeAnswerCells[indexPath.row]!
         } else {
             return 40
         }
         
-    }
-    
-    func webViewDidFinishLoad(webView: UIWebView) {
-        if (self.sizeAnswerCells.count != self.numberOfAnswers) {
-            //Asks the view to calculate and return the size that best fits its subviews.
-            var fittingSize = webView.sizeThatFits(CGSizeZero)
-            
-            
-            self.wording.opaque = false
-            self.wording.scrollView.scrollEnabled = false
-            webView.frame = CGRectMake(0, 0, self.view.bounds.width, fittingSize.height)
-            self.scrollView.contentSize =  self.wording.bounds.size
-            //println(fittingSize.height)
-            
-            if self.didLoadWording {
-                webView.frame = CGRectMake(40, 0, self.view.bounds.width - 40, fittingSize.height)
-                self.sizeAnswerCells.append(fittingSize.height)
-                //println(self.sizeAnswerCells)
-                
-                if self.sizeAnswerCells.count == self.numberOfAnswers {
-                    //println("self.sizeAnswerCells.count = \(self.sizeAnswerCells.count)")
-                    //println("numberOfAnswers = \(self.numberOfAnswers)")
-                    //println("cell sizes computed, refreshing table")
-                    self.answers.reloadData()
-                    self.loadSubmit()
-                }
-                
-            } else {
-                self.sizeAnswerCells.removeAll(keepCapacity: true)
-                webView.frame = CGRectMake(0, 0, self.view.bounds.width, fittingSize.height)
-                self.wording.backgroundColor = UIColor.whiteColor()
-                self.didLoadWording = true
-                self.loadAnswers(fittingSize.height)
-            }
-
-        } else {
-            self.infos.backgroundColor = UIColor.whiteColor()
-                //UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
-        }
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
@@ -535,6 +527,64 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         //println(self.selectedAnswers)
     }
+    
+    //webviews method
+    func webViewDidFinishLoad(webView: UIWebView) {
+        if (self.sizeAnswerCells.count != self.numberOfAnswers) {
+            //Asks the view to calculate and return the size that best fits its subviews.
+            var fittingSize = webView.sizeThatFits(CGSizeZero)
+            self.wording.opaque = false
+            self.wording.scrollView.scrollEnabled = false
+            webView.frame = CGRectMake(0, 0, self.view.bounds.width, fittingSize.height)
+            self.scrollView.contentSize =  self.wording.bounds.size
+            println(fittingSize.height)
+            //TODO: fixing the ORDER to store the size, to avoid REVERSE sizes bugs (good sizes, wrong cells)
+            
+            if self.didLoadWording {
+                //we have just loaded the Answers webviews
+                //println("we have just loaded the Answers webviews")
+                webView.frame = CGRectMake(40, 0, self.view.bounds.width - 40, fittingSize.height)
+                //we save the computed sizes
+                let webViewAnswer = webView as! UIWebViewAnswer
+                self.sizeAnswerCells[webViewAnswer.position!] = fittingSize.height
+                println(self.sizeAnswerCells)
+                
+                //if we have computed ALL the answers webview, then we refresh the table to display the proper sizes
+                if self.sizeAnswerCells.count == self.numberOfAnswers {
+                    //println("self.sizeAnswerCells.count = \(self.sizeAnswerCells.count)")
+                    //println("numberOfAnswers = \(self.numberOfAnswers)")
+                    //println("cell sizes computed, refreshing table")
+                    self.answers.separatorInset = UIEdgeInsetsMake(0, 40, 0, 0)
+                    self.answers.reloadData()
+                }
+                
+            } else {
+                //we have just loaded the Wording webview
+                //println("we have just loaded the Wording webview")
+                self.sizeAnswerCells.removeAll(keepCapacity: false)
+                webView.frame = CGRectMake(0, 0, self.view.bounds.width, fittingSize.height)
+                self.wording.backgroundColor = UIColor.whiteColor()
+                self.didLoadWording = true
+                self.loadAnswers(fittingSize.height + 10)
+            }
+
+        } else {
+            if self.didLoadAnswers {
+                //we have just loaded the Infos webview
+                //println("we have just loaded the Infos webview")
+                self.infos.backgroundColor = UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
+            
+            } else {
+                //we have just refreshed the answers table, now we load the Infos webview and the submit button
+                //println("we have just refreshed the answers table, now we load the Infos webview and the submit button")
+                self.didLoadAnswers = true
+                self.loadSubmit()
+                
+            }
+            
+        }
+    }
+    
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

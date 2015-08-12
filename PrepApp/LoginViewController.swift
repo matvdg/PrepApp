@@ -31,9 +31,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             self.pass.text = "hidden"
         
             User.authenticated = true
-            self.performSegueWithIdentifier("loginDidSucceded", sender: self)
+            //self.performSegueWithIdentifier("loginDidSucceded", sender: self)
             //without sync // test mode
-            //self.performSegueWithIdentifier("showTraining", sender: self)
+            self.performSegueWithIdentifier("showTraining", sender: self)
             println(Factory.path)
             
         } else {
@@ -64,7 +64,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 			(data, error) -> Void in
 			
 			if data == nil {
-                Sound.playTrack("error")
 				// create alert controller
 				let myAlert = UIAlertController(title: error, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
 				// add an "OK" button
