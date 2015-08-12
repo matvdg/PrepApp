@@ -24,7 +24,7 @@ class History{
                 realmHistory.write {
                     questionHistory.success = question.success
                 }
-                println("updated")
+                //println("updated")
                 updated = true
                 break
             }
@@ -34,7 +34,7 @@ class History{
             realmHistory.write {
                 self.realmHistory.add(question)
             }
-            println("added")
+            //println("added")
         }
 
 

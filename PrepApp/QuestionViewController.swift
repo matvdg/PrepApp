@@ -327,7 +327,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.infos.userInteractionEnabled = false
         self.infos.loadHTMLString(self.currentQuestion!.info, baseURL: self.baseUrl)
         self.submitButton = UIButton(frame: CGRectMake(self.view.bounds.width/2 - 50, self.wording.bounds.size.height + tableHeight + 50 , 100, 40))
-        self.submitButton.setTitle("Validez", forState: .Normal)
+        self.submitButton.setTitle("VALIDER", forState: .Normal)
         self.submitButton.layer.cornerRadius = 6
         self.submitButton.titleLabel?.font = UIFont(name: "Segoe UI", size: 15)
         self.submitButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
