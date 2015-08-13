@@ -103,7 +103,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
 			nextResponder!.becomeFirstResponder()
 		} else {
 			// Not found, so remove keyboard.
-			changeCheckedPassword()
+            self.resignFirstResponder()
+			self.changeCheckedPassword()
 		}
 		return false
 		// We do not want UITextField to insert line-breaks.

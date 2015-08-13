@@ -804,20 +804,20 @@
                         <viewControllerLayoutGuide type="bottom" id="7tI-Hk-gLE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dEg-nT-YxD">
-                        <rect key="frame" x="0.0" y="0.0" width="280" height="40"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="IQq-Ua-DWF">
-                                <rect key="frame" x="10" y="6" width="260" height="29"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="IQq-Ua-DWF">
+                                <rect key="frame" x="10" y="6" width="300" height="29"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="260" id="EO0-lH-tTV"/>
-                                    <constraint firstAttribute="height" constant="28" id="JNZ-bA-2Di"/>
+                                    <constraint firstAttribute="width" constant="300" id="0GI-zH-bKH"/>
+                                    <constraint firstAttribute="height" constant="28" id="N0i-zu-mTh"/>
                                 </constraints>
                                 <segments>
-                                    <segment title="Toutes"/>
-                                    <segment title="Echouées"/>
-                                    <segment title="Réussies"/>
-                                    <segment title="Nouvelles"/>
+                                    <segment title="Toutes (67)" width="70"/>
+                                    <segment title="Echouées (10)" width="75"/>
+                                    <segment title="Réussies (23)" width="75"/>
+                                    <segment title="Nouvelles (34)" width="75"/>
                                 </segments>
                                 <color key="tintColor" red="0.10588235408067703" green="0.5058823823928833" blue="0.36862745881080627" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -826,8 +826,8 @@
                             </segmentedControl>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="IQq-Ua-DWF" secondAttribute="centerX" id="c5U-Hz-4tk"/>
-                            <constraint firstAttribute="centerY" secondItem="IQq-Ua-DWF" secondAttribute="centerY" id="x6R-Yk-wWy"/>
+                            <constraint firstAttribute="centerX" secondItem="IQq-Ua-DWF" secondAttribute="centerX" id="4u7-5y-x8F"/>
+                            <constraint firstAttribute="centerY" secondItem="IQq-Ua-DWF" secondAttribute="centerY" id="FAq-cC-jn4"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -835,9 +835,9 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="280" height="40"/>
+                    <size key="freeformSize" width="320" height="40"/>
                     <connections>
-                        <outlet property="selectedChoice" destination="IQq-Ua-DWF" id="2Qz-ku-byv"/>
+                        <outlet property="seg" destination="IQq-Ua-DWF" id="968-hV-ZqY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R3x-d7-Lkc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1593,7 +1593,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.92549020051956177" green="0.92549020051956177" blue="0.92549020051956177" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="XL6-Be-wJL" secondAttribute="centerX" id="1Dg-8T-fiC"/>

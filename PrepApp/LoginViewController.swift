@@ -52,7 +52,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 		nextResponder!.becomeFirstResponder()
 	  } else {
 		// Not found, so remove keyboard.
-		connect()
+        textField.resignFirstResponder()
+		self.connect()
 	  }
 	  return false
 		// We do not want UITextField to insert line-breaks.

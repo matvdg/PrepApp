@@ -11,7 +11,7 @@ import RealmSwift
 
 class QuestionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate, ChoiceQuestionViewControllerDelegate ,UIWebViewDelegate {
     
-    
+    //properties
     let realm = FactoryRealm.getRealm()
     var questions: [Question] = []
     var currentChapter: Chapter?
@@ -32,14 +32,14 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     var choiceFilter = 0 // 0=ALL 1=FAILED 2=SUCCEEDED 3=NEW
     let baseUrl = NSURL(fileURLWithPath: Factory.path, isDirectory: true)!
     
-    //graphics
+    //graphics properties
     var submitButton = UIButton()
     var wording = UIWebView()
     var answers = UITableView()
     var infos = UIWebView()
     var scrollView: UIScrollView!
     
-    
+    //app methods
     override func viewDidLoad() {
         
         //display the subject
@@ -66,6 +66,8 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    
+    //@IBOutlets properties
     @IBOutlet weak var chapter: UILabel!
     
     @IBOutlet weak var questionNumber: UIBarButtonItem!
@@ -92,6 +94,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    //@IBActions methods
     @IBAction func next(sender: AnyObject) {
         
         if !self.bugTimer {
@@ -129,7 +132,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             bundle: nil)
         var choiceQuestion: ChoiceQuestionViewController = storyboard.instantiateViewControllerWithIdentifier("ChoiceQuestionViewController") as! ChoiceQuestionViewController
         choiceQuestion.modalPresentationStyle = .Popover
-        choiceQuestion.preferredContentSize = CGSizeMake(280, 40)
+        choiceQuestion.preferredContentSize = CGSizeMake(320, 40)
         choiceQuestion.delegate = self
         choiceQuestion.choiceFilter = self.choiceFilter
         choiceQuestion.currentChapter = self.currentChapter
@@ -143,6 +146,8 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             completion: nil)
     }
     
+    
+    //methods
     func applyChoice(var choice: Int){
         self.choiceFilter = choice
         self.refreshView()
@@ -157,30 +162,30 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         
         var tempQuestions = [Question]()
         //fetching training questions
-        //AND type = 0
-        var questionsRealm = realm.objects(Question).filter("chapter = %@ ", currentChapter!)
+        //
+        var questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 0", currentChapter!)
         for question in questionsRealm {
             tempQuestions.append(question)
         }
         
-//        //fetching solo questions already DONE
-//        questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 1", currentChapter!)
-//        for question in questionsRealm {
-//            if History.isQuestionDone(question.id){
-//                tempQuestions.append(question)
-//                println("ajout solo")
-//            }
-//        }
-//        
-//        //fetching duo questions already DONE
-//        questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 2", currentChapter!)
-//        for question in questionsRealm {
-//            if History.isQuestionDone(question.id){
-//                tempQuestions.append(question)
-//                println("ajout duo")
-//            }
-//            
-//        }
+        //fetching solo questions already DONE
+        questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 1", currentChapter!)
+        for question in questionsRealm {
+            if History.isQuestionDone(question.id){
+                tempQuestions.append(question)
+                println("ajout solo")
+            }
+        }
+        
+        //fetching duo questions already DONE
+        questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 2", currentChapter!)
+        for question in questionsRealm {
+            if History.isQuestionDone(question.id){
+                tempQuestions.append(question)
+                println("ajout duo")
+            }
+            
+        }
         
         //now applying the filter choosen by user
         switch choiceFilter {
@@ -208,7 +213,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             
             //TODO : implement a solo/duo history to fetch the solo/duo DONE in theses modes not in training mode and then filter here only the solo/duo questions done in this mode
             for question in tempQuestions {
-                if History.isQuestionDone(question.id){
+                if History.isQuestionNew(question.id){
                     println("question done ajoutée id=\(question.id)")
                     self.questions.append(question)
                 }
@@ -239,7 +244,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             
         }
         
-        //println("Bonne(s) réponse(s) = \(self.goodAnswers)")
+        println("Bonne(s) réponse(s) = \(self.goodAnswers)")
         self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "calc") : UIImage(named: "nocalc"))
         self.didLoadWording = false
         self.didLoadAnswers = false
@@ -592,9 +597,6 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             self.wording.scrollView.scrollEnabled = false
             webView.frame = CGRectMake(0, 0, self.view.bounds.width, fittingSize.height)
             self.scrollView.contentSize =  self.wording.bounds.size
-            //println(fittingSize.height)
-            //TODO: fixing the ORDER to store the size, to avoid REVERSE sizes bugs (good sizes, wrong cells)
-            
             if self.didLoadWording {
                 //we have just loaded the Answers webviews
                 //println("we have just loaded the Answers webviews")

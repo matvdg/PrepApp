@@ -15,27 +15,34 @@ class ChoiceQuestionViewController: UIViewController {
     let realm = FactoryRealm.getRealm()
     var currentChapter: Chapter?
 
-    @IBOutlet weak var selectedChoice: UISegmentedControl!
+    @IBOutlet weak var seg: UISegmentedControl!
     
     @IBAction func choice(sender: AnyObject) {
-        self.choiceFilter = self.selectedChoice.selectedSegmentIndex
+        self.choiceFilter = self.seg.selectedSegmentIndex
         self.delegate?.applyChoice(self.choiceFilter)
         self.dismissViewControllerAnimated(true, completion: nil )
     }
+   
     override func viewDidLoad() {
         super.viewDidLoad()
+        var attr = NSDictionary(object: UIFont(name: "Segoe UI", size: 10.0)!, forKey: NSFontAttributeName)
+        self.seg.setTitleTextAttributes(attr as [NSObject : AnyObject], forState: .Normal)
         self.checkChoiceAvailability()
-        self.selectedChoice.selectedSegmentIndex = self.choiceFilter
+        self.seg.selectedSegmentIndex = self.choiceFilter
     }
-    
     
     private func checkChoiceAvailability() {
         
         var tempQuestions = [Question]()
+        var counter: Int = 0
+        var available: Bool = false
+        
         //fetching training questions
         var questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 0", currentChapter!)
         for question in questionsRealm {
             tempQuestions.append(question)
+            counter++
+
         }
         
         //fetching solo questions already DONE
@@ -43,7 +50,7 @@ class ChoiceQuestionViewController: UIViewController {
         for question in questionsRealm {
             if History.isQuestionDone(question.id){
                 tempQuestions.append(question)
-                println("ajout solo")
+                counter++
             }
         }
         
@@ -52,51 +59,63 @@ class ChoiceQuestionViewController: UIViewController {
         for question in questionsRealm {
             if History.isQuestionDone(question.id){
                 tempQuestions.append(question)
-                println("ajout duo")
+                counter++
             }
             
         }
+        self.seg.setTitle("Toutes (\(counter))", forSegmentAtIndex: 0)
+        
         //Now we check if each option it's available
-        
-        var available: Bool = false
-        
+        counter = 0
         
         //FAILED
         for question in tempQuestions {
             if History.isQuestionFail(question.id){
-                available = true            }
+                available = true
+                counter++
+            }
         }
         if available {
-            self.selectedChoice.setEnabled(true, forSegmentAtIndex: 1)
+            self.seg.setEnabled(true, forSegmentAtIndex: 1)
+            self.seg.setTitle("Échouées (\(counter))", forSegmentAtIndex: 1)
         } else {
-            self.selectedChoice.setEnabled(false, forSegmentAtIndex: 1)
+            self.seg.setEnabled(false, forSegmentAtIndex: 1)
+            self.seg.setTitle("Échouées (\(counter))", forSegmentAtIndex: 1)
         }
         
         //SUCCEEDED
         available = false
+        counter = 0
         for question in tempQuestions {
             if History.isQuestionSuccess(question.id){
                 available = true
+                counter++
             }
         }
         if available {
-            self.selectedChoice.setEnabled(true, forSegmentAtIndex: 2)
+            self.seg.setEnabled(true, forSegmentAtIndex: 2)
+            self.seg.setTitle("Réussies (\(counter))", forSegmentAtIndex: 2)
         } else {
-            self.selectedChoice.setEnabled(false, forSegmentAtIndex: 2)
+            self.seg.setEnabled(false, forSegmentAtIndex: 2)
+            self.seg.setTitle("Réussies (\(counter))", forSegmentAtIndex: 2)
         }
         
         //NEW
         //TODO : implement a solo/duo history to fetch the solo/duo DONE in theses modes not in training mode and then filter here only the solo/duo questions done in this mode
         available = false
+        counter = 0
         for question in tempQuestions {
-            if History.isQuestionDone(question.id){
+            if History.isQuestionNew(question.id){
                 available = true
+                counter++
             }
         }
         if available {
-            self.selectedChoice.setEnabled(true, forSegmentAtIndex: 3)
+            self.seg.setEnabled(true, forSegmentAtIndex: 3)
+            self.seg.setTitle("Nouvelles (\(counter))", forSegmentAtIndex: 3)
         } else {
-            self.selectedChoice.setEnabled(false, forSegmentAtIndex: 3)
+            self.seg.setEnabled(false, forSegmentAtIndex: 3)
+            self.seg.setTitle("Nouvelles (\(counter))", forSegmentAtIndex: 3)
         }
 
     }

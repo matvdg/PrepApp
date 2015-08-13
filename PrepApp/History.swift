@@ -11,7 +11,6 @@ import UIKit
 
 class History{
     
-    
     static let realmHistory = FactoryRealm.getRealmHistory()
     
     class func addQuestionToHistory(question: QuestionHistory) {
@@ -40,6 +39,19 @@ class History{
 
     }
     
+    class func isQuestionNew(id: Int)-> Bool {
+        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        var result = true
+        for questionHistory in questionsHistory {
+            if id == questionHistory.id {
+                result = false
+                break
+            }
+        }
+        return result
+
+    }
+    
     class func isQuestionDone(id: Int)-> Bool {
         let questionsHistory = self.realmHistory.objects(QuestionHistory)
         var result = false
@@ -50,7 +62,7 @@ class History{
             }
         }
         return result
-
+        
     }
     
     class func isQuestionSuccess(id: Int)-> Bool {
