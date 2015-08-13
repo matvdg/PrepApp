@@ -29,11 +29,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             
             self.mail.text = User.currentUser!.email
             self.pass.text = "hidden"
+            println(User.currentUser!.printUser())
         
             User.authenticated = true
-            //self.performSegueWithIdentifier("loginDidSucceded", sender: self)
+            self.performSegueWithIdentifier("loginDidSucceded", sender: self)
             //without sync // test mode
-            self.performSegueWithIdentifier("showTraining", sender: self)
+            //self.performSegueWithIdentifier("showTraining", sender: self)
             println(Factory.path)
             
         } else {

@@ -11,7 +11,7 @@ import UIKit
 
 class History{
     
-    static let realmHistory = FactoryRealm.getRealmHistory()
+    private static let realmHistory = FactoryRealm.getRealmHistory()
     
     class func addQuestionToHistory(question: QuestionHistory) {
         
@@ -39,17 +39,37 @@ class History{
 
     }
     
+    class func markQuestion(question: QuestionHistory) {
+        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        var updated = false
+        for questionHistory in questionsHistory {
+            
+            if question.id == questionHistory.id {
+                realmHistory.write {
+                    questionHistory.marked = question.marked
+                }
+                //println("updated")
+                updated = true
+                break
+            }
+            
+        }
+    }
+    
     class func isQuestionNew(id: Int)-> Bool {
+        return !self.isQuestionDone(id)
+    }
+    
+    class func isQuestionNewInTraining(id: Int)-> Bool {
         let questionsHistory = self.realmHistory.objects(QuestionHistory)
         var result = true
         for questionHistory in questionsHistory {
-            if id == questionHistory.id {
+            if id == questionHistory.id && questionHistory.training == true {
                 result = false
                 break
             }
         }
         return result
-
     }
     
     class func isQuestionDone(id: Int)-> Bool {
@@ -65,7 +85,7 @@ class History{
         
     }
     
-    class func isQuestionSuccess(id: Int)-> Bool {
+    class func isQuestionSuccessed(id: Int)-> Bool {
         let questionsHistory = self.realmHistory.objects(QuestionHistory)
         var result = false
         for questionHistory in questionsHistory {
@@ -77,11 +97,23 @@ class History{
         return result
     }
     
-    class func isQuestionFail(id: Int)-> Bool {
+    class func isQuestionFailed(id: Int)-> Bool {
         let questionsHistory = self.realmHistory.objects(QuestionHistory)
         var result = false
         for questionHistory in questionsHistory {
             if id == questionHistory.id && !questionHistory.success {
+                result = true
+                break
+            }
+        }
+        return result
+    }
+    
+    class func isQuestionMarked(id: Int)-> Bool {
+        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        var result = false
+        for questionHistory in questionsHistory {
+            if id == questionHistory.id && questionHistory.marked {
                 result = true
                 break
             }

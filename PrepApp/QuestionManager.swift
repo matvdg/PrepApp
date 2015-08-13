@@ -43,6 +43,12 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
         return imagesArray[index-1]
     }
     
+    private func formatInfo(var input: String) -> String {
+        //println("formatting infos")
+        input = input.stringByReplacingOccurrencesOfString("<p>", withString: "<p style=\"font-style: italic; font-size: 12px; text-align: center;\">", options: nil, range: nil)
+        return input
+    }
+    
     private func saveQuestion(data: NSDictionary) {
         
         var newQuestion: Question = Question()
@@ -61,7 +67,7 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
         newQuestion.answerSix = parseNplaceImage(data["answer_6"] as! String, images: newQuestion.imagesQuestion)
         newQuestion.goodAnswers = data["good_answers"] as! String
         newQuestion.calculator = data["calculator"] as! Bool
-        newQuestion.info = data["info"] as! String
+        newQuestion.info = self.formatInfo(data["info"] as! String)
         newQuestion.type = data["type"] as! Int
         newQuestion.idDuo = data["id_group_duo"] as! Int
         newQuestion.idConcours = data["id_group_duo"] as! Int

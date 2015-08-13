@@ -29,6 +29,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     var stopTimer = NSTimer()
     var senseTimer: Bool = true
     var bugTimer: Bool = false
+    var answered: Bool = false
     var choiceFilter = 0 // 0=ALL 1=FAILED 2=SUCCEEDED 3=NEW
     let baseUrl = NSURL(fileURLWithPath: Factory.path, isDirectory: true)!
     
@@ -73,7 +74,9 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var questionNumber: UIBarButtonItem!
     
     @IBOutlet weak var calc: UIBarButtonItem!
-
+    
+    
+    //@IBActions methods
     @IBAction func previous(sender: AnyObject) {
         
         if !self.bugTimer {
@@ -94,7 +97,6 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    //@IBActions methods
     @IBAction func next(sender: AnyObject) {
         
         if !self.bugTimer {
@@ -124,6 +126,36 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         // show the alert
         self.presentViewController(myAlert, animated: true, completion: nil)
 
+    }
+    
+    @IBAction func markQuestion(sender: AnyObject) {
+        var title = "Question marquée"
+        var message = "Allez dans la section \"Profil\" pour retrouver vos questions marquées, envoyer des commentaires au professeur ou les supprimer"
+        if self.answered {
+            if History.isQuestionMarked(self.currentQuestion!.id) {
+                title = "Question déjà marquée !"
+                message = "Si vous voulez enlever le marquage ou envoyer des commentaires à propos de cette question au professeur, retrouvez-la dans la section \"Profil\""
+                Sound.playTrack("error")
+            } else {
+                Sound.playTrack("calc")
+                var historyQuestion = QuestionHistory()
+                historyQuestion.id = self.currentQuestion!.id
+                historyQuestion.marked = true
+                History.markQuestion(historyQuestion)
+            }
+        } else {
+            title = "Oups !"
+            message = "Vous devez d'abord répondre à la question pour pouvoir la marquer"
+            Sound.playTrack("error")
+        }
+        
+        // create alert controller
+        let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
+        // add an "OK" buttoné
+        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        // show the alert
+        self.presentViewController(myAlert, animated: true, completion: nil)
+        
     }
     
     @IBAction func questionPopOver(sender: AnyObject) {
@@ -195,26 +227,24 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         case 1: //FAILED
             //println("case failed")
             for question in tempQuestions {
-                if History.isQuestionFail(question.id){
-                    println("question failed ajoutée id=\(question.id)")
+                if History.isQuestionFailed(question.id){
+                    //println("question failed ajoutée id=\(question.id)")
                     self.questions.append(question)
                 }
             }
         case 2: //SUCCEEDED
             //println("case succeeded")
             for question in tempQuestions {
-                if History.isQuestionSuccess(question.id){
-                    println("question succeeded ajoutée id=\(question.id)")
+                if History.isQuestionSuccessed(question.id){
+                    //println("question succeeded ajoutée id=\(question.id)")
                     self.questions.append(question)
                 }
             }
         case 3: //NEW
              //println("case new")
-            
-            //TODO : implement a solo/duo history to fetch the solo/duo DONE in theses modes not in training mode and then filter here only the solo/duo questions done in this mode
             for question in tempQuestions {
-                if History.isQuestionNew(question.id){
-                    println("question done ajoutée id=\(question.id)")
+                if History.isQuestionNewInTraining(question.id){
+                    //println("question done ajoutée id=\(question.id)")
                     self.questions.append(question)
                 }
             }
@@ -280,6 +310,8 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     
     private func cleanView() {
         self.timer.invalidate()
+        self.answered = false
+        self.submitButton.hidden = false
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
         self.submitButton.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
@@ -298,7 +330,6 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.counter = 0
         self.currentNumber = 0
         self.questions.removeAll(keepCapacity: false)
-        println("after cleaned count = \(self.questions.count)")
         //load the questions
         self.loadQuestions()
         //display the first question
@@ -327,6 +358,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         
         //displaying the infos and button AFTER the wording and the answers table, and centering
         self.infos = UIWebView(frame: CGRectMake(0, self.wording.bounds.size.height + 10 + tableHeight , self.view.bounds.width, 40))
+        //println(self.currentQuestion!.info)
         self.infos.delegate = self
         self.infos.opaque = false
         self.infos.userInteractionEnabled = false
@@ -359,9 +391,11 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
         } else {
+            self.answered = true
             var historyQuestion = QuestionHistory()
             self.answers.userInteractionEnabled = false
             historyQuestion.id = self.currentQuestion!.id
+            historyQuestion.training = true
             if self.checkAnswers() {
                 //true
                 Sound.playTrack("true")
@@ -397,12 +431,18 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             //saving the question result in history
             History.addQuestionToHistory(historyQuestion)
-            //displaying and animating the correction button
-            self.submitButton.setTitle("Correction", forState: UIControlState.Normal)
-            self.submitButton.removeTarget(self, action: "submit", forControlEvents: UIControlEvents.TouchUpInside)
-            self.submitButton.addTarget(self, action: "showCorrection", forControlEvents: UIControlEvents.TouchUpInside)
-            self.timer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: Selector("animateButton"), userInfo: nil, repeats: true)
-            self.stopTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "stopAnimation", userInfo: nil, repeats: false)
+            //displaying and animating the correction button IF AVAILABLE
+            
+            if self.currentQuestion!.correction != "" {
+                self.submitButton.setTitle("Correction", forState: UIControlState.Normal)
+                self.submitButton.removeTarget(self, action: "submit", forControlEvents: UIControlEvents.TouchUpInside)
+                self.submitButton.addTarget(self, action: "showCorrection", forControlEvents: UIControlEvents.TouchUpInside)
+                self.timer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: Selector("animateButton"), userInfo: nil, repeats: true)
+                self.stopTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "stopAnimation", userInfo: nil, repeats: false)
+            } else {
+                self.submitButton.hidden = true
+            }
+            
         }
         
     }

@@ -70,7 +70,7 @@ class ChoiceQuestionViewController: UIViewController {
         
         //FAILED
         for question in tempQuestions {
-            if History.isQuestionFail(question.id){
+            if History.isQuestionFailed(question.id){
                 available = true
                 counter++
             }
@@ -87,7 +87,7 @@ class ChoiceQuestionViewController: UIViewController {
         available = false
         counter = 0
         for question in tempQuestions {
-            if History.isQuestionSuccess(question.id){
+            if History.isQuestionSuccessed(question.id){
                 available = true
                 counter++
             }
@@ -101,11 +101,10 @@ class ChoiceQuestionViewController: UIViewController {
         }
         
         //NEW
-        //TODO : implement a solo/duo history to fetch the solo/duo DONE in theses modes not in training mode and then filter here only the solo/duo questions done in this mode
         available = false
         counter = 0
         for question in tempQuestions {
-            if History.isQuestionNew(question.id){
+            if History.isQuestionNewInTraining(question.id){
                 available = true
                 counter++
             }

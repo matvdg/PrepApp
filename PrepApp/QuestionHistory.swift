@@ -11,6 +11,7 @@ import RealmSwift
 // QuestionHistory model
 class QuestionHistory : Object {
     dynamic var id: Int = 0
+    dynamic var training: Bool = false
     dynamic var success: Bool = false
-    //false = fail, true = success
+    dynamic var marked: Bool = false
 }
