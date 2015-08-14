@@ -15,20 +15,90 @@ class ChoiceQuestionViewController: UIViewController {
     let realm = FactoryRealm.getRealm()
     var currentChapter: Chapter?
 
-    @IBOutlet weak var seg: UISegmentedControl!
     
-    @IBAction func choice(sender: AnyObject) {
-        self.choiceFilter = self.seg.selectedSegmentIndex
+    //@IBOutlets
+    @IBOutlet weak var all: UIButton!
+    @IBOutlet weak var failed: UIButton!
+    @IBOutlet weak var succeeded: UIButton!
+    @IBOutlet weak var new: UIButton!
+    @IBOutlet weak var marked: UIButton!
+    
+    //@IBActions
+    @IBAction func filterAll(sender: AnyObject) {
+        self.choiceFilter = 0
         self.delegate?.applyChoice(self.choiceFilter)
         self.dismissViewControllerAnimated(true, completion: nil )
+        self.designButtons()
     }
-   
+    
+    @IBAction func filterFailed(sender: AnyObject) {
+        self.choiceFilter = 1
+        self.delegate?.applyChoice(self.choiceFilter)
+        self.dismissViewControllerAnimated(true, completion: nil )
+        self.designButtons()
+    }
+    
+    @IBAction func filterSucceeded(sender: AnyObject) {
+        self.choiceFilter = 2
+        self.delegate?.applyChoice(self.choiceFilter)
+        self.dismissViewControllerAnimated(true, completion: nil )
+        self.designButtons()
+    }
+    
+    @IBAction func filterNew(sender: AnyObject) {
+        self.choiceFilter = 3
+        self.delegate?.applyChoice(self.choiceFilter)
+        self.dismissViewControllerAnimated(true, completion: nil )
+        self.designButtons()
+    }
+    
+    @IBAction func filterMarked(sender: AnyObject) {
+        self.choiceFilter = 4
+        self.delegate?.applyChoice(self.choiceFilter)
+        self.dismissViewControllerAnimated(true, completion: nil )
+        self.designButtons()
+    }
+    
+    //app method
     override func viewDidLoad() {
         super.viewDidLoad()
-        var attr = NSDictionary(object: UIFont(name: "Segoe UI", size: 10.0)!, forKey: NSFontAttributeName)
-        self.seg.setTitleTextAttributes(attr as [NSObject : AnyObject], forState: .Normal)
+        self.designButtons()
         self.checkChoiceAvailability()
-        self.seg.selectedSegmentIndex = self.choiceFilter
+    }
+    
+    //methods
+    private func designButtons() {
+        all.backgroundColor = UIColor.whiteColor()
+        all.setTitleColor(UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1), forState: .Normal)
+        failed.backgroundColor = UIColor.whiteColor()
+        failed.setTitleColor(UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1), forState: .Normal)
+        succeeded.backgroundColor = UIColor.whiteColor()
+        succeeded.setTitleColor(UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1), forState: .Normal)
+        new.backgroundColor = UIColor.whiteColor()
+        new.setTitleColor(UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1), forState: .Normal)
+        marked.backgroundColor = UIColor.whiteColor()
+        marked.setTitleColor(UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1), forState: .Normal)
+        
+        switch(self.choiceFilter) {
+            case 0 : //All
+                all.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+                all.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            case 1 : //Failed
+                failed.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+                failed.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            case 2 : //Succeeded
+                succeeded.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+                succeeded.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            case 3 : //New
+                new.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+                new.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            case 4 : //Marked
+                marked.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+                marked.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            default :
+                all.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+                all.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        }
     }
     
     private func checkChoiceAvailability() {
@@ -63,7 +133,7 @@ class ChoiceQuestionViewController: UIViewController {
             }
             
         }
-        self.seg.setTitle("Toutes (\(counter))", forSegmentAtIndex: 0)
+        self.all.setTitle("Toutes (\(counter))", forState: .Normal)
         
         //Now we check if each option it's available
         counter = 0
@@ -76,12 +146,12 @@ class ChoiceQuestionViewController: UIViewController {
             }
         }
         if available {
-            self.seg.setEnabled(true, forSegmentAtIndex: 1)
-            self.seg.setTitle("Échouées (\(counter))", forSegmentAtIndex: 1)
+            self.failed.enabled = true
         } else {
-            self.seg.setEnabled(false, forSegmentAtIndex: 1)
-            self.seg.setTitle("Échouées (\(counter))", forSegmentAtIndex: 1)
+            self.failed.enabled = false
+            failed.setTitleColor(UIColor.grayColor(), forState: .Normal)
         }
+        self.failed.setTitle("Échouées (\(counter))", forState: .Normal)
         
         //SUCCEEDED
         available = false
@@ -93,12 +163,12 @@ class ChoiceQuestionViewController: UIViewController {
             }
         }
         if available {
-            self.seg.setEnabled(true, forSegmentAtIndex: 2)
-            self.seg.setTitle("Réussies (\(counter))", forSegmentAtIndex: 2)
+            self.succeeded.enabled = true
         } else {
-            self.seg.setEnabled(false, forSegmentAtIndex: 2)
-            self.seg.setTitle("Réussies (\(counter))", forSegmentAtIndex: 2)
+            self.succeeded.enabled = false
+            succeeded.setTitleColor(UIColor.grayColor(), forState: .Normal)
         }
+        self.succeeded.setTitle("Réussies (\(counter))", forState: .Normal)
         
         //NEW
         available = false
@@ -110,12 +180,12 @@ class ChoiceQuestionViewController: UIViewController {
             }
         }
         if available {
-            self.seg.setEnabled(true, forSegmentAtIndex: 3)
-            self.seg.setTitle("Nouvelles (\(counter))", forSegmentAtIndex: 3)
+            self.new.enabled = true
         } else {
-            self.seg.setEnabled(false, forSegmentAtIndex: 3)
-            self.seg.setTitle("Nouvelles (\(counter))", forSegmentAtIndex: 3)
+            self.new.enabled = false
+            new.setTitleColor(UIColor.grayColor(), forState: .Normal)
         }
+        self.new.setTitle("Nouvelles (\(counter))", forState: .Normal)
         
         //MARKED
         available = false
@@ -127,14 +197,12 @@ class ChoiceQuestionViewController: UIViewController {
             }
         }
         if available {
-            self.seg.setEnabled(true, forSegmentAtIndex: 4)
-            self.seg.setTitle("Marquées (\(counter))", forSegmentAtIndex: 4)
+            self.marked.enabled = true
         } else {
-            self.seg.setEnabled(false, forSegmentAtIndex: 4)
-            self.seg.setTitle("Marquées (\(counter))", forSegmentAtIndex: 4)
+            self.marked.enabled = false
+            marked.setTitleColor(UIColor.grayColor(), forState: .Normal)
         }
-
-
+        self.marked.setTitle("Marquées (\(counter))", forState: .Normal)
     }
     
 

@@ -39,7 +39,7 @@ class History{
 
     }
     
-    class func markQuestion(question: QuestionHistory) {
+    class func updateQuestionMark(question: QuestionHistory) {
         let questionsHistory = self.realmHistory.objects(QuestionHistory)
         var updated = false
         for questionHistory in questionsHistory {

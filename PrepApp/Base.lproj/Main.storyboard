@@ -46,6 +46,11 @@
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -804,31 +809,97 @@
                         <viewControllerLayoutGuide type="bottom" id="7tI-Hk-gLE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dEg-nT-YxD">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="IQq-Ua-DWF">
-                                <rect key="frame" x="10" y="6" width="300" height="29"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CeN-Rz-hNK">
+                                <rect key="frame" x="0.0" y="30" width="200" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="0GI-zH-bKH"/>
-                                    <constraint firstAttribute="height" constant="28" id="N0i-zu-mTh"/>
+                                    <constraint firstAttribute="height" constant="30" id="G7n-Rl-tgw"/>
                                 </constraints>
-                                <segments>
-                                    <segment title="Toutes (67)"/>
-                                    <segment title="Echouées (10)"/>
-                                    <segment title="Réussies (23)"/>
-                                    <segment title="Nouvelles (34)"/>
-                                    <segment title="Marquées (2)"/>
-                                </segments>
-                                <color key="tintColor" red="0.10588235408067703" green="0.5058823823928833" blue="0.36862745881080627" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
+                                <state key="normal" title="Échouées">
+                                    <color key="titleColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
-                                    <action selector="choice:" destination="D9q-9L-dR2" eventType="valueChanged" id="RIY-lb-yqE"/>
+                                    <action selector="filterFailed:" destination="D9q-9L-dR2" eventType="touchUpInside" id="2P8-2d-fy9"/>
                                 </connections>
-                            </segmentedControl>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dq2-m0-iNb">
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
+                                <color key="backgroundColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="vZK-ai-moQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
+                                <state key="normal" title="Toutes">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="filterAll:" destination="D9q-9L-dR2" eventType="touchUpInside" id="csi-ee-exL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBC-VL-S2b">
+                                <rect key="frame" x="0.0" y="60" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="P9R-pR-7Mx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
+                                <state key="normal" title="Réussies">
+                                    <color key="titleColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="filterSucceeded:" destination="D9q-9L-dR2" eventType="touchUpInside" id="GCP-Xh-T4Z"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FSu-g0-2bi">
+                                <rect key="frame" x="0.0" y="90" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="lYr-4a-hra"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
+                                <state key="normal" title="Nouvelles">
+                                    <color key="titleColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="filterNew:" destination="D9q-9L-dR2" eventType="touchUpInside" id="idu-HJ-M2g"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wrv-5u-lfq">
+                                <rect key="frame" x="0.0" y="120" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="BFc-tA-n5A"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
+                                <state key="normal" title="Marquées">
+                                    <color key="titleColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="filterMarked:" destination="D9q-9L-dR2" eventType="touchUpInside" id="vpD-gX-fym"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="IQq-Ua-DWF" secondAttribute="centerX" id="4u7-5y-x8F"/>
-                            <constraint firstAttribute="centerY" secondItem="IQq-Ua-DWF" secondAttribute="centerY" id="FAq-cC-jn4"/>
+                            <constraint firstItem="FSu-g0-2bi" firstAttribute="top" secondItem="jBC-VL-S2b" secondAttribute="bottom" id="2pl-0g-pYt"/>
+                            <constraint firstItem="FSu-g0-2bi" firstAttribute="leading" secondItem="dEg-nT-YxD" secondAttribute="leading" id="4wC-2z-I4H"/>
+                            <constraint firstItem="dq2-m0-iNb" firstAttribute="leading" secondItem="dEg-nT-YxD" secondAttribute="leading" id="6ie-14-G7n"/>
+                            <constraint firstItem="dq2-m0-iNb" firstAttribute="top" secondItem="cq5-6P-w7A" secondAttribute="bottom" id="Cmi-If-8hz"/>
+                            <constraint firstItem="CeN-Rz-hNK" firstAttribute="top" secondItem="dq2-m0-iNb" secondAttribute="bottom" id="HFh-Y1-48K"/>
+                            <constraint firstAttribute="trailing" secondItem="FSu-g0-2bi" secondAttribute="trailing" id="VGN-O8-HC8"/>
+                            <constraint firstItem="Wrv-5u-lfq" firstAttribute="top" secondItem="FSu-g0-2bi" secondAttribute="bottom" id="X1g-iN-rcK"/>
+                            <constraint firstItem="jBC-VL-S2b" firstAttribute="top" secondItem="CeN-Rz-hNK" secondAttribute="bottom" id="avb-zn-0O4"/>
+                            <constraint firstAttribute="trailing" secondItem="CeN-Rz-hNK" secondAttribute="trailing" id="cLZ-RM-SvL"/>
+                            <constraint firstItem="jBC-VL-S2b" firstAttribute="leading" secondItem="dEg-nT-YxD" secondAttribute="leading" id="dTh-bc-3Bi"/>
+                            <constraint firstItem="CeN-Rz-hNK" firstAttribute="leading" secondItem="dEg-nT-YxD" secondAttribute="leading" id="jG7-2I-aRs"/>
+                            <constraint firstItem="Wrv-5u-lfq" firstAttribute="leading" secondItem="dEg-nT-YxD" secondAttribute="leading" id="kbb-MF-DDS"/>
+                            <constraint firstAttribute="trailing" secondItem="Wrv-5u-lfq" secondAttribute="trailing" id="qHH-xN-Fpo"/>
+                            <constraint firstAttribute="trailing" secondItem="jBC-VL-S2b" secondAttribute="trailing" id="qdd-Vi-zR3"/>
+                            <constraint firstAttribute="trailing" secondItem="dq2-m0-iNb" secondAttribute="trailing" id="ugU-HI-WL9"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -836,14 +907,18 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="40"/>
+                    <size key="freeformSize" width="200" height="150"/>
                     <connections>
-                        <outlet property="seg" destination="IQq-Ua-DWF" id="968-hV-ZqY"/>
+                        <outlet property="all" destination="dq2-m0-iNb" id="uC4-VD-RoC"/>
+                        <outlet property="failed" destination="CeN-Rz-hNK" id="cwf-Zr-bqd"/>
+                        <outlet property="marked" destination="Wrv-5u-lfq" id="sTy-l1-d1g"/>
+                        <outlet property="new" destination="FSu-g0-2bi" id="6HB-VP-Vwy"/>
+                        <outlet property="succeeded" destination="jBC-VL-S2b" id="aFT-1d-Rwp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R3x-d7-Lkc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4227" y="-886"/>
+            <point key="canvasLocation" x="4272" y="-906"/>
         </scene>
         <!--Question-->
         <scene sceneID="40I-Ky-VIs">
@@ -907,6 +982,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.92549020051956177" green="0.92549020051956177" blue="0.92549020051956177" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.10588235408067703" green="0.5058823823928833" blue="0.36862745881080627" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Ufd-hO-c6S" firstAttribute="top" secondItem="dp8-K3-32C" secondAttribute="bottom" id="1Wt-lj-MHz"/>
                             <constraint firstAttribute="trailing" secondItem="dp8-K3-32C" secondAttribute="trailing" id="Bhq-ga-hnD"/>
@@ -923,6 +999,7 @@
                         <outlet property="previousButton" destination="YaD-y2-nOb" id="6Zy-fq-f9h"/>
                         <outlet property="questionNumber" destination="jVL-k9-dd8" id="mTh-cq-Rd3"/>
                         <segue destination="wd7-J6-c5g" kind="presentation" identifier="showCorrection" modalTransitionStyle="partialCurl" id="78B-T2-OOj"/>
+                        <segue destination="xTP-p3-Wzx" kind="show" identifier="showMarkedQuestions" id="udu-Mv-cp9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Npr-RE-GW6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1650,8 +1727,9 @@
         <image name="training" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="M8L-2r-gSN"/>
-        <segue reference="2V6-ZR-wfX"/>
         <segue reference="WYj-iM-Hx0"/>
+        <segue reference="2V6-ZR-wfX"/>
+        <segue reference="M8L-2r-gSN"/>
+        <segue reference="udu-Mv-cp9"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class QuestionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate, ChoiceQuestionViewControllerDelegate ,UIWebViewDelegate {
+class QuestionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate, ChoiceQuestionViewControllerDelegate, UIWebViewDelegate, UIAdaptivePresentationControllerDelegate  {
     
     //properties
     let realm = FactoryRealm.getRealm()
@@ -22,13 +22,13 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     var selectedAnswers: [Int] = []
     var didLoadWording = false
     var didLoadAnswers = false
+    var didLoadInfos = false
     var sizeAnswerCells: [Int:CGFloat] = [:]
     var numberOfAnswers = 0
     var timer = NSTimer()
     var stopTimer = NSTimer()
     var senseTimer: Bool = true
     var bugTimer: Bool = false
-    var answered: Bool = false
     var choiceFilter = 0 // 0=ALL 1=FAILED 2=SUCCEEDED 3=NEW 4=MARKED
     let baseUrl = NSURL(fileURLWithPath: Factory.path, isDirectory: true)!
     
@@ -38,17 +38,26 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     var answers = UITableView()
     var infos = UIWebView()
     var scrollView: UIScrollView!
+    var greyMask: UIView!
     
     //app methods
     override func viewDidLoad() {
+        //handling swipe gestures
+        var swipeRight = UISwipeGestureRecognizer(target: self, action: "swiped:")
+        swipeRight.direction = UISwipeGestureRecognizerDirection.Right
+        self.view.addGestureRecognizer(swipeRight)
         
+        var swipeLeft = UISwipeGestureRecognizer(target: self, action: "swiped:")
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
+        self.view.addGestureRecognizer(swipeLeft)
+
         //display the subject
         self.numberOfAnswers = 0
         self.sizeAnswerCells.removeAll(keepCapacity: false)
         self.title = self.currentSubject!.name.uppercaseString
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         //display the chapter
-        self.chapter.text = "Chapitre n° \(self.currentChapter!.number) : \(self.currentChapter!.name)"
+        self.chapter.text = "Chapitre \(self.currentChapter!.number) : \(self.currentChapter!.name)"
         //load the questions
         self.loadQuestions()
         //display the first question
@@ -78,50 +87,11 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     
     //@IBActions methods
     @IBAction func previous(sender: AnyObject) {
-        
-        if !self.bugTimer {
-            Sound.playTrack("next")
-            if self.currentNumber + 1 == self.questions.count {
-                self.nextButton.enabled = true
-            }
-            if self.currentNumber - 1 == 0 {
-                self.previousButton.enabled = false
-            }
-            self.bugTimer = true
-            let delay = 0.5 * Double(NSEC_PER_SEC)
-            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-            dispatch_after(time, dispatch_get_main_queue()) {
-                self.cleanView()
-                self.sizeAnswerCells.removeAll(keepCapacity: false)
-                self.currentNumber = (self.currentNumber - 1) % self.questions.count
-                self.loadQuestion()
-                self.bugTimer = false
-            }
-        }
+        self.goPrevious()
     }
     
     @IBAction func next(sender: AnyObject) {
-        
-        if !self.bugTimer {
-            Sound.playTrack("next")
-            if self.currentNumber == 0 {
-                self.previousButton.enabled = true
-            }
-            if self.currentNumber + 2 == self.questions.count {
-                self.nextButton.enabled = false
-            }
-
-            self.bugTimer = true
-            let delay = 0.5 * Double(NSEC_PER_SEC)
-            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-            dispatch_after(time, dispatch_get_main_queue()) {
-                self.cleanView()
-                self.sizeAnswerCells.removeAll(keepCapacity: false)
-                self.currentNumber = (self.currentNumber + 1) % self.questions.count
-                self.loadQuestion()
-                self.bugTimer = false
-            }
-        }
+        self.goNext()
     }
     
     @IBAction func calcPopUp(sender: AnyObject) {
@@ -140,35 +110,70 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         
         var title = ""
         var message = ""
-        
         if History.isQuestionMarked(self.currentQuestion!.id){
             Sound.playTrack("error")
             title = "Question déjà marquée !"
-            message = "Si vous voulez enlever le marquage ou envoyer des commentaires à propos de cette question au professeur, retrouvez-la dans la section \"Profil\""
+            message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\" dans \"Profil\""
+            let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
+            myAlert.addAction(UIAlertAction(title: "Supprimer le marquage", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                var historyQuestion = QuestionHistory()
+                historyQuestion.id = self.currentQuestion!.id
+                historyQuestion.marked = false
+                History.updateQuestionMark(historyQuestion)
+                Sound.playTrack("calc")
+                let myAlert = UIAlertController(title: "Marquage supprimé", message: nil , preferredStyle: UIAlertControllerStyle.Alert)
+                myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                // show the alert
+                self.presentViewController(myAlert, animated: true, completion: nil)
+            }))
+            myAlert.addAction(UIAlertAction(title: "Envoyer un commentaire", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                self.performSegueWithIdentifier("showMarkedQuestions", sender: self)
+            }))
+            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+
+            // show the alert
+            self.presentViewController(myAlert, animated: true, completion: nil)
+            
         } else {
-            if self.answered {
+            if History.isQuestionDone(self.currentQuestion!.id) {
                 Sound.playTrack("calc")
                 title = "Question marquée"
-                message = "Allez dans la section \"Profil\" pour retrouver vos questions marquées, envoyer des commentaires au professeur ou les supprimer"
+                message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\" dans \"Profil\""
+                let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
                 var historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
                 historyQuestion.marked = true
-                History.markQuestion(historyQuestion)
-                
+                History.updateQuestionMark(historyQuestion)
+                myAlert.addAction(UIAlertAction(title: "Supprimer le marquage", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                    var historyQuestion = QuestionHistory()
+                    historyQuestion.id = self.currentQuestion!.id
+                    historyQuestion.marked = false
+                    History.updateQuestionMark(historyQuestion)
+                    Sound.playTrack("calc")
+                    let myAlert = UIAlertController(title: "Marquage supprimé", message: nil , preferredStyle: UIAlertControllerStyle.Alert)
+                    myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                    // show the alert
+                    self.presentViewController(myAlert, animated: true, completion: nil)
+                }))
+
+                myAlert.addAction(UIAlertAction(title: "Envoyer un commentaire", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                    self.performSegueWithIdentifier("showMarkedQuestions", sender: self)
+                }))
+                myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                // show the alert
+                self.presentViewController(myAlert, animated: true, completion: nil)
+
             } else {
                 Sound.playTrack("error")
                 title = "Oups !"
                 message = "Vous devez d'abord répondre à la question pour pouvoir la marquer"
+                let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
+                myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                // show the alert
+                self.presentViewController(myAlert, animated: true, completion: nil)
+
             }
         }
-        
-        // create alert controller
-        let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
-        // add an "OK" buttoné
-        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-        // show the alert
-        self.presentViewController(myAlert, animated: true, completion: nil)
-        
     }
     
     @IBAction func questionPopOver(sender: AnyObject) {
@@ -177,7 +182,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             bundle: nil)
         var choiceQuestion: ChoiceQuestionViewController = storyboard.instantiateViewControllerWithIdentifier("ChoiceQuestionViewController") as! ChoiceQuestionViewController
         choiceQuestion.modalPresentationStyle = .Popover
-        choiceQuestion.preferredContentSize = CGSizeMake(320, 40)
+        choiceQuestion.preferredContentSize = CGSizeMake(200, 150)
         choiceQuestion.delegate = self
         choiceQuestion.choiceFilter = self.choiceFilter
         choiceQuestion.currentChapter = self.currentChapter
@@ -193,17 +198,58 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     
     
     //methods
-    func applyChoice(var choice: Int){
-        self.choiceFilter = choice
-        self.refreshView()
-        Sound.playTrack("next")
+    private func goNext() {
+        if self.currentNumber == 0 {
+            self.previousButton.enabled = true
+        }
+        if self.currentNumber + 2 == self.questions.count {
+            self.nextButton.enabled = false
+        }
+        if !self.bugTimer {
+            Sound.playTrack("next")
+            self.bugTimer = true
+            let delay = 0.5 * Double(NSEC_PER_SEC)
+            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+            dispatch_after(time, dispatch_get_main_queue()) {
+                self.cleanView()
+                self.sizeAnswerCells.removeAll(keepCapacity: false)
+                self.currentNumber = (self.currentNumber + 1) % self.questions.count
+                self.loadQuestion()
+                self.bugTimer = false
+            }
+        }
     }
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-            return .None
+    private func goPrevious() {
+        if self.currentNumber + 1 == self.questions.count {
+            self.nextButton.enabled = true
+        }
+        if self.currentNumber - 1 == 0 {
+            self.previousButton.enabled = false
+        }
+        if !self.bugTimer {
+            Sound.playTrack("next")
+            self.bugTimer = true
+            let delay = 0.5 * Double(NSEC_PER_SEC)
+            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+            dispatch_after(time, dispatch_get_main_queue()) {
+                self.cleanView()
+                self.sizeAnswerCells.removeAll(keepCapacity: false)
+                self.currentNumber = (self.currentNumber - 1) % self.questions.count
+                self.loadQuestion()
+                self.bugTimer = false
+            }
+        }
     }
     
     private func loadQuestions() {
+        //applying grey mask
+        let frame = CGRect(x: 0, y: 152, width: self.view.bounds.width, height: self.view.bounds.height-152)
+        self.greyMask = UIView(frame: frame)
+        self.greyMask.backgroundColor = UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
+        self.greyMask.layer.zPosition = 100
+        self.view.addSubview(self.greyMask)
+
         
         var tempQuestions = [Question]()
         //fetching training questions
@@ -269,6 +315,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     private func loadQuestion() {
+        self.greyMask.layer.zPosition = 100
         self.selectedAnswers.removeAll(keepCapacity: false)
         self.questionNumber.title = "Question n°\(self.currentNumber+1)/\(self.questions.count)"
         self.currentQuestion = self.questions[self.currentNumber]
@@ -287,6 +334,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "calc") : UIImage(named: "nocalc"))
         self.didLoadWording = false
         self.didLoadAnswers = false
+        self.didLoadInfos = false
         self.countAnswers()
         self.loadWording()
         
@@ -300,7 +348,8 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.scrollView = UIScrollView(frame: scrollFrame)
         self.scrollView.backgroundColor = UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
         self.scrollView.addSubview(self.wording)
-        self.view.addSubview(scrollView)
+        self.view.addSubview(self.scrollView)
+        
     }
         
     private func loadAnswers(y: CGFloat){
@@ -313,13 +362,10 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.answers.registerClass(UITableViewCellAnswer.self, forCellReuseIdentifier: "answerCell")
         self.scrollView.addSubview(self.answers)
         self.answers.reloadData()
-        
-        
     }
     
     private func cleanView() {
         self.timer.invalidate()
-        self.answered = false
         self.submitButton.hidden = false
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
@@ -388,6 +434,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.submitButton.addTarget(self, action: "submit", forControlEvents: UIControlEvents.TouchUpInside)
         self.scrollView.addSubview(self.infos)
         self.scrollView.addSubview(self.submitButton)
+        
     }
     
     func submit() {
@@ -401,7 +448,6 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
         } else {
-            self.answered = true
             var historyQuestion = QuestionHistory()
             self.answers.userInteractionEnabled = false
             historyQuestion.id = self.currentQuestion!.id
@@ -500,6 +546,29 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.performSegueWithIdentifier("showCorrection", sender: self)
     }
     
+    func swiped(gesture : UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            
+            switch swipeGesture.direction {
+                
+            case UISwipeGestureRecognizerDirection.Right:
+                if self.currentNumber + 1 != self.questions.count {
+                    self.goNext()
+                }
+                
+            case UISwipeGestureRecognizerDirection.Left:
+                if self.currentNumber != 0 {
+                    self.goPrevious()
+                }
+                
+            default:
+                println("other")
+                break
+            }
+            
+        }
+    }
+    
     private func checkAnswers() -> Bool {
         var result = false
         for selectedAnswer in self.selectedAnswers {
@@ -537,7 +606,19 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.numberOfAnswers = numberOfAnswers
     }
     
-    //tableview methods
+    //ChoiceQuestionViewControllerDelegate method
+    func applyChoice(var choice: Int){
+        self.choiceFilter = choice
+        self.refreshView()
+        Sound.playTrack("next")
+    }
+
+    //UIAdaptivePresentationControllerDelegate method
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
+    }
+    
+    //UITableViewDataSource methods
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //println("il y a \(self.numberOfAnswers) cellules")
         return self.numberOfAnswers
@@ -605,6 +686,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         
     }
     
+    //UITableViewDelegate methods
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if self.sizeAnswerCells.count == self.numberOfAnswers {
             if let height = self.sizeAnswerCells[indexPath.row] {
@@ -638,7 +720,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         //println(self.selectedAnswers)
     }
     
-    //webviews method
+    //UIWebViewDelegate method
     func webViewDidFinishLoad(webView: UIWebView) {
         if (self.sizeAnswerCells.count != self.numberOfAnswers) {
             //Asks the view to calculate and return the size that best fits its subviews.
@@ -649,27 +731,21 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             self.scrollView.contentSize =  self.wording.bounds.size
             if self.didLoadWording {
                 //we have just loaded the Answers webviews
-                //println("we have just loaded the Answers webviews")
                 webView.frame = CGRectMake(40, 0, self.view.bounds.width - 40, fittingSize.height)
                 //we save the computed sizes
                 if let webViewAnswer = webView as? UIWebViewAnswer {
                     self.sizeAnswerCells[webViewAnswer.position!] = fittingSize.height
                 }
                 
-                //println(self.sizeAnswerCells)
-                
                 //if we have computed ALL the answers webview, then we refresh the table to display the proper sizes
                 if self.sizeAnswerCells.count == self.numberOfAnswers {
-                    //println("self.sizeAnswerCells.count = \(self.sizeAnswerCells.count)")
-                    //println("numberOfAnswers = \(self.numberOfAnswers)")
-                    //println("cell sizes computed, refreshing table")
                     self.answers.separatorInset = UIEdgeInsetsMake(0, 40, 0, 0)
                     self.answers.reloadData()
                 }
                 
+                
             } else {
                 //we have just loaded the Wording webview
-                //println("we have just loaded the Wording webview")
                 self.sizeAnswerCells.removeAll(keepCapacity: false)
                 webView.frame = CGRectMake(0, 0, self.view.bounds.width, fittingSize.height)
                 self.wording.backgroundColor = UIColor.whiteColor()
@@ -679,13 +755,14 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
 
         } else {
             if self.didLoadAnswers {
-                //we have just loaded the Infos webview
-                //println("we have just loaded the Infos webview")
-                self.infos.backgroundColor = UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
-            
+                if !self.didLoadInfos {
+                    self.didLoadInfos = true
+                    //we have just loaded the Infos webview
+                    self.infos.backgroundColor = UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
+                    self.greyMask.layer.zPosition = 0
+                }
             } else {
                 //we have just refreshed the answers table, now we load the Infos webview and the submit button
-                //println("we have just refreshed the answers table, now we load the Infos webview and the submit button")
                 self.didLoadAnswers = true
                 self.loadSubmit()
                 
@@ -698,12 +775,11 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
-        var correctionVC = segue.destinationViewController as! CorrectionViewController
-        // Pass the selected object to the new view controller.
-        correctionVC.correctionHTML = self.currentQuestion!.correction
+        if let correctionVC = segue.destinationViewController as? CorrectionViewController {
+            // Pass the selected object to the new view controller.
+            correctionVC.correctionHTML = self.currentQuestion!.correction
+        }
     }
-
-
 }
 
 
