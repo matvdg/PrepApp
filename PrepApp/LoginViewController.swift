@@ -34,7 +34,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             User.authenticated = true
             self.performSegueWithIdentifier("loginDidSucceded", sender: self)
             //without sync // test mode
-            //self.performSegueWithIdentifier("showTraining", sender: self)
+            self.performSegueWithIdentifier("showTraining", sender: self)
             println(Factory.path)
             
         } else {

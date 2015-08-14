@@ -918,6 +918,8 @@
                     <connections>
                         <outlet property="calc" destination="csE-kF-ELV" id="itW-rT-7X8"/>
                         <outlet property="chapter" destination="dp8-K3-32C" id="Dqm-dY-G3f"/>
+                        <outlet property="nextButton" destination="Fer-bE-i3u" id="Ufp-Yi-8zr"/>
+                        <outlet property="previousButton" destination="YaD-y2-nOb" id="6Zy-fq-f9h"/>
                         <outlet property="questionNumber" destination="jVL-k9-dd8" id="mTh-cq-Rd3"/>
                         <segue destination="wd7-J6-c5g" kind="presentation" identifier="showCorrection" modalTransitionStyle="partialCurl" id="78B-T2-OOj"/>
                     </connections>

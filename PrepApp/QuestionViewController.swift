@@ -18,7 +18,6 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     var currentSubject: Subject?
     var currentNumber: Int = 0
     var currentQuestion: Question?
-    var counter: Int = 0
     var goodAnswers: [Int] = []
     var selectedAnswers: [Int] = []
     var didLoadWording = false
@@ -46,7 +45,6 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         //display the subject
         self.numberOfAnswers = 0
         self.sizeAnswerCells.removeAll(keepCapacity: false)
-        self.counter = 0
         self.title = self.currentSubject!.name.uppercaseString
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         //display the chapter
@@ -75,23 +73,28 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBOutlet weak var calc: UIBarButtonItem!
     
+    @IBOutlet weak var nextButton: UIBarButtonItem!
+    @IBOutlet weak var previousButton: UIBarButtonItem!
     
     //@IBActions methods
     @IBAction func previous(sender: AnyObject) {
         
         if !self.bugTimer {
             Sound.playTrack("next")
+            if self.currentNumber + 1 == self.questions.count {
+                self.nextButton.enabled = true
+            }
+            if self.currentNumber - 1 == 0 {
+                self.previousButton.enabled = false
+            }
             self.bugTimer = true
             let delay = 0.5 * Double(NSEC_PER_SEC)
             let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
             dispatch_after(time, dispatch_get_main_queue()) {
                 self.cleanView()
                 self.sizeAnswerCells.removeAll(keepCapacity: false)
-                self.currentNumber = (self.currentNumber - 1) % self.counter
-                self.currentNumber = (self.currentNumber < 0) ? (self.currentNumber + self.counter):(self.currentNumber)
-
+                self.currentNumber = (self.currentNumber - 1) % self.questions.count
                 self.loadQuestion()
-                
                 self.bugTimer = false
             }
         }
@@ -101,19 +104,24 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         
         if !self.bugTimer {
             Sound.playTrack("next")
+            if self.currentNumber == 0 {
+                self.previousButton.enabled = true
+            }
+            if self.currentNumber + 2 == self.questions.count {
+                self.nextButton.enabled = false
+            }
+
             self.bugTimer = true
             let delay = 0.5 * Double(NSEC_PER_SEC)
             let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
             dispatch_after(time, dispatch_get_main_queue()) {
                 self.cleanView()
                 self.sizeAnswerCells.removeAll(keepCapacity: false)
-                self.currentNumber = (self.currentNumber + 1) % self.counter
+                self.currentNumber = (self.currentNumber + 1) % self.questions.count
                 self.loadQuestion()
-                
                 self.bugTimer = false
             }
         }
-        
     }
     
     @IBAction func calcPopUp(sender: AnyObject) {
@@ -194,7 +202,6 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         
         var tempQuestions = [Question]()
         //fetching training questions
-        //
         var questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 0", currentChapter!)
         for question in questionsRealm {
             tempQuestions.append(question)
@@ -252,16 +259,19 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             println("default")
             
         }
-        //println(self.questions.count)
-    
-        self.counter = self.questions.count
-        //println(self.counter)
-        //println(self.questions)
+        if self.questions.count == 1 {
+            self.nextButton.enabled = false
+            self.previousButton.enabled = false
+        } else {
+            self.nextButton.enabled = true
+            self.previousButton.enabled = false
+        }
+        self.questions.shuffle()
     }
     
     private func loadQuestion() {
         self.selectedAnswers.removeAll(keepCapacity: false)
-        self.questionNumber.title = "Question n°\(self.currentNumber+1)/\(self.counter)"
+        self.questionNumber.title = "Question n°\(self.currentNumber+1)/\(self.questions.count)"
         self.currentQuestion = self.questions[self.currentNumber]
         let answers = self.currentQuestion!.goodAnswers.componentsSeparatedByString(",")
         self.goodAnswers.removeAll(keepCapacity: false)
@@ -327,8 +337,9 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.cleanView()
         self.numberOfAnswers = 0
         self.sizeAnswerCells.removeAll(keepCapacity: false)
-        self.counter = 0
         self.currentNumber = 0
+        self.nextButton.enabled = true
+        self.previousButton.enabled = false
         self.questions.removeAll(keepCapacity: false)
         //load the questions
         self.loadQuestions()
