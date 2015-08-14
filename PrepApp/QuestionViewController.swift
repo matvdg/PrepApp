@@ -29,7 +29,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     var senseTimer: Bool = true
     var bugTimer: Bool = false
     var answered: Bool = false
-    var choiceFilter = 0 // 0=ALL 1=FAILED 2=SUCCEEDED 3=NEW
+    var choiceFilter = 0 // 0=ALL 1=FAILED 2=SUCCEEDED 3=NEW 4=MARKED
     let baseUrl = NSURL(fileURLWithPath: Factory.path, isDirectory: true)!
     
     //graphics properties
@@ -137,24 +137,29 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @IBAction func markQuestion(sender: AnyObject) {
-        var title = "Question marquée"
-        var message = "Allez dans la section \"Profil\" pour retrouver vos questions marquées, envoyer des commentaires au professeur ou les supprimer"
-        if self.answered {
-            if History.isQuestionMarked(self.currentQuestion!.id) {
-                title = "Question déjà marquée !"
-                message = "Si vous voulez enlever le marquage ou envoyer des commentaires à propos de cette question au professeur, retrouvez-la dans la section \"Profil\""
-                Sound.playTrack("error")
-            } else {
+        
+        var title = ""
+        var message = ""
+        
+        if History.isQuestionMarked(self.currentQuestion!.id){
+            Sound.playTrack("error")
+            title = "Question déjà marquée !"
+            message = "Si vous voulez enlever le marquage ou envoyer des commentaires à propos de cette question au professeur, retrouvez-la dans la section \"Profil\""
+        } else {
+            if self.answered {
                 Sound.playTrack("calc")
+                title = "Question marquée"
+                message = "Allez dans la section \"Profil\" pour retrouver vos questions marquées, envoyer des commentaires au professeur ou les supprimer"
                 var historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
                 historyQuestion.marked = true
                 History.markQuestion(historyQuestion)
+                
+            } else {
+                Sound.playTrack("error")
+                title = "Oups !"
+                message = "Vous devez d'abord répondre à la question pour pouvoir la marquer"
             }
-        } else {
-            title = "Oups !"
-            message = "Vous devez d'abord répondre à la question pour pouvoir la marquer"
-            Sound.playTrack("error")
         }
         
         // create alert controller
@@ -206,7 +211,6 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         for question in questionsRealm {
             tempQuestions.append(question)
         }
-        
         //fetching solo questions already DONE
         questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 1", currentChapter!)
         for question in questionsRealm {
@@ -215,7 +219,6 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
                 println("ajout solo")
             }
         }
-        
         //fetching duo questions already DONE
         questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 2", currentChapter!)
         for question in questionsRealm {
@@ -223,41 +226,37 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
                 tempQuestions.append(question)
                 println("ajout duo")
             }
-            
         }
-        
         //now applying the filter choosen by user
         switch choiceFilter {
         case 0: //ALL
-            //println("case all")
             self.questions = tempQuestions
         case 1: //FAILED
-            //println("case failed")
             for question in tempQuestions {
                 if History.isQuestionFailed(question.id){
-                    //println("question failed ajoutée id=\(question.id)")
                     self.questions.append(question)
                 }
             }
         case 2: //SUCCEEDED
-            //println("case succeeded")
             for question in tempQuestions {
                 if History.isQuestionSuccessed(question.id){
-                    //println("question succeeded ajoutée id=\(question.id)")
                     self.questions.append(question)
                 }
             }
         case 3: //NEW
-             //println("case new")
             for question in tempQuestions {
                 if History.isQuestionNewInTraining(question.id){
-                    //println("question done ajoutée id=\(question.id)")
+                    self.questions.append(question)
+                }
+            }
+        case 4: //MARKED
+            for question in tempQuestions {
+                if History.isQuestionMarked(question.id){
                     self.questions.append(question)
                 }
             }
         default:
             println("default")
-            
         }
         if self.questions.count == 1 {
             self.nextButton.enabled = false

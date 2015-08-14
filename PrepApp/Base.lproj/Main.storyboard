@@ -814,10 +814,11 @@
                                     <constraint firstAttribute="height" constant="28" id="N0i-zu-mTh"/>
                                 </constraints>
                                 <segments>
-                                    <segment title="Toutes (67)" width="70"/>
-                                    <segment title="Echouées (10)" width="75"/>
-                                    <segment title="Réussies (23)" width="75"/>
-                                    <segment title="Nouvelles (34)" width="75"/>
+                                    <segment title="Toutes (67)"/>
+                                    <segment title="Echouées (10)"/>
+                                    <segment title="Réussies (23)"/>
+                                    <segment title="Nouvelles (34)"/>
+                                    <segment title="Marquées (2)"/>
                                 </segments>
                                 <color key="tintColor" red="0.10588235408067703" green="0.5058823823928833" blue="0.36862745881080627" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>

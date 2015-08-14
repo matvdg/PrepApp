@@ -10,7 +10,7 @@ import UIKit
 
 class ChoiceQuestionViewController: UIViewController {
     
-    var choiceFilter = 0 // 0=ALL 1=FAILED 2=SUCCEEDED 3=NEW
+    var choiceFilter = 0 // 0=ALL 1=FAILED 2=SUCCEEDED 3=NEW 4=MARKED
     var delegate: ChoiceQuestionViewControllerDelegate?
     let realm = FactoryRealm.getRealm()
     var currentChapter: Chapter?
@@ -116,6 +116,24 @@ class ChoiceQuestionViewController: UIViewController {
             self.seg.setEnabled(false, forSegmentAtIndex: 3)
             self.seg.setTitle("Nouvelles (\(counter))", forSegmentAtIndex: 3)
         }
+        
+        //MARKED
+        available = false
+        counter = 0
+        for question in tempQuestions {
+            if History.isQuestionMarked(question.id){
+                available = true
+                counter++
+            }
+        }
+        if available {
+            self.seg.setEnabled(true, forSegmentAtIndex: 4)
+            self.seg.setTitle("Marquées (\(counter))", forSegmentAtIndex: 4)
+        } else {
+            self.seg.setEnabled(false, forSegmentAtIndex: 4)
+            self.seg.setTitle("Marquées (\(counter))", forSegmentAtIndex: 4)
+        }
+
 
     }
     
