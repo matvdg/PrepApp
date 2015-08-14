@@ -551,12 +551,12 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             
             switch swipeGesture.direction {
                 
-            case UISwipeGestureRecognizerDirection.Right:
+            case UISwipeGestureRecognizerDirection.Left:
                 if self.currentNumber + 1 != self.questions.count {
                     self.goNext()
                 }
                 
-            case UISwipeGestureRecognizerDirection.Left:
+            case UISwipeGestureRecognizerDirection.Right:
                 if self.currentNumber != 0 {
                     self.goPrevious()
                 }
