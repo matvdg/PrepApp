@@ -319,6 +319,8 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.selectedAnswers.removeAll(keepCapacity: false)
         self.questionNumber.title = "Question n°\(self.currentNumber+1)/\(self.questions.count)"
         self.currentQuestion = self.questions[self.currentNumber]
+        
+        println(self.currentQuestion!.id)
         let answers = self.currentQuestion!.goodAnswers.componentsSeparatedByString(",")
         self.goodAnswers.removeAll(keepCapacity: false)
         for answer in answers {
@@ -478,10 +480,13 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
                 for answer in self.goodAnswers {
                     let indexPath = NSIndexPath(forRow: answer, inSection: 0)
-                    let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
-                    cell.number.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
-                    //green
-                    cell.number.textColor = UIColor.blackColor()
+                    //optional binding to avoid a crash if the DB is corrupted: if an answer in DB is empty but selected as correct, we won't count it and display it so it won't exist BUT we receive the number for the goodAnswers property, so it can't be casted as a cell -> protected
+                    if let cell = self.answers.cellForRowAtIndexPath(indexPath) as? UITableViewCellAnswer {
+                        cell.number.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+                        //green
+                        cell.number.textColor = UIColor.blackColor()
+                    }
+                    
                 }
                 
             }
