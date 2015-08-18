@@ -11,7 +11,12 @@ import RealmSwift
 
 class Factory {
     
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*DEV OR PROD*/
+    static var production: Bool = true
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     static var errorNetwork: Bool = false
+    
     
     private static let imageManager = ImageManager()
     private static let chapterManager = ChapterManager()
@@ -26,7 +31,6 @@ class Factory {
     
     static let uploadsUrl = NSURL(string: "\(Factory.domain!)/uploads")
     static let questionUrl = NSURL(string: "\(Factory.apiUrl!)/questions/get")
-    static let googleUrl = NSURL(string: "https://www.google.fr/images/srpr/logo11w.png")
     static let chapterUrl = NSURL(string: "\(Factory.apiUrl!)/chapters/get")
     static let subjectUrl = NSURL(string: "\(Factory.apiUrl!)/subjects/get")
     static let userUrl = NSURL(string: "\(Factory.apiUrl!)/user/connection")

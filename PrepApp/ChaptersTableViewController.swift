@@ -20,6 +20,7 @@ class ChaptersTableViewController: UITableViewController, UITableViewDataSource 
     //app methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         self.loadChapters()
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         switch (self.subject!.name) {
@@ -35,15 +36,6 @@ class ChaptersTableViewController: UITableViewController, UITableViewDataSource 
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: image)!, forBarMetrics: UIBarMetrics.Default)
         self.navigationController?.navigationBar.translucent = true
 
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        
-        if User.authenticated == false {
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }
     }
 
     // MARK: - Table view data source
@@ -103,6 +95,11 @@ class ChaptersTableViewController: UITableViewController, UITableViewDataSource 
         } else {
             return false
         }
+    }
+    
+    func logout() {
+        println("logging out")
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation

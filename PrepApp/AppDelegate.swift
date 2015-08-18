@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import LocalAuthentication
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -44,12 +43,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
         //println("applicationWillEnterForeground")
 		// Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        User.touchID()
 	}
 
 	func applicationDidBecomeActive(application: UIApplication) {
         //println("applicationDidBecomeActive")
-        self.touchID()
-		// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 	}
 
 	func applicationWillTerminate(application: UIApplication) {
@@ -64,57 +63,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
     
-    func touchID() {
-        //println("Touch ID function")
-        //println(User.authenticated)
-        if !User.authenticated {
-            if (User.instantiateUserStored()){
-                if (User.currentUser!.touchId) {
-                    var authenticationObject = LAContext()
-                    var authenticationError: NSError?
-                    
-                    
-                    authenticationObject.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &authenticationError)
-                    
-                    if authenticationError != nil {
-                        println("TouchID not available in this device")
-                        NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
-                        NSUserDefaults.standardUserDefaults().synchronize()
-
-                    } else {
-                        println("TouchID available")
-                        authenticationObject.localizedFallbackTitle = ""
-                        authenticationObject.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Posez votre doigt pour vous authentifier avec Touch ID", reply: { (complete:Bool, error: NSError!) -> Void in
-                            if error != nil {
-                                // There's an error. User likely pressed cancel.
-                                println(error.localizedDescription)
-                                println("authentication failed")
-                                NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
-                                NSUserDefaults.standardUserDefaults().synchronize()
-                            } else {
-                                // There's no error, the authentication completed successfully
-                                if complete {
-                                    println("authentication successful")
-                                    User.authenticated = true
-                                    //println(User.authenticated)
-                                } else {
-                                    println("authentication failed")
-                                    NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
-                                    NSUserDefaults.standardUserDefaults().synchronize()
-
-                                    
-                                }
-                            }
-                        })
-                    }
-                    
-                }
-            }
-        }
-        
-        
-    }
     
+    
+        
     
         
 }

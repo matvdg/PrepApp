@@ -15,21 +15,10 @@ class HomeViewController: UIViewController {
 			menuButton.action = "revealToggle:"
 			self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
 		}
-		let sreenSize : CGRect = UIScreen.mainScreen().bounds
-		self.revealViewController().rearViewRevealWidth = sreenSize.width * 0.6
-		
+				
 		hello.text = User.currentUser?.printUser()
 		welcome.text = "Bonjour, \(User.currentUser!.firstName) \(User.currentUser!.lastName)"
 	}
-    
-    override func viewDidAppear(animated: Bool) {
-        
-        if User.authenticated == false {
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -39,15 +28,5 @@ class HomeViewController: UIViewController {
 	@IBOutlet var hello: UILabel!
 	@IBOutlet weak var welcome: UILabel!
 	
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

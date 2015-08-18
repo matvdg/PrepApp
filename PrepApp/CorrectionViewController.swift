@@ -17,6 +17,7 @@ class CorrectionViewController: UIViewController, UIWebViewDelegate {
     @IBOutlet weak var dismissButton: UIButton!
     
     @IBAction func dismiss(sender: AnyObject) {
+        Sound.playPage()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -25,21 +26,19 @@ class CorrectionViewController: UIViewController, UIWebViewDelegate {
             //UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
     }
     
+    func logout() {
+        println("logging out")
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         self.correction.opaque = false
         self.dismissButton.layer.cornerRadius = 6
         self.correction.delegate = self
         
         self.correction.loadHTMLString(self.correctionHTML, baseURL: self.baseUrl)
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        if User.authenticated == false {
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }
     }
 
 }

@@ -18,6 +18,7 @@ class SyncViewController: UIViewController {
     var percentage: Int = 0
 	let frames = 350
     var blurAnimate = true
+    //var sentences = ["Prep'App est la clef de votre réussite ! ","Entraînez-vous contre la montre dans défi solo...","...ou affrontez d'autres étudiants dans défi duo !","Evaluez-vous grâce aux concours !" ]
     
     @IBOutlet weak var progression: UILabel!
     @IBOutlet weak var logo: UIImageView!
@@ -28,60 +29,47 @@ class SyncViewController: UIViewController {
         self.progression.hidden = false
         self.tryAgainButton.hidden = true
         self.logo.image = UIImage(named: "l0")
+        self.percentage = 0
+        self.nbrFrame = 0
         Factory.errorNetwork = false
         self.sync()
     }
 
 	override func viewDidLoad() {
-        println(self.view.frame.width)
+        
         SyncViewController.widthImage = self.view.frame.width - 20
 		super.viewDidLoad()
         self.blur.alpha = 0
         self.tryAgainButton.layer.cornerRadius = 6
         self.tryAgainButton.hidden = true
-        self.sync()
-    
 	}
     
     override func viewDidAppear(animated: Bool) {
         if User.authenticated == false {
+            println("didAppear")
+            self.progression.text = "Déconnexion..."
             NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
             NSUserDefaults.standardUserDefaults().synchronize()
             self.dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            self.sync()
         }
+        
     }
     
     func sync(){
-        Factory.sync()
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.030, target: self, selector: Selector("result"), userInfo: nil, repeats: true)
+        if Factory.production {
+            Factory.sync()
+            timer = NSTimer.scheduledTimerWithTimeInterval(0.030, target: self, selector: Selector("result"), userInfo: nil, repeats: true)
+        } else {
+            self.performSegueWithIdentifier("syncDidFinish", sender: self)
+        }
+        
     }
 	
+
+    
 	func result(){
-        
-        //computing percentage progression for Questions DB & Images (We neglect to take into account the chapters or materials, as they are very light.)
-        if (Factory.getImageManager().sizeToDownload != 0 || Factory.getQuestionManager().sizeToDownload != 0 ) {
-            self.blur.hidden = true
-            self.nbrFrame = (Factory.getImageManager().sizeDownloaded + Factory.getQuestionManager().sizeDownloaded) * frames / (Factory.getImageManager().sizeToDownload + Factory.getQuestionManager().sizeToDownload)
-            self.percentage = self.nbrFrame * 100 / self.frames
-            //println("Downloading... \((Factory.getImageManager().sizeDownloaded + Factory.getQuestionManager().sizeDownloaded)/1000) KB/\((Factory.getImageManager().sizeToDownload + Factory.getQuestionManager().sizeToDownload)/1000) KB")
-        } else {
-            self.blur.hidden = false
-            //before getting sizes, waiting for server response
-            self.progression.text = "Connexion au serveur Prep'App.\n Veuillez patienter..."
-            self.logo.image = UIImage(named: "l350")
-            if self.blurAnimate {
-                self.blur.alpha += 0.02
-                if self.blur.alpha >= 0.8 {
-                    self.blurAnimate = false
-                }
-            } else {
-                self.blur.alpha -= 0.02
-                if self.blur.alpha <= 0 {
-                    self.blurAnimate = true
-                }
-            }
-            
-        }
         
         //handling network errors or bad network
         if Factory.errorNetwork {
@@ -101,34 +89,64 @@ class SyncViewController: UIViewController {
             self.presentViewController(myAlert, animated: true, completion: nil)
             
             
-        } else {
+        } else { //progression of sync
             
-            var sentences = ["Prep'App est la clef de votre réussite ! ","Entraînez-vous contre la montre dans défi solo...","...ou affrontez d'autres étudiants dans défi duo !","Evaluez-vous grâce aux concours !" ]
+            var name = ""
+            //computing percentage progression for Questions DB & Images (We neglect to take into account the chapters or materials, as they are very light.)
             
-            if  (Factory.getImageManager().hasFinishedSync == false || Factory.getQuestionManager().hasFinishedSync == false) {
-                if self.nbrFrame != 0 {
-                    var name = "l\(self.nbrFrame)"
+            if (Factory.getImageManager().sizeToDownload != -1 && Factory.getQuestionManager().sizeToDownload != -1 ) {
+                //println("both sizes computed (≠-1)")
+                self.blur.hidden = true
+                
+                
+                if Factory.getQuestionManager().questionsToSave != 0 {
+                    self.percentage = ((Factory.getQuestionManager().questionsSaved) * 100) / (Factory.getQuestionManager().questionsToSave)
+                    self.nbrFrame = (self.percentage * self.frames) / 200 + (self.frames / 2)
+                    name = "l\(self.nbrFrame)"
                     self.logo.image = UIImage(named: name)
-                    if self.nbrFrame < 200 {
-                        self.progression.text = "Téléchargement du contenu en cours...\n \(self.percentage)%"
-                    } else if (self.nbrFrame < 320) {
-                        self.progression.text = "Veuillez patienter \n \(self.percentage)%"
-                    } else {
-                        self.progression.text = "Plus que quelques instants !\n \(self.percentage)%"
+                    self.progression.text = "Traitement des questions en cours...\n \(self.percentage)%"
+                    
+                } else if Factory.getImageManager().sizeToDownload + Factory.getQuestionManager().sizeToDownload != 0 {
+                    self.percentage = ((Factory.getImageManager().sizeDownloaded + Factory.getQuestionManager().sizeDownloaded) * 100) / (Factory.getImageManager().sizeToDownload + Factory.getQuestionManager().sizeToDownload)
+                    self.nbrFrame = (self.percentage * self.frames) / 200
+                    name = "l\(self.nbrFrame)"
+                    self.logo.image = UIImage(named: name)
+                    self.progression.text = "Téléchargement du contenu en cours...\n \(self.percentage)%"
+
+                }
+                //println("Downloading... \((Factory.getImageManager().sizeDownloaded + Factory.getQuestionManager().sizeDownloaded)/1000) KB/\((Factory.getImageManager().sizeToDownload + Factory.getQuestionManager().sizeToDownload)/1000) KB")
+                
+                
+                //the end...
+                if  (Factory.getImageManager().hasFinishedSync == true && Factory.getQuestionManager().hasFinishedSync == true) {
+                    //go to main menu
+                    timer.invalidate()
+                    self.performSegueWithIdentifier("syncDidFinish", sender: self)
+                    self.logo.image = UIImage(named: "l350")
+                    self.progression.text = ""
+                    //println("syncFinished")
+                }
+            
+            
+            } else { //waiting for server's answer
+                self.blur.hidden = false
+                //before getting sizes, waiting for server response
+                self.progression.text = "Connexion au serveur Prep'App.\n Veuillez patienter..."
+                self.logo.image = UIImage(named: "l350")
+                if self.blurAnimate {
+                    self.blur.alpha += 0.02
+                    if self.blur.alpha >= 0.8 {
+                        self.blurAnimate = false
+                    }
+                } else {
+                    self.blur.alpha -= 0.02
+                    if self.blur.alpha <= 0 {
+                        self.blurAnimate = true
                     }
                 }
-                
-            } else {
-                //go to main menu
-                timer.invalidate()
-                self.performSegueWithIdentifier("syncDidFinish", sender: self)
             }
         }
-		
-		
 	}
-	
-	
 	
 	
 }

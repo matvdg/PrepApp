@@ -62,11 +62,17 @@ class ChoiceQuestionViewController: UIViewController {
     //app method
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         self.designButtons()
         self.checkChoiceAvailability()
     }
     
     //methods
+    func logout() {
+        println("logging out")
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     private func designButtons() {
         all.backgroundColor = UIColor.whiteColor()
         all.setTitleColor(UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1), forState: .Normal)

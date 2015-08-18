@@ -13,7 +13,7 @@ import RealmSwift
 
 class ImageManager {
     
-    var sizeToDownload: Int = 0
+    var sizeToDownload: Int = -1
     var sizeDownloaded: Int = 0
     var numberOfImagesToDownload: Int = 0
     var numberOfImagesDownloaded: Int = 0
@@ -22,7 +22,10 @@ class ImageManager {
        
 	
     func sync(){
-		
+        sizeToDownload = -1
+        sizeDownloaded = 0
+        numberOfImagesToDownload = 0
+        numberOfImagesDownloaded = 0
 		self.getUploads({ (data) -> Void in
 			var onlineUploads = [Image]()
 			// dictionary
@@ -125,6 +128,7 @@ class ImageManager {
 	}
 	
     private func computeSize(objectsToAdd: [Image]) {
+        self.sizeToDownload = 0
         for objectToAdd in objectsToAdd {
             self.sizeToDownload += objectToAdd.size
         }
@@ -161,7 +165,7 @@ class ImageManager {
                 
             } else {
                 self.sizeDownloaded += data.length
-                //println("size downloaded = \(self.sizeDownloaded/1000) KB")
+                println("size downloaded = \(self.sizeDownloaded/1000)KB/\(self.sizeToDownload/1000)KB")
                 
                 let imagesPath = Factory.path + "/images"
                 NSFileManager.defaultManager().createDirectoryAtPath(imagesPath, withIntermediateDirectories: false, attributes: nil, error: nil)
@@ -178,6 +182,8 @@ class ImageManager {
             }
             
             if self.numberOfImagesDownloaded == self.numberOfImagesToDownload {
+                self.sizeDownloaded = self.sizeToDownload
+                println("size downloaded = \(self.sizeDownloaded/1000)KB/\(self.sizeToDownload/1000)KB")
                 self.hasFinishedSync = true
                 println("images downloaded")
             }

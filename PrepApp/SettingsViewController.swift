@@ -13,7 +13,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
 
 	@IBOutlet weak var designButton: UIButton!
     @IBOutlet weak var touchIDlabel: UILabel!
-    
     @IBOutlet weak var soundSwitch: UISwitch!
     @IBOutlet weak var touchIDswitch: UISwitch!
 	@IBOutlet var menuButton: UIBarButtonItem!
@@ -111,7 +110,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
 	}
 	
 	override func viewDidLoad() {
-		super.viewDidLoad()
+        super.viewDidLoad()
+        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
 		designButton.layer.cornerRadius = 6
 		if self.revealViewController() != nil {
 			menuButton.target = self.revealViewController()
@@ -126,12 +127,12 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         authenticationObject.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &authenticationError)
         
         if authenticationError != nil {
-            println("TouchID not available in this device")
+            //println("TouchID not available in this device")
             self.touchIDlabel.hidden = true
             self.touchIDswitch.hidden = true
             
         } else {
-            println("TouchID available")
+            //println("TouchID available")
             self.touchIDlabel.hidden = false
             self.touchIDswitch.hidden = false
             self.touchIDswitch.setOn(User.currentUser!.touchId, animated: true)
@@ -139,33 +140,14 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         }
 
 	}
-    
-    
-    override func viewDidAppear(animated: Bool) {
-        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        println("viewAppear")
-        if User.authenticated == false {
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }
-    }
-    
 	
 	override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
 		self.view.endEditing(true)
 	}
-
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func logout() {
+        println("logging out")
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
-    */
 
 }

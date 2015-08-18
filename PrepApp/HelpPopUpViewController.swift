@@ -16,6 +16,7 @@ class HelpPopUpViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         self.okButton.layer.cornerRadius = 6
         self.helpText.text = self.help
         self.helpText.textColor = UIColor.whiteColor()
@@ -24,13 +25,11 @@ class HelpPopUpViewController: UIViewController {
         self.helpText.setContentOffset(CGPointZero, animated: true)
         self.helpText.scrollRangeToVisible(NSRange(location: 0, length: 0))
         self.helpImage.image = UIImage(named: self.helpPic)
-
-        // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func logout() {
+        println("logging out")
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func dismiss(sender: AnyObject) {

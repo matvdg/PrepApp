@@ -154,7 +154,6 @@
                         <outlet property="pass" destination="Dma-It-3SB" id="NPP-Ce-d0i"/>
                         <segue destination="yfn-ko-dG5" kind="presentation" identifier="loginDidSucceded" modalTransitionStyle="flipHorizontal" id="Thb-PY-YS0"/>
                         <segue destination="Obo-Yq-gZZ" kind="show" identifier="testMode" id="2V6-ZR-wfX"/>
-                        <segue destination="Q20-H2-akI" kind="show" identifier="showTraining" id="M8L-2r-gSN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vkB-om-Hvp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -514,9 +513,6 @@
                             <outlet property="delegate" destination="mqf-gF-nK3" id="1NW-rd-KBZ"/>
                         </connections>
                     </tableView>
-                    <connections>
-                        <segue destination="Dek-1z-2AB" kind="show" identifier="didLogout" id="KPV-hK-z7A"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KHT-0t-BnP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1727,9 +1723,8 @@
         <image name="training" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="xbe-Fm-nd1"/>
         <segue reference="WYj-iM-Hx0"/>
-        <segue reference="2V6-ZR-wfX"/>
-        <segue reference="M8L-2r-gSN"/>
         <segue reference="udu-Mv-cp9"/>
     </inferredMetricsTieBreakers>
 </document>

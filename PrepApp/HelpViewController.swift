@@ -19,7 +19,9 @@ class HelpViewController: UIViewController, UICollectionViewDataSource, UICollec
 
 	@IBOutlet var menuButton: UIBarButtonItem!
 	
-	override func viewDidLoad() {
+    override func viewDidLoad() {
+        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
 		super.viewDidLoad()
         self.collectionView.backgroundColor = UIColor.clearColor()
 		if self.revealViewController() != nil {
@@ -27,21 +29,6 @@ class HelpViewController: UIViewController, UICollectionViewDataSource, UICollec
 			menuButton.action = "revealToggle:"
 			self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
 		}
-	}
-    
-    override func viewDidAppear(animated: Bool) {
-        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        if User.authenticated == false {
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }
-    }
-
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     
@@ -70,7 +57,10 @@ class HelpViewController: UIViewController, UICollectionViewDataSource, UICollec
         return true
     }
 
-    
+    func logout() {
+        println("logging out")
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

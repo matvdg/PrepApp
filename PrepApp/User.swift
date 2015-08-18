@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import LocalAuthentication
 
 class User {
     
@@ -173,7 +174,62 @@ class User {
 		}
 	}
 	
-	
+    static func touchID() {
+        //println("Touch ID function")
+        //println("authenticated = \(User.authenticated)")
+        if !User.authenticated {
+            if (User.instantiateUserStored()){
+                if (User.currentUser!.touchId) {
+                    var authenticationObject = LAContext()
+                    var authenticationError: NSError?
+                    
+                    
+                    authenticationObject.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &authenticationError)
+                    
+                    if authenticationError != nil {
+                        //TouchID not available in this device
+                        println("TouchID not available in this device")
+                        NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
+                        NSUserDefaults.standardUserDefaults().synchronize()
+                        NSNotificationCenter.defaultCenter().postNotificationName("failed", object: nil)
+                        
+                    } else {
+                        println("TouchID available")
+                        authenticationObject.localizedFallbackTitle = ""
+                        authenticationObject.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Posez votre doigt pour vous authentifier avec Touch ID", reply: { (complete:Bool, error: NSError!) -> Void in
+                            if error != nil {
+                                // There's an error. User likely pressed cancel.
+                                println(error.localizedDescription)
+                                println("authentication failed")
+                                NSNotificationCenter.defaultCenter().postNotificationName("failed", object: nil)
+                                NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
+                                NSUserDefaults.standardUserDefaults().synchronize()
+                            } else {
+                                
+                                if complete {
+                                    // There's no error, the authentication completed successfully
+                                    println("authentication successful")
+                                    User.authenticated = true
+                                } else {
+                                    // There's an error, the authentication didn't complete successfully
+                                    println("authentication failed")
+                                    NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
+                                    NSUserDefaults.standardUserDefaults().synchronize()
+                                    NSNotificationCenter.defaultCenter().postNotificationName("failed", object: nil)
+                                    
+                                    
+                                }
+                            }
+                        })
+                    }
+                    
+                }
+            }
+        }
+        
+        
+    }
+
 }
 
 

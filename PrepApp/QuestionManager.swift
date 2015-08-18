@@ -14,12 +14,18 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
     
     var data = NSMutableData()
     var sizeDownloaded: Int = 0
-    var sizeToDownload: Int = 0
+    var sizeToDownload: Int = -1
+    var questionsToSave: Int = 0
+    var questionsSaved: Int = 0
     var statusCode = 0
     var hasFinishedSync: Bool = false
-    let realm = FactoryRealm.getRealm()
+    
     
     func saveQuestions() {
+        self.sizeDownloaded = 0
+        self.sizeToDownload = -1
+        self.questionsSaved = 0
+        self.questionsToSave = 0
         self.getQuestions()
     }
     
@@ -50,11 +56,11 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
     }
     
     private func saveQuestion(data: NSDictionary) {
-        
+        var realm = Realm()
         var newQuestion: Question = Question()
         newQuestion.id =  data["id_question"] as! Int
         let id = data["id_chapter"] as! Int
-        let chapter = self.realm.objects(Chapter).filter("id=\(id)")[0]
+        let chapter = realm.objects(Chapter).filter("id=\(id)")[0]
         newQuestion.imagesQuestion = data["images_question"] as! String
         newQuestion.imagesCorrection = data["images_correction"] as! String
         newQuestion.chapter = chapter
@@ -74,8 +80,8 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
         newQuestion.correction = parseNplaceImage(data["correction"] as! String, images: newQuestion.imagesCorrection)
         
     
-        self.realm.write {
-            self.realm.add(newQuestion)
+        realm.write {
+            realm.add(newQuestion)
         }
     }
     
@@ -90,7 +96,7 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
     /* delegate methods */
     func connection(connection: NSURLConnection, didReceiveData data: NSData){
         self.sizeDownloaded = self.data.length
-        //println("Size of questions downloaded = \(self.sizeDownloaded/1000) KB")
+        println("Size of questions downloaded = \(self.sizeDownloaded/1000) KB / \(self.sizeToDownload/1000) KB")
         self.data.appendData(data)
     }
 
@@ -107,12 +113,15 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
                 self.sizeToDownload = (value as! String).toInt()!
             }
         }
-        //println("Size of questions to download = \(self.sizeToDownload/1000) KB")
+        println("Size of questions to download = \(self.sizeToDownload/1000) KB")
         
         
     }
 
     func connectionDidFinishLoading(connection: NSURLConnection){
+        self.sizeDownloaded = self.sizeToDownload
+        println("Size of questions downloaded = \(self.sizeDownloaded/1000) KB / \(self.sizeToDownload/1000) KB")
+        println("didFinishLoadingQuestions")
         var err: NSError?
         if statusCode == 200 {
             var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSArray
@@ -122,12 +131,16 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
                     println("error : parsing JSON in getQuestions")
                     Factory.errorNetwork = true
                 } else {
-                    for question in result as NSArray {
-                        self.saveQuestion(question as! NSDictionary)
+                    self.questionsToSave = (result as NSArray).count
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                        for question in result as NSArray {
+                            self.questionsSaved++
+                            self.saveQuestion(question as! NSDictionary)
+                            println("\(self.questionsSaved) / \(self.questionsToSave) questions traitées")
+                        }
+                        self.hasFinishedSync = true
+                        println("questions downloaded")
                     }
-                    self.hasFinishedSync = true
-                    println("questions downloaded")
-                    
                 }
             } else {
                 println("error : NSArray nil in getQuestions")

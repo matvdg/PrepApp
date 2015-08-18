@@ -16,9 +16,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
 		designButton.layer.cornerRadius = 6
     }
-    
-    
-	
+
 	override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
 		self.view.endEditing(true)
 	}
@@ -32,14 +30,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             println(User.currentUser!.printUser())
         
             User.authenticated = true
-            self.performSegueWithIdentifier("loginDidSucceded", sender: self)
-            //without sync // test mode
-            self.performSegueWithIdentifier("showTraining", sender: self)
             println(Factory.path)
+            self.performSegueWithIdentifier("loginDidSucceded", sender: self)
             
         } else {
-            self.mail.text = ""
-            self.pass.text = ""
+            self.mail.text = "matvdg@me.com"
+            self.pass.text = "Draconis31*"
         }
 	}
 	

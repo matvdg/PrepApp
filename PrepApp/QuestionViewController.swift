@@ -42,6 +42,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     
     //app methods
     override func viewDidLoad() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         //handling swipe gestures
         var swipeRight = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipeRight.direction = UISwipeGestureRecognizerDirection.Right
@@ -64,16 +65,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.loadQuestion()
         
         
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        if User.authenticated == false {
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }
-    }
-    
+    }    
     
     //@IBOutlets properties
     @IBOutlet weak var chapter: UILabel!
@@ -96,7 +88,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBAction func calcPopUp(sender: AnyObject) {
         var message = self.questions[self.currentNumber].calculator ? "Calculatrice autorisée" : "Calculatrice interdite"
-        Sound.playTrack("calc")
+        self.questions[self.currentNumber].calculator ? Sound.playTrack("calc") : Sound.playTrack("nocalc")
         // create alert controller
         let myAlert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         // add an "OK" button
@@ -319,8 +311,6 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.selectedAnswers.removeAll(keepCapacity: false)
         self.questionNumber.title = "Question n°\(self.currentNumber+1)/\(self.questions.count)"
         self.currentQuestion = self.questions[self.currentNumber]
-        
-        println(self.currentQuestion!.id)
         let answers = self.currentQuestion!.goodAnswers.componentsSeparatedByString(",")
         self.goodAnswers.removeAll(keepCapacity: false)
         for answer in answers {
@@ -331,8 +321,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             
         }
-        
-        println("Bonne(s) réponse(s) = \(self.goodAnswers)")
+        println("Question n°\(self.currentQuestion!.id) , bonne(s) réponse(s) = \(self.goodAnswers)")
         self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "calc") : UIImage(named: "nocalc"))
         self.didLoadWording = false
         self.didLoadAnswers = false
@@ -547,7 +536,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.submitButton.frame.size.height = 40
         self.submitButton.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
 
-        Sound.playTrack("correction")
+        Sound.playPage()
         self.performSegueWithIdentifier("showCorrection", sender: self)
     }
     
@@ -572,6 +561,11 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             
         }
+    }
+    
+    func logout() {
+        println("logging out")
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     private func checkAnswers() -> Bool {
