@@ -18,14 +18,17 @@ class ImageManager {
     var numberOfImagesToDownload: Int = 0
     var numberOfImagesDownloaded: Int = 0
     var hasFinishedSync: Bool = false
+    var hasFinishedComputeSize: Bool = false
     let realm = FactoryRealm.getRealmImages()
        
 	
     func sync(){
-        sizeToDownload = -1
-        sizeDownloaded = 0
-        numberOfImagesToDownload = 0
-        numberOfImagesDownloaded = 0
+        self.hasFinishedSync = false
+        self.hasFinishedComputeSize = false
+        self.sizeToDownload = -1
+        self.sizeDownloaded = 0
+        self.numberOfImagesToDownload = 0
+        self.numberOfImagesDownloaded = 0
 		self.getUploads({ (data) -> Void in
 			var onlineUploads = [Image]()
 			// dictionary
@@ -134,7 +137,7 @@ class ImageManager {
         }
         self.numberOfImagesToDownload = objectsToAdd.count
         //println("Size of images to download = \(self.sizeToDownload/1000) KB")
-        
+        self.hasFinishedComputeSize = true
         if self.sizeToDownload == 0 {
             self.hasFinishedSync = true
             println("Nothing new to upload (images)")
@@ -143,18 +146,23 @@ class ImageManager {
     
     private  func fetchImages(objectsToAdd: [Image]){
         
-        for objectToAdd in objectsToAdd {
-            if Factory.errorNetwork == false {
-                let url = NSURL(string: "\(Factory.uploadsUrl!)/\(objectToAdd.id).png")
-                self.saveFile(url!, imageName: "/\(objectToAdd.id).png", objectToAdd: objectToAdd)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            for objectToAdd in objectsToAdd {
+                if Factory.errorNetwork == false {
+                    let url = NSURL(string: "\(Factory.uploadsUrl!)/\(objectToAdd.id).png")
+                    self.saveFile(url!, imageName: "/\(objectToAdd.id).png", objectToAdd: objectToAdd)
+                }
             }
         }
+        
     }
     
     private func saveFile(url: NSURL, imageName: String, objectToAdd: Image){
         
-        let timeout: NSTimeInterval = 10
-        let urlRequest = NSURLRequest(URL: url, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy,timeoutInterval: timeout)
+        let realmImages = Realm(path: "\(Factory.path)/images.realm")
+        let timeout: NSTimeInterval = 30
+        let urlRequest = NSURLRequest(URL: url, cachePolicy:
+        NSURLRequestCachePolicy.UseProtocolCachePolicy,timeoutInterval: timeout)
         NSURLConnection.sendAsynchronousRequest(urlRequest, queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
             
             if error != nil {
@@ -164,26 +172,31 @@ class ImageManager {
                 }
                 
             } else {
-                self.sizeDownloaded += data.length
-                println("size downloaded = \(self.sizeDownloaded/1000)KB/\(self.sizeToDownload/1000)KB")
-                
-                let imagesPath = Factory.path + "/images"
-                NSFileManager.defaultManager().createDirectoryAtPath(imagesPath, withIntermediateDirectories: false, attributes: nil, error: nil)
-                let imagePath = imagesPath + imageName
-                if let fetchedImage = UIImage(data: data) {
-                    NSFileManager.defaultManager().createFileAtPath(imagePath, contents: data, attributes: nil)
-                    self.numberOfImagesDownloaded++
-                    println("image \(self.numberOfImagesDownloaded)/\(self.numberOfImagesToDownload) downloaded")
-                    //image saved in directory, we updrade Realm DB
-                    self.realm.write {
-                        self.realm.add(objectToAdd)
+                if !Factory.errorNetwork {
+                    self.sizeDownloaded += data.length
+                    //println("size downloaded = \(self.sizeDownloaded/1000)KB/\(self.sizeToDownload/1000)KB")
+                    
+                    let imagesPath = Factory.path + "/images"
+                    NSFileManager.defaultManager().createDirectoryAtPath(imagesPath, withIntermediateDirectories: false, attributes: nil, error: nil)
+                    let imagePath = imagesPath + imageName
+                    if let fetchedImage = UIImage(data: data) {
+                        
+                        NSFileManager.defaultManager().createFileAtPath(imagePath, contents: data, attributes: nil)
+                        self.numberOfImagesDownloaded++
+                        //println("image \(self.numberOfImagesDownloaded)/\(self.numberOfImagesToDownload) downloaded")
+                        //image saved in directory, we updrade Realm DB
+                        self.realm.write {
+                            self.realm.add(objectToAdd)
+                        }
                     }
+                } else {
+                    println("Factory stopped sync due to error in ImageManager")
                 }
             }
             
-            if self.numberOfImagesDownloaded == self.numberOfImagesToDownload {
+            if self.numberOfImagesDownloaded == self.numberOfImagesToDownload && self.numberOfImagesToDownload != 0 {
                 self.sizeDownloaded = self.sizeToDownload
-                println("size downloaded = \(self.sizeDownloaded/1000)KB/\(self.sizeToDownload/1000)KB")
+                //println("size downloaded = \(self.sizeDownloaded/1000)KB/\(self.sizeToDownload/1000)KB")
                 self.hasFinishedSync = true
                 println("images downloaded")
             }

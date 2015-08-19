@@ -143,11 +143,15 @@ SWIFT_CLASS("_TtC10RealmSwift6Object")
 /// Returns a human-readable description of this object.
 @property (nonatomic, readonly, copy, getter=description) NSString * __nonnull description;
 
+/// Helper to return the class name for an Object subclass.
+@property (nonatomic, readonly, copy) NSString * __nonnull className;
+
 /// Override to designate a property as the primary key for an <code>Object</code> subclass. Only properties of
 /// type String and Int can be designated as the primary key. Primary key
 /// properties enforce uniqueness for each value whenever the property is set which incurs some overhead.
 /// Indexes are created automatically for primary key properties.
-/// :returns: Name of the property designated as the primary key, or <code>nil</code> if the model has no primary key.
+///
+/// \returns Name of the property designated as the primary key, or <code>nil</code> if the model has no primary key.
 + (NSString * __nullable)primaryKey;
 
 /// Override to return an array of property names to ignore. These properties will not be persisted
@@ -161,14 +165,6 @@ SWIFT_CLASS("_TtC10RealmSwift6Object")
 /// :returns: <code>Array</code> of property names to index.
 + (NSArray * __nonnull)indexedProperties;
 
-/// WARNING: This is an internal initializer not intended for public use.
-/// :nodoc:
-- (SWIFT_NULLABILITY(nonnull) instancetype)initWithRealm:(RLMRealm * __nonnull)realm schema:(RLMObjectSchema * __nonnull)schema OBJC_DESIGNATED_INITIALIZER;
-
-/// WARNING: This is an internal initializer not intended for public use.
-/// :nodoc:
-- (SWIFT_NULLABILITY(nonnull) instancetype)initWithValue:(id __nonnull)value schema:(RLMSchema * __nonnull)schema OBJC_DESIGNATED_INITIALIZER;
-
 /// Returns the value for the property identified by the given key.
 /// :param: key The name of one of the receiver's properties.
 /// :returns: The value for the property identified by <code>key</code>.
@@ -180,6 +176,14 @@ SWIFT_CLASS("_TtC10RealmSwift6Object")
 - (void)setValue:(id __nullable)value forKey:(NSString * __nonnull)key;
 - (id __nullable)objectForKeyedSubscript:(NSString * __nonnull)key;
 - (void)setObject:(id __nullable)value forKeyedSubscript:(NSString * __nonnull)key;
+
+/// WARNING: This is an internal initializer not intended for public use.
+/// :nodoc:
+- (SWIFT_NULLABILITY(nonnull) instancetype)initWithRealm:(RLMRealm * __nonnull)realm schema:(RLMObjectSchema * __nonnull)schema OBJC_DESIGNATED_INITIALIZER;
+
+/// WARNING: This is an internal initializer not intended for public use.
+/// :nodoc:
+- (SWIFT_NULLABILITY(nonnull) instancetype)initWithValue:(id __nonnull)value schema:(RLMSchema * __nonnull)schema OBJC_DESIGNATED_INITIALIZER;
 @end
 
 

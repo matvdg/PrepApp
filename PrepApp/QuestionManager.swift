@@ -19,9 +19,13 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
     var questionsSaved: Int = 0
     var statusCode = 0
     var hasFinishedSync: Bool = false
+    var hasFinishedComputeSize: Bool = false
     
     
     func saveQuestions() {
+        self.data = NSMutableData()
+        self.hasFinishedSync = false
+        self.hasFinishedComputeSize = false
         self.sizeDownloaded = 0
         self.sizeToDownload = -1
         self.questionsSaved = 0
@@ -56,7 +60,7 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
     }
     
     private func saveQuestion(data: NSDictionary) {
-        var realm = Realm()
+        let realm = Realm()
         var newQuestion: Question = Question()
         newQuestion.id =  data["id_question"] as! Int
         let id = data["id_chapter"] as! Int
@@ -95,14 +99,22 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
     
     /* delegate methods */
     func connection(connection: NSURLConnection, didReceiveData data: NSData){
-        self.sizeDownloaded = self.data.length
-        println("Size of questions downloaded = \(self.sizeDownloaded/1000) KB / \(self.sizeToDownload/1000) KB")
-        self.data.appendData(data)
+        if !Factory.errorNetwork {
+            self.sizeDownloaded = self.data.length
+            self.hasFinishedComputeSize = true
+            //println("Size of questions downloaded = \(self.sizeDownloaded/1000) KB / \(self.sizeToDownload/1000) KB")
+            self.data.appendData(data)
+        } else {
+            connection.cancel()
+            println("Factory stopped sync due to error in QuestionManager > didReceiveData")
+        }
+    
     }
 
     func connection(connection: NSURLConnection, didFailWithError error: NSError) {
         println("error : no connexion in getQuestions")
         Factory.errorNetwork = true
+        connection.cancel()
     }
 
     func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse) {
@@ -113,46 +125,57 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
                 self.sizeToDownload = (value as! String).toInt()!
             }
         }
-        println("Size of questions to download = \(self.sizeToDownload/1000) KB")
+        //println("Size of questions to download = \(self.sizeToDownload/1000) KB")
         
         
     }
 
     func connectionDidFinishLoading(connection: NSURLConnection){
-        self.sizeDownloaded = self.sizeToDownload
-        println("Size of questions downloaded = \(self.sizeDownloaded/1000) KB / \(self.sizeToDownload/1000) KB")
-        println("didFinishLoadingQuestions")
-        var err: NSError?
-        if statusCode == 200 {
-            var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSArray
-
-            if let result = jsonResult {
-                if err != nil {
-                    println("error : parsing JSON in getQuestions")
-                    Factory.errorNetwork = true
-                } else {
-                    self.questionsToSave = (result as NSArray).count
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-                        for question in result as NSArray {
-                            self.questionsSaved++
-                            self.saveQuestion(question as! NSDictionary)
-                            println("\(self.questionsSaved) / \(self.questionsToSave) questions traitées")
+        if !Factory.errorNetwork {
+            self.sizeDownloaded = self.sizeToDownload
+            //println("Size of questions downloaded = \(self.sizeDownloaded/1000) KB / \(self.sizeToDownload/1000) KB")
+            println("questions downloaded")
+            var err: NSError?
+            if statusCode == 200 {
+                var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSArray
+                
+                if let result = jsonResult {
+                    if err != nil {
+                        connection.cancel()
+                        println("error : parsing JSON in getQuestions")
+                        Factory.errorNetwork = true
+                    } else {
+                        self.questionsToSave = (result as NSArray).count
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                            for question in result as NSArray {
+                                self.questionsSaved++
+                                if !Factory.errorNetwork {
+                                    self.saveQuestion(question as! NSDictionary)
+                                }
+                                //println("\(self.questionsSaved) / \(self.questionsToSave) questions traitées")
+                            }
+                            self.hasFinishedSync = true
+                            println("questions loaded into Realm DB")
                         }
-                        self.hasFinishedSync = true
-                        println("questions downloaded")
                     }
+                } else {
+                    connection.cancel()
+                    println("error : NSArray nil in getQuestions")
+                    Factory.errorNetwork = true
                 }
+                
+                
             } else {
-                println("error : NSArray nil in getQuestions")
+                connection.cancel()
+                println("error : != 200 in getQuestions")
                 Factory.errorNetwork = true
             }
 
-
         } else {
-            println("error : != 200 in getQuestions")
-            Factory.errorNetwork = true
+            connection.cancel()
+            println("Factory stopped sync due to error in QuestionManager > connectionDidFinishLoading")
         }
-
+        
     }
 }
 

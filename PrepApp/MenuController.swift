@@ -2,7 +2,7 @@ import UIKit
 
 class MenuController: UITableViewController {
     
-    let proportionMenuBar: CGFloat = 0.5
+    let proportionMenuBar: CGFloat = 0.7
     let sreenSize : CGRect = UIScreen.mainScreen().bounds
 	
     override func viewDidLoad() {

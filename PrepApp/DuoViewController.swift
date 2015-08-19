@@ -15,6 +15,7 @@ class DuoViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
+        self.navigationController!.navigationBar.tintColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
 		if self.revealViewController() != nil {
 			menuButton.target = self.revealViewController()

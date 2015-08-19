@@ -57,6 +57,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.sizeAnswerCells.removeAll(keepCapacity: false)
         self.title = self.currentSubject!.name.uppercaseString
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
+        self.navigationController!.navigationBar.tintColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
         //display the chapter
         self.chapter.text = "Chapitre \(self.currentChapter!.number) : \(self.currentChapter!.name)"
         //load the questions

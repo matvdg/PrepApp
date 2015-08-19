@@ -23,6 +23,8 @@ class ChaptersTableViewController: UITableViewController, UITableViewDataSource 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         self.loadChapters()
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
+        self.navigationController!.navigationBar.tintColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+
         switch (self.subject!.name) {
         case "physique" :
             self.image = "phyBar"

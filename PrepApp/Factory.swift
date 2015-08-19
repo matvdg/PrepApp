@@ -13,7 +13,7 @@ class Factory {
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*DEV OR PROD*/
-    static var production: Bool = true
+    static var production: Bool = false
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     static var errorNetwork: Bool = false
     
@@ -61,8 +61,8 @@ class Factory {
             self.realm.deleteAll()
         }
         println("default Realm database cleaned")
-        Factory.getImageManager().sync()
         Factory.getSubjectManager().saveSubjects()
+        Factory.getImageManager().sync()
         
         // we fetch subjects then chapters then questions in order to avoid Realm bad mapping (ORM)
     }
