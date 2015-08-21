@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //println("applicationDidEnterBackground")
         // we first check if Touch ID protection is enabled
         if (User.instantiateUserStored()){
-            if (User.currentUser!.touchId) {
+            if (UserPreferences.touchId) {
                 User.authenticated = false
                 //we protect the app as Touch ID is enabled
             }
@@ -42,20 +42,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationWillEnterForeground(application: UIApplication) {
     
         //println("applicationWillEnterForeground")
+        UserPreferences.touchID()
+        Factory.offlineMode = false
+        Factory.getVersionManager().getLastVersion { (version) -> Void in
+            if let versionDB: Int = version { //checking if sync is needed
+                println("localVersion = \(Factory.getVersionManager().loadVersion()) dbVersion = \(versionDB)")
+                if Factory.getVersionManager().loadVersion() != versionDB { //prompting a sync
+                    NSNotificationCenter.defaultCenter().postNotificationName("update", object: nil)
+                }
+            }
+        }
+
 		// Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-        User.touchID()
+        
 	}
 
 	func applicationDidBecomeActive(application: UIApplication) {
         //println("applicationDidBecomeActive")
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
 	}
 
 	func applicationWillTerminate(application: UIApplication) {
         //println("applicationWillTerminate")
         // we first check if Touch ID protection is enabled
+        
         if (User.instantiateUserStored()){
-            if (User.currentUser!.touchId) {
+            
+            if (UserPreferences.touchId) {
                 User.authenticated = false
                 //we protect the app as Touch ID is enabled
             }

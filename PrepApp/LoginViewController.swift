@@ -14,7 +14,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		designButton.layer.cornerRadius = 6
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "login", name: "success", object: nil)
+        if (User.instantiateUserStored()){
+            self.mail.text = User.currentUser!.email
+            self.pass.text = "hidden"
+        }
+		self.designButton.layer.cornerRadius = 6
     }
 
 	override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
@@ -22,20 +27,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 	}
 	
 	override func viewDidAppear(animated: Bool) {
-		//offline mode = if user already logged in persistent data, load it
-		if (User.instantiateUserStored()){
-            
-            self.mail.text = User.currentUser!.email
-            self.pass.text = "hidden"
-            println(User.currentUser!.printUser())
-        
-            User.authenticated = true
-            println(Factory.path)
+		//if user already logged in persistent data, load it
+        println(Factory.path)
+        if (User.instantiateUserStored()){
+            //println(User.currentUser!.printUser())
+            if (UserPreferences.touchId) {
+                UserPreferences.touchID()
+            } else {
+                User.authenticated = true
+            }
+        }
+        if User.authenticated {
             self.performSegueWithIdentifier("loginDidSucceded", sender: self)
-            
         } else {
             self.mail.text = "matvdg@me.com"
             self.pass.text = "Draconis31*"
+            //self.mail.text = ""
+            //self.pass.text = ""
+
         }
 	}
 	
@@ -78,19 +87,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
 	}
     
+    func login() {
+        self.performSegueWithIdentifier("loginDidSucceded", sender: self)
+    }
+    
 	@IBOutlet weak var designButton: UIButton!
 	@IBOutlet weak var mail: UITextField!
 	@IBOutlet weak var pass: UITextField!
 	@IBAction func login(sender: AnyObject) {
 		self.connect()
 	}
-	
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
 	
 
 }

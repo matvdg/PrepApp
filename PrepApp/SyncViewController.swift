@@ -18,6 +18,7 @@ class SyncViewController: UIViewController {
     var percentage: Int = 0
 	let frames = 350
     var blurAnimate = true
+    var version: Int = 0
     //var sentences = ["Prep'App est la clef de votre réussite ! ","Entraînez-vous contre la montre dans défi solo...","...ou affrontez d'autres étudiants dans défi duo !","Evaluez-vous grâce aux concours !" ]
     
     @IBOutlet weak var progression: UILabel!
@@ -45,8 +46,10 @@ class SyncViewController: UIViewController {
 	}
     
     override func viewDidAppear(animated: Bool) {
+        Factory.getImageManager().hasFinishedSync = false
+        Factory.getQuestionManager().hasFinishedSync = false
+        Factory.getQuestionManager().hasFinishedComputeSize = false
         if User.authenticated == false {
-            println("didAppear")
             self.progression.text = "Déconnexion..."
             NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
             NSUserDefaults.standardUserDefaults().synchronize()
@@ -59,18 +62,34 @@ class SyncViewController: UIViewController {
     
     func sync(){
         if Factory.production {
-            Factory.sync()
-            timer = NSTimer.scheduledTimerWithTimeInterval(0.030, target: self, selector: Selector("result"), userInfo: nil, repeats: true)
+            Factory.offlineMode = false
+            Factory.getVersionManager().getLastVersion { (version) -> Void in
+                if let versionDB: Int = version { //checking if sync is needed
+                    println("localVersion = \(Factory.getVersionManager().loadVersion()) dbVersion = \(versionDB)")
+                    if Factory.getVersionManager().loadVersion() != versionDB { //syncing...
+                        Factory.sync()
+                        self.timer = NSTimer.scheduledTimerWithTimeInterval(0.030, target: self, selector: Selector("result"), userInfo: nil, repeats: true)
+                        self.version = versionDB
+                    } else { //no sync needed
+                        println("no need to sync")
+                        self.performSegueWithIdentifier("syncDidFinish", sender: self)
+                    }
+                } else {
+                    //offline mode
+                    Factory.offlineMode = true
+                    println("offline mode")
+                    self.performSegueWithIdentifier("syncDidFinish", sender: self)
+                }
+            }
         } else {
             self.performSegueWithIdentifier("syncDidFinish", sender: self)
         }
-        
     }
 	
 
     
 	func result(){
-        
+      
         //handling network errors or bad network
         if Factory.errorNetwork {
             self.blur.hidden = true
@@ -121,6 +140,8 @@ class SyncViewController: UIViewController {
                 if  (Factory.getImageManager().hasFinishedSync == true && Factory.getQuestionManager().hasFinishedSync == true) {
                     //go to main menu
                     timer.invalidate()
+                    Factory.getVersionManager().saveVersion(self.version)
+                    println("coucou")
                     self.performSegueWithIdentifier("syncDidFinish", sender: self)
                     self.logo.image = UIImage(named: "l350")
                     self.progression.text = ""

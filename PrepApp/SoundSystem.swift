@@ -15,7 +15,7 @@ class Sound {
     
     class func playTrack(sound: String) {
         
-        if User.currentUser!.sounds {
+        if UserPreferences.sounds {
             var mediapath = "sounds/\(sound)"
             
             if let path = NSBundle.mainBundle().pathForResource(mediapath, ofType: "caf") {
@@ -32,9 +32,9 @@ class Sound {
     
     class func playPage() {
         
-        if User.currentUser!.sounds {
+        if UserPreferences.sounds {
             
-            let random = (Int(arc4random())%9)
+            let random = Int(arc4random() % 9)
             var mediapath = "sounds/page\(random)"
             
             if let path = NSBundle.mainBundle().pathForResource(mediapath, ofType: "caf") {

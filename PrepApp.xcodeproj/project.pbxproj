@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F60082D11B84F9C600F7BCBB /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60082D01B84F9C600F7BCBB /* UserPreferences.swift */; };
+		F60082D31B854F9E00F7BCBB /* VersionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60082D21B854F9E00F7BCBB /* VersionManager.swift */; };
 		F605AF0E1B04146C00E90596 /* SoloViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605AF0D1B04146C00E90596 /* SoloViewController.swift */; };
 		F605AF101B0414F300E90596 /* DuoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605AF0F1B0414F300E90596 /* DuoViewController.swift */; };
 		F605AF121B04151500E90596 /* ContestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605AF111B04151500E90596 /* ContestViewController.swift */; };
@@ -84,6 +86,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F60082D01B84F9C600F7BCBB /* UserPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		F60082D21B854F9E00F7BCBB /* VersionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionManager.swift; sourceTree = "<group>"; };
 		F605AF0D1B04146C00E90596 /* SoloViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoloViewController.swift; sourceTree = "<group>"; };
 		F605AF0F1B0414F300E90596 /* DuoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DuoViewController.swift; sourceTree = "<group>"; };
 		F605AF111B04151500E90596 /* ContestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContestViewController.swift; sourceTree = "<group>"; };
@@ -268,6 +272,7 @@
 		F64630A81B5FD5C9006A5F71 /* Sync */ = {
 			isa = PBXGroup;
 			children = (
+				F60082D21B854F9E00F7BCBB /* VersionManager.swift */,
 				F6987A6C1B16321B002989C6 /* ImageManager.swift */,
 				F6767C201B5D5DFB0066FC64 /* QuestionManager.swift */,
 				F64630A01B5E662F006A5F71 /* ChapterManager.swift */,
@@ -291,6 +296,7 @@
 			children = (
 				F6FBFAB71AFA1F5E0020B074 /* User.swift */,
 				F663E31B1B7A6BD000F23294 /* History.swift */,
+				F60082D01B84F9C600F7BCBB /* UserPreferences.swift */,
 			);
 			name = "User History";
 			sourceTree = "<group>";
@@ -549,9 +555,11 @@
 				F6FBFABF1AFA33CD0020B074 /* LoginViewController.swift in Sources */,
 				F64630A11B5E662F006A5F71 /* ChapterManager.swift in Sources */,
 				F64630A31B5E663C006A5F71 /* SubjectManager.swift in Sources */,
+				F60082D11B84F9C600F7BCBB /* UserPreferences.swift in Sources */,
 				F61A1CDB1B003F7500777584 /* SWRevealViewController.m in Sources */,
 				F605AF121B04151500E90596 /* ContestViewController.swift in Sources */,
 				F64630A51B5E6959006A5F71 /* Factory.swift in Sources */,
+				F60082D31B854F9E00F7BCBB /* VersionManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

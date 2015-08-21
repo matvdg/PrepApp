@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import LocalAuthentication
 
 class User {
     
@@ -22,10 +21,8 @@ class User {
     var assiduity: Int
     var failed: Int
     var success: Int
-    var touchId: Bool
-    var sounds: Bool
     
-    init(firstName :String,lastName :String,email :String,encryptedPassword :String,level : Int,assiduity : Int,failed : Int,success : Int, touchId: Bool, sounds: Bool) {
+    init(firstName :String,lastName :String,email :String,encryptedPassword :String,level : Int,assiduity : Int,failed : Int,success : Int) {
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
@@ -34,8 +31,6 @@ class User {
         self.assiduity = assiduity
         self.failed = failed
         self.success = success
-        self.touchId = touchId
-        self.sounds = sounds
     }
 	
 	func printUser() -> String {
@@ -81,9 +76,7 @@ class User {
             String(self.level),
             String(self.assiduity),
             String(self.failed),
-            String(self.success),
-            String(stringInterpolationSegment: self.touchId),
-            String(stringInterpolationSegment: self.sounds)
+            String(self.success)
         ]
 		NSUserDefaults.standardUserDefaults().setObject(savedUser, forKey: "user")
 		NSUserDefaults.standardUserDefaults().synchronize()
@@ -100,7 +93,7 @@ class User {
 			
 			dispatch_async(dispatch_get_main_queue()) {
 				if error != nil {
-                    // pas de connexion
+                    // no connexion
 					callback(nil, "Échec de la connexion. Vérifier la connexion Internet et réessayer.")
 				} else {
 					var err: NSError?
@@ -112,11 +105,10 @@ class User {
 							if err != nil {
 								callback(nil, "Erreur lors de la récupération, veuillez réessayer.")
 							} else {
-                                //erreur parsage JSON
 								callback(result as NSDictionary, nil)
 							}
 						} else {
-                            //NSDictionary optional à nil
+                            //NSDictionary optional to nil
 							callback(nil, "Erreur lors de la récupération, veuillez réessayer.")
 						}
 						
@@ -140,16 +132,15 @@ class User {
 			level: data["level"] as! Int,
 			assiduity: data["assiduity"]as! Int,
             failed: data["failed"] as! Int,
-			success: data["success"] as! Int,
-            touchId: false,
-            sounds: true
-			)
+			success: data["success"] as! Int
+        )
         
         User.authenticated = true
 	}
 	
 	static func instantiateUserStored() -> Bool {
 		var data : [String] = []
+        UserPreferences.loadUserPreferences()
 		//we instantiate the user retrieved in the local Persistence Storage
 		if var storedUser : AnyObject = NSUserDefaults.standardUserDefaults().objectForKey("user") {
 			for (var i=0; i < storedUser.count; i++) {
@@ -164,9 +155,7 @@ class User {
                 level: (data[4] as String).toInt()!,
                 assiduity: (data[5] as String).toInt()!,
                 failed: (data[6] as String).toInt()!,
-                success: (data[7] as String).toInt()!,
-                touchId: (data[8] as String).toBool()!,
-                sounds: (data[9] as String).toBool()!)
+                success: (data[7] as String).toInt()!)
             
 			return true
 		} else {
@@ -174,61 +163,7 @@ class User {
 		}
 	}
 	
-    static func touchID() {
-        //println("Touch ID function")
-        //println("authenticated = \(User.authenticated)")
-        if !User.authenticated {
-            if (User.instantiateUserStored()){
-                if (User.currentUser!.touchId) {
-                    var authenticationObject = LAContext()
-                    var authenticationError: NSError?
-                    
-                    
-                    authenticationObject.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &authenticationError)
-                    
-                    if authenticationError != nil {
-                        //TouchID not available in this device
-                        println("TouchID not available in this device")
-                        NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
-                        NSUserDefaults.standardUserDefaults().synchronize()
-                        NSNotificationCenter.defaultCenter().postNotificationName("failed", object: nil)
-                        
-                    } else {
-                        println("TouchID available")
-                        authenticationObject.localizedFallbackTitle = ""
-                        authenticationObject.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Posez votre doigt pour vous authentifier avec Touch ID", reply: { (complete:Bool, error: NSError!) -> Void in
-                            if error != nil {
-                                // There's an error. User likely pressed cancel.
-                                println(error.localizedDescription)
-                                println("authentication failed")
-                                NSNotificationCenter.defaultCenter().postNotificationName("failed", object: nil)
-                                NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
-                                NSUserDefaults.standardUserDefaults().synchronize()
-                            } else {
-                                
-                                if complete {
-                                    // There's no error, the authentication completed successfully
-                                    println("authentication successful")
-                                    User.authenticated = true
-                                } else {
-                                    // There's an error, the authentication didn't complete successfully
-                                    println("authentication failed")
-                                    NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
-                                    NSUserDefaults.standardUserDefaults().synchronize()
-                                    NSNotificationCenter.defaultCenter().postNotificationName("failed", object: nil)
-                                    
-                                    
-                                }
-                            }
-                        })
-                    }
-                    
-                }
-            }
-        }
-        
-        
-    }
+    
 
 }
 

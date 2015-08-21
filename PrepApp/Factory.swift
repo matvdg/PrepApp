@@ -13,15 +13,17 @@ class Factory {
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*DEV OR PROD*/
-    static var production: Bool = false
+    static var production: Bool = true
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     static var errorNetwork: Bool = false
+    static var offlineMode: Bool = false
     
     
     private static let imageManager = ImageManager()
     private static let chapterManager = ChapterManager()
     private static let questionManager = QuestionManager()
     private static let subjectManager = SubjectManager()
+    private static let versionManager = VersionManager()
     private static let realm = FactoryRealm.getRealm()
     
     /*LOCAL OR DISTANT DB*/
@@ -36,6 +38,8 @@ class Factory {
     static let userUrl = NSURL(string: "\(Factory.apiUrl!)/user/connection")
     static let passwordUrl = NSURL(string: "\(Factory.apiUrl!)/user/changepass")
     static let imageUrl = NSURL(string: "\(Factory.apiUrl!)/uploads/get")
+    static let versionUrl = NSURL(string: "\(Factory.apiUrl!)/version/get")
+    
     static let path: String = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
     
     
@@ -55,17 +59,22 @@ class Factory {
         return self.subjectManager
     }
     
+    class func getVersionManager() -> VersionManager {
+        return self.versionManager
+    }
+    
     //Called in SyncViewController.swift
     class func sync() {
+        println("syncing")
+        Factory.getImageManager().hasFinishedSync == false
+        Factory.getQuestionManager().hasFinishedSync == false
         self.realm.write {
             self.realm.deleteAll()
         }
         println("default Realm database cleaned")
         Factory.getSubjectManager().saveSubjects()
-        Factory.getImageManager().sync()
-        
         // we fetch subjects then chapters then questions in order to avoid Realm bad mapping (ORM)
+        Factory.getImageManager().sync()
+        //we save the new version number
     }
-    
-    
 }
