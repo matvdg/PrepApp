@@ -141,7 +141,6 @@ class SyncViewController: UIViewController {
                     //go to main menu
                     timer.invalidate()
                     Factory.getVersionManager().saveVersion(self.version)
-                    println("coucou")
                     self.performSegueWithIdentifier("syncDidFinish", sender: self)
                     self.logo.image = UIImage(named: "l350")
                     self.progression.text = ""

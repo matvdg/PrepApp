@@ -25,16 +25,26 @@ class TrainingViewController: UIViewController {
     @IBAction func bio(sender: AnyObject) {
         self.subject = realm.objects(Subject).filter("name='biologie'")[0]
         self.performSegueWithIdentifier("showChapters", sender: self)
+        if self.revealViewController() != nil {
+            self.revealViewController().setFrontViewPosition(FrontViewPosition.Left, animated: true)
+        }
     }
 
     @IBAction func phy(sender: AnyObject) {
         self.subject = realm.objects(Subject).filter("name='physique'")[0]
         self.performSegueWithIdentifier("showChapters", sender: self)
+        if self.revealViewController() != nil {
+            self.revealViewController().setFrontViewPosition(FrontViewPosition.Left, animated: true)
+        }
     }
 	
     @IBAction func chi(sender: AnyObject) {
         self.subject = realm.objects(Subject).filter("name='chimie'")[0]
         self.performSegueWithIdentifier("showChapters", sender: self)
+        if self.revealViewController() != nil {
+            self.revealViewController().setFrontViewPosition(FrontViewPosition.Left, animated: true)
+        }
+        
     }
 	
     override func viewDidLoad() {

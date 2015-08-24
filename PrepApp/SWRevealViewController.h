@@ -202,7 +202,7 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 - (void)setFrontViewController:(UIViewController *)frontViewController animated:(BOOL)animated;
 
 // Sets the frontViewController using a default set of chained animations consisting on moving the
-// presented frontViewController to the right most possition, replacing it, and moving it back to the left position
+// presented frontViewController to the right most position, replacing it, and moving it back to the left position
 - (void)pushFrontViewController:(UIViewController *)frontViewController animated:(BOOL)animated;
 
 // Sets the frontViewController position. You can call the animated version several times with different
@@ -264,7 +264,7 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 @property (nonatomic) BOOL stableDragOnOverdraw;
 @property (nonatomic) BOOL stableDragOnLeftOverdraw; // <-- simetric implementation of the above for the rightViewController
 
-// If YES (default is NO) the front view controller will be ofsseted vertically by the height of a navigation bar.
+// If YES (default is NO) the front view controller will be offseted vertically by the height of a navigation bar.
 // Use this on iOS7 when you add an instance of RevealViewController as a child of a UINavigationController (or another SWRevealViewController)
 // and you want the front view controller to be presented below the navigation bar of its UINavigationController grand parent.
 // The rearViewController will still appear full size and blurred behind the navigation bar of its UINavigationController grand parent
