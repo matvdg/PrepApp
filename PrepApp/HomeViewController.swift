@@ -1,8 +1,10 @@
 
 import UIKit
+import Charts
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, ChartViewDelegate {
 	
+    @IBOutlet weak var pieView: PieChartView!
 	
     @IBOutlet weak var menuButton:UIBarButtonItem!
 
@@ -17,14 +19,50 @@ class HomeViewController: UIViewController {
 			menuButton.action = "revealToggle:"
 			self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
 		}
-				
-		hello.text = User.currentUser?.printUser()
-		welcome.text = "Bonjour, \(User.currentUser!.firstName) \(User.currentUser!.lastName)"
+        //pie settings
+        self.pieView.delegate = self
+        self.pieView.usePercentValuesEnabled = true
+        self.pieView.holeTransparent = true
+        self.pieView.holeRadiusPercent = 0.30
+        self.pieView.transparentCircleRadiusPercent = 0.31
+        self.pieView.drawHoleEnabled = true
+        //data
+        self.pieView.data = self.getChartData()
+        //centerText
+        self.pieView.centerTextColor = UIColor.blueColor()
+        self.pieView.centerText = "Kiné"
+        self.pieView.centerTextFont = UIFont(name: "Segoe UI", size: 17)!
+        //description
+        self.pieView.descriptionFont = UIFont(name: "Segoe UI", size: 17)!
+        self.pieView.descriptionText = "Prep'App"
+        self.pieView.descriptionTextColor = UIColor.redColor()
+        //rotation
+        self.pieView.rotationAngle = 0
+        self.pieView.rotationEnabled = true
+        self.pieView.drawSliceTextEnabled = false
+        
+        
+       
 	}
-
-	@IBOutlet var hello: UILabel!
-	@IBOutlet weak var welcome: UILabel!
     
+    func getChartData() -> ChartData {
+        
+        var yVals: [ChartDataEntry] = []
+        for i in 0..<3
+        {
+            var mult: Double = Double(arc4random_uniform(100) + 100 / 100)
+            yVals.append(BarChartDataEntry(value: mult, xIndex: i))
+        
+        }
+        var dataSet : PieChartDataSet = PieChartDataSet(yVals: yVals)
+        dataSet.sliceSpace = 10.0
+        var colors: [UIColor] = [UIColor.greenColor(),UIColor.redColor(), UIColor.blueColor()]
+        dataSet.colors = colors
+        var data: PieChartData = PieChartData(xVals: ["Biologie","Physique","Chimie"], dataSet: dataSet)
+        return data
+    }
+    
+    ///called when touchID failed, authenticated = false
     func logout() {
         println("logging out")
         self.dismissViewControllerAnimated(true, completion: nil)
