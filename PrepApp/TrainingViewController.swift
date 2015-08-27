@@ -58,6 +58,11 @@ class TrainingViewController: UIViewController {
 			menuButton.action = "revealToggle:"
 			self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
 		}
+        self.bioButton.backgroundColor = colorBio
+        self.phyButton.backgroundColor = colorPhy
+        self.chiButton.backgroundColor = colorChi
+
+        
     }
     
     func logout() {

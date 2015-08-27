@@ -30,18 +30,18 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.pieView.data = self.getChartData()
         //centerText
         self.pieView.centerTextColor = UIColor.blueColor()
-        self.pieView.centerText = "Kiné"
+        self.pieView.centerText = ""
         self.pieView.centerTextFont = UIFont(name: "Segoe UI", size: 17)!
         //description
         self.pieView.descriptionFont = UIFont(name: "Segoe UI", size: 17)!
-        self.pieView.descriptionText = "Prep'App"
+        self.pieView.descriptionText = ""
         self.pieView.descriptionTextColor = UIColor.redColor()
         //rotation
         self.pieView.rotationAngle = 0
         self.pieView.rotationEnabled = true
-        self.pieView.drawSliceTextEnabled = false
+        self.pieView.drawSliceTextEnabled = true
         
-        
+        self.renderLogo()
        
 	}
     
@@ -56,7 +56,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         }
         var dataSet : PieChartDataSet = PieChartDataSet(yVals: yVals)
         dataSet.sliceSpace = 10.0
-        var colors: [UIColor] = [UIColor.greenColor(),UIColor.redColor(), UIColor.blueColor()]
+        var colors: [UIColor] = [colorBio,colorPhy,colorChi]
         dataSet.colors = colors
         var data: PieChartData = PieChartData(xVals: ["Biologie","Physique","Chimie"], dataSet: dataSet)
         return data
@@ -80,6 +80,12 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         
         // show the alert
         self.presentViewController(myAlert, animated: true, completion: nil)
+    }
+    
+    func renderLogo(){
+        let logo = UIImageView(frame: CGRectMake(self.view!.bounds.width / 2 - 55, self.view!.bounds.height / 2 - 35, 110, 110))
+        logo.image = UIImage(named: "logoHD")
+        self.view.addSubview(logo)
     }
 	
 
