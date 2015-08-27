@@ -21,7 +21,7 @@ class DetailHelpViewController: UIViewController {
         self.helpText.text = self.help
         self.title = self.helpTopic
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+        self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
         self.helpText.textColor = UIColor.blackColor()
         self.helpText.font = UIFont(name: "Segoe UI", size: 20)
         self.helpText.setContentOffset(CGPointZero, animated: true)

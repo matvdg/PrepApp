@@ -58,7 +58,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.sizeAnswerCells.removeAll(keepCapacity: false)
         self.title = self.currentSubject!.name.uppercaseString
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+        self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
         //display the chapter
         self.chapter.text = "Chapitre \(self.currentChapter!.number) : \(self.currentChapter!.name)"
         //load the questions
@@ -240,7 +240,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         //applying grey mask
         let frame = CGRect(x: 0, y: 152, width: self.view.bounds.width, height: self.view.bounds.height-152)
         self.greyMask = UIView(frame: frame)
-        self.greyMask.backgroundColor = UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
+        self.greyMask.backgroundColor = colorGreyMask
         self.greyMask.layer.zPosition = 100
         self.view.addSubview(self.greyMask)
 
@@ -339,7 +339,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.wording.loadHTMLString( self.currentQuestion!.wording, baseURL: self.baseUrl)
         let scrollFrame = CGRect(x: 0, y: 152, width: self.view.bounds.width, height: self.view.bounds.height-152)
         self.scrollView = UIScrollView(frame: scrollFrame)
-        self.scrollView.backgroundColor = UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
+        self.scrollView.backgroundColor = colorGreyMask
         self.scrollView.addSubview(self.wording)
         self.view.addSubview(self.scrollView)
         
@@ -362,7 +362,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.submitButton.hidden = false
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
-        self.submitButton.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+        self.submitButton.backgroundColor = colorGreenAppButtons
         self.submitButton.removeFromSuperview()
         self.infos.removeFromSuperview()
         self.wording.removeFromSuperview()
@@ -417,7 +417,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.submitButton.layer.cornerRadius = 6
         self.submitButton.titleLabel?.font = UIFont(name: "Segoe UI", size: 15)
         self.submitButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        self.submitButton.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+        self.submitButton.backgroundColor = colorGreenAppButtons
         
         //resizing the scroll view in order to fit all the elements
         var scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 100)
@@ -453,7 +453,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
                 for answer in self.goodAnswers {
                     let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                     let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
-                    cell.number.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+                    cell.number.backgroundColor = colorRightAnswer
                     cell.number.textColor = UIColor.blackColor()
                     //green
                 }
@@ -466,14 +466,14 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
                 for answer in self.selectedAnswers {
                     let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                     let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
-                    cell.number.backgroundColor = UIColor(red: 223/255, green: 52/255, blue: 46/255, alpha: 1)
+                    cell.number.backgroundColor = colorWrongAnswer
                     //red
                 }
                 for answer in self.goodAnswers {
                     let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                     //optional binding to avoid a crash if the DB is corrupted: if an answer in DB is empty but selected as correct, we won't count it and display it so it won't exist BUT we receive the number for the goodAnswers property, so it can't be casted as a cell -> protected
                     if let cell = self.answers.cellForRowAtIndexPath(indexPath) as? UITableViewCellAnswer {
-                        cell.number.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+                        cell.number.backgroundColor = colorRightAnswer
                         //green
                         cell.number.textColor = UIColor.blackColor()
                     }
@@ -505,7 +505,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             self.submitButton.frame.size.height = self.submitButton.frame.size.height + 1
             self.submitButton.frame.origin.x = self.submitButton.frame.origin.x - 0.5
             self.submitButton.frame.origin.y = self.submitButton.frame.origin.y - 0.5
-            self.submitButton.backgroundColor = UIColor(red: 27/255, green: self.submitButton.frame.size.width/255, blue: 94/255, alpha: 1)
+            self.submitButton.backgroundColor = colorGreenAppButtons
             if self.submitButton.frame.size.width > 110 {
                 self.senseTimer = false
             }
@@ -515,7 +515,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
             self.submitButton.frame.size.height = self.submitButton.frame.size.height - 1
             self.submitButton.frame.origin.x = self.submitButton.frame.origin.x + 0.5
             self.submitButton.frame.origin.y = self.submitButton.frame.origin.y + 0.5
-            self.submitButton.backgroundColor = UIColor(red: 27/255, green: self.submitButton.frame.size.width/255, blue: 94/255, alpha: 1)
+            self.submitButton.backgroundColor = colorGreenAppButtons
             if self.submitButton.frame.size.width < 100 {
                 self.senseTimer = true
             }
@@ -528,7 +528,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.timer.invalidate()
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
-        self.submitButton.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+        self.submitButton.backgroundColor = colorGreenAppButtons
     }
     
     func showCorrection() {
@@ -536,7 +536,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.timer.invalidate()
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
-        self.submitButton.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+        self.submitButton.backgroundColor = colorGreenAppButtons
 
         Sound.playPage()
         self.performSegueWithIdentifier("showCorrection", sender: self)
@@ -773,7 +773,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
                 if !self.didLoadInfos {
                     self.didLoadInfos = true
                     //we have just loaded the Infos webview
-                    self.infos.backgroundColor = UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
+                    self.infos.backgroundColor = colorGreyMask
                     self.greyMask.layer.zPosition = 0
                 }
             } else {

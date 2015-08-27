@@ -90,34 +90,34 @@ class ChoiceQuestionViewController: UIViewController {
     
     private func designButtons() {
         all.backgroundColor = UIColor.whiteColor()
-        all.setTitleColor(UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1), forState: .Normal)
+        all.setTitleColor(colorGreenAppButtons, forState: .Normal)
         failed.backgroundColor = UIColor.whiteColor()
-        failed.setTitleColor(UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1), forState: .Normal)
+        failed.setTitleColor(colorGreenAppButtons, forState: .Normal)
         succeeded.backgroundColor = UIColor.whiteColor()
-        succeeded.setTitleColor(UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1), forState: .Normal)
+        succeeded.setTitleColor(colorGreenAppButtons, forState: .Normal)
         new.backgroundColor = UIColor.whiteColor()
-        new.setTitleColor(UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1), forState: .Normal)
+        new.setTitleColor(colorGreenAppButtons, forState: .Normal)
         marked.backgroundColor = UIColor.whiteColor()
-        marked.setTitleColor(UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1), forState: .Normal)
+        marked.setTitleColor(colorGreenAppButtons, forState: .Normal)
         
         switch(self.choiceFilter) {
             case 0 : //All
-                all.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+                all.backgroundColor = colorGreenAppButtons
                 all.setTitleColor(UIColor.whiteColor(), forState: .Normal)
             case 1 : //Failed
-                failed.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+                failed.backgroundColor = colorGreenAppButtons
                 failed.setTitleColor(UIColor.whiteColor(), forState: .Normal)
             case 2 : //Succeeded
-                succeeded.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+                succeeded.backgroundColor = colorGreenAppButtons
                 succeeded.setTitleColor(UIColor.whiteColor(), forState: .Normal)
             case 3 : //New
-                new.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+                new.backgroundColor = colorGreenAppButtons
                 new.setTitleColor(UIColor.whiteColor(), forState: .Normal)
             case 4 : //Marked
-                marked.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+                marked.backgroundColor = colorGreenAppButtons
                 marked.setTitleColor(UIColor.whiteColor(), forState: .Normal)
             default :
-                all.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
+                all.backgroundColor = colorGreenAppButtons
                 all.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         }
     }

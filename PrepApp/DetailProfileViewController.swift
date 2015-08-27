@@ -16,8 +16,7 @@ class DetailProfileViewController: UIViewController {
         super.viewDidLoad()
         self.title = self.profileTopics
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = UIColor(red: 27/255, green: 129/255, blue: 94/255, alpha: 1)
-
+        self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
     }
 
     override func didReceiveMemoryWarning() {
