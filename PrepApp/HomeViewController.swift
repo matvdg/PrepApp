@@ -43,9 +43,9 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         bioPie.backgroundColor = UIColor.clearColor()
         bioPie.usePercentValuesEnabled = false
         bioPie.holeTransparent = true
-        bioPie.holeRadiusPercent = 0.75
-        bioPie.transparentCircleRadiusPercent = 0.75
-        bioPie.drawHoleEnabled = true
+        bioPie.holeRadiusPercent = 0
+        bioPie.transparentCircleRadiusPercent = 0
+        bioPie.drawHoleEnabled = false
         bioPie.drawSliceTextEnabled = false
         bioPie.drawMarkers = false
         bioPie.legend.setCustom(colors: [UIColor.clearColor()], labels: [""])
@@ -61,7 +61,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         bioPie.descriptionText = ""
         bioPie.descriptionTextColor = UIColor.redColor()
         //rotation
-        bioPie.rotationAngle = 267
+        bioPie.rotationAngle = 266
         bioPie.rotationEnabled = false
         //displaying
         var bioLogo = UIImageView(frame: CGRectMake(self.view.bounds.width/2 + 5, self.view.bounds.height/2 - 85, 14, 14))
@@ -78,6 +78,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         phyPie.backgroundColor = UIColor.clearColor()
         phyPie.usePercentValuesEnabled = true
         phyPie.holeTransparent = true
+        phyPie.holeColor = colorGreyBackgound
         phyPie.holeRadiusPercent = 0.72
         phyPie.transparentCircleRadiusPercent = 0.77
         phyPie.drawHoleEnabled = true
@@ -96,7 +97,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         phyPie.descriptionText = ""
         phyPie.descriptionTextColor = UIColor.redColor()
         //rotation
-        phyPie.rotationAngle = 267
+        phyPie.rotationAngle = 266
         phyPie.rotationEnabled = false
         //displaying
 
@@ -132,7 +133,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         chePie.descriptionText = ""
         chePie.descriptionTextColor = UIColor.redColor()
         //rotation
-        chePie.rotationAngle = 267
+        chePie.rotationAngle = 266
         chePie.rotationEnabled = false
         //displaying
 
@@ -165,13 +166,13 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         
         switch pie {
         case 1 :
-            colors = [colorBio,UIColor.clearColor()]
+            colors = [colorBio,colorGreyBackgound]
         case 2 :
-            colors = [colorPhy,UIColor.clearColor()]
+            colors = [colorPhy,colorGreyBackgound]
         case 3 :
-            colors = [colorChi,UIColor.clearColor()]
+            colors = [colorChi,colorGreyBackgound]
         default :
-            colors = [UIColor.clearColor()]
+            colors = [colorGreyBackgound]
         }
         dataSet.colors = colors
         dataSet.valueTextColor = UIColor.clearColor()
