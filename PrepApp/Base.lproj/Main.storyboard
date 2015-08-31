@@ -47,6 +47,12 @@
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -544,17 +550,112 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KK5-rl-rzq" customClass="PieChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
-                                <color key="backgroundColor" red="0.92549020049999997" green="0.92549020049999997" blue="0.92549020049999997" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bienvenue !" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I14-K1-5eU">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <color key="backgroundColor" red="0.1058823529" green="0.50588235290000005" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="GBG-My-qKh"/>
+                                    <constraint firstAttribute="height" constant="44" id="Pmk-Fz-t1L"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kgQ-Im-M1o">
+                                <rect key="frame" x="237" y="538" width="125" height="42"/>
+                                <color key="backgroundColor" red="0.1529411765" green="0.60784313729999995" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="42" id="M60-fR-L2z"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="133" id="XoI-nF-gTU"/>
+                                    <constraint firstAttribute="height" constant="42" id="bt8-sV-Nvb"/>
+                                    <constraint firstAttribute="width" constant="125" id="drA-VI-P0i"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="20"/>
+                                <state key="normal" title="Actualités &gt;">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="XoI-nF-gTU"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="login:" destination="Dek-1z-2AB" eventType="touchUpInside" id="6pe-2l-fw3"/>
+                                </connections>
+                            </button>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="CwS-oL-FUV">
+                                <rect key="frame" x="281" y="493" width="39" height="37"/>
+                                <color key="tintColor" red="0.29411764709999999" green="0.56862745100000001" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="P3c-Me-CmS"/>
+                                    <constraint firstAttribute="width" constant="39" id="pDj-zY-Oor"/>
+                                </constraints>
+                                <color key="pageIndicatorTintColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <color key="currentPageIndicatorTintColor" red="0.29411764709999999" green="0.56862745100000001" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </pageControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Biologie  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RVb-Du-fVA">
+                                <rect key="frame" x="150" y="447" width="100" height="38"/>
+                                <color key="backgroundColor" red="0.35294117647058826" green="1" blue="0.75686274509803919" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="sHq-HP-xfZ"/>
+                                    <constraint firstAttribute="height" constant="38" id="u5Z-80-wO6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <size key="shadowOffset" width="-1" height="-1"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Physique" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NPn-Vy-2Pf">
+                                <rect key="frame" x="250" y="447" width="100" height="38"/>
+                                <color key="backgroundColor" red="0.98431372549019602" green="0.30196078431372547" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="Pzi-gS-XWL"/>
+                                    <constraint firstAttribute="width" constant="100" id="zYx-CC-V9b"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chimie" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BYn-El-S1a">
+                                <rect key="frame" x="350" y="447" width="100" height="38"/>
+                                <color key="backgroundColor" red="0.3411764705882353" green="0.75294117647058822" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="Vsj-J0-YPs"/>
+                                    <constraint firstAttribute="height" constant="38" id="rW4-rq-fqC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incliner en mode paysage pour voir votre graphe performance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a1Q-Pf-IXI">
+                                <rect key="frame" x="150" y="417" width="300" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="vzo-B4-CVg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="10"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="KK5-rl-rzq" firstAttribute="top" secondItem="XPQ-IA-AV7" secondAttribute="bottom" id="75Z-vk-Ee5"/>
-                            <constraint firstAttribute="trailing" secondItem="KK5-rl-rzq" secondAttribute="trailing" id="FOV-U8-1Z9"/>
-                            <constraint firstItem="2Ug-11-N59" firstAttribute="top" secondItem="KK5-rl-rzq" secondAttribute="bottom" id="LEu-rs-bcP"/>
-                            <constraint firstItem="KK5-rl-rzq" firstAttribute="leading" secondItem="jbV-ds-2ZK" secondAttribute="leading" id="aRc-Yv-sAj"/>
+                            <constraint firstItem="BYn-El-S1a" firstAttribute="centerY" secondItem="NPn-Vy-2Pf" secondAttribute="centerY" id="7It-fc-aCk"/>
+                            <constraint firstItem="BYn-El-S1a" firstAttribute="leading" secondItem="NPn-Vy-2Pf" secondAttribute="trailing" id="7e4-Ky-DHN"/>
+                            <constraint firstItem="I14-K1-5eU" firstAttribute="leading" secondItem="jbV-ds-2ZK" secondAttribute="leading" id="8dD-Tc-srY"/>
+                            <constraint firstItem="NPn-Vy-2Pf" firstAttribute="leading" secondItem="RVb-Du-fVA" secondAttribute="trailing" id="Cec-Vb-cKH"/>
+                            <constraint firstItem="kgQ-Im-M1o" firstAttribute="top" secondItem="CwS-oL-FUV" secondAttribute="bottom" constant="8" id="Kh7-ib-CUA"/>
+                            <constraint firstItem="RVb-Du-fVA" firstAttribute="centerY" secondItem="NPn-Vy-2Pf" secondAttribute="centerY" id="L16-vd-eXo"/>
+                            <constraint firstAttribute="centerX" secondItem="kgQ-Im-M1o" secondAttribute="centerX" id="OiF-71-cJo"/>
+                            <constraint firstAttribute="centerX" secondItem="NPn-Vy-2Pf" secondAttribute="centerX" id="Rz9-RN-ayq"/>
+                            <constraint firstItem="a1Q-Pf-IXI" firstAttribute="trailing" secondItem="BYn-El-S1a" secondAttribute="trailing" id="WYu-WD-Joc"/>
+                            <constraint firstItem="RVb-Du-fVA" firstAttribute="top" secondItem="a1Q-Pf-IXI" secondAttribute="bottom" constant="8" symbolic="YES" id="ZHx-ew-JSy"/>
+                            <constraint firstItem="CwS-oL-FUV" firstAttribute="top" secondItem="NPn-Vy-2Pf" secondAttribute="bottom" constant="8" id="aHW-lf-lKE"/>
+                            <constraint firstAttribute="centerX" secondItem="CwS-oL-FUV" secondAttribute="centerX" id="erV-TV-jTn"/>
+                            <constraint firstItem="a1Q-Pf-IXI" firstAttribute="leading" secondItem="RVb-Du-fVA" secondAttribute="leading" id="lwB-Ek-IS9"/>
+                            <constraint firstItem="I14-K1-5eU" firstAttribute="top" secondItem="XPQ-IA-AV7" secondAttribute="bottom" id="n6V-an-lrE"/>
+                            <constraint firstAttribute="trailing" secondItem="I14-K1-5eU" secondAttribute="trailing" id="pVl-Sw-KKq"/>
+                            <constraint firstItem="2Ug-11-N59" firstAttribute="top" secondItem="kgQ-Im-M1o" secondAttribute="bottom" constant="20" id="qIN-48-uuu"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Accueil Prep'App Kiné" id="tlC-4Q-9kN">
@@ -564,7 +665,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="menuButton" destination="WXL-5v-uEP" id="FAB-bz-ArX"/>
-                        <outlet property="pieView" destination="KK5-rl-rzq" id="6QA-bk-7Bo"/>
+                        <outlet property="newsButton" destination="kgQ-Im-M1o" id="GwF-rJ-1fC"/>
+                        <outlet property="pageControl" destination="CwS-oL-FUV" id="A7K-CY-e3B"/>
+                        <outlet property="welcome" destination="I14-K1-5eU" id="YcA-Ad-gEt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gjf-EP-dOD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1179,7 +1282,7 @@
         <!--Défi duo-->
         <scene sceneID="RGY-ao-WMC">
             <objects>
-                <viewController title="Défi duo" id="LtT-CV-61z" customClass="SoloViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Défi duo" id="LtT-CV-61z" customClass="DuoViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iKX-A5-3fo"/>
                         <viewControllerLayoutGuide type="bottom" id="E9y-N2-7c0"/>
@@ -1190,7 +1293,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Section disponible prochainement !" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Vt-rs-Sec">
                                 <rect key="frame" x="0.0" y="278" width="600" height="44"/>
-                                <color key="backgroundColor" red="0.30588236451148987" green="0.65490198135375977" blue="0.5372549295425415" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.29411764705882354" green="0.56862745098039214" blue="0.45882352941176469" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="TnM-Z4-PcI"/>
                                 </constraints>
@@ -1696,7 +1799,7 @@
         <image name="training" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xbe-Fm-nd1"/>
+        <segue reference="2V6-ZR-wfX"/>
         <segue reference="cGO-nn-N46"/>
         <segue reference="udu-Mv-cp9"/>
     </inferredMetricsTieBreakers>

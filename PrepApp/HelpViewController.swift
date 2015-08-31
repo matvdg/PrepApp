@@ -13,13 +13,21 @@ class HelpViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var helpPics = ["home","training","solo","duo","contest","profile","settings","credits"]
     var helpTopics = ["Accueil","Entraînement","Défi solo","Défi duo","Concours","Profil","Réglages","Mentions légales"]
     var helpTexts = [
-        "Dans l'accueil Prep'App vous pouvez consulter d'un coup d'oeil votre niveau, votre assiduité.  Glissez vers la droite pour accéder à votre graphe ANP (assiduité/niveau/performance) et glissez encore pour consulter le fil d'actualité.",
-        "Entraînez-vous à volonté en choisissant vos matières, chapitres et questions.",
-        "Mesurez-vous contre la montre. Utilisez le trigramme pour choisir une matière précise, ou une combinaison de deux ou trois matièrs. 6 questions de biologie, 2 de physique, 1 de chimie. Vous avez 20 minutes. Les questions du défi solo n'ont jamais été rencontrées dans entraînement et basculent dans la section entraînement une fois le défi terminé, afin de voir les corrections et de refaire les questions échouées. ",
+        //Aide accueil
+        "Dans l'accueil Prep'App vous pouvez consulter d'un coup d'oeil votre niveau, votre assiduité.  Glissez vers la droite pour consulter le fil d'actualité. Tournez votre appareil en mode paysage pour accéder à votre graphe ANP (assiduité/niveau/performance)",
+        //Aide Entraînement
+        "Entraînez-vous à volonté en choisissant vos matières, chapitres et questions. Une fois la question répondue, vous pouvez la marquer pour la mettre de côté afin de la retrouver facilement ou si vous n'avez pas compris la correction. Vous pourrez ensuite la retrouver dans la section \"Questions Marquées\" dans \"Profil\" et éventuellement poser des questions à votre professeur relatives à la correction. Vous pouvez également filtrer vos questions (Toutes, Réussies, Echouées, Nouvelles ou Marquées) en touchant sur \"Question\" dans la barre de menu en haut de l'écran",
+        //Aide défi solo
+        "Mesurez-vous contre la montre. Utilisez le trigramme pour choisir une matière précise, ou une combinaison de deux ou trois matières. 6 questions de biologie, 2 de physique, 1 de chimie. Vous avez 20 minutes. Les questions du défi solo n'ont jamais été rencontrées dans entraînement et basculent dans la section entraînement une fois le défi terminé, afin de voir les corrections et de refaire les questions échouées. ",
+        //Aide défi duo
         "Affrontez un ami en lui envoyant un défi ! Il recevra une notification Prep'App et pourra répondre au challenge dans les 24h. Vous pourrez alors comparer vos résultats. 6 questions de biologie, 2 de physique, 1 de chimie. Vous avez 20 minutes. Les questions du défi duo n'ont jamais été rencontrées dans entraînement ou défi solo et basculent dans la section entraînement une fois le défi duo terminé, afin de voir les corrections et de refaire les questions échouées.",
-        "Participez aux concours Prep'App et comparez-vous aux autres étudiants. 60 questions de biologie, 20 de physique, 10 de chimie. Vous avez 3h20. Les questions du concours n'ont jamais été rencontrées dans entraînement ou défi solo/duo et sont uniques (crées pour Prep'App, elles ne proviennent pas d'annales). Elles basculent dans la section entraînement une fois le concours terminé, ou dans défi duo si vous n'avez pas participé au concours, afin de voir les corrections et de refaire les questions échouées.",
+        //Aide concours
+        "Participez aux concours Prep'App et comparez-vous aux autres étudiants. 60 questions de biologie, 20 de physique, 10 de chimie. Vous avez 3h20. Les questions du concours n'ont jamais été rencontrées dans entraînement ou défi solo/duo et sont uniques (créées pour Prep'App, elles ne proviennent pas d'annales). Elles basculent dans la section entraînement une fois le concours terminé, ou dans défi solo si vous n'avez pas participé au concours, afin de voir les corrections et de refaire les questions échouées.",
+        //Aide concept ANP
         "ANP c'est votre assiduité, votre niveau et votre performance mesurées dans cette section. Votre assiduité est calculée aux nombres de questions passées, réussies ou échouées, tandis que votre niveau mesure votre succès. Votre performance est l'indice mesurant votre taux de réussite par rapport à vos échecs. ",
+        //Aide réglages
         "Dans cette section vous pouvez changer votre mot de passe, activer la protection Touch ID si disponible et activer/désactiver les bruitages dans Prep'App",
+        //Aide mentions légales
         "©Prep'App est une société par actions simplifiées au capital social de 10000€. L'équipe Prep'App est composée de Maximilien Rochaix, Julien Perennou, Julien Sergent, Jonathan Carsalade et de Mathieu Vandeginste. Cette app a été développée en Swift à l'aide de ©Realm, base de donnée locale orientée objects -www.realm.io-"]
     var selectedHelp: Int = -1
 

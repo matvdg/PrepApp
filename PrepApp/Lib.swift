@@ -18,6 +18,58 @@ extension Array {
     }
 }
 
+extension Int {
+    func levelPrepApp() -> String {
+        switch self {
+        case 0:
+            return "I"
+        case 1:
+            return "II"
+        case 2:
+            return "III"
+        case 3:
+            return "IV"
+        case 4:
+            return "V"
+        case 5:
+            return "VI"
+        case 6:
+            return "VII"
+        case 7:
+            return "VIII"
+        case 8:
+            return "IX"
+        case 9:
+            return "X"
+        case 10:
+            return "XI"
+        case 11:
+            return "XII"
+        case 12:
+            return "XIII"
+        case 13:
+            return "XIV"
+        case 14:
+            return "XV"
+        case 15:
+            return "XVI"
+        case 16:
+            return "XVII"
+        case 17:
+            return "XVIII"
+        case 18:
+            return "XIX"
+        case 19:
+            return "XX"
+        case 20:
+            return "XXI"
+        default :
+            return "error"
+
+        }
+    }
+}
+
 extension String {
     
 	func sha1() -> String {

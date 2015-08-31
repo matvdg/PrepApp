@@ -22,7 +22,7 @@ class ChapterManager {
                 self.saveChapter(chapter as! NSDictionary)
             }
             println("chapters downloaded")
-            Factory.getQuestionManager().saveQuestions()
+            //Factory.getQuestionManager().saveQuestions()
             
         })
         
@@ -40,7 +40,7 @@ class ChapterManager {
         
         self.realm.write {
             self.realm.add(newChapter)
-        }
+        } 
     }
     
     private func getChapters(callback: (NSArray?) -> Void) {

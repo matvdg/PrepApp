@@ -16,11 +16,18 @@ class SubjectManager {
     
     func saveSubjects() {
         self.getSubjects({ (subjects) -> Void in
+            var empty = true
             for subject in subjects! {
+                empty = false
                 self.saveSubject(subject as! NSDictionary)
             }
-            println("subjects downloaded")
-            Factory.getChapterManager().saveChapters()
+            if empty {
+                Factory.errorNetwork = true
+            } else {
+                println("subjects downloaded")
+                Factory.getChapterManager().saveChapters()
+            }
+            
             
         })
         
