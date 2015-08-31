@@ -46,6 +46,7 @@ class SoloViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = colorGreyBackgound
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
 

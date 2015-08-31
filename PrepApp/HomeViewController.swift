@@ -8,15 +8,25 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var menuButton:UIBarButtonItem!
     @IBOutlet weak var welcome: UILabel!
-    @IBOutlet weak var newsButton: UIButton!
+    @IBOutlet weak var chePieChart: PieChartView!
+    @IBOutlet weak var phyPieChart: PieChartView!
+    @IBOutlet weak var bioPieChart: PieChartView!
+    @IBOutlet weak var levelButton: UIButton!
+    
+    
+    @IBAction func showStats(sender: AnyObject) {
+    }
+    
     
     enum pie: Int {
         case biology = 1, physics, chemistry
     }
     var type: pie = .biology
+    let offsetAngle: CGFloat = 265
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = colorGreyBackgound
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
@@ -26,7 +36,6 @@ class HomeViewController: UIViewController, ChartViewDelegate {
 			menuButton.action = "revealToggle:"
 			self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
-        self.newsButton.layer.cornerRadius = 6.0
         self.welcome.text = "Bonjour, \(User.currentUser!.firstName) \(User.currentUser!.lastName) !"
         self.renderChemistryPieChart()
         self.renderPhysicsPieChart()
@@ -37,110 +46,89 @@ class HomeViewController: UIViewController, ChartViewDelegate {
 	}
     
     func renderBiologyPieChart(){
-        var bioPie = PieChartView(frame: CGRectMake(100, 0, self.view.bounds.width-200, self.view.bounds.height))
+        
         //pie settings
-        bioPie.delegate = self
-        bioPie.backgroundColor = UIColor.clearColor()
-        bioPie.usePercentValuesEnabled = false
-        bioPie.holeTransparent = true
-        bioPie.holeRadiusPercent = 0
-        bioPie.transparentCircleRadiusPercent = 0
-        bioPie.drawHoleEnabled = false
-        bioPie.drawSliceTextEnabled = false
-        bioPie.drawMarkers = false
-        bioPie.legend.setCustom(colors: [UIColor.clearColor()], labels: [""])
+        self.self.bioPieChart.delegate = self
+        self.self.bioPieChart.backgroundColor = UIColor.clearColor()
+        self.self.bioPieChart.usePercentValuesEnabled = false
+        self.bioPieChart.holeTransparent = true
+        self.bioPieChart.holeColor = colorGreyBackgound
+        self.bioPieChart.holeRadiusPercent = 0
+        self.bioPieChart.transparentCircleRadiusPercent = 0
+        self.bioPieChart.drawHoleEnabled = false
+        self.bioPieChart.drawSliceTextEnabled = false
+        self.bioPieChart.drawMarkers = false
+        self.bioPieChart.legend.setCustom(colors: [UIColor.clearColor()], labels: [""])
         //data
         self.type = .biology
-        bioPie.data = self.getChartData(self.type.rawValue)
+        self.bioPieChart.data = self.getChartData(self.type.rawValue)
         //centerText
-        bioPie.centerTextColor = UIColor.blueColor()
-        bioPie.centerText = ""
-        bioPie.centerTextFont = UIFont(name: "Segoe UI", size: 17)!
+        //self.bioPieChart.centerTextColor = UIColor.blueColor()
+        self.bioPieChart.centerText = ""
+        self.bioPieChart.centerTextFont = UIFont(name: "Segoe UI", size: 17)!
         //description
-        bioPie.descriptionFont = UIFont(name: "Segoe UI", size: 17)!
-        bioPie.descriptionText = ""
-        bioPie.descriptionTextColor = UIColor.redColor()
+        self.bioPieChart.descriptionFont = UIFont(name: "Segoe UI", size: 17)!
+        self.bioPieChart.descriptionText = ""
+        //self.bioPieChart.descriptionTextColor = UIColor.redColor()
         //rotation
-        bioPie.rotationAngle = 266
-        bioPie.rotationEnabled = false
-        //displaying
-        var bioLogo = UIImageView(frame: CGRectMake(self.view.bounds.width/2 + 5, self.view.bounds.height/2 - 85, 14, 14))
-        bioLogo.image = UIImage(named: "bio")
-        self.view.addSubview(bioPie)
-        self.view.addSubview(bioLogo)
+        self.bioPieChart.rotationAngle = self.offsetAngle
+        self.bioPieChart.rotationEnabled = false
 
     }
     
     func renderPhysicsPieChart(){
-        var phyPie = PieChartView(frame: CGRectMake(70, 0, self.view.bounds.width-140, self.view.bounds.height))
         //pie settings
-        phyPie.delegate = self
-        phyPie.backgroundColor = UIColor.clearColor()
-        phyPie.usePercentValuesEnabled = true
-        phyPie.holeTransparent = true
-        phyPie.holeColor = colorGreyBackgound
-        phyPie.holeRadiusPercent = 0.72
-        phyPie.transparentCircleRadiusPercent = 0.77
-        phyPie.drawHoleEnabled = true
-        phyPie.drawSliceTextEnabled = true
-        phyPie.drawMarkers = false
-        phyPie.legend.setCustom(colors: [UIColor.clearColor()], labels: [""])
+        self.phyPieChart.delegate = self
+        self.phyPieChart.backgroundColor = UIColor.clearColor()
+        self.phyPieChart.usePercentValuesEnabled = true
+        self.phyPieChart.holeTransparent = true
+        self.phyPieChart.holeColor = colorGreyBackgound
+        self.phyPieChart.holeRadiusPercent = 0.75
+        self.phyPieChart.transparentCircleRadiusPercent = 0.80
+        self.phyPieChart.drawHoleEnabled = true
+        self.phyPieChart.drawSliceTextEnabled = true
+        self.phyPieChart.drawMarkers = false
+        self.phyPieChart.legend.setCustom(colors: [UIColor.clearColor()], labels: [""])
         //data
         self.type = .physics
-        phyPie.data = self.getChartData(self.type.rawValue)
+        self.phyPieChart.data = self.getChartData(self.type.rawValue)
         //centerText
-        phyPie.centerTextColor = UIColor.blueColor()
-        phyPie.centerText = ""
-        phyPie.centerTextFont = UIFont(name: "Segoe UI", size: 17)!
+        self.phyPieChart.centerText = ""
+        self.phyPieChart.centerTextFont = UIFont(name: "Segoe UI", size: 17)!
         //description
-        phyPie.descriptionFont = UIFont(name: "Segoe UI", size: 17)!
-        phyPie.descriptionText = ""
-        phyPie.descriptionTextColor = UIColor.redColor()
+        self.phyPieChart.descriptionFont = UIFont(name: "Segoe UI", size: 17)!
+        self.phyPieChart.descriptionText = ""
         //rotation
-        phyPie.rotationAngle = 266
-        phyPie.rotationEnabled = false
-        //displaying
-
-        self.view.addSubview(phyPie)
-        var phyLogo = UIImageView(frame: CGRectMake(self.view.bounds.width/2 + 5, self.view.bounds.height/2 - 110, 14, 14))
-        phyLogo.image = UIImage(named: "phy")
-        self.view.addSubview(phyLogo)
+        self.phyPieChart.rotationAngle = self.offsetAngle
+        self.phyPieChart.rotationEnabled = false
 
     }
     
     func renderChemistryPieChart(){
-        var chePie = PieChartView(frame: CGRectMake(40, 0, self.view.bounds.width-80, self.view.bounds.height))
         //pie settings
-        chePie.delegate = self
-        chePie.backgroundColor = UIColor.clearColor()
-        chePie.usePercentValuesEnabled = true
-        chePie.holeTransparent = true
-        chePie.holeRadiusPercent = 0.78
-        chePie.transparentCircleRadiusPercent = 0.82
-        chePie.drawHoleEnabled = true
-        chePie.drawSliceTextEnabled = false
-        chePie.drawMarkers = false
-        chePie.legend.setCustom(colors: [UIColor.clearColor()], labels: [""])
+        self.chePieChart.delegate = self
+        self.chePieChart.backgroundColor = UIColor.clearColor()
+        self.chePieChart.usePercentValuesEnabled = true
+        self.chePieChart.holeTransparent = true
+        self.chePieChart.holeColor = colorGreyBackgound
+        self.chePieChart.holeRadiusPercent = 0.805
+        self.chePieChart.transparentCircleRadiusPercent = 0.84
+        self.chePieChart.drawHoleEnabled = true
+        self.chePieChart.drawSliceTextEnabled = false
+        self.chePieChart.drawMarkers = false
+        self.chePieChart.legend.setCustom(colors: [UIColor.clearColor()], labels: [""])
         //data
         self.type = .chemistry
-        chePie.data = self.getChartData(self.type.rawValue)
+        self.chePieChart.data = self.getChartData(self.type.rawValue)
         //centerText
-        chePie.centerTextColor = UIColor.blueColor()
-        chePie.centerText = ""
-        chePie.centerTextFont = UIFont(name: "Segoe UI", size: 17)!
+        self.chePieChart.centerText = ""
+        self.chePieChart.centerTextFont = UIFont(name: "Segoe UI", size: 17)!
         //description
-        chePie.descriptionFont = UIFont(name: "Segoe UI", size: 17)!
-        chePie.descriptionText = ""
-        chePie.descriptionTextColor = UIColor.redColor()
+        self.chePieChart.descriptionFont = UIFont(name: "Segoe UI", size: 17)!
+        self.chePieChart.descriptionText = ""
         //rotation
-        chePie.rotationAngle = 266
-        chePie.rotationEnabled = false
-        //displaying
-
-        self.view.addSubview(chePie)
-        var chiLogo = UIImageView(frame: CGRectMake(self.view.bounds.width/2 + 5, self.view.bounds.height/2 - 145, 14, 14))
-        chiLogo.image = UIImage(named: "chi")
-        self.view.addSubview(chiLogo)
+        self.chePieChart.rotationAngle = self.offsetAngle
+        self.chePieChart.rotationEnabled = false
 
     }
     
@@ -201,16 +189,18 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     }
     
     func renderLevel(){
-        let level = UIButton(frame: CGRectMake(self.view!.bounds.width / 2 - 55, self.view!.bounds.height / 2 - 65, 110, 110))
-        level.backgroundColor = colorGreenLogo
-        level.layer.borderColor = UIColor.whiteColor().CGColor
-        level.layer.borderWidth = 6
         
-        level.setTitle(User.currentUser!.level.levelPrepApp(), forState: .Normal)
-        level.titleLabel!.font = UIFont(name: "Times New Roman", size: 40)
+        self.levelButton.titleLabel!.font = UIFont(name: "Times New Roman", size: 70)
+        self.levelButton.backgroundColor = colorGreenLogo
+        self.levelButton.layer.zPosition = 100
+        self.levelButton.layer.borderColor = UIColor.whiteColor().CGColor
+        self.levelButton.layer.borderWidth = 6
+        self.levelButton.setTitle(User.currentUser!.level.levelPrepApp(), forState: .Normal)
+        self.levelButton.titleLabel!.adjustsFontSizeToFitWidth = true
+        self.levelButton.titleLabel!.numberOfLines = 1
+        self.levelButton.titleLabel!.baselineAdjustment = UIBaselineAdjustment.AlignCenters
         println(User.currentUser!.printUser())
-        level.layer.cornerRadius = 55
-        self.view.addSubview(level)
+        self.levelButton.layer.cornerRadius = self.levelButton.frame.width / 2
     }
 	
 

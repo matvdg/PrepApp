@@ -240,7 +240,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         //applying grey mask
         let frame = CGRect(x: 0, y: 152, width: self.view.bounds.width, height: self.view.bounds.height-152)
         self.greyMask = UIView(frame: frame)
-        self.greyMask.backgroundColor = colorGreyMask
+        self.greyMask.backgroundColor = colorGreyBackgound
         self.greyMask.layer.zPosition = 100
         self.view.addSubview(self.greyMask)
 
@@ -339,7 +339,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.wording.loadHTMLString( self.currentQuestion!.wording, baseURL: self.baseUrl)
         let scrollFrame = CGRect(x: 0, y: 152, width: self.view.bounds.width, height: self.view.bounds.height-152)
         self.scrollView = UIScrollView(frame: scrollFrame)
-        self.scrollView.backgroundColor = colorGreyMask
+        self.scrollView.backgroundColor = colorGreyBackgound
         self.scrollView.addSubview(self.wording)
         self.view.addSubview(self.scrollView)
         
@@ -773,7 +773,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
                 if !self.didLoadInfos {
                     self.didLoadInfos = true
                     //we have just loaded the Infos webview
-                    self.infos.backgroundColor = colorGreyMask
+                    self.infos.backgroundColor = colorGreyBackgound
                     self.greyMask.layer.zPosition = 0
                 }
             } else {
