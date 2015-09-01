@@ -42,15 +42,38 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
             counter = imagesArray.count
             
             for index in 1...counter {
-                input = input.stringByReplacingOccurrencesOfString("{\(index)}", withString: "<img width=\"\(SyncViewController.widthImage)\" src=\"images/\(getImageByIndex(index, imagesArray: imagesArray))\"/>", options: nil, range: nil)
+                input = input.stringByReplacingOccurrencesOfString("{\(index)}", withString: "<img width=\"\(SyncViewController.widthImage)\" src=\"images/\(imagesArray[index-1])\"/>", options: nil, range: nil)
                 input = input.stringByReplacingOccurrencesOfString("#f9f9f9", withString: "transparent", options: nil, range: nil)
             }
         }
         return input
     }
     
-    private func getImageByIndex(index: Int, imagesArray: [String]) -> String {
-        return imagesArray[index-1]
+    private func extractImagesPaths(data: NSDictionary) -> String {
+        var images = ""
+        var empty = true
+        for (key,value) in data {
+            empty = false
+            images += (value as! String)
+            images += ","
+        }
+        if !empty {
+            images = images.substringToIndex(images.endIndex.predecessor())
+        }
+        return images
+    }
+    
+    private func extractAnswers(data: NSDictionary, images: String) -> List<Answer> {
+        var answers = List<Answer>()
+        for (key,value) in data {
+            var answerToExtract = value as! NSDictionary
+            var answer = Answer()
+            answer.id = (answerToExtract["id"] as! String).toInt()!
+            answer.content = parseNplaceImage((answerToExtract["content"] as! String), images: images)
+            answer.correct = (answerToExtract["correct"] as! String).toBool()!
+            answers.append(answer)
+        }
+        return answers
     }
     
     private func formatInfo(var input: String) -> String {
@@ -65,23 +88,16 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
         newQuestion.id =  data["id_question"] as! Int
         let id = data["id_chapter"] as! Int
         let chapter = realm.objects(Chapter).filter("id=\(id)")[0]
-        newQuestion.imagesQuestion = data["images_question"] as! String
-        newQuestion.imagesCorrection = data["images_correction"] as! String
+        newQuestion.images = self.extractImagesPaths(data["images"] as! NSDictionary)
         newQuestion.chapter = chapter
-        newQuestion.wording = parseNplaceImage(data["wording"] as! String, images: newQuestion.imagesQuestion)
-        newQuestion.answerOne = parseNplaceImage(data["answer_1"] as! String, images: newQuestion.imagesQuestion)
-        newQuestion.answerTwo = parseNplaceImage(data["answer_2"] as! String, images: newQuestion.imagesQuestion)
-        newQuestion.answerThree = parseNplaceImage(data["answer_3"] as! String, images: newQuestion.imagesQuestion)
-        newQuestion.answerFour = parseNplaceImage(data["answer_4"] as! String, images: newQuestion.imagesQuestion)
-        newQuestion.answerFive = parseNplaceImage(data["answer_5"] as! String, images: newQuestion.imagesQuestion)
-        newQuestion.answerSix = parseNplaceImage(data["answer_6"] as! String, images: newQuestion.imagesQuestion)
-        newQuestion.goodAnswers = data["good_answers"] as! String
+        newQuestion.wording = parseNplaceImage(data["wording"] as! String, images: newQuestion.images)
+        newQuestion.answers = self.extractAnswers(data["answers"] as! NSDictionary, images: newQuestion.images)
         newQuestion.calculator = data["calculator"] as! Bool
         newQuestion.info = self.formatInfo(data["info"] as! String)
         newQuestion.type = data["type"] as! Int
         newQuestion.idDuo = data["id_group_duo"] as! Int
         newQuestion.idConcours = data["id_group_duo"] as! Int
-        newQuestion.correction = parseNplaceImage(data["correction"] as! String, images: newQuestion.imagesCorrection)
+        newQuestion.correction = parseNplaceImage(data["correction"] as! String, images: newQuestion.images)
         
     
         realm.write {
@@ -125,7 +141,7 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
                 self.sizeToDownload = (value as! String).toInt()!
             }
         }
-        //println("Size of questions to download = \(self.sizeToDownload/1000) KB")
+        println("Size of questions to download = \(self.sizeToDownload/1000) KB")
         
         
     }

@@ -27,10 +27,7 @@ class SubjectManager {
                 println("subjects downloaded")
                 Factory.getChapterManager().saveChapters()
             }
-            
-            
         })
-        
     }
     
     private func saveSubject(data: NSDictionary) {

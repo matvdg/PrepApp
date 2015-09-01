@@ -18,12 +18,17 @@ class ChapterManager {
     
     func saveChapters() {
         self.getChapters({ (chapters) -> Void in
+            var empty = true
             for chapter in chapters! {
+                empty = false
                 self.saveChapter(chapter as! NSDictionary)
             }
-            println("chapters downloaded")
-            //Factory.getQuestionManager().saveQuestions()
-            
+            if empty {
+                Factory.errorNetwork = true
+            } else {
+                println("chapters downloaded")
+                Factory.getQuestionManager().saveQuestions()
+            }
         })
         
     }
@@ -73,8 +78,6 @@ class ChapterManager {
                             println("error : NSArray nil in getChapters")
                             Factory.errorNetwork = true
                         }
-                        
-                        
                     } else {
                         println("error : != 200 in getChapters")
                         Factory.errorNetwork = true

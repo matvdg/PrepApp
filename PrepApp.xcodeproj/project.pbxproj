@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		95C5C48D1B9503F6001DA9B5 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C5C48C1B9503F6001DA9B5 /* Answer.swift */; };
 		F60082D11B84F9C600F7BCBB /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60082D01B84F9C600F7BCBB /* UserPreferences.swift */; };
 		F60082D31B854F9E00F7BCBB /* VersionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60082D21B854F9E00F7BCBB /* VersionManager.swift */; };
 		F60406191B8DE16C006F7F4E /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F60406181B8DE14F006F7F4E /* Charts.framework */; };
@@ -104,6 +105,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		95C5C48C1B9503F6001DA9B5 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		F60082D01B84F9C600F7BCBB /* UserPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		F60082D21B854F9E00F7BCBB /* VersionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionManager.swift; sourceTree = "<group>"; };
 		F60406131B8DE14F006F7F4E /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "ios-charts-master/Charts/Charts.xcodeproj"; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 				F6322A201B615E3E0074549E /* Image.swift */,
 				F6322A221B615E460074549E /* Subject.swift */,
 				F66771801B61A31900042145 /* FactoryRealm.swift */,
+				95C5C48C1B9503F6001DA9B5 /* Answer.swift */,
 			);
 			name = "Realm Entities";
 			sourceTree = "<group>";
@@ -569,6 +572,7 @@
 				F63B5AE91B77C116002C0A79 /* SoundSystem.swift in Sources */,
 				F605AF0E1B04146C00E90596 /* SoloViewController.swift in Sources */,
 				F6AC7B4D1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift in Sources */,
+				95C5C48D1B9503F6001DA9B5 /* Answer.swift in Sources */,
 				F6ECC1101AF6DFE8008F18E3 /* SyncViewController.swift in Sources */,
 				F6F22A971B70EC5E00A3049B /* DetailHelpViewController.swift in Sources */,
 				F6C02C461B762A810021ABE1 /* RenderQuestionsClasses.swift in Sources */,

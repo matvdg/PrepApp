@@ -9,7 +9,13 @@
 import UIKit
 import RealmSwift
 
-class QuestionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate, ChoiceQuestionViewControllerDelegate, UIWebViewDelegate, UIAdaptivePresentationControllerDelegate  {
+class QuestionViewController: UIViewController,
+UITableViewDataSource,
+UITableViewDelegate,
+UIPopoverPresentationControllerDelegate,
+ChoiceQuestionViewControllerDelegate,
+UIWebViewDelegate,
+UIAdaptivePresentationControllerDelegate  {
     
     //properties
     let realm = FactoryRealm.getRealm()
@@ -313,22 +319,21 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         self.selectedAnswers.removeAll(keepCapacity: false)
         self.questionNumber.title = "Question n°\(self.currentNumber+1)/\(self.questions.count)"
         self.currentQuestion = self.questions[self.currentNumber]
-        let answers = self.currentQuestion!.goodAnswers.componentsSeparatedByString(",")
+        let answers = self.currentQuestion!.answers
         self.goodAnswers.removeAll(keepCapacity: false)
+        var numberAnswer = 0
         for answer in answers {
-            if let answerIndex = answer.toInt() {
-                self.goodAnswers.append(answerIndex - 1)
-            } else {
-                println("DB error: no good answers, contact Administator")
+            if answer.correct {
+                self.goodAnswers.append(numberAnswer)
             }
-            
+            numberAnswer++
         }
         println("Question n°\(self.currentQuestion!.id) , bonne(s) réponse(s) = \(self.goodAnswers)")
         self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "calc") : UIImage(named: "nocalc"))
         self.didLoadWording = false
         self.didLoadAnswers = false
         self.didLoadInfos = false
-        self.countAnswers()
+        self.numberOfAnswers = self.currentQuestion!.answers.count
         self.loadWording()
         
     }
@@ -603,23 +608,6 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         return result
     }
     
-    private func countAnswers() {
-        var numberOfAnswers = 2
-        if self.questions[self.currentNumber].answerThree != "" {
-            numberOfAnswers++
-            if self.questions[self.currentNumber].answerFour != "" {
-                numberOfAnswers++
-                if self.questions[self.currentNumber].answerFive != "" {
-                    numberOfAnswers++
-                    if self.questions[self.currentNumber].answerSix != "" {
-                        numberOfAnswers++
-                    }
-                }
-            }
-        }
-        //println(numberOfAnswers)
-        self.numberOfAnswers = numberOfAnswers
-    }
     
     //ChoiceQuestionViewControllerDelegate method
     func applyChoice(var choice: Int){
@@ -643,31 +631,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = tableView.dequeueReusableCellWithIdentifier("answerCell", forIndexPath: indexPath) as! UITableViewCellAnswer
         // Configure the cell...
         let answerNumber = indexPath.row
-        var letter = "X"
-        var html = "html"
-        switch answerNumber {
-        case 0:
-            letter = "A"
-            html = self.questions[self.currentNumber].answerOne
-        case 1:
-            letter = "B"
-            html = self.questions[self.currentNumber].answerTwo
-        case 2:
-            letter = "C"
-            html = self.questions[self.currentNumber].answerThree
-        case 3:
-            letter = "D"
-            html = self.questions[self.currentNumber].answerFour
-        case 4:
-            letter = "E"
-            html = self.questions[self.currentNumber].answerFive
-        case 5:
-            letter = "F"
-            html = self.questions[self.currentNumber].answerSix
-        default:
-            letter = "X"
-            html = "html"
-        }
+        
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         cell.number.backgroundColor = UIColor.lightGrayColor()
         cell.answer.scrollView.scrollEnabled = false
@@ -676,10 +640,10 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.number!.font = UIFont(name: "Segoe UI", size: 14)
         cell.number!.textColor = UIColor.whiteColor()
         cell.number!.textAlignment = NSTextAlignment.Center
-        cell.number!.text = letter
+        cell.number!.text = answerNumber.answerPrepApp()
         cell.answer.delegate = self
         cell.answer.position = answerNumber
-        cell.answer.loadHTMLString(html, baseURL: self.baseUrl)
+        cell.answer.loadHTMLString(self.currentQuestion!.answers[answerNumber].content, baseURL: self.baseUrl)
         cell.accessoryType = UITableViewCellAccessoryType.None
         
         if (self.sizeAnswerCells.count == self.numberOfAnswers) {
@@ -691,14 +655,8 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
                 println("error loading too fast, delegates not finished")
                 self.refreshQuestion()
             }
-            
-            
         }
-        
-
-        
         return cell
-        
     }
     
     //UITableViewDelegate methods

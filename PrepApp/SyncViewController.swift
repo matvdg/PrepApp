@@ -76,9 +76,22 @@ class SyncViewController: UIViewController {
                     }
                 } else {
                     //offline mode
-                    Factory.offlineMode = true
-                    println("offline mode")
-                    self.performSegueWithIdentifier("syncDidFinish", sender: self)
+                    if Factory.getVersionManager().loadVersion() == 0 {
+                        // create alert controller
+                        let myAlert = UIAlertController(title: "Erreur de téléchargement", message: "Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
+                        // add an "OK" button
+                        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                            self.sync()
+                        }))
+                        // show the alert
+                        self.presentViewController(myAlert, animated: true, completion: nil)
+                        
+                    } else {
+                        Factory.offlineMode = true
+                        println("offline mode")
+                        self.performSegueWithIdentifier("syncDidFinish", sender: self)
+                    }
+                    
                 }
             }
         } else {
