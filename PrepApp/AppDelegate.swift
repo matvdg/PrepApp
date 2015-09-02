@@ -15,8 +15,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
 		return true
 	}
+    
+    func rotated()
+    {
+        println("rotation")
+        if(UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation))
+        {
+            NSNotificationCenter.defaultCenter().postNotificationName("landscape", object: nil)
+        }
+        
+        if(UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation))
+        {
+            NSNotificationCenter.defaultCenter().postNotificationName("portrait", object: nil)
+        }
+        
+    }
 
 	func applicationWillResignActive(application: UIApplication) {
         //println("applicationWillResignActive")
@@ -77,10 +93,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
     
-    
-    
-        
-    
-        
 }
 

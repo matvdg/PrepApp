@@ -11,7 +11,14 @@ import UIKit
 class SoloViewController: UIViewController {
 	
     
-    var button: UIButton?
+    var buttonBio: UIButton?
+    var buttonPhy: UIButton?
+    var buttonChe: UIButton?
+    var buttonBioPhy: UIButton?
+    var buttonBioChe: UIButton?
+    var buttonChePhy: UIButton?
+    var buttonAll: UIButton?
+    
     enum choices {
         case none
         case biology
@@ -43,9 +50,21 @@ class SoloViewController: UIViewController {
         }
         
     }
-
+    
+    override func viewDidAppear(animated: Bool) {
+        let value = UIInterfaceOrientation.Portrait.rawValue
+        UIDevice.currentDevice().setValue(value, forKey: "orientation")
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refresh", name: "portrait", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refresh", name: "landscape", object: nil)
+
         self.view.backgroundColor = colorGreyBackgound
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
@@ -81,58 +100,78 @@ class SoloViewController: UIViewController {
         self.presentViewController(myAlert, animated: true, completion: nil)
     }
     
+    func refresh() {
+        println("refreshing")
+        self.buttonChePhy?.removeFromSuperview()
+        self.buttonPhy?.removeFromSuperview()
+        self.buttonChe?.removeFromSuperview()
+        self.buttonBioPhy?.removeFromSuperview()
+        self.buttonBioChe?.removeFromSuperview()
+        self.buttonBio?.removeFromSuperview()
+        self.buttonAll?.removeFromSuperview()
+        self.renderButtons()
+    }
+    
+    
+    
     func renderButtons() {
         let size: CGFloat = 185
-        let yOffset: CGFloat = 80
         
         //biologie
-        self.button = UIButton(frame: CGRectMake((self.view.bounds.width / 2) - (size/2) - (size/3), yOffset, size, size))
-        self.button!.layer.cornerRadius = (size/2)
-        self.button!.alpha = 0.1
-        self.view.addSubview(self.button!)
-        self.button!.addTarget(self, action: "selectBio", forControlEvents: UIControlEvents.TouchUpInside)
+        self.buttonBio = UIButton(frame: CGRectMake((self.view.bounds.width / 2) - (size/2) - (size/3), (self.view.bounds.height / 2) - (size/2) - (size/3), size, size))
+        self.buttonBio!.layer.cornerRadius = (size/2)
+        self.buttonBio!.alpha = 0.9
+        //self.buttonBio?.backgroundColor = UIColor.greenColor()
+        self.view.addSubview(self.buttonBio!)
+        self.buttonBio!.addTarget(self, action: "selectBio", forControlEvents: UIControlEvents.TouchUpInside)
         
         //physique
-        self.button = UIButton(frame: CGRectMake((self.view.bounds.width / 2) - (size/2) + (size/3), yOffset, size, size))
-        self.button!.layer.cornerRadius = (size/2)
-        self.button!.alpha = 0.1
-        self.view.addSubview(self.button!)
-        self.button!.addTarget(self, action: "selectPhy", forControlEvents: UIControlEvents.TouchUpInside)
+        self.buttonPhy = UIButton(frame: CGRectMake((self.view.bounds.width / 2) - (size/2) + (size/3), (self.view.bounds.height / 2) - (size/2) - (size/3), size, size))
+        self.buttonPhy!.layer.cornerRadius = (size/2)
+        self.buttonPhy!.alpha = 0.9
+        //self.buttonPhy?.backgroundColor = UIColor.redColor()
+        self.view.addSubview(self.buttonPhy!)
+        self.buttonPhy!.addTarget(self, action: "selectPhy", forControlEvents: UIControlEvents.TouchUpInside)
         
         //chimie
-        self.button = UIButton(frame: CGRectMake((self.view.bounds.width / 2) - (size/2), size - (size/3) + yOffset, size, size))
-        self.button!.layer.cornerRadius = (size/2)
-        self.button!.alpha = 0.1
-        self.view.addSubview(self.button!)
-        self.button!.addTarget(self, action: "selectChi", forControlEvents: UIControlEvents.TouchUpInside)
+        self.buttonChe = UIButton(frame: CGRectMake((self.view.bounds.width / 2) - (size/2), (self.view.bounds.height / 2) - (size/2)  + (size/3), size, size))
+        self.buttonChe!.layer.cornerRadius = (size/2)
+        self.buttonChe!.alpha = 0.9
+        //self.buttonChe?.backgroundColor = UIColor.blueColor()
+        self.view.addSubview(self.buttonChe!)
+        self.buttonChe!.addTarget(self, action: "selectChe", forControlEvents: UIControlEvents.TouchUpInside)
         
         //bio/phy
-        self.button = UIButton(frame: CGRectMake((self.view.bounds.width / 2) - (size/6), size/2 - (size/3) + yOffset, size/3 , size/3 + 40))
-        self.button!.layer.cornerRadius = (size/6)
-        self.button!.alpha = 0.1
-        self.view.addSubview(self.button!)
-        self.button!.addTarget(self, action: "selectBioPhy", forControlEvents: UIControlEvents.TouchUpInside)
+        self.buttonBioPhy = UIButton(frame: CGRectMake((self.view.bounds.width / 2) - (size/6), (self.view.bounds.height / 2) - (size/2) - (size/4), size/3 , size/3 + 40))
+        self.buttonBioPhy!.layer.cornerRadius = (size/6)
+        self.buttonBioPhy!.alpha = 0.9
+        //self.buttonBioPhy?.backgroundColor = UIColor.yellowColor()
+        self.view.addSubview(self.buttonBioPhy!)
+        self.buttonBioPhy!.addTarget(self, action: "selectBioPhy", forControlEvents: UIControlEvents.TouchUpInside)
         
         //bio/chi
-        self.button = UIButton(frame: CGRectMake((self.view.bounds.width / 2) - (size/6) - (size/2), size - (size/4) + yOffset, size/3 + 40, size/3))
-        self.button!.layer.cornerRadius = (size/6)
-        self.button!.alpha = 0.1
-        self.view.addSubview(self.button!)
-        self.button!.addTarget(self, action: "selectBioChi", forControlEvents: UIControlEvents.TouchUpInside)
+        self.buttonBioChe = UIButton(frame: CGRectMake((self.view.bounds.width / 2) - (size/6) - (size/2),  (self.view.bounds.height / 2) - (size/5), size/3 + 40, size/3))
+        self.buttonBioChe!.layer.cornerRadius = (size/6)
+        self.buttonBioChe!.alpha = 0.9
+        //self.buttonBioChe?.backgroundColor = UIColor.brownColor()
+        self.view.addSubview(self.buttonBioChe!)
+        self.buttonBioChe!.addTarget(self, action: "selectBioChe", forControlEvents: UIControlEvents.TouchUpInside)
         
-        //chi/phy
-        self.button = UIButton(frame: CGRectMake((self.view.bounds.width / 2) - (size/6) + 60, size - (size/4) + yOffset, size/3 + 40, size/3))
-        self.button!.layer.cornerRadius = (size/6)
-        self.button!.alpha = 0.1
-        self.view.addSubview(self.button!)
-        self.button!.addTarget(self, action: "selectChiPhy", forControlEvents: UIControlEvents.TouchUpInside)
+        //che/phy
+        self.buttonChePhy = UIButton(frame: CGRectMake((self.view.bounds.width / 2) - (size/6) + 60, (self.view.bounds.height / 2) - (size/5), size/3 + 40, size/3))
+        self.buttonChePhy!.layer.cornerRadius = (size/6)
+        self.buttonChePhy!.alpha = 0.9
+        //self.buttonChePhy?.backgroundColor = UIColor.purpleColor()
+        self.view.addSubview(self.buttonChePhy!)
+        self.buttonChePhy!.addTarget(self, action: "selectChePhy", forControlEvents: UIControlEvents.TouchUpInside)
         
         //all
-        self.button = UIButton(frame: CGRectMake((self.view.bounds.width / 2) - (size/4), size - (size/2) + yOffset, size/2, size/2))
-        self.button!.layer.cornerRadius = (size/4)
-        self.button!.alpha = 0.1
-        self.view.addSubview(self.button!)
-        self.button!.addTarget(self, action: "selectAll", forControlEvents: UIControlEvents.TouchUpInside)
+        self.buttonAll = UIButton(frame: CGRectMake((self.view.bounds.width / 2) - (size/4), (self.view.bounds.height / 2) - (size/3), size/2, size/2))
+        self.buttonAll!.layer.cornerRadius = (size/4)
+        self.buttonAll!.alpha = 0.9
+        //self.buttonAll?.backgroundColor = UIColor.darkGrayColor()
+        self.view.addSubview(self.buttonAll!)
+        self.buttonAll!.addTarget(self, action: "selectAll", forControlEvents: UIControlEvents.TouchUpInside)
 
 
 
@@ -153,21 +192,21 @@ class SoloViewController: UIViewController {
         self.trigram.image = UIImage(named: "triphy")
     }
     
-    func selectChi(){
+    func selectChe(){
         self.label.text = "Défi Chimie"
         self.choice = .chemistry
         println("Chimie")
         self.trigram.image = UIImage(named: "trichi")
     }
     
-    func selectBioChi(){
+    func selectBioChe(){
         self.label.text = "Défi Biologie/Chimie"
         self.choice = .bioChi
         println("Biologie/Chimie")
         self.trigram.image = UIImage(named: "tribiochi")
     }
     
-    func selectChiPhy(){
+    func selectChePhy(){
         self.label.text = "Défi Chimie/Physique"
         self.choice = .chiPhy
         println("Chimie/Physique")

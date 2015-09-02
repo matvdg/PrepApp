@@ -30,6 +30,8 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showGraph", name: "landscape", object: nil)
+
 
 		if self.revealViewController() != nil {
 			menuButton.target = self.revealViewController()
@@ -137,14 +139,14 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         var yVals: [ChartDataEntry] = []
         switch pie {
         case 1 :
-            yVals.append(BarChartDataEntry(value: 70, xIndex: 1))
-            yVals.append(BarChartDataEntry(value: 30, xIndex: 2))
+            yVals.append(BarChartDataEntry(value: 100, xIndex: 1))
+            yVals.append(BarChartDataEntry(value: 0, xIndex: 2))
         case 2 :
-            yVals.append(BarChartDataEntry(value: 50, xIndex: 1))
-            yVals.append(BarChartDataEntry(value: 50, xIndex: 2))
+            yVals.append(BarChartDataEntry(value: 100, xIndex: 1))
+            yVals.append(BarChartDataEntry(value: 0, xIndex: 2))
         case 3 :
-            yVals.append(BarChartDataEntry(value: 80, xIndex: 1))
-            yVals.append(BarChartDataEntry(value: 20, xIndex: 2))
+            yVals.append(BarChartDataEntry(value: 100, xIndex: 1))
+            yVals.append(BarChartDataEntry(value: 0, xIndex: 2))
         default :
             yVals.append(BarChartDataEntry(value: 50, xIndex: 1))
         }
@@ -201,6 +203,11 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.levelButton.titleLabel!.baselineAdjustment = UIBaselineAdjustment.AlignCenters
         println(User.currentUser!.printUser())
         self.levelButton.layer.cornerRadius = self.levelButton.frame.width / 2
+    }
+    
+    func showGraph() {
+        println("graph")
+        self.performSegueWithIdentifier("showGraph", sender: self)
     }
 	
 

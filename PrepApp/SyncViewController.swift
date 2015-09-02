@@ -76,17 +76,23 @@ class SyncViewController: UIViewController {
                     }
                 } else {
                     //offline mode
-                    if Factory.getVersionManager().loadVersion() == 0 {
+                    if Factory.getVersionManager().loadVersion() == 0 { //if the app has never synced, can't run the app
+                        self.blur.hidden = true
+                        Sound.playTrack("error")
                         // create alert controller
                         let myAlert = UIAlertController(title: "Erreur de téléchargement", message: "Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
                         // add an "OK" button
                         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                            self.sync()
+                            self.progression.hidden = true
+                            self.tryAgainButton.hidden = false
+                            self.logo.image = UIImage(named: "l350")
+                            
                         }))
                         // show the alert
                         self.presentViewController(myAlert, animated: true, completion: nil)
+
                         
-                    } else {
+                    } else { //run the app in offline mode
                         Factory.offlineMode = true
                         println("offline mode")
                         self.performSegueWithIdentifier("syncDidFinish", sender: self)

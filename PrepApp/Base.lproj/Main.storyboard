@@ -52,6 +52,7 @@
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -729,11 +730,55 @@
                         <outlet property="pageControl" destination="CwS-oL-FUV" id="A7K-CY-e3B"/>
                         <outlet property="phyPieChart" destination="cKS-C0-uxG" id="2Ti-0y-IjA"/>
                         <outlet property="welcome" destination="I14-K1-5eU" id="YcA-Ad-gEt"/>
+                        <segue destination="egf-vY-CPw" kind="presentation" identifier="showGraph" id="98h-A9-a0i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gjf-EP-dOD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2939" y="266"/>
+        </scene>
+        <!--Graph-->
+        <scene sceneID="CpT-6e-RA3">
+            <objects>
+                <viewController title="Graph" id="egf-vY-CPw" customClass="GraphViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5gL-TZ-Epg"/>
+                        <viewControllerLayoutGuide type="bottom" id="Kt1-WV-xap"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ogf-Vo-P4v">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="graph" translatesAutoresizingMaskIntoConstraints="NO" id="BiC-6L-W4B">
+                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Performances" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x9H-f6-BrE">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <color key="backgroundColor" red="0.1058823529" green="0.50588235290000005" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="ogb-6g-6tg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Kt1-WV-xap" firstAttribute="top" secondItem="BiC-6L-W4B" secondAttribute="bottom" id="0EK-0Z-Neq"/>
+                            <constraint firstAttribute="trailing" secondItem="BiC-6L-W4B" secondAttribute="trailing" id="C8C-Si-RuH"/>
+                            <constraint firstItem="x9H-f6-BrE" firstAttribute="trailing" secondItem="BiC-6L-W4B" secondAttribute="trailing" id="ILB-gA-aie"/>
+                            <constraint firstItem="BiC-6L-W4B" firstAttribute="top" secondItem="x9H-f6-BrE" secondAttribute="bottom" id="aMv-mn-QoN"/>
+                            <constraint firstItem="BiC-6L-W4B" firstAttribute="leading" secondItem="Ogf-Vo-P4v" secondAttribute="leading" id="auF-9c-cuB"/>
+                            <constraint firstItem="x9H-f6-BrE" firstAttribute="top" secondItem="Ogf-Vo-P4v" secondAttribute="top" id="cZF-Zr-hiB"/>
+                            <constraint firstItem="x9H-f6-BrE" firstAttribute="leading" secondItem="BiC-6L-W4B" secondAttribute="leading" id="rKm-Mj-eXj"/>
+                        </constraints>
+                    </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f8d-8m-Cex" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3581" y="266"/>
         </scene>
         <!--Reveal View Controller-->
         <scene sceneID="raD-wH-oWo">
@@ -1277,29 +1322,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5ru-Yl-Ltz">
-                                <rect key="frame" x="140" y="72" width="320" height="320"/>
+                                <rect key="frame" x="140" y="140" width="320" height="320"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="36z-HZ-2WA"/>
-                                    <constraint firstAttribute="height" constant="320" id="FpA-et-bIT"/>
+                                    <constraint firstAttribute="width" constant="320" id="THP-ia-jxE"/>
+                                    <constraint firstAttribute="height" constant="320" id="ma5-BZ-ygk"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Toucher le trigramme pour choisir des matières" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyr-lb-Wzp">
-                                <rect key="frame" x="0.0" y="410" width="600" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="LsJ-Uh-I0x"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="99E-de-qXW">
-                                <rect key="frame" x="202" y="439" width="197" height="40"/>
+                                <rect key="frame" x="202" y="540" width="197" height="40"/>
                                 <color key="backgroundColor" red="0.10368984940000001" green="0.56898564100000004" blue="0.44660383460000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Cm1-3Z-oDq"/>
-                                    <constraint firstAttribute="width" constant="197" id="Ol6-0o-xQ9"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="197" id="P20-Ru-6ur"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="vy2-lM-dDo"/>
+                                    <constraint firstAttribute="width" constant="197" id="Mef-eN-hfg"/>
+                                    <constraint firstAttribute="height" constant="40" id="mQb-sr-4Mj"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="20"/>
                                 <state key="normal" title="Lancer le défi">
@@ -1311,17 +1345,26 @@
                                     <action selector="runChallenge:" destination="Cpx-Ts-0mG" eventType="touchUpInside" id="ut4-4j-p7i"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Toucher le trigramme pour choisir des matières" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyr-lb-Wzp">
+                                <rect key="frame" x="0.0" y="511" width="600" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="600" id="3ul-cP-H2c"/>
+                                    <constraint firstAttribute="height" constant="21" id="Uj7-6d-fjd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.92549020051956177" green="0.92549020051956177" blue="0.92549020051956177" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.1058823529" green="0.50588235290000005" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="5ru-Yl-Ltz" firstAttribute="top" secondItem="zLx-qB-fGU" secondAttribute="bottom" constant="8" id="0AU-Fl-08C"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="kyr-lb-Wzp" secondAttribute="trailing" constant="-16" id="3yD-wQ-tVp"/>
-                            <constraint firstItem="99E-de-qXW" firstAttribute="top" secondItem="kyr-lb-Wzp" secondAttribute="bottom" constant="8" id="78T-uy-GYi"/>
-                            <constraint firstItem="kyr-lb-Wzp" firstAttribute="top" secondItem="5ru-Yl-Ltz" secondAttribute="bottom" constant="18" id="JUQ-5F-MfT"/>
-                            <constraint firstItem="kyr-lb-Wzp" firstAttribute="leading" secondItem="Bq4-nu-P5g" secondAttribute="leadingMargin" constant="-16" id="SRq-gI-7He"/>
-                            <constraint firstAttribute="centerX" secondItem="5ru-Yl-Ltz" secondAttribute="centerX" id="nMI-rx-G9p"/>
-                            <constraint firstAttribute="centerX" secondItem="99E-de-qXW" secondAttribute="centerX" id="oM8-sP-xUl"/>
+                            <constraint firstAttribute="centerX" secondItem="kyr-lb-Wzp" secondAttribute="centerX" id="7Hi-na-jme"/>
+                            <constraint firstItem="99E-de-qXW" firstAttribute="top" secondItem="kyr-lb-Wzp" secondAttribute="bottom" constant="8" id="C9j-3E-cwK"/>
+                            <constraint firstAttribute="centerX" secondItem="5ru-Yl-Ltz" secondAttribute="centerX" id="PgA-w8-tUz"/>
+                            <constraint firstAttribute="centerX" secondItem="99E-de-qXW" secondAttribute="centerX" id="ca7-jH-vbW"/>
+                            <constraint firstAttribute="centerY" secondItem="5ru-Yl-Ltz" secondAttribute="centerY" id="hVv-IJ-IIT"/>
+                            <constraint firstItem="syj-5W-bOg" firstAttribute="top" secondItem="99E-de-qXW" secondAttribute="bottom" constant="20" id="yGJ-zM-fw1"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Défi solo" id="PVk-qO-t8k">
@@ -1652,14 +1695,23 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xaW-Gr-7Xx">
-                                <rect key="frame" x="275" y="86" width="50" height="50"/>
+                                <rect key="frame" x="275" y="87" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="AkR-ij-ABD"/>
-                                    <constraint firstAttribute="height" constant="50" id="zZL-BY-xJj"/>
+                                    <constraint firstAttribute="height" constant="50" id="9oU-Ad-fge"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="FwO-EE-PwS"/>
+                                    <constraint firstAttribute="width" constant="50" id="KbU-JO-Fs7"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="Nh6-hx-d0r"/>
                                 </constraints>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" text="Help" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJJ-Lb-k4T">
-                                <rect key="frame" x="10" y="146" width="580" height="444"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" translatesAutoresizingMaskIntoConstraints="NO" id="Zo5-vi-0sm">
+                                <rect key="frame" x="260" y="72" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="Wl5-Nn-2yW"/>
+                                    <constraint firstAttribute="height" constant="80" id="qIG-Fr-dT0"/>
+                                </constraints>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" editable="NO" text="Help" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJJ-Lb-k4T">
+                                <rect key="frame" x="10" y="145" width="580" height="444"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1668,16 +1720,24 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Btv-Pd-cWk" firstAttribute="top" secondItem="qFL-fz-q3Y" secondAttribute="top" id="3Z8-K1-Gkf"/>
-                            <constraint firstItem="xaW-Gr-7Xx" firstAttribute="top" secondItem="aSE-dV-gKP" secondAttribute="bottom" constant="22" id="Cdl-oA-PpJ"/>
-                            <constraint firstAttribute="trailing" secondItem="OJJ-Lb-k4T" secondAttribute="trailing" constant="10" id="EoE-dW-iC8"/>
+                            <constraint firstItem="xaW-Gr-7Xx" firstAttribute="top" secondItem="aSE-dV-gKP" secondAttribute="bottom" constant="23" id="Hk2-F4-u3V"/>
+                            <constraint firstItem="OJJ-Lb-k4T" firstAttribute="top" secondItem="xaW-Gr-7Xx" secondAttribute="bottom" constant="9" id="M2E-hP-2aY"/>
+                            <constraint firstItem="OJJ-Lb-k4T" firstAttribute="leading" secondItem="qFL-fz-q3Y" secondAttribute="leadingMargin" constant="-6" id="NY1-er-9ql"/>
                             <constraint firstItem="Btv-Pd-cWk" firstAttribute="leading" secondItem="qFL-fz-q3Y" secondAttribute="leading" id="O9U-N7-NjO"/>
+                            <constraint firstAttribute="centerX" secondItem="xaW-Gr-7Xx" secondAttribute="centerX" id="RTp-2J-BLG"/>
+                            <constraint firstItem="Zo5-vi-0sm" firstAttribute="top" secondItem="aSE-dV-gKP" secondAttribute="bottom" constant="8" id="VmR-5z-YWY"/>
+                            <constraint firstAttribute="centerX" secondItem="Zo5-vi-0sm" secondAttribute="centerX" id="Vre-B0-Hu1"/>
+                            <constraint firstAttribute="centerY" secondItem="xaW-Gr-7Xx" secondAttribute="centerY" id="gR3-mr-PKb"/>
                             <constraint firstItem="tBF-XO-wOd" firstAttribute="top" secondItem="Btv-Pd-cWk" secondAttribute="bottom" id="gjS-ps-pF9"/>
-                            <constraint firstItem="tBF-XO-wOd" firstAttribute="top" secondItem="OJJ-Lb-k4T" secondAttribute="bottom" constant="10" id="j91-az-3xC"/>
-                            <constraint firstItem="OJJ-Lb-k4T" firstAttribute="top" secondItem="xaW-Gr-7Xx" secondAttribute="bottom" constant="10" id="pLZ-fC-v2s"/>
+                            <constraint firstItem="OJJ-Lb-k4T" firstAttribute="centerX" secondItem="xaW-Gr-7Xx" secondAttribute="centerX" id="jOq-c1-3St"/>
                             <constraint firstAttribute="trailing" secondItem="Btv-Pd-cWk" secondAttribute="trailing" id="q2G-ig-xpq"/>
-                            <constraint firstItem="OJJ-Lb-k4T" firstAttribute="leading" secondItem="qFL-fz-q3Y" secondAttribute="leading" constant="10" id="tXx-bA-pga"/>
-                            <constraint firstAttribute="centerX" secondItem="xaW-Gr-7Xx" secondAttribute="centerX" id="v8b-AZ-Cim"/>
+                            <constraint firstItem="tBF-XO-wOd" firstAttribute="top" secondItem="OJJ-Lb-k4T" secondAttribute="bottom" constant="10" id="v3j-Gy-YB1"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="gR3-mr-PKb"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -1839,11 +1899,13 @@
     </scenes>
     <resources>
         <image name="bio" width="512" height="512"/>
-        <image name="blur" width="1242" height="2012"/>
+        <image name="blur" width="1242" height="2146"/>
         <image name="calc" width="22" height="22"/>
         <image name="chi" width="512" height="512"/>
+        <image name="circle" width="250" height="250"/>
         <image name="contest" width="22" height="22"/>
         <image name="duo" width="22" height="22"/>
+        <image name="graph" width="1000" height="496"/>
         <image name="help" width="22" height="22"/>
         <image name="home" width="22" height="22"/>
         <image name="logoHD" width="340" height="340"/>

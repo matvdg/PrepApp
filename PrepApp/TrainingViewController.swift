@@ -46,6 +46,7 @@ class TrainingViewController: UIViewController {
         }
         
     }
+    
 	
     override func viewDidLoad() {
         super.viewDidLoad()

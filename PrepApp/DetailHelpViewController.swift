@@ -22,7 +22,7 @@ class DetailHelpViewController: UIViewController {
         self.title = self.helpTopic
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
-        self.helpText.textColor = UIColor.blackColor()
+        self.helpText.textColor = UIColor.whiteColor()
         self.helpText.font = UIFont(name: "Segoe UI", size: 20)
         self.helpText.setContentOffset(CGPointZero, animated: true)
         self.helpText.scrollRangeToVisible(NSRange(location: 0, length: 0))
