@@ -1694,7 +1694,20 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blur" translatesAutoresizingMaskIntoConstraints="NO" id="Btv-Pd-cWk">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xaW-Gr-7Xx">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" text="Help" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJJ-Lb-k4T">
+                                <rect key="frame" x="10" y="145" width="580" height="444"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" translatesAutoresizingMaskIntoConstraints="NO" id="Zo5-vi-0sm">
+                                <rect key="frame" x="260" y="72" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="Wl5-Nn-2yW"/>
+                                    <constraint firstAttribute="height" constant="80" id="qIG-Fr-dT0"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xaW-Gr-7Xx" userLabel="imgTopic">
                                 <rect key="frame" x="275" y="87" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="9oU-Ad-fge"/>
@@ -1703,35 +1716,22 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="Nh6-hx-d0r"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" translatesAutoresizingMaskIntoConstraints="NO" id="Zo5-vi-0sm">
-                                <rect key="frame" x="260" y="72" width="80" height="80"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="Wl5-Nn-2yW"/>
-                                    <constraint firstAttribute="height" constant="80" id="qIG-Fr-dT0"/>
-                                </constraints>
-                            </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" editable="NO" text="Help" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJJ-Lb-k4T">
-                                <rect key="frame" x="10" y="145" width="580" height="444"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="OJJ-Lb-k4T" firstAttribute="top" secondItem="xaW-Gr-7Xx" secondAttribute="bottom" constant="8" symbolic="YES" id="276-Hz-uHH"/>
+                            <constraint firstItem="tBF-XO-wOd" firstAttribute="top" secondItem="OJJ-Lb-k4T" secondAttribute="bottom" constant="11" id="31T-vj-atk"/>
                             <constraint firstItem="Btv-Pd-cWk" firstAttribute="top" secondItem="qFL-fz-q3Y" secondAttribute="top" id="3Z8-K1-Gkf"/>
                             <constraint firstItem="xaW-Gr-7Xx" firstAttribute="top" secondItem="aSE-dV-gKP" secondAttribute="bottom" constant="23" id="Hk2-F4-u3V"/>
-                            <constraint firstItem="OJJ-Lb-k4T" firstAttribute="top" secondItem="xaW-Gr-7Xx" secondAttribute="bottom" constant="9" id="M2E-hP-2aY"/>
-                            <constraint firstItem="OJJ-Lb-k4T" firstAttribute="leading" secondItem="qFL-fz-q3Y" secondAttribute="leadingMargin" constant="-6" id="NY1-er-9ql"/>
+                            <constraint firstItem="OJJ-Lb-k4T" firstAttribute="centerX" secondItem="xaW-Gr-7Xx" secondAttribute="centerX" id="Lxh-4h-Mz1"/>
                             <constraint firstItem="Btv-Pd-cWk" firstAttribute="leading" secondItem="qFL-fz-q3Y" secondAttribute="leading" id="O9U-N7-NjO"/>
                             <constraint firstAttribute="centerX" secondItem="xaW-Gr-7Xx" secondAttribute="centerX" id="RTp-2J-BLG"/>
                             <constraint firstItem="Zo5-vi-0sm" firstAttribute="top" secondItem="aSE-dV-gKP" secondAttribute="bottom" constant="8" id="VmR-5z-YWY"/>
                             <constraint firstAttribute="centerX" secondItem="Zo5-vi-0sm" secondAttribute="centerX" id="Vre-B0-Hu1"/>
                             <constraint firstAttribute="centerY" secondItem="xaW-Gr-7Xx" secondAttribute="centerY" id="gR3-mr-PKb"/>
                             <constraint firstItem="tBF-XO-wOd" firstAttribute="top" secondItem="Btv-Pd-cWk" secondAttribute="bottom" id="gjS-ps-pF9"/>
-                            <constraint firstItem="OJJ-Lb-k4T" firstAttribute="centerX" secondItem="xaW-Gr-7Xx" secondAttribute="centerX" id="jOq-c1-3St"/>
                             <constraint firstAttribute="trailing" secondItem="Btv-Pd-cWk" secondAttribute="trailing" id="q2G-ig-xpq"/>
-                            <constraint firstItem="tBF-XO-wOd" firstAttribute="top" secondItem="OJJ-Lb-k4T" secondAttribute="bottom" constant="10" id="v3j-Gy-YB1"/>
+                            <constraint firstItem="OJJ-Lb-k4T" firstAttribute="leading" secondItem="qFL-fz-q3Y" secondAttribute="leadingMargin" constant="-6" id="uir-v6-mmh"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
