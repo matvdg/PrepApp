@@ -19,6 +19,7 @@ let colorChiPhy = UIColor(red: 160/255, green: 135/255, blue: 216/255, alpha: 1)
 let colorBioPhy = UIColor(red: 254/255, green: 201/255, blue: 111/255, alpha: 1)
 let colorWrongAnswer = UIColor(red: 223/255, green: 52/255, blue: 46/255, alpha: 1)
 let colorRightAnswer = UIColor(red: 78/255, green: 167/255, blue: 137/255, alpha: 1)
+let colorUnanswered = UIColor.lightGrayColor()
 
 
 

@@ -633,7 +633,7 @@ UIAdaptivePresentationControllerDelegate  {
         let answerNumber = indexPath.row
         
         cell.selectionStyle = UITableViewCellSelectionStyle.None
-        cell.number.backgroundColor = UIColor.lightGrayColor()
+        cell.number.backgroundColor = colorUnanswered
         cell.answer.scrollView.scrollEnabled = false
         cell.answer.userInteractionEnabled = false
         cell.answer.frame = CGRectMake(40, 0, self.view.bounds.width - 80, 40)
