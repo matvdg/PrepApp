@@ -10,8 +10,8 @@ import UIKit
 
 class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var profilePics = ["contest","profile","marked","credits"]
-    var profileTopics = ["Classement","Amis","Questions marquées","Suggestions/remarques"]
+    var profilePics = ["stats","contest","profile","marked","credits"]
+    var profileTopics = ["Statistiques","Classement","Amis","Questions marquées","Suggestions/remarques"]
     var selectedSection: Int = -1
 
     
@@ -60,7 +60,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         var image = UIImage(named: self.profilePics[indexPath.row])
         cell.imageView?.image = image
         cell.textLabel?.textColor = UIColor.blackColor()
-        cell.textLabel!.font = UIFont(name: "Segoe UI", size: 15)
+        cell.textLabel!.font = UIFont(name: "Segoe UI", size: 18)
         cell.textLabel!.text = self.profileTopics[indexPath.row]
         return cell
     }

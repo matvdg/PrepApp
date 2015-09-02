@@ -13,14 +13,14 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var bioPieChart: PieChartView!
     @IBOutlet weak var levelButton: UIButton!
     
-    
-    @IBAction func showStats(sender: AnyObject) {
-    }
-    
-    
     enum pie: Int {
         case biology = 1, physics, chemistry
     }
+    
+    @IBAction func showStats(sender: AnyObject) {
+        self.performSegueWithIdentifier("showStats", sender: self)
+    }
+    
     var type: pie = .biology
     let offsetAngle: CGFloat = 265
 
@@ -31,6 +31,14 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "showGraph", name: "landscape", object: nil)
+        
+        //handling swipe gestures
+        var swipeLeft = UISwipeGestureRecognizer(target: self, action: "swiped:")
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
+        self.view.addGestureRecognizer(swipeLeft)
+        
+
+
 
 
 		if self.revealViewController() != nil {
@@ -46,6 +54,24 @@ class HomeViewController: UIViewController, ChartViewDelegate {
 
        
 	}
+    
+    func swiped(gesture : UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            
+            switch swipeGesture.direction {
+                
+            case UISwipeGestureRecognizerDirection.Left:
+                println("right")
+                self.performSegueWithIdentifier("showNews", sender: self)
+            
+            default:
+                println("other")
+                break
+                
+            }
+    
+        }
+    }
     
     func renderBiologyPieChart(){
         
@@ -209,6 +235,16 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         println("graph")
         self.performSegueWithIdentifier("showGraph", sender: self)
     }
+    
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        var profileVC = segue.destinationViewController as! DetailProfileViewController
+        // Pass the selected object to the new view controller.
+        profileVC.profileTopics = "Statistiques"
+    }
+
 	
 
 }

@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func rotated()
     {
-        println("rotation")
         if(UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation))
         {
             NSNotificationCenter.defaultCenter().postNotificationName("landscape", object: nil)

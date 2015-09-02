@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		952588BB1B9742E400F68B3F /* NewsfeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952588BA1B9742E400F68B3F /* NewsfeedViewController.swift */; };
 		955085F01B97003E00CC9577 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955085EF1B97003E00CC9577 /* GraphViewController.swift */; };
 		95C5C48D1B9503F6001DA9B5 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C5C48C1B9503F6001DA9B5 /* Answer.swift */; };
 		F60082D11B84F9C600F7BCBB /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60082D01B84F9C600F7BCBB /* UserPreferences.swift */; };
@@ -106,6 +107,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		952588BA1B9742E400F68B3F /* NewsfeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsfeedViewController.swift; sourceTree = "<group>"; };
 		955085EF1B97003E00CC9577 /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		95C5C48C1B9503F6001DA9B5 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		F60082D01B84F9C600F7BCBB /* UserPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				F61A1CDE1B0041CD00777584 /* MenuController.swift */,
 				F6C309581B0365B100B8FAC9 /* HomeViewController.swift */,
 				955085EF1B97003E00CC9577 /* GraphViewController.swift */,
+				952588BA1B9742E400F68B3F /* NewsfeedViewController.swift */,
 			);
 			name = Start;
 			sourceTree = "<group>";
@@ -597,6 +600,7 @@
 				F605AF101B0414F300E90596 /* DuoViewController.swift in Sources */,
 				F6322A1F1B615E360074549E /* Chapter.swift in Sources */,
 				F6FBFAC31AFA98D40020B074 /* Lib.swift in Sources */,
+				952588BB1B9742E400F68B3F /* NewsfeedViewController.swift in Sources */,
 				F605AF161B04153C00E90596 /* HelpViewController.swift in Sources */,
 				F6322A211B615E3E0074549E /* Image.swift in Sources */,
 				F6FBFABF1AFA33CD0020B074 /* LoginViewController.swift in Sources */,
