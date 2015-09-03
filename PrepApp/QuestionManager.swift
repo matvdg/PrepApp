@@ -88,16 +88,16 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
         newQuestion.id =  data["id_question"] as! Int
         let id = data["id_chapter"] as! Int
         let chapter = realm.objects(Chapter).filter("id=\(id)")[0]
-        newQuestion.images = self.extractImagesPaths(data["images"] as! NSDictionary)
+        var images = self.extractImagesPaths(data["images"] as! NSDictionary)
         newQuestion.chapter = chapter
-        newQuestion.wording = parseNplaceImage(data["wording"] as! String, images: newQuestion.images)
-        newQuestion.answers = self.extractAnswers(data["answers"] as! NSDictionary, images: newQuestion.images)
+        newQuestion.wording = parseNplaceImage(data["wording"] as! String, images: images)
+        newQuestion.answers = self.extractAnswers(data["answers"] as! NSDictionary, images: images)
         newQuestion.calculator = data["calculator"] as! Bool
         newQuestion.info = self.formatInfo(data["info"] as! String)
         newQuestion.type = data["type"] as! Int
         newQuestion.idDuo = data["id_group_duo"] as! Int
         newQuestion.idConcours = data["id_group_duo"] as! Int
-        newQuestion.correction = parseNplaceImage(data["correction"] as! String, images: newQuestion.images)
+        newQuestion.correction = parseNplaceImage(data["correction"] as! String, images: images)
         
     
         realm.write {

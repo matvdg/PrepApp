@@ -1,5 +1,5 @@
 //
-//  QuestionViewController.swift
+//  QuestionSoloViewController.swift
 //  PrepApp
 //
 //  Created by Mathieu Vandeginste on 23/07/15.
@@ -9,33 +9,31 @@
 import UIKit
 import RealmSwift
 
-class QuestionViewController: UIViewController,
-UITableViewDataSource,
-UITableViewDelegate,
-UIPopoverPresentationControllerDelegate,
-ChoiceQuestionViewControllerDelegate,
-UIWebViewDelegate,
-UIAdaptivePresentationControllerDelegate  {
+class QuestionSoloViewController: UIViewController,
+    UITableViewDataSource,
+    UITableViewDelegate,
+    UIWebViewDelegate {
     
     //properties
+    var mode = 0 //0 = challenge 1 = results
+    var choice: Int = 0
     let realm = FactoryRealm.getRealm()
     var questions: [Question] = []
-    var currentChapter: Chapter?
-    var currentSubject: Subject?
     var currentNumber: Int = 0
     var currentQuestion: Question?
     var goodAnswers: [Int] = []
-    var selectedAnswers: [Int] = []
+    var selectedAnswers: [Int:[Int]] = [:]
     var didLoadWording = false
     var didLoadAnswers = false
     var didLoadInfos = false
     var sizeAnswerCells: [Int:CGFloat] = [:]
     var numberOfAnswers = 0
+    var timeChallengeTimer = NSTimer()
     var delayBetweenQuestionsTimer = NSTimer()
     var stopAnimationCorrectionTimer = NSTimer()
+    var timeLeft = NSTimeInterval(20*60)
     var senseAnimationCorrection: Bool = true
     var waitBeforeNextQuestion: Bool = false
-    var choiceFilter = 0 // 0=ALL 1=FAILED 2=SUCCEEDED 3=NEW 4=MARKED
     let baseUrl = NSURL(fileURLWithPath: Factory.path, isDirectory: true)!
     
     //graphics properties
@@ -48,6 +46,10 @@ UIAdaptivePresentationControllerDelegate  {
     
     //app methods
     override func viewDidLoad() {
+        self.markButton.image = nil
+        self.markButton.title = "20:00"
+        self.markButton.enabled = false
+        self.timeChallengeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("countdown"), userInfo: nil, repeats: true)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         //handling swipe gestures
@@ -58,30 +60,24 @@ UIAdaptivePresentationControllerDelegate  {
         var swipeLeft = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
         self.view.addGestureRecognizer(swipeLeft)
-
+        
         //display the subject
         self.numberOfAnswers = 0
         self.sizeAnswerCells.removeAll(keepCapacity: false)
-        self.title = self.currentSubject!.name.uppercaseString
-        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
-        //display the chapter
-        self.chapter.text = "Chapitre \(self.currentChapter!.number) : \(self.currentChapter!.name)"
         //load the questions
         self.loadQuestions()
         //display the first question
         self.loadQuestion()
         
         
-    }    
+    }
     
     //@IBOutlets properties
     @IBOutlet weak var chapter: UILabel!
-    
+    @IBOutlet weak var markButton: UIBarButtonItem!
     @IBOutlet weak var questionNumber: UIBarButtonItem!
-    
+    @IBOutlet weak var filterButton: UIBarButtonItem!
     @IBOutlet weak var calc: UIBarButtonItem!
-    
     @IBOutlet weak var nextButton: UIBarButtonItem!
     @IBOutlet weak var previousButton: UIBarButtonItem!
     
@@ -103,7 +99,7 @@ UIAdaptivePresentationControllerDelegate  {
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         // show the alert
         self.presentViewController(myAlert, animated: true, completion: nil)
-
+        
     }
     
     @IBAction func markQuestion(sender: AnyObject) {
@@ -130,7 +126,7 @@ UIAdaptivePresentationControllerDelegate  {
                 self.performSegueWithIdentifier("showMarkedQuestions", sender: self)
             }))
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-
+            
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
             
@@ -155,14 +151,14 @@ UIAdaptivePresentationControllerDelegate  {
                     // show the alert
                     self.presentViewController(myAlert, animated: true, completion: nil)
                 }))
-
+                
                 myAlert.addAction(UIAlertAction(title: "Envoyer un commentaire", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                     self.performSegueWithIdentifier("showMarkedQuestions", sender: self)
                 }))
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
-
+                
             } else {
                 Sound.playTrack("error")
                 title = "Oups !"
@@ -171,29 +167,9 @@ UIAdaptivePresentationControllerDelegate  {
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
-
+                
             }
         }
-    }
-    
-    @IBAction func questionPopOver(sender: AnyObject) {
-        let storyboard : UIStoryboard = UIStoryboard(
-            name: "Main",
-            bundle: nil)
-        var choiceQuestion: ChoiceQuestionViewController = storyboard.instantiateViewControllerWithIdentifier("ChoiceQuestionViewController") as! ChoiceQuestionViewController
-        choiceQuestion.modalPresentationStyle = .Popover
-        choiceQuestion.preferredContentSize = CGSizeMake(200, 150)
-        choiceQuestion.delegate = self
-        choiceQuestion.choiceFilter = self.choiceFilter
-        choiceQuestion.currentChapter = self.currentChapter
-        let popoverChoiceQuestionViewController = choiceQuestion.popoverPresentationController
-        popoverChoiceQuestionViewController?.permittedArrowDirections = UIPopoverArrowDirection.Up
-        popoverChoiceQuestionViewController?.delegate = self
-        popoverChoiceQuestionViewController?.barButtonItem = sender as! UIBarButtonItem
-        presentViewController(
-            choiceQuestion,
-            animated: true,
-            completion: nil)
     }
     
     
@@ -249,61 +225,144 @@ UIAdaptivePresentationControllerDelegate  {
         self.greyMask.backgroundColor = colorGreyBackgound
         self.greyMask.layer.zPosition = 100
         self.view.addSubview(self.greyMask)
-
+        
         
         var tempQuestions = [Question]()
-        //fetching training questions
-        var questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 0", currentChapter!)
+        //fetching solo questions NEVER DONE
+        var questionsRealm = realm.objects(Question).filter("type = 1")
         for question in questionsRealm {
-            tempQuestions.append(question)
-        }
-        //fetching solo questions already DONE
-        questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 1", currentChapter!)
-        for question in questionsRealm {
-            if History.isQuestionDone(question.id){
+            if History.isQuestionNew(question.id){
                 tempQuestions.append(question)
                 println("ajout solo")
             }
         }
-        //fetching duo questions already DONE
-        questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 2", currentChapter!)
-        for question in questionsRealm {
-            if History.isQuestionDone(question.id){
-                tempQuestions.append(question)
-                println("ajout duo")
-            }
-        }
-        //now applying the filter choosen by user
-        switch self.choiceFilter {
-        case 0: //ALL
-            self.questions = tempQuestions
-        case 1: //FAILED
+        
+        tempQuestions.shuffle()
+        
+        //now applying the trigram choice choosen by user 1 biology, 2 physics, 3 chemistry, 4 bioPhy, 5 bioChe, 6 chePhy, 7 all
+        var counter = 0
+        switch self.choice {
+            
+            
+        case 1: //biology
+            
             for question in tempQuestions {
-                if History.isQuestionFailed(question.id){
+                
+                if question.chapter!.subject!.id == 1 && counter < 12 {
                     self.questions.append(question)
+                    counter++
                 }
             }
-        case 2: //SUCCEEDED
+            self.questions.shuffle()
+            
+        case 2: //physics
             for question in tempQuestions {
-                if History.isQuestionSuccessed(question.id){
+                
+                if question.chapter!.subject!.id == 2 && counter < 6 {
                     self.questions.append(question)
+                    counter++
                 }
             }
-        case 3: //NEW
+            self.questions.shuffle()
+
+        case 3: //chemistry
             for question in tempQuestions {
-                if History.isQuestionNewInTraining(question.id){
+                
+                if question.chapter!.subject!.id == 3 && counter < 6 {
                     self.questions.append(question)
+                    counter++
                 }
             }
-        case 4: //MARKED
+            self.questions.shuffle()
+
+        case 4: //bioPhy
             for question in tempQuestions {
-                if History.isQuestionMarked(question.id){
+                
+                if question.chapter!.subject!.id == 1 && counter < 8 {
                     self.questions.append(question)
+                    counter++
                 }
             }
+            counter = 0
+            for question in tempQuestions {
+                
+                if question.chapter!.subject!.id == 2 && counter < 3 {
+                    self.questions.append(question)
+                    counter++
+                }
+            }
+
+            self.questions.shuffle()
+            
+        case 5: //bioChe
+            for question in tempQuestions {
+                
+                if question.chapter!.subject!.id == 1 && counter < 8 {
+                    self.questions.append(question)
+                    counter++
+                }
+            }
+            counter = 0
+            for question in tempQuestions {
+                
+                if question.chapter!.subject!.id == 3 && counter < 3 {
+                    self.questions.append(question)
+                    counter++
+                }
+            }
+            
+            self.questions.shuffle()
+
+        case 6: //chePhy
+            for question in tempQuestions {
+                
+                if question.chapter!.subject!.id == 2 && counter < 4 {
+                    self.questions.append(question)
+                    counter++
+                }
+            }
+            counter = 0
+            for question in tempQuestions {
+                
+                if question.chapter!.subject!.id == 3 && counter < 2 {
+                    self.questions.append(question)
+                    counter++
+                }
+            }
+            
+            self.questions.shuffle()
+
+        case 7: //all
+            for question in tempQuestions {
+                
+                if question.chapter!.subject!.id == 1 && counter < 6 {
+                    self.questions.append(question)
+                    counter++
+                }
+            }
+            counter = 0
+            for question in tempQuestions {
+                
+                if question.chapter!.subject!.id == 2 && counter < 2 {
+                    self.questions.append(question)
+                    counter++
+                }
+            }
+            counter = 0
+            for question in tempQuestions {
+                
+                if question.chapter!.subject!.id == 3 && counter < 1 {
+                    self.questions.append(question)
+                    counter++
+                }
+            }
+            
+            self.questions.shuffle()
+
         default:
             println("default")
         }
+        
         if self.questions.count == 1 {
             self.nextButton.enabled = false
             self.previousButton.enabled = false
@@ -311,7 +370,10 @@ UIAdaptivePresentationControllerDelegate  {
             self.nextButton.enabled = true
             self.previousButton.enabled = false
         }
+        
         self.questions.shuffle()
+        
+        
     }
     
     private func loadQuestion() {
@@ -336,6 +398,15 @@ UIAdaptivePresentationControllerDelegate  {
         self.numberOfAnswers = self.currentQuestion!.answers.count
         self.loadWording()
         
+        
+        //display the subject
+        self.title = self.currentQuestion!.chapter!.subject!.name.uppercaseString
+        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
+        self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
+        //display the chapter
+        self.chapter.text = "Chapitre \(self.currentQuestion!.chapter!.number) : \(self.currentQuestion!.chapter!.name)"
+
+        
     }
     
     private func loadWording(){
@@ -349,7 +420,7 @@ UIAdaptivePresentationControllerDelegate  {
         self.view.addSubview(self.scrollView)
         
     }
-        
+    
     private func loadAnswers(y: CGFloat){
         self.answers.frame = CGRectMake(0, y, self.view.bounds.width, 400)
         self.answers.scrollEnabled = false
@@ -363,7 +434,7 @@ UIAdaptivePresentationControllerDelegate  {
     }
     
     private func cleanView() {
-        self.delayBetweenQuestionsTimer.invalidate()
+        self.stopAnimationCorrectionTimer.invalidate()
         self.submitButton.hidden = false
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
@@ -374,7 +445,7 @@ UIAdaptivePresentationControllerDelegate  {
         self.answers.removeFromSuperview()
         self.scrollView!.removeFromSuperview()
     }
-
+    
     private func refreshView(){
         //println("refreshView")
         self.cleanView()
@@ -417,26 +488,50 @@ UIAdaptivePresentationControllerDelegate  {
         self.infos.opaque = false
         self.infos.userInteractionEnabled = false
         self.infos.loadHTMLString(self.currentQuestion!.info, baseURL: self.baseUrl)
-        self.submitButton = UIButton(frame: CGRectMake(self.view.bounds.width/2 - 50, self.wording.bounds.size.height + tableHeight + 50 , 100, 40))
-        self.submitButton.setTitle("VALIDER", forState: .Normal)
-        self.submitButton.layer.cornerRadius = 6
-        self.submitButton.titleLabel?.font = UIFont(name: "Segoe UI", size: 15)
-        self.submitButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        self.submitButton.backgroundColor = colorGreenAppButtons
         
-        //resizing the scroll view in order to fit all the elements
-        var scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 100)
+        //if last question
+        if self.currentNumber+1 == self.questions.count {
+            self.submitButton = UIButton(frame: CGRectMake(self.view.bounds.width/2 - 100, self.wording.bounds.size.height + tableHeight + 50 , 200, 40))
+            self.submitButton.setTitle("Terminer le défi duo", forState: .Normal)
+            self.submitButton.layer.cornerRadius = 6
+            self.submitButton.titleLabel?.font = UIFont(name: "Segoe UI", size: 15)
+            self.submitButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            self.submitButton.backgroundColor = colorGreenAppButtons
+            //resizing the scroll view in order to fit all the elements
+            var scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 100)
+            self.scrollView.contentSize =  scrollSize
+            //adding button and action
+            self.submitButton.addTarget(self, action: "submit", forControlEvents: UIControlEvents.TouchUpInside)
+            self.scrollView.addSubview(self.submitButton)
+
+        } else {
+            //resizing the scroll view in order to fit all the elements
+            var scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 50)
+            self.scrollView.contentSize =  scrollSize
+        }
         self.scrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
-        self.scrollView.contentSize =  scrollSize
-        //adding infos, button and action
-        self.submitButton.addTarget(self, action: "submit", forControlEvents: UIControlEvents.TouchUpInside)
+        //adding infos
         self.scrollView.addSubview(self.infos)
-        self.scrollView.addSubview(self.submitButton)
         
     }
     
     func submit() {
         
+        if self.checkUnanswered() {
+            let myAlert = UIAlertController(title: "Attention, vous n'avez pas répondu à toutes les questions !", message: "Voulez-vous tout de même terminer le défi solo ?", preferredStyle: UIAlertControllerStyle.Alert)
+            // add an "OK" button
+            myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                //challenge finished! switch to results mode
+                self.displayResultsMode()
+            }))
+            myAlert.addAction(UIAlertAction(title: "Non, annuler", style: UIAlertActionStyle.Default, handler: nil))
+            // show the alert
+            self.presentViewController(myAlert, animated: true, completion: nil)
+
+        }
+    }
+    
+   /* private func showAnswers() {
         if self.selectedAnswers.isEmpty {
             Sound.playTrack("error")
             // create alert controller
@@ -467,7 +562,7 @@ UIAdaptivePresentationControllerDelegate  {
                 //false
                 historyQuestion.success = false
                 Sound.playTrack("false")
-                 //colouring the results
+                //colouring the results
                 for answer in self.selectedAnswers {
                     let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                     let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
@@ -501,8 +596,8 @@ UIAdaptivePresentationControllerDelegate  {
             }
             
         }
-        
-    }
+
+    }*/
     
     func animateButton(){
         if self.senseAnimationCorrection {
@@ -542,7 +637,7 @@ UIAdaptivePresentationControllerDelegate  {
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
         self.submitButton.backgroundColor = colorGreenAppButtons
-
+        
         Sound.playPage()
         self.performSegueWithIdentifier("showCorrection", sender: self)
     }
@@ -589,7 +684,32 @@ UIAdaptivePresentationControllerDelegate  {
         self.presentViewController(myAlert, animated: true, completion: nil)
     }
     
-    private func checkAnswers() -> Bool {
+    func countdown() {
+        if self.timeLeft != 0 {
+            self.timeLeft--
+            let seconds = String(format: "%02d", Int(floor(self.timeLeft % 60)))
+            let minutes = String(format: "%02d", Int(floor(self.timeLeft / 60)))
+            self.markButton.title = "\(minutes):\(seconds)"
+        } else {
+            self.displayResultsMode()
+        }
+        
+    }
+    
+    func displayResultsMode() {
+        //challenge finished! switch to results mode
+        self.mode = 1
+        self.markButton.image = UIImage(named: "marked")
+        self.markButton.enabled = true
+        self.timeChallengeTimer.invalidate()
+        let myAlert = UIAlertController(title: "Défi solo terminé", message: "Vous pouvez à présent voir les réponses et les corrections si disponibles et éventuellement mettre certaines questions de côté en les marquant" , preferredStyle: UIAlertControllerStyle.Alert)
+        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        // show the alert
+        self.presentViewController(myAlert, animated: true, completion: nil)
+
+    }
+    
+    /*private func checkAnswers() -> Bool {
         var result = false
         for selectedAnswer in self.selectedAnswers {
             result = false
@@ -606,19 +726,17 @@ UIAdaptivePresentationControllerDelegate  {
             result = false
         }
         return result
-    }
+    }*/
     
-    
-    //ChoiceQuestionViewControllerDelegate method
-    func applyChoice(var choice: Int){
-        self.choiceFilter = choice
-        self.refreshView()
-        Sound.playTrack("next")
-    }
-
-    //UIAdaptivePresentationControllerDelegate method
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
+    private func checkUnanswered() -> Bool {
+        var result = false
+        for (question, answers) in self.selectedAnswers {
+            if answers.isEmpty {
+                result = true
+                break
+            }
+        }
+        return result
     }
     
     //UITableViewDataSource methods
@@ -725,7 +843,7 @@ UIAdaptivePresentationControllerDelegate  {
                 self.didLoadWording = true
                 self.loadAnswers(fittingSize.height + 10)
             }
-
+            
         } else {
             if self.didLoadAnswers {
                 if !self.didLoadInfos {
@@ -763,5 +881,5 @@ UIAdaptivePresentationControllerDelegate  {
 
 
 
-    
+
 

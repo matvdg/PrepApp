@@ -64,6 +64,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         cell.textLabel!.text = self.profileTopics[indexPath.row]
         return cell
     }
+
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.selectedSection = indexPath.row

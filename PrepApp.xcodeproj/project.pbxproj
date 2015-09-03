@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		952588BB1B9742E400F68B3F /* NewsfeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952588BA1B9742E400F68B3F /* NewsfeedViewController.swift */; };
+		952588BD1B974BDF00F68B3F /* QuestionSoloViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952588BC1B974BDF00F68B3F /* QuestionSoloViewController.swift */; };
 		955085F01B97003E00CC9577 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955085EF1B97003E00CC9577 /* GraphViewController.swift */; };
 		95C5C48D1B9503F6001DA9B5 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C5C48C1B9503F6001DA9B5 /* Answer.swift */; };
 		F60082D11B84F9C600F7BCBB /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60082D01B84F9C600F7BCBB /* UserPreferences.swift */; };
@@ -108,6 +109,7 @@
 
 /* Begin PBXFileReference section */
 		952588BA1B9742E400F68B3F /* NewsfeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsfeedViewController.swift; sourceTree = "<group>"; };
+		952588BC1B974BDF00F68B3F /* QuestionSoloViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionSoloViewController.swift; sourceTree = "<group>"; };
 		955085EF1B97003E00CC9577 /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		95C5C48C1B9503F6001DA9B5 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		F60082D01B84F9C600F7BCBB /* UserPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				F605AF0D1B04146C00E90596 /* SoloViewController.swift */,
+				952588BC1B974BDF00F68B3F /* QuestionSoloViewController.swift */,
 			);
 			name = Solo;
 			sourceTree = "<group>";
@@ -594,6 +597,7 @@
 				F6767C211B5D5DFB0066FC64 /* QuestionManager.swift in Sources */,
 				F6322A181B6158230074549E /* QuestionViewController.swift in Sources */,
 				F6C02C421B760B960021ABE1 /* ChoiceQuestionViewController.swift in Sources */,
+				952588BD1B974BDF00F68B3F /* QuestionSoloViewController.swift in Sources */,
 				F6987A6D1B16321B002989C6 /* ImageManager.swift in Sources */,
 				F6322A1A1B6158300074549E /* CorrectionViewController.swift in Sources */,
 				F605AF141B04153200E90596 /* SettingsViewController.swift in Sources */,

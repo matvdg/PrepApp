@@ -61,7 +61,7 @@ class TrainingViewController: UIViewController {
 		}
         self.bioButton.backgroundColor = colorBio
         self.phyButton.backgroundColor = colorPhy
-        self.chiButton.backgroundColor = colorChi
+        self.chiButton.backgroundColor = colorChe
 
         
     }
@@ -86,8 +86,7 @@ class TrainingViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        
-        self.navigationController?.navigationBar.setBackgroundImage(nil, forBarMetrics: UIBarMetrics.Default)
+        self.navigationController?.navigationBar.barTintColor = nil
         self.navigationController?.navigationBar.translucent = true
     }
     

@@ -13,7 +13,6 @@ class Question : Object {
     dynamic var id: Int = 0
     dynamic var chapter: Chapter?
     dynamic var wording: String = ""
-    dynamic var images: String = ""
     dynamic var answers = List<Answer>()
     dynamic var calculator: Bool = true
     dynamic var info: String = ""

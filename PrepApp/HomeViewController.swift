@@ -178,7 +178,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         }
         var dataSet : PieChartDataSet = PieChartDataSet(yVals: yVals)
         dataSet.sliceSpace = 10.0
-        var colors: [UIColor] = [colorBio,colorPhy,colorChi]
+        var colors: [UIColor] = [colorBio,colorPhy,colorChe]
         
         switch pie {
         case 1 :
@@ -186,7 +186,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         case 2 :
             colors = [colorPhy,colorGreyBackgound]
         case 3 :
-            colors = [colorChi,colorGreyBackgound]
+            colors = [colorChe,colorGreyBackgound]
         default :
             colors = [colorGreyBackgound]
         }

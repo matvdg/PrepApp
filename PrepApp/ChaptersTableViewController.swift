@@ -14,7 +14,7 @@ class ChaptersTableViewController: UITableViewController, UITableViewDataSource 
     var subject: Subject?
     var chaptersRealm: Results<Chapter>?
     var chapters: [Chapter] = []
-    var image = ""
+    var color = UIColor.clearColor()
     let realm = FactoryRealm.getRealm()
 
     //app methods
@@ -28,15 +28,16 @@ class ChaptersTableViewController: UITableViewController, UITableViewDataSource 
 
         switch (self.subject!.name) {
         case "physique" :
-            self.image = "phyBar"
+            self.color = colorPhy
         case "chimie" :
-            self.image = "chiBar"
+            self.color = colorChe
         case "biologie" :
-            self.image = "bioBar"
+            self.color = colorBio
         default :
-            self.image = ""
+            self.color = UIColor.clearColor()
         }
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: image)!, forBarMetrics: UIBarMetrics.Default)
+        self.navigationController?.navigationBar.barTintColor = self.color
+        
         self.navigationController?.navigationBar.translucent = true
 
     }
