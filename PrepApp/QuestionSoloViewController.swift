@@ -22,14 +22,15 @@ class QuestionSoloViewController: UIViewController,
     var currentNumber: Int = 0
     var currentQuestion: Question?
     var goodAnswers: [Int] = []
-    var selectedAnswers: [Int:[Int]] = [:]
+    var allAnswers = [Int:[Int]]()
+    var selectedAnswers: [Int] = []
     var didLoadWording = false
     var didLoadAnswers = false
     var didLoadInfos = false
     var sizeAnswerCells: [Int:CGFloat] = [:]
     var numberOfAnswers = 0
     var timeChallengeTimer = NSTimer()
-    var delayBetweenQuestionsTimer = NSTimer()
+    var animatingCorrectionTimer = NSTimer()
     var stopAnimationCorrectionTimer = NSTimer()
     var timeLeft = NSTimeInterval(20*60)
     var senseAnimationCorrection: Bool = true
@@ -183,6 +184,7 @@ class QuestionSoloViewController: UIViewController,
         }
         if !self.waitBeforeNextQuestion {
             Sound.playTrack("next")
+            self.allAnswers[self.currentNumber] = self.selectedAnswers
             self.waitBeforeNextQuestion = true
             let delay = 0.5 * Double(NSEC_PER_SEC)
             let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
@@ -205,6 +207,7 @@ class QuestionSoloViewController: UIViewController,
         }
         if !self.waitBeforeNextQuestion {
             Sound.playTrack("next")
+            self.allAnswers[self.currentNumber] = self.selectedAnswers
             self.waitBeforeNextQuestion = true
             let delay = 0.5 * Double(NSEC_PER_SEC)
             let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
@@ -377,6 +380,7 @@ class QuestionSoloViewController: UIViewController,
     }
     
     private func loadQuestion() {
+        println(self.allAnswers)
         self.greyMask.layer.zPosition = 100
         self.selectedAnswers.removeAll(keepCapacity: false)
         self.questionNumber.title = "Question n°\(self.currentNumber+1)/\(self.questions.count)"
@@ -390,6 +394,12 @@ class QuestionSoloViewController: UIViewController,
             }
             numberAnswer++
         }
+        
+        //retrieving checkmarks if already done
+        if let savedAnswers = self.allAnswers[self.currentNumber] {
+            self.selectedAnswers = savedAnswers
+        }
+        
         println("Question n°\(self.currentQuestion!.id) , bonne(s) réponse(s) = \(self.goodAnswers)")
         self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "calc") : UIImage(named: "nocalc"))
         self.didLoadWording = false
@@ -397,6 +407,8 @@ class QuestionSoloViewController: UIViewController,
         self.didLoadInfos = false
         self.numberOfAnswers = self.currentQuestion!.answers.count
         self.loadWording()
+        
+        
         
         
         //display the subject
@@ -434,7 +446,7 @@ class QuestionSoloViewController: UIViewController,
     }
     
     private func cleanView() {
-        self.stopAnimationCorrectionTimer.invalidate()
+        self.animatingCorrectionTimer.invalidate()
         self.submitButton.hidden = false
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
@@ -444,21 +456,6 @@ class QuestionSoloViewController: UIViewController,
         self.wording.removeFromSuperview()
         self.answers.removeFromSuperview()
         self.scrollView!.removeFromSuperview()
-    }
-    
-    private func refreshView(){
-        //println("refreshView")
-        self.cleanView()
-        self.numberOfAnswers = 0
-        self.sizeAnswerCells.removeAll(keepCapacity: false)
-        self.currentNumber = 0
-        self.nextButton.enabled = true
-        self.previousButton.enabled = false
-        self.questions.removeAll(keepCapacity: false)
-        //load the questions
-        self.loadQuestions()
-        //display the first question
-        self.loadQuestion()
     }
     
     private func refreshQuestion(){
@@ -488,35 +485,49 @@ class QuestionSoloViewController: UIViewController,
         self.infos.opaque = false
         self.infos.userInteractionEnabled = false
         self.infos.loadHTMLString(self.currentQuestion!.info, baseURL: self.baseUrl)
-        
-        //if last question
-        if self.currentNumber+1 == self.questions.count {
-            self.submitButton = UIButton(frame: CGRectMake(self.view.bounds.width/2 - 100, self.wording.bounds.size.height + tableHeight + 50 , 200, 40))
-            self.submitButton.setTitle("Terminer le défi duo", forState: .Normal)
+        //adding infos
+        self.scrollView.addSubview(self.infos)
+        self.scrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
+        if self.mode == 0 {
+            //if last question
+            if self.currentNumber+1 == self.questions.count {
+                self.submitButton = UIButton(frame: CGRectMake(self.view.bounds.width/2 - 100, self.wording.bounds.size.height + tableHeight + 50 , 200, 40))
+                self.submitButton.setTitle("Terminer le défi duo", forState: .Normal)
+                self.submitButton.layer.cornerRadius = 6
+                self.submitButton.titleLabel?.font = UIFont(name: "Segoe UI", size: 15)
+                self.submitButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+                self.submitButton.backgroundColor = colorGreenAppButtons
+                //resizing the scroll view in order to fit all the elements
+                var scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 100)
+                self.scrollView.contentSize =  scrollSize
+                //adding button and action
+                self.submitButton.addTarget(self, action: "submit", forControlEvents: UIControlEvents.TouchUpInside)
+                self.scrollView.addSubview(self.submitButton)
+                
+            } else {
+                //resizing the scroll view in order to fit all the elements
+                var scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 50)
+                self.scrollView.contentSize =  scrollSize
+            }
+
+        } else {
+            self.submitButton = UIButton(frame: CGRectMake(self.view.bounds.width/2 - 50, self.wording.bounds.size.height + tableHeight + 50 , 100, 40))
             self.submitButton.layer.cornerRadius = 6
             self.submitButton.titleLabel?.font = UIFont(name: "Segoe UI", size: 15)
             self.submitButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
             self.submitButton.backgroundColor = colorGreenAppButtons
+            // displaying results & correction if available
+            self.showAnswers()
             //resizing the scroll view in order to fit all the elements
             var scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 100)
             self.scrollView.contentSize =  scrollSize
-            //adding button and action
-            self.submitButton.addTarget(self, action: "submit", forControlEvents: UIControlEvents.TouchUpInside)
+            //adding button
             self.scrollView.addSubview(self.submitButton)
-
-        } else {
-            //resizing the scroll view in order to fit all the elements
-            var scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 50)
-            self.scrollView.contentSize =  scrollSize
         }
-        self.scrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
-        //adding infos
-        self.scrollView.addSubview(self.infos)
-        
     }
     
     func submit() {
-        
+        self.allAnswers[self.currentNumber] = self.selectedAnswers
         if self.checkUnanswered() {
             let myAlert = UIAlertController(title: "Attention, vous n'avez pas répondu à toutes les questions !", message: "Voulez-vous tout de même terminer le défi solo ?", preferredStyle: UIAlertControllerStyle.Alert)
             // add an "OK" button
@@ -528,76 +539,73 @@ class QuestionSoloViewController: UIViewController,
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
 
+        } else {
+            let myAlert = UIAlertController(title: "Voulez-vous vraiment terminer le défi solo ?", message: "Vous ne pourrez plus modifier vos réponses.", preferredStyle: UIAlertControllerStyle.Alert)
+            // add an "OK" button
+            myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                //challenge finished! switch to results mode
+                self.displayResultsMode()
+            }))
+            myAlert.addAction(UIAlertAction(title: "Non, annuler", style: UIAlertActionStyle.Default, handler: nil))
+            // show the alert
+            self.presentViewController(myAlert, animated: true, completion: nil)
         }
     }
     
-   /* private func showAnswers() {
-        if self.selectedAnswers.isEmpty {
-            Sound.playTrack("error")
-            // create alert controller
-            let myAlert = UIAlertController(title: "Vous devez sélectionner au moins une réponse !", message: "Touchez les cases pour cocher une ou plusieurs réponses", preferredStyle: UIAlertControllerStyle.Alert)
-            // add an "OK" button
-            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            // show the alert
-            self.presentViewController(myAlert, animated: true, completion: nil)
-        } else {
-            var historyQuestion = QuestionHistory()
-            self.answers.userInteractionEnabled = false
-            historyQuestion.id = self.currentQuestion!.id
-            historyQuestion.training = true
-            if self.checkAnswers() {
-                //true
-                Sound.playTrack("true")
-                historyQuestion.success = true
-                //colouring the results
-                for answer in self.goodAnswers {
-                    let indexPath = NSIndexPath(forRow: answer, inSection: 0)
-                    let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
-                    cell.number.backgroundColor = colorRightAnswer
-                    cell.number.textColor = UIColor.blackColor()
-                    //green
-                }
-                
-            } else {
-                //false
-                historyQuestion.success = false
-                Sound.playTrack("false")
-                //colouring the results
-                for answer in self.selectedAnswers {
-                    let indexPath = NSIndexPath(forRow: answer, inSection: 0)
-                    let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
-                    cell.number.backgroundColor = colorWrongAnswer
-                    //red
-                }
-                for answer in self.goodAnswers {
-                    let indexPath = NSIndexPath(forRow: answer, inSection: 0)
-                    //optional binding to avoid a crash if the DB is corrupted: if an answer in DB is empty but selected as correct, we won't count it and display it so it won't exist BUT we receive the number for the goodAnswers property, so it can't be casted as a cell -> protected
-                    if let cell = self.answers.cellForRowAtIndexPath(indexPath) as? UITableViewCellAnswer {
-                        cell.number.backgroundColor = colorRightAnswer
-                        //green
-                        cell.number.textColor = UIColor.blackColor()
-                    }
-                    
-                }
-                
+    private func showAnswers() {
+        
+        var historyQuestion = QuestionHistory()
+        self.answers.userInteractionEnabled = false
+        historyQuestion.id = self.currentQuestion!.id
+        historyQuestion.training = false
+        if self.checkAnswers() {
+            //true
+            Sound.playTrack("true")
+            historyQuestion.success = true
+            //colouring the results
+            for answer in self.goodAnswers {
+                let indexPath = NSIndexPath(forRow: answer, inSection: 0)
+                let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
+                cell.number.backgroundColor = colorRightAnswer
+                cell.number.textColor = UIColor.blackColor()
+                //green
             }
-            //saving the question result in history
-            History.addQuestionToHistory(historyQuestion)
-            //displaying and animating the correction button IF AVAILABLE
             
-            if self.currentQuestion!.correction != "" {
-                self.submitButton.setTitle("Correction", forState: UIControlState.Normal)
-                self.submitButton.removeTarget(self, action: "submit", forControlEvents: UIControlEvents.TouchUpInside)
-                self.submitButton.addTarget(self, action: "showCorrection", forControlEvents: UIControlEvents.TouchUpInside)
-                self.delayBetweenQuestionsTimer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: Selector("animateButton"), userInfo: nil, repeats: true)
-                self.stopAnimationCorrectionTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "stopAnimation", userInfo: nil, repeats: false)
-            } else {
-                self.submitButton.hidden = true
+        } else {
+            //false
+            historyQuestion.success = false
+            Sound.playTrack("false")
+            //colouring the results
+            for answer in self.selectedAnswers {
+                let indexPath = NSIndexPath(forRow: answer, inSection: 0)
+                let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
+                cell.number.backgroundColor = colorWrongAnswer
+                //red
+            }
+            for answer in self.goodAnswers {
+                let indexPath = NSIndexPath(forRow: answer, inSection: 0)
+                if let cell = self.answers.cellForRowAtIndexPath(indexPath) as? UITableViewCellAnswer {
+                    cell.number.backgroundColor = colorRightAnswer
+                    //green
+                    cell.number.textColor = UIColor.blackColor()
+                }
+                
             }
             
         }
-
-    }*/
+        //saving the question result in history
+        History.addQuestionToHistory(historyQuestion)
+        
+        //displaying and animating the correction button IF AVAILABLE
+        if self.currentQuestion!.correction != "" {
+            self.submitButton.setTitle("Correction", forState: UIControlState.Normal)
+            self.submitButton.addTarget(self, action: "showCorrection", forControlEvents: UIControlEvents.TouchUpInside)
+            self.animatingCorrectionTimer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: Selector("animateButton"), userInfo: nil, repeats: true)
+            self.stopAnimationCorrectionTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "stopAnimation", userInfo: nil, repeats: false)
+        } else {
+            self.submitButton.hidden = true
+        }
+    }
     
     func animateButton(){
         if self.senseAnimationCorrection {
@@ -625,7 +633,7 @@ class QuestionSoloViewController: UIViewController,
     }
     
     func stopAnimation(){
-        self.delayBetweenQuestionsTimer.invalidate()
+        self.animatingCorrectionTimer.invalidate()
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
         self.submitButton.backgroundColor = colorGreenAppButtons
@@ -633,7 +641,7 @@ class QuestionSoloViewController: UIViewController,
     
     func showCorrection() {
         //show the correction sheet
-        self.delayBetweenQuestionsTimer.invalidate()
+        self.animatingCorrectionTimer.invalidate()
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
         self.submitButton.backgroundColor = colorGreenAppButtons
@@ -691,6 +699,17 @@ class QuestionSoloViewController: UIViewController,
             let minutes = String(format: "%02d", Int(floor(self.timeLeft / 60)))
             self.markButton.title = "\(minutes):\(seconds)"
         } else {
+            //challenge finished! switch to results mode
+            self.allAnswers[self.currentNumber] = self.selectedAnswers
+            let myAlert = UIAlertController(title: "Temps écoulé", message: "Le défi solo est à présent terminé.", preferredStyle: UIAlertControllerStyle.Alert)
+            // add an "OK" button
+            myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                //challenge finished! switch to results mode
+                self.displayResultsMode()
+            }))
+            myAlert.addAction(UIAlertAction(title: "Non, annuler", style: UIAlertActionStyle.Default, handler: nil))
+            // show the alert
+            self.presentViewController(myAlert, animated: true, completion: nil)
             self.displayResultsMode()
         }
         
@@ -698,6 +717,7 @@ class QuestionSoloViewController: UIViewController,
     
     func displayResultsMode() {
         //challenge finished! switch to results mode
+        println("challenge mode ended, results mode")
         self.mode = 1
         self.markButton.image = UIImage(named: "marked")
         self.markButton.enabled = true
@@ -706,10 +726,20 @@ class QuestionSoloViewController: UIViewController,
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         // show the alert
         self.presentViewController(myAlert, animated: true, completion: nil)
+        self.currentNumber = 0
+        if self.questions.count == 1 {
+            self.nextButton.enabled = false
+            self.previousButton.enabled = false
+        } else {
+            self.nextButton.enabled = true
+            self.previousButton.enabled = false
+        }
+        self.cleanView()
+        self.loadQuestion()
 
     }
     
-    /*private func checkAnswers() -> Bool {
+    private func checkAnswers() -> Bool {
         var result = false
         for selectedAnswer in self.selectedAnswers {
             result = false
@@ -726,11 +756,11 @@ class QuestionSoloViewController: UIViewController,
             result = false
         }
         return result
-    }*/
+    }
     
     private func checkUnanswered() -> Bool {
         var result = false
-        for (question, answers) in self.selectedAnswers {
+        for (question, answers) in self.allAnswers {
             if answers.isEmpty {
                 result = true
                 break
@@ -773,6 +803,10 @@ class QuestionSoloViewController: UIViewController,
                 println("error loading too fast, delegates not finished")
                 self.refreshQuestion()
             }
+        }
+        //retrieving checkmarks if already done
+        if find(self.selectedAnswers,answerNumber) != nil {
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
         }
         return cell
     }
@@ -861,7 +895,6 @@ class QuestionSoloViewController: UIViewController,
             
         }
     }
-    
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

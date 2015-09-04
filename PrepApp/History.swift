@@ -15,15 +15,16 @@ class History{
     
     class func addQuestionToHistory(question: QuestionHistory) {
         
-        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        var questionsHistory = self.realmHistory.objects(QuestionHistory)
         var updated = false
         for questionHistory in questionsHistory {
             
             if question.id == questionHistory.id {
                 realmHistory.write {
                     questionHistory.success = question.success
+                    questionHistory.training = question.training
                 }
-                //println("updated")
+                println("updated")
                 updated = true
                 break
             }
@@ -33,7 +34,7 @@ class History{
             realmHistory.write {
                 self.realmHistory.add(question)
             }
-            //println("added")
+            println("added")
         }
 
 

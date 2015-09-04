@@ -31,7 +31,7 @@ UIAdaptivePresentationControllerDelegate  {
     var didLoadInfos = false
     var sizeAnswerCells: [Int:CGFloat] = [:]
     var numberOfAnswers = 0
-    var delayBetweenQuestionsTimer = NSTimer()
+    var animatingCorrectionTimer = NSTimer()
     var stopAnimationCorrectionTimer = NSTimer()
     var senseAnimationCorrection: Bool = true
     var waitBeforeNextQuestion: Bool = false
@@ -363,7 +363,7 @@ UIAdaptivePresentationControllerDelegate  {
     }
     
     private func cleanView() {
-        self.delayBetweenQuestionsTimer.invalidate()
+        self.animatingCorrectionTimer.invalidate()
         self.submitButton.hidden = false
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
@@ -476,7 +476,6 @@ UIAdaptivePresentationControllerDelegate  {
                 }
                 for answer in self.goodAnswers {
                     let indexPath = NSIndexPath(forRow: answer, inSection: 0)
-                    //optional binding to avoid a crash if the DB is corrupted: if an answer in DB is empty but selected as correct, we won't count it and display it so it won't exist BUT we receive the number for the goodAnswers property, so it can't be casted as a cell -> protected
                     if let cell = self.answers.cellForRowAtIndexPath(indexPath) as? UITableViewCellAnswer {
                         cell.number.backgroundColor = colorRightAnswer
                         //green
@@ -488,13 +487,13 @@ UIAdaptivePresentationControllerDelegate  {
             }
             //saving the question result in history
             History.addQuestionToHistory(historyQuestion)
-            //displaying and animating the correction button IF AVAILABLE
             
+            //displaying and animating the correction button IF AVAILABLE
             if self.currentQuestion!.correction != "" {
                 self.submitButton.setTitle("Correction", forState: UIControlState.Normal)
                 self.submitButton.removeTarget(self, action: "submit", forControlEvents: UIControlEvents.TouchUpInside)
                 self.submitButton.addTarget(self, action: "showCorrection", forControlEvents: UIControlEvents.TouchUpInside)
-                self.delayBetweenQuestionsTimer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: Selector("animateButton"), userInfo: nil, repeats: true)
+                self.animatingCorrectionTimer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: Selector("animateButton"), userInfo: nil, repeats: true)
                 self.stopAnimationCorrectionTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "stopAnimation", userInfo: nil, repeats: false)
             } else {
                 self.submitButton.hidden = true
@@ -530,7 +529,7 @@ UIAdaptivePresentationControllerDelegate  {
     }
     
     func stopAnimation(){
-        self.delayBetweenQuestionsTimer.invalidate()
+        self.animatingCorrectionTimer.invalidate()
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
         self.submitButton.backgroundColor = colorGreenAppButtons
@@ -538,7 +537,7 @@ UIAdaptivePresentationControllerDelegate  {
     
     func showCorrection() {
         //show the correction sheet
-        self.delayBetweenQuestionsTimer.invalidate()
+        self.animatingCorrectionTimer.invalidate()
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
         self.submitButton.backgroundColor = colorGreenAppButtons
