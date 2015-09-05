@@ -533,6 +533,8 @@ class QuestionSoloViewController: UIViewController,
             // add an "OK" button
             myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 //challenge finished! switch to results mode
+                
+                self.cleanView()
                 self.displayResultsMode()
             }))
             myAlert.addAction(UIAlertAction(title: "Non, annuler", style: UIAlertActionStyle.Default, handler: nil))
@@ -544,6 +546,8 @@ class QuestionSoloViewController: UIViewController,
             // add an "OK" button
             myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 //challenge finished! switch to results mode
+                
+                self.cleanView()
                 self.displayResultsMode()
             }))
             myAlert.addAction(UIAlertAction(title: "Non, annuler", style: UIAlertActionStyle.Default, handler: nil))
@@ -724,6 +728,7 @@ class QuestionSoloViewController: UIViewController,
         self.timeChallengeTimer.invalidate()
         let myAlert = UIAlertController(title: "Défi solo terminé", message: "Vous pouvez à présent voir les réponses et les corrections si disponibles et éventuellement mettre certaines questions de côté en les marquant" , preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+
         // show the alert
         self.presentViewController(myAlert, animated: true, completion: nil)
         self.currentNumber = 0
@@ -734,9 +739,7 @@ class QuestionSoloViewController: UIViewController,
             self.nextButton.enabled = true
             self.previousButton.enabled = false
         }
-        self.cleanView()
         self.loadQuestion()
-
     }
     
     private func checkAnswers() -> Bool {
