@@ -190,7 +190,6 @@ class QuestionSoloViewController: UIViewController,
             let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
             dispatch_after(time, dispatch_get_main_queue()) {
                 self.cleanView()
-                self.sizeAnswerCells.removeAll(keepCapacity: false)
                 self.currentNumber = (self.currentNumber + 1) % self.questions.count
                 self.loadQuestion()
                 self.waitBeforeNextQuestion = false
@@ -213,7 +212,6 @@ class QuestionSoloViewController: UIViewController,
             let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
             dispatch_after(time, dispatch_get_main_queue()) {
                 self.cleanView()
-                self.sizeAnswerCells.removeAll(keepCapacity: false)
                 self.currentNumber = (self.currentNumber - 1) % self.questions.count
                 self.loadQuestion()
                 self.waitBeforeNextQuestion = false
@@ -236,7 +234,7 @@ class QuestionSoloViewController: UIViewController,
         for question in questionsRealm {
             if History.isQuestionNew(question.id){
                 tempQuestions.append(question)
-                println("ajout solo")
+                //println("ajout solo")
             }
         }
         
@@ -286,10 +284,9 @@ class QuestionSoloViewController: UIViewController,
                     counter++
                 }
             }
-            counter = 0
             for question in tempQuestions {
                 
-                if question.chapter!.subject!.id == 2 && counter < 3 {
+                if question.chapter!.subject!.id == 2 && counter < 11 {
                     self.questions.append(question)
                     counter++
                 }
@@ -305,10 +302,9 @@ class QuestionSoloViewController: UIViewController,
                     counter++
                 }
             }
-            counter = 0
             for question in tempQuestions {
                 
-                if question.chapter!.subject!.id == 3 && counter < 3 {
+                if question.chapter!.subject!.id == 3 && counter < 11 {
                     self.questions.append(question)
                     counter++
                 }
@@ -324,10 +320,9 @@ class QuestionSoloViewController: UIViewController,
                     counter++
                 }
             }
-            counter = 0
             for question in tempQuestions {
                 
-                if question.chapter!.subject!.id == 3 && counter < 2 {
+                if question.chapter!.subject!.id == 3 && counter < 6 {
                     self.questions.append(question)
                     counter++
                 }
@@ -343,18 +338,16 @@ class QuestionSoloViewController: UIViewController,
                     counter++
                 }
             }
-            counter = 0
             for question in tempQuestions {
                 
-                if question.chapter!.subject!.id == 2 && counter < 2 {
+                if question.chapter!.subject!.id == 2 && counter < 8 {
                     self.questions.append(question)
                     counter++
                 }
             }
-            counter = 0
             for question in tempQuestions {
                 
-                if question.chapter!.subject!.id == 3 && counter < 1 {
+                if question.chapter!.subject!.id == 3 && counter < 9 {
                     self.questions.append(question)
                     counter++
                 }
@@ -383,6 +376,7 @@ class QuestionSoloViewController: UIViewController,
         println(self.allAnswers)
         self.greyMask.layer.zPosition = 100
         self.selectedAnswers.removeAll(keepCapacity: false)
+        self.sizeAnswerCells.removeAll(keepCapacity: false)
         self.questionNumber.title = "Question n°\(self.currentNumber+1)/\(self.questions.count)"
         self.currentQuestion = self.questions[self.currentNumber]
         let answers = self.currentQuestion!.answers
@@ -456,6 +450,7 @@ class QuestionSoloViewController: UIViewController,
         self.wording.removeFromSuperview()
         self.answers.removeFromSuperview()
         self.scrollView!.removeFromSuperview()
+        
     }
     
     private func refreshQuestion(){
@@ -464,7 +459,6 @@ class QuestionSoloViewController: UIViewController,
         dispatch_after(time, dispatch_get_main_queue()) {
             //println("refreshQuestion")
             self.cleanView()
-            self.sizeAnswerCells.removeAll(keepCapacity: false)
             self.loadQuestion()
         }
     }
@@ -727,8 +721,9 @@ class QuestionSoloViewController: UIViewController,
         self.markButton.enabled = true
         self.timeChallengeTimer.invalidate()
         let myAlert = UIAlertController(title: "Défi solo terminé", message: "Vous pouvez à présent voir les réponses et les corrections si disponibles et éventuellement mettre certaines questions de côté en les marquant" , preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-
+        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            self.loadQuestion()
+        }))
         // show the alert
         self.presentViewController(myAlert, animated: true, completion: nil)
         self.currentNumber = 0
@@ -739,7 +734,6 @@ class QuestionSoloViewController: UIViewController,
             self.nextButton.enabled = true
             self.previousButton.enabled = false
         }
-        self.loadQuestion()
     }
     
     private func checkAnswers() -> Bool {

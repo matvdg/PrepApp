@@ -19,6 +19,8 @@ class SoloViewController: UIViewController {
     var buttonChePhy: UIButton?
     var buttonAll: UIButton?
     
+    let realm = FactoryRealm.getRealm()
+    
     enum choices:Int {
         case none = 0, biology, physics, chemistry, bioPhy, bioChe, chePhy, all
     }
@@ -39,7 +41,18 @@ class SoloViewController: UIViewController {
             self.presentViewController(myAlert, animated: true, completion: nil)
 
         } else {
-            self.performSegueWithIdentifier("showQuestionsSolo", sender: self)
+            if self.checkQuestions() {
+                self.performSegueWithIdentifier("showQuestionsSolo", sender: self)
+            } else {
+                // create alert controller
+                let myAlert = UIAlertController(title: "Ce défi n'est plus disponible pour le moment", message: "Revenez plus tard pour de nouvelles questions ou allez dans le mode entraînement pour refaire les questions déjà vues.", preferredStyle: UIAlertControllerStyle.Alert)
+                // add an "OK" button
+                myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                // show the alert
+                self.presentViewController(myAlert, animated: true, completion: nil)
+ 
+            }
+            
         }
         
     }
@@ -216,6 +229,139 @@ class SoloViewController: UIViewController {
         self.choice = .all
         println("Biologie/Chimie/Physique")
         self.trigram.image = UIImage(named: "triall")
+    }
+    
+    func checkQuestions() -> Bool {
+        
+        var result = false
+        
+        var tempQuestions = [Question]()
+        //fetching solo questions NEVER DONE
+        var questionsRealm = realm.objects(Question).filter("type = 1")
+        for question in questionsRealm {
+            if History.isQuestionNew(question.id){
+                tempQuestions.append(question)
+            }
+        }
+        
+        //now applying the trigram choice choosen by user 1 biology, 2 physics, 3 chemistry, 4 bioPhy, 5 bioChe, 6 chePhy, 7 all
+        var counter = 0
+        switch self.choice.rawValue {
+            
+        case 1: //biology
+            
+            for question in tempQuestions {
+                if question.chapter!.subject!.id == 1 && counter < 12 {
+                    counter++
+                }
+            }
+            if counter == 12 {
+                result = true
+            }
+        case 2: //physics
+            for question in tempQuestions {
+                if question.chapter!.subject!.id == 2 && counter < 6 {
+                    counter++
+                }
+            }
+            if counter == 6 {
+                result = true
+            }
+            
+        case 3: //chemistry
+            for question in tempQuestions {
+                if question.chapter!.subject!.id == 3 && counter < 6 {
+                    counter++
+                }
+            }
+            if counter == 6 {
+                result = true
+            }
+            
+        case 4: //bioPhy
+            for question in tempQuestions {
+                if question.chapter!.subject!.id == 1 && counter < 8 {
+                    counter++
+                }
+            }
+            if counter == 8 {
+                for question in tempQuestions {
+                    if question.chapter!.subject!.id == 2 && counter < 11 {
+                        counter++
+                    }
+                }
+                if counter == 11 {
+                    result = true
+                }
+
+            }
+            
+        case 5: //bioChe
+            for question in tempQuestions {
+                if question.chapter!.subject!.id == 1 && counter < 8 {
+                    counter++
+                }
+            }
+            if counter == 8 {
+                for question in tempQuestions {
+                    if question.chapter!.subject!.id == 3 && counter < 11 {
+                        counter++
+                    }
+                }
+                if counter == 11 {
+                    result = true
+                }
+
+            }
+            
+        case 6: //chePhy
+            for question in tempQuestions {
+                if question.chapter!.subject!.id == 2 && counter < 4 {
+                    counter++
+                }
+            }
+            if counter == 4 {
+                for question in tempQuestions {
+                    if question.chapter!.subject!.id == 3 && counter < 6 {
+                        counter++
+                    }
+                }
+                if counter == 6 {
+                    result = true
+                }
+
+            }
+            
+        case 7: //all
+            for question in tempQuestions {
+                if question.chapter!.subject!.id == 1 && counter < 6 {
+                    counter++
+                }
+            }
+            if counter == 6 {
+                for question in tempQuestions {
+                    if question.chapter!.subject!.id == 2 && counter < 8 {
+                    }
+                }
+                if counter == 8 {
+                    for question in tempQuestions {
+                        if question.chapter!.subject!.id == 3 && counter < 9 {
+                            counter++
+                        }
+                    }
+                    if counter == 9 {
+                        result = true
+                    }
+                }
+                
+
+            }
+            
+        default:
+            println("default")
+        }
+        
+        return result
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation

@@ -262,7 +262,7 @@ UIAdaptivePresentationControllerDelegate  {
         for question in questionsRealm {
             if History.isQuestionDone(question.id){
                 tempQuestions.append(question)
-                println("ajout solo")
+                //println("ajout solo")
             }
         }
         //fetching duo questions already DONE
@@ -270,7 +270,7 @@ UIAdaptivePresentationControllerDelegate  {
         for question in questionsRealm {
             if History.isQuestionDone(question.id){
                 tempQuestions.append(question)
-                println("ajout duo")
+                //println("ajout duo")
             }
         }
         //now applying the filter choosen by user
