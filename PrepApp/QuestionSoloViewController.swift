@@ -12,7 +12,10 @@ import RealmSwift
 class QuestionSoloViewController: UIViewController,
     UITableViewDataSource,
     UITableViewDelegate,
-    UIWebViewDelegate {
+    UIWebViewDelegate,
+    UINavigationControllerDelegate
+
+{
     
     //properties
     var mode = 0 //0 = challenge 1 = results
@@ -32,7 +35,7 @@ class QuestionSoloViewController: UIViewController,
     var timeChallengeTimer = NSTimer()
     var animatingCorrectionTimer = NSTimer()
     var stopAnimationCorrectionTimer = NSTimer()
-    var timeLeft = NSTimeInterval(20*60)
+    var timeLeft = NSTimeInterval(62)
     var senseAnimationCorrection: Bool = true
     var waitBeforeNextQuestion: Bool = false
     let baseUrl = NSURL(fileURLWithPath: Factory.path, isDirectory: true)!
@@ -48,8 +51,10 @@ class QuestionSoloViewController: UIViewController,
     //app methods
     override func viewDidLoad() {
         self.markButton.image = nil
-        self.markButton.title = "20:00"
+        self.chrono.text = "20"
+        self.chrono.textAlignment = NSTextAlignment.Center
         self.markButton.enabled = false
+        self.designSoloChallengeTitleBar()
         self.timeChallengeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("countdown"), userInfo: nil, repeats: true)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
@@ -73,6 +78,7 @@ class QuestionSoloViewController: UIViewController,
         
     }
     
+    
     //@IBOutlets properties
     @IBOutlet weak var chapter: UILabel!
     @IBOutlet weak var markButton: UIBarButtonItem!
@@ -81,6 +87,12 @@ class QuestionSoloViewController: UIViewController,
     @IBOutlet weak var calc: UIBarButtonItem!
     @IBOutlet weak var nextButton: UIBarButtonItem!
     @IBOutlet weak var previousButton: UIBarButtonItem!
+    @IBOutlet weak var titleBar: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var chronoImage: UIImageView!
+    @IBOutlet weak var chrono: UILabel!
+    @IBOutlet weak var endChallengeButton: UIButton!
+    
     
     //@IBActions methods
     @IBAction func previous(sender: AnyObject) {
@@ -173,6 +185,50 @@ class QuestionSoloViewController: UIViewController,
         }
     }
     
+    @IBAction func endChallenge(sender: AnyObject) {
+        if self.mode == 0 {
+            self.allAnswers[self.currentNumber] = self.selectedAnswers
+            if self.checkUnanswered() {
+                let myAlert = UIAlertController(title: "Attention, vous n'avez pas répondu à toutes les questions !", message: "Voulez-vous tout de même terminer le défi solo ?", preferredStyle: UIAlertControllerStyle.Alert)
+                // add an "OK" button
+                myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                    //challenge finished! switch to results mode
+                    
+                    self.cleanView()
+                    self.displayResultsMode()
+                }))
+                myAlert.addAction(UIAlertAction(title: "Non, annuler", style: UIAlertActionStyle.Default, handler: nil))
+                // show the alert
+                self.presentViewController(myAlert, animated: true, completion: nil)
+                
+            } else {
+                let myAlert = UIAlertController(title: "Voulez-vous vraiment terminer le défi solo ?", message: "Vous ne pourrez plus modifier vos réponses.", preferredStyle: UIAlertControllerStyle.Alert)
+                // add an "OK" button
+                myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                    //challenge finished! switch to results mode
+                    
+                    self.cleanView()
+                    self.displayResultsMode()
+                }))
+                myAlert.addAction(UIAlertAction(title: "Non, annuler", style: UIAlertActionStyle.Default, handler: nil))
+                // show the alert
+                self.presentViewController(myAlert, animated: true, completion: nil)
+            }
+
+        } else {
+            let myAlert = UIAlertController(title: "Voulez-vous vraiment quitter le défi solo ?", message: "Vous ne pourrez plus revoir vos réponses, mais vous pourrez retrouver les questions et leur correction dans entraînement", preferredStyle: UIAlertControllerStyle.Alert)
+            // add an "OK" button
+            myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }))
+            myAlert.addAction(UIAlertAction(title: "Non, annuler", style: UIAlertActionStyle.Default, handler: nil))
+            // show the alert
+            self.presentViewController(myAlert, animated: true, completion: nil)
+            
+
+        }
+        
+    }
     
     //methods
     private func goNext() {
@@ -265,7 +321,7 @@ class QuestionSoloViewController: UIViewController,
                 }
             }
             self.questions.shuffle()
-
+            
         case 3: //chemistry
             for question in tempQuestions {
                 
@@ -275,7 +331,7 @@ class QuestionSoloViewController: UIViewController,
                 }
             }
             self.questions.shuffle()
-
+            
         case 4: //bioPhy
             for question in tempQuestions {
                 
@@ -291,7 +347,7 @@ class QuestionSoloViewController: UIViewController,
                     counter++
                 }
             }
-
+            
             self.questions.shuffle()
             
         case 5: //bioChe
@@ -311,7 +367,7 @@ class QuestionSoloViewController: UIViewController,
             }
             
             self.questions.shuffle()
-
+            
         case 6: //chePhy
             for question in tempQuestions {
                 
@@ -329,7 +385,7 @@ class QuestionSoloViewController: UIViewController,
             }
             
             self.questions.shuffle()
-
+            
         case 7: //all
             for question in tempQuestions {
                 
@@ -354,7 +410,7 @@ class QuestionSoloViewController: UIViewController,
             }
             
             self.questions.shuffle()
-
+            
         default:
             println("default")
         }
@@ -372,8 +428,57 @@ class QuestionSoloViewController: UIViewController,
         
     }
     
+    private func designSoloChallengeTitleBar() {
+        switch self.choice {
+            
+        case 1: //biology
+            self.titleLabel.text = "Défi solo Biologie"
+            self.titleLabel.textColor = UIColor.blackColor()
+            self.titleBar.backgroundColor = colorBio
+            
+        case 2: //physics
+            self.titleLabel.text = "Défi solo Physique"
+            self.titleLabel.textColor = UIColor.whiteColor()
+            self.titleBar.backgroundColor = colorPhy
+
+
+        case 3: //chemistry
+            self.titleLabel.text = "Défi solo Chimie"
+            self.titleLabel.textColor = UIColor.whiteColor()
+            self.titleBar.backgroundColor = colorChe
+
+
+        case 4: //bioPhy
+            self.titleLabel.text = "Défi solo Biologie/Physique"
+            self.titleLabel.textColor = UIColor.blackColor()
+            self.titleBar.backgroundColor = colorBioPhy
+
+            
+        case 5: //bioChe
+            self.titleLabel.text = "Défi solo Biologie/Chimie"
+            self.titleLabel.textColor = UIColor.whiteColor()
+            self.titleBar.backgroundColor = colorBioChe
+
+        case 6: //chePhy
+            self.titleLabel.text = "Défi solo Chimie/Physique"
+            self.titleLabel.textColor = UIColor.whiteColor()
+            self.titleBar.backgroundColor = colorChePhy
+
+        case 7: //all
+            self.titleLabel.text = "Défi solo Biologie/Physique/Chimie"
+            self.titleLabel.textColor = UIColor.whiteColor()
+            self.titleBar.backgroundColor = colorGreenLogo
+
+        default:
+            println("default")
+        }
+        
+        self.endChallengeButton.layer.cornerRadius = 6
+        
+    }
+    
     private func loadQuestion() {
-        println(self.allAnswers)
+        //println(self.allAnswers)
         self.greyMask.layer.zPosition = 100
         self.selectedAnswers.removeAll(keepCapacity: false)
         self.sizeAnswerCells.removeAll(keepCapacity: false)
@@ -402,13 +507,8 @@ class QuestionSoloViewController: UIViewController,
         self.numberOfAnswers = self.currentQuestion!.answers.count
         self.loadWording()
         
-        
-        
-        
         //display the subject
         self.title = self.currentQuestion!.chapter!.subject!.name.uppercaseString
-        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
         //display the chapter
         self.chapter.text = "Chapitre \(self.currentQuestion!.chapter!.number) : \(self.currentQuestion!.chapter!.name)"
 
@@ -463,7 +563,7 @@ class QuestionSoloViewController: UIViewController,
         }
     }
     
-    private func loadSubmit(){
+    private func loadInfos(){
         var tableHeight: CGFloat = 0
         for (id,height) in self.sizeAnswerCells {
             tableHeight += height
@@ -482,29 +582,7 @@ class QuestionSoloViewController: UIViewController,
         //adding infos
         self.scrollView.addSubview(self.infos)
         self.scrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
-        if self.mode == 0 {
-            //if last question
-            if self.currentNumber+1 == self.questions.count {
-                self.submitButton = UIButton(frame: CGRectMake(self.view.bounds.width/2 - 100, self.wording.bounds.size.height + tableHeight + 50 , 200, 40))
-                self.submitButton.setTitle("Terminer le défi duo", forState: .Normal)
-                self.submitButton.layer.cornerRadius = 6
-                self.submitButton.titleLabel?.font = UIFont(name: "Segoe UI", size: 15)
-                self.submitButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-                self.submitButton.backgroundColor = colorGreenAppButtons
-                //resizing the scroll view in order to fit all the elements
-                var scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 100)
-                self.scrollView.contentSize =  scrollSize
-                //adding button and action
-                self.submitButton.addTarget(self, action: "submit", forControlEvents: UIControlEvents.TouchUpInside)
-                self.scrollView.addSubview(self.submitButton)
-                
-            } else {
-                //resizing the scroll view in order to fit all the elements
-                var scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 50)
-                self.scrollView.contentSize =  scrollSize
-            }
-
-        } else {
+        if self.mode == 1 {
             self.submitButton = UIButton(frame: CGRectMake(self.view.bounds.width/2 - 50, self.wording.bounds.size.height + tableHeight + 50 , 100, 40))
             self.submitButton.layer.cornerRadius = 6
             self.submitButton.titleLabel?.font = UIFont(name: "Segoe UI", size: 15)
@@ -517,36 +595,6 @@ class QuestionSoloViewController: UIViewController,
             self.scrollView.contentSize =  scrollSize
             //adding button
             self.scrollView.addSubview(self.submitButton)
-        }
-    }
-    
-    func submit() {
-        self.allAnswers[self.currentNumber] = self.selectedAnswers
-        if self.checkUnanswered() {
-            let myAlert = UIAlertController(title: "Attention, vous n'avez pas répondu à toutes les questions !", message: "Voulez-vous tout de même terminer le défi solo ?", preferredStyle: UIAlertControllerStyle.Alert)
-            // add an "OK" button
-            myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                //challenge finished! switch to results mode
-                
-                self.cleanView()
-                self.displayResultsMode()
-            }))
-            myAlert.addAction(UIAlertAction(title: "Non, annuler", style: UIAlertActionStyle.Default, handler: nil))
-            // show the alert
-            self.presentViewController(myAlert, animated: true, completion: nil)
-
-        } else {
-            let myAlert = UIAlertController(title: "Voulez-vous vraiment terminer le défi solo ?", message: "Vous ne pourrez plus modifier vos réponses.", preferredStyle: UIAlertControllerStyle.Alert)
-            // add an "OK" button
-            myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                //challenge finished! switch to results mode
-                
-                self.cleanView()
-                self.displayResultsMode()
-            }))
-            myAlert.addAction(UIAlertAction(title: "Non, annuler", style: UIAlertActionStyle.Default, handler: nil))
-            // show the alert
-            self.presentViewController(myAlert, animated: true, completion: nil)
         }
     }
     
@@ -565,7 +613,6 @@ class QuestionSoloViewController: UIViewController,
                 let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                 let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
                 cell.number.backgroundColor = colorRightAnswer
-                cell.number.textColor = UIColor.blackColor()
                 //green
             }
             
@@ -585,7 +632,16 @@ class QuestionSoloViewController: UIViewController,
                 if let cell = self.answers.cellForRowAtIndexPath(indexPath) as? UITableViewCellAnswer {
                     cell.number.backgroundColor = colorRightAnswer
                     //green
-                    cell.number.textColor = UIColor.blackColor()
+                    var notSelected = true
+                    for selectedAnswer in self.selectedAnswers {
+                        if selectedAnswer == answer {
+                            notSelected = false
+                        }
+                    }
+                    if notSelected {
+                        cell.number.backgroundColor = colorWrongAnswer
+                        //red
+                    }
                 }
                 
             }
@@ -693,19 +749,24 @@ class QuestionSoloViewController: UIViewController,
     func countdown() {
         if self.timeLeft != 0 {
             self.timeLeft--
-            let seconds = String(format: "%02d", Int(floor(self.timeLeft % 60)))
-            let minutes = String(format: "%02d", Int(floor(self.timeLeft / 60)))
-            self.markButton.title = "\(minutes):\(seconds)"
+            let seconds = Int(floor(self.timeLeft % 60))
+            let minutes = Int(floor(self.timeLeft / 60))
+            var string = "20"
+            if minutes < 1 {
+                string = String(format: "%02d", seconds)
+            } else {
+                string = String(format: "%02d", minutes)
+            }
+            self.chrono.text = string
         } else {
             //challenge finished! switch to results mode
             self.allAnswers[self.currentNumber] = self.selectedAnswers
             let myAlert = UIAlertController(title: "Temps écoulé", message: "Le défi solo est à présent terminé.", preferredStyle: UIAlertControllerStyle.Alert)
             // add an "OK" button
-            myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 //challenge finished! switch to results mode
                 self.displayResultsMode()
             }))
-            myAlert.addAction(UIAlertAction(title: "Non, annuler", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
             self.displayResultsMode()
@@ -717,7 +778,9 @@ class QuestionSoloViewController: UIViewController,
         //challenge finished! switch to results mode
         println("challenge mode ended, results mode")
         self.mode = 1
-        self.markButton.image = UIImage(named: "marked")
+        self.chrono.hidden = true
+        self.chronoImage.hidden = true
+        self.titleLabel.text = "Correction du défi duo"
         self.markButton.enabled = true
         self.timeChallengeTimer.invalidate()
         let myAlert = UIAlertController(title: "Défi solo terminé", message: "Vous pouvez à présent voir les réponses et les corrections si disponibles et éventuellement mettre certaines questions de côté en les marquant" , preferredStyle: UIAlertControllerStyle.Alert)
@@ -886,7 +949,7 @@ class QuestionSoloViewController: UIViewController,
             } else {
                 //we have just refreshed the answers table, now we load the Infos webview and the submit button
                 self.didLoadAnswers = true
-                self.loadSubmit()
+                self.loadInfos()
                 
             }
             

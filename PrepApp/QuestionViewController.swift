@@ -62,7 +62,7 @@ UIAdaptivePresentationControllerDelegate  {
         //display the subject
         self.numberOfAnswers = 0
         self.sizeAnswerCells.removeAll(keepCapacity: false)
-        self.title = self.currentSubject!.name.uppercaseString
+        self.title = "Entraînement - \(self.currentSubject!.name.capitalizedString)"
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
         //display the chapter
@@ -77,11 +77,8 @@ UIAdaptivePresentationControllerDelegate  {
     
     //@IBOutlets properties
     @IBOutlet weak var chapter: UILabel!
-    
     @IBOutlet weak var questionNumber: UIBarButtonItem!
-    
     @IBOutlet weak var calc: UIBarButtonItem!
-    
     @IBOutlet weak var nextButton: UIBarButtonItem!
     @IBOutlet weak var previousButton: UIBarButtonItem!
     
@@ -459,7 +456,6 @@ UIAdaptivePresentationControllerDelegate  {
                     let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                     let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
                     cell.number.backgroundColor = colorRightAnswer
-                    cell.number.textColor = UIColor.blackColor()
                     //green
                 }
                 
@@ -479,11 +475,18 @@ UIAdaptivePresentationControllerDelegate  {
                     if let cell = self.answers.cellForRowAtIndexPath(indexPath) as? UITableViewCellAnswer {
                         cell.number.backgroundColor = colorRightAnswer
                         //green
-                        cell.number.textColor = UIColor.blackColor()
+                        var notSelected = true
+                        for selectedAnswer in self.selectedAnswers {
+                            if selectedAnswer == answer {
+                                notSelected = false
+                            }
+                        }
+                        if notSelected {
+                            cell.number.backgroundColor = colorWrongAnswer
+                            //red
+                        }
                     }
-                    
                 }
-                
             }
             //saving the question result in history
             History.addQuestionToHistory(historyQuestion)

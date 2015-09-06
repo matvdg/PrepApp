@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "credits@2x-1.png"
+      "filename" : "chrono@2x-1.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "credits@2x.png"
+      "filename" : "chrono@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "credits@3x.png"
+      "filename" : "chrono@3x.png"
     }
   ],
   "info" : {

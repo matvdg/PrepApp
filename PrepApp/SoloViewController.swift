@@ -30,6 +30,7 @@ class SoloViewController: UIViewController {
     @IBOutlet weak var trigram: UIImageView!
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var buttonChallenge: UIButton!
+    @IBOutlet weak var greenCircle: UILabel!
     
     @IBAction func runChallenge(sender: AnyObject) {
         if self.choice == .none {
@@ -121,6 +122,15 @@ class SoloViewController: UIViewController {
     func renderButtons() {
         let size: CGFloat = 185
         
+        //greenCircle
+        self.greenCircle.layer.masksToBounds = true
+        self.greenCircle.layer.cornerRadius = 200
+        self.greenCircle.layer.zPosition = 0
+        self.greenCircle.layer.borderColor = UIColor.whiteColor().CGColor
+        self.greenCircle.layer.borderWidth = 6
+        self.trigram.layer.zPosition = 1
+        self.label.layer.zPosition = 2
+        self.buttonChallenge.layer.zPosition = 3
         //biology
         self.buttonBio = UIButton(frame: CGRectMake((self.view.bounds.width / 2) - (size/2) - (size/3), (self.view.bounds.height / 2) - (size/2) - (size/3), size, size))
         self.buttonBio!.layer.cornerRadius = (size/2)
@@ -341,6 +351,7 @@ class SoloViewController: UIViewController {
             if counter == 6 {
                 for question in tempQuestions {
                     if question.chapter!.subject!.id == 2 && counter < 8 {
+                        counter++
                     }
                 }
                 if counter == 8 {
