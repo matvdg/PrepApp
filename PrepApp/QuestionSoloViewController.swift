@@ -438,13 +438,13 @@ class QuestionSoloViewController: UIViewController,
             
         case 2: //physics
             self.titleLabel.text = "Défi solo Physique"
-            self.titleLabel.textColor = UIColor.whiteColor()
+            self.titleLabel.textColor = UIColor.blackColor()
             self.titleBar.backgroundColor = colorPhy
 
 
         case 3: //chemistry
             self.titleLabel.text = "Défi solo Chimie"
-            self.titleLabel.textColor = UIColor.whiteColor()
+            self.titleLabel.textColor = UIColor.blackColor()
             self.titleBar.backgroundColor = colorChe
 
 
@@ -456,7 +456,7 @@ class QuestionSoloViewController: UIViewController,
             
         case 5: //bioChe
             self.titleLabel.text = "Défi solo Biologie/Chimie"
-            self.titleLabel.textColor = UIColor.whiteColor()
+            self.titleLabel.textColor = UIColor.blackColor()
             self.titleBar.backgroundColor = colorBioChe
 
         case 6: //chePhy
@@ -510,7 +510,28 @@ class QuestionSoloViewController: UIViewController,
         //display the subject
         self.title = self.currentQuestion!.chapter!.subject!.name.uppercaseString
         //display the chapter
-        self.chapter.text = "Chapitre \(self.currentQuestion!.chapter!.number) : \(self.currentQuestion!.chapter!.name)"
+        self.chapter.text = "\(self.currentQuestion!.chapter!.subject!.name.capitalizedString), chapitre \(self.currentQuestion!.chapter!.number) : \(self.currentQuestion!.chapter!.name)"
+        switch self.currentQuestion!.chapter!.subject!.id {
+        case 1 : //biology
+            if self.mode == 0 {
+                self.markButton.image = UIImage(named: "bioBar")
+            }
+            self.chapter.backgroundColor = colorBio
+        case 2 : //physics
+            if self.mode == 0 {
+                self.markButton.image = UIImage(named: "phyBar")
+            }
+
+            self.chapter.backgroundColor = colorPhy
+        case 3 : //chemistry
+            if self.mode == 0 {
+                self.markButton.image = UIImage(named: "cheBar")
+            }
+
+            self.chapter.backgroundColor = colorChe
+        default:
+            self.markButton.image = nil
+        }
 
         
     }
@@ -571,7 +592,6 @@ class QuestionSoloViewController: UIViewController,
         //resizing the answers table (the cells have already been resized independently
         self.answers.frame.size = CGSizeMake(self.view.bounds.width, tableHeight)
         
-        
         //displaying the infos and button AFTER the wording and the answers table, and centering
         self.infos = UIWebView(frame: CGRectMake(0, self.wording.bounds.size.height + 10 + tableHeight , self.view.bounds.width, 40))
         //println(self.currentQuestion!.info)
@@ -595,19 +615,19 @@ class QuestionSoloViewController: UIViewController,
             self.scrollView.contentSize =  scrollSize
             //adding button
             self.scrollView.addSubview(self.submitButton)
+        } else {
+            //resizing the scroll view in order to fit all the elements
+            var scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 50)
+            self.scrollView.contentSize =  scrollSize
         }
     }
     
     private func showAnswers() {
         
-        var historyQuestion = QuestionHistory()
         self.answers.userInteractionEnabled = false
-        historyQuestion.id = self.currentQuestion!.id
-        historyQuestion.training = false
         if self.checkAnswers() {
             //true
             Sound.playTrack("true")
-            historyQuestion.success = true
             //colouring the results
             for answer in self.goodAnswers {
                 let indexPath = NSIndexPath(forRow: answer, inSection: 0)
@@ -618,7 +638,6 @@ class QuestionSoloViewController: UIViewController,
             
         } else {
             //false
-            historyQuestion.success = false
             Sound.playTrack("false")
             //colouring the results
             for answer in self.selectedAnswers {
@@ -643,12 +662,8 @@ class QuestionSoloViewController: UIViewController,
                         //red
                     }
                 }
-                
             }
-            
         }
-        //saving the question result in history
-        History.addQuestionToHistory(historyQuestion)
         
         //displaying and animating the correction button IF AVAILABLE
         if self.currentQuestion!.correction != "" {
@@ -659,6 +674,44 @@ class QuestionSoloViewController: UIViewController,
         } else {
             self.submitButton.hidden = true
         }
+    }
+    
+    private func computeScore() -> (Int, Int){
+        var succeeded = 0
+        var score = 0
+        
+        for i in 0..<self.questions.count {
+            
+            var historyQuestion = QuestionHistory()
+            historyQuestion.id = self.questions[i].id
+            historyQuestion.training = false
+            if let answers = self.allAnswers[i] {
+                self.selectedAnswers = answers
+            } else {
+                self.selectedAnswers = []
+            }
+            self.goodAnswers.removeAll(keepCapacity: false)
+            var numberAnswer = 0
+            for answer in self.questions[i].answers {
+                if answer.correct {
+                    self.goodAnswers.append(numberAnswer)
+                }
+                numberAnswer++
+            }
+            
+            if self.checkAnswers() {
+                //true
+                historyQuestion.success = true
+                succeeded++
+            } else {
+                //false
+                historyQuestion.success = false
+            }
+            //saving the question result in history
+            History.addQuestionToHistory(historyQuestion)
+        }
+        score = Int(succeeded * 20 / self.questions.count)
+        return (succeeded,score)
     }
     
     func animateButton(){
@@ -776,14 +829,16 @@ class QuestionSoloViewController: UIViewController,
     
     func displayResultsMode() {
         //challenge finished! switch to results mode
+        let (succeeded,score) = self.computeScore()
         println("challenge mode ended, results mode")
         self.mode = 1
         self.chrono.hidden = true
         self.chronoImage.hidden = true
         self.titleLabel.text = "Correction du défi duo"
         self.markButton.enabled = true
+        self.markButton.image = UIImage(named: "markedBar")
         self.timeChallengeTimer.invalidate()
-        let myAlert = UIAlertController(title: "Défi solo terminé", message: "Vous pouvez à présent voir les réponses et les corrections si disponibles et éventuellement mettre certaines questions de côté en les marquant" , preferredStyle: UIAlertControllerStyle.Alert)
+        let myAlert = UIAlertController(title: "Défi solo terminé", message: "Votre note : \(score) / 20, \(succeeded) questions réussies sur \(self.questions.count). Vous pouvez à présent voir les réponses et les corrections si disponibles et éventuellement mettre certaines questions de côté en les marquant" , preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             self.loadQuestion()
         }))

@@ -628,7 +628,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bio" translatesAutoresizingMaskIntoConstraints="NO" id="McV-LS-4gj">
                                 <rect key="frame" x="150" y="487" width="25" height="25"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chi" translatesAutoresizingMaskIntoConstraints="NO" id="6Vw-hv-UMs">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="che" translatesAutoresizingMaskIntoConstraints="NO" id="6Vw-hv-UMs">
                                 <rect key="frame" x="350" y="487" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="UJt-Sq-cS6"/>
@@ -969,7 +969,7 @@
                                     <constraint firstAttribute="height" constant="50" id="O3b-7K-mB1"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chi" translatesAutoresizingMaskIntoConstraints="NO" id="h5p-Tf-qun">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="che" translatesAutoresizingMaskIntoConstraints="NO" id="h5p-Tf-qun">
                                 <rect key="frame" x="16" y="486" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="A7Q-kD-0ZI"/>
@@ -1232,7 +1232,7 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem width="10" style="plain" systemItem="fixedSpace" id="fhI-j5-jyk"/>
-                                    <barButtonItem image="marked" id="SXq-UU-6LM" userLabel="mark">
+                                    <barButtonItem image="markedBar" id="SXq-UU-6LM" userLabel="mark">
                                         <connections>
                                             <action selector="markQuestion:" destination="BNI-lo-Tem" id="QqV-WP-CtL"/>
                                         </connections>
@@ -1997,19 +1997,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chapitre 1 : nom du chapitre" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="eM6-bp-prJ">
-                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
-                                <color key="backgroundColor" red="0.10588235408067703" green="0.5058823823928833" blue="0.36862745881080627" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="4MR-5i-MK0"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="QyA-tT-qgg" userLabel="titleBar">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
-                                <color key="backgroundColor" red="0.60000002384185791" green="0.89019608497619629" blue="0.52549022436141968" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.99607843160629272" green="0.78823530673980713" blue="0.43529412150382996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="zC9-dg-GU2"/>
                                 </constraints>
@@ -2017,7 +2007,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="of3-me-pjg" userLabel="titleLabel">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Défi solo Biologie/Physique" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="of3-me-pjg" userLabel="titleLabel">
                                 <rect key="frame" x="68" y="20" width="428" height="44"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="17"/>
                                 <nil key="highlightedColor"/>
@@ -2042,7 +2032,7 @@
                                     <barButtonItem width="10" style="plain" systemItem="fixedSpace" id="UsV-Mn-2g1"/>
                                     <barButtonItem title="Question 1/1" id="7h3-Gm-Tdb" userLabel="filter"/>
                                     <barButtonItem width="10" style="plain" systemItem="fixedSpace" id="lzw-Af-e22"/>
-                                    <barButtonItem image="marked" id="uHx-lz-3aS" userLabel="mark">
+                                    <barButtonItem image="markedBar" id="uHx-lz-3aS" userLabel="mark">
                                         <connections>
                                             <action selector="markQuestion:" destination="uY8-EO-oOx" id="6iA-Xv-7WP"/>
                                         </connections>
@@ -2090,6 +2080,15 @@
                                     <action selector="runChallenge:" destination="Cpx-Ts-0mG" eventType="touchUpInside" id="xFX-E9-Cda"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Biologie, chapitre 1 : nom du chapitre" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="eM6-bp-prJ">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <color key="backgroundColor" red="0.10588235408067703" green="0.5058823823928833" blue="0.36862745881080627" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="4MR-5i-MK0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="20"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.92549020049999997" green="0.92549020049999997" blue="0.92549020049999997" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -2142,7 +2141,7 @@
         <image name="bio" width="512" height="512"/>
         <image name="blur" width="1242" height="2146"/>
         <image name="calc" width="22" height="22"/>
-        <image name="chi" width="512" height="512"/>
+        <image name="che" width="512" height="512"/>
         <image name="chrono" width="44" height="44"/>
         <image name="circle" width="250" height="250"/>
         <image name="contest" width="44" height="44"/>
@@ -2152,7 +2151,7 @@
         <image name="home" width="44" height="44"/>
         <image name="logoHD" width="340" height="340"/>
         <image name="logout" width="44" height="44"/>
-        <image name="marked" width="44" height="44"/>
+        <image name="markedBar" width="22" height="22"/>
         <image name="menu" width="22" height="22"/>
         <image name="next" width="20" height="20"/>
         <image name="phy" width="512" height="512"/>
@@ -2166,7 +2165,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="xbe-Fm-nd1"/>
         <segue reference="WYj-iM-Hx0"/>
-        <segue reference="yr9-yD-vRh"/>
-        <segue reference="lqZ-eW-hiS"/>
+        <segue reference="78B-T2-OOj"/>
+        <segue reference="2Sh-dt-zC5"/>
     </inferredMetricsTieBreakers>
 </document>
