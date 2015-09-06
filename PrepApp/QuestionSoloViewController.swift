@@ -20,6 +20,8 @@ class QuestionSoloViewController: UIViewController,
     //properties
     var mode = 0 //0 = challenge 1 = results
     var choice: Int = 0
+    var score = 0
+    var succeeded = 0
     let realm = FactoryRealm.getRealm()
     var questions: [Question] = []
     var currentNumber: Int = 0
@@ -104,15 +106,18 @@ class QuestionSoloViewController: UIViewController,
     }
     
     @IBAction func calcPopUp(sender: AnyObject) {
-        var message = self.questions[self.currentNumber].calculator ? "Calculatrice autorisée" : "Calculatrice interdite"
-        self.questions[self.currentNumber].calculator ? Sound.playTrack("calc") : Sound.playTrack("nocalc")
-        // create alert controller
-        let myAlert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        // add an "OK" button
-        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-        // show the alert
-        self.presentViewController(myAlert, animated: true, completion: nil)
-        
+        if self.mode == 0 {
+            var message = self.questions[self.currentNumber].calculator ? "Calculatrice autorisée" : "Calculatrice interdite"
+            self.questions[self.currentNumber].calculator ? Sound.playTrack("calc") : Sound.playTrack("nocalc")
+            // create alert controller
+            let myAlert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+            // add an "OK" button
+            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            // show the alert
+            self.presentViewController(myAlert, animated: true, completion: nil)
+        } else {
+            self.performSegueWithIdentifier("showScore", sender: self)
+        }
     }
     
     @IBAction func markQuestion(sender: AnyObject) {
@@ -500,7 +505,9 @@ class QuestionSoloViewController: UIViewController,
         }
         
         println("Question n°\(self.currentQuestion!.id) , bonne(s) réponse(s) = \(self.goodAnswers)")
-        self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "calc") : UIImage(named: "nocalc"))
+        if self.mode == 0 {
+            self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "calc") : UIImage(named: "nocalc"))
+        }
         self.didLoadWording = false
         self.didLoadAnswers = false
         self.didLoadInfos = false
@@ -830,17 +837,21 @@ class QuestionSoloViewController: UIViewController,
     func displayResultsMode() {
         //challenge finished! switch to results mode
         let (succeeded,score) = self.computeScore()
+        self.score = score
+        self.succeeded = succeeded
         println("challenge mode ended, results mode")
         self.mode = 1
         self.chrono.hidden = true
         self.chronoImage.hidden = true
+        self.calc.image = UIImage(named: "score")
         self.titleLabel.text = "Correction du défi duo"
         self.markButton.enabled = true
         self.markButton.image = UIImage(named: "markedBar")
         self.timeChallengeTimer.invalidate()
-        let myAlert = UIAlertController(title: "Défi solo terminé", message: "Votre note : \(score) / 20, \(succeeded) questions réussies sur \(self.questions.count). Vous pouvez à présent voir les réponses et les corrections si disponibles et éventuellement mettre certaines questions de côté en les marquant" , preferredStyle: UIAlertControllerStyle.Alert)
+        let myAlert = UIAlertController(title: "Défi solo terminé", message: "Vous pouvez à présent voir les réponses et les corrections si disponibles et éventuellement mettre certaines questions de côté en les marquant" , preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             self.loadQuestion()
+            self.performSegueWithIdentifier("showScore", sender: self)
         }))
         // show the alert
         self.presentViewController(myAlert, animated: true, completion: nil)
@@ -1023,6 +1034,15 @@ class QuestionSoloViewController: UIViewController,
             // Pass the selected object to the new view controller.
             profileVC.profileTopics = "Questions marquées"
         }
+        
+        if let scoreVC = segue.destinationViewController as? ScoreViewController {
+            // Pass the selected object to the new view controller.
+            scoreVC.score = self.score
+            scoreVC.succeeded = self.succeeded
+            scoreVC.choice = self.choice
+            scoreVC.numberOfQuestions = self.questions.count
+        }
+
     }
     
 }
