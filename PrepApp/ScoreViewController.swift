@@ -93,7 +93,7 @@ class ScoreViewController: UIViewController {
         } else {
             self.scoreLabel.textColor = colorRightAnswer
         }
-        self.succeededLabel.text = "Questions réussies: \(self.succeeded) / \(self.numberOfQuestions)"
+        self.succeededLabel.text = "Questions réussies : \(self.succeeded) / \(self.numberOfQuestions)"
         self.dismissButton.layer.cornerRadius = 6
     }
 }

@@ -37,7 +37,7 @@ class QuestionSoloViewController: UIViewController,
     var timeChallengeTimer = NSTimer()
     var animatingCorrectionTimer = NSTimer()
     var stopAnimationCorrectionTimer = NSTimer()
-    var timeLeft = NSTimeInterval(62)
+    var timeLeft = NSTimeInterval(20*60)
     var senseAnimationCorrection: Bool = true
     var waitBeforeNextQuestion: Bool = false
     let baseUrl = NSURL(fileURLWithPath: Factory.path, isDirectory: true)!
@@ -517,7 +517,7 @@ class QuestionSoloViewController: UIViewController,
         //display the subject
         self.title = self.currentQuestion!.chapter!.subject!.name.uppercaseString
         //display the chapter
-        self.chapter.text = "\(self.currentQuestion!.chapter!.subject!.name.capitalizedString), chapitre \(self.currentQuestion!.chapter!.number) : \(self.currentQuestion!.chapter!.name)"
+        self.chapter.text = "\(self.currentQuestion!.chapter!.subject!.name.capitalizedString) : \(self.currentQuestion!.chapter!.name)"
         switch self.currentQuestion!.chapter!.subject!.id {
         case 1 : //biology
             if self.mode == 0 {

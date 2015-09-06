@@ -912,7 +912,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aze-o2-J1l" userLabel="BIO">
-                                <rect key="frame" x="0.0" y="64" width="600" height="179"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="178.5"/>
                                 <color key="backgroundColor" red="0.60000002384185791" green="0.89019608497619629" blue="0.52549022436141968" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="60"/>
                                 <state key="normal">
@@ -923,7 +923,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NAj-JJ-6z1" userLabel="PHY">
-                                <rect key="frame" x="0.0" y="243" width="600" height="178"/>
+                                <rect key="frame" x="0.0" y="242.5" width="600" height="179"/>
                                 <color key="backgroundColor" red="0.9529411792755127" green="0.47843137383460999" blue="0.43529412150382996" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="60"/>
                                 <state key="normal">
@@ -934,7 +934,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYV-LY-s4f" userLabel="CHI">
-                                <rect key="frame" x="0.0" y="421" width="600" height="179"/>
+                                <rect key="frame" x="0.0" y="421.5" width="600" height="178.5"/>
                                 <color key="backgroundColor" red="0.5372549295425415" green="0.74901962280273438" blue="0.87843137979507446" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="60"/>
                                 <state key="normal">
@@ -946,19 +946,19 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BIOLOGIE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMw-N9-580">
-                                <rect key="frame" x="74" y="64" width="526" height="179"/>
+                                <rect key="frame" x="74" y="64" width="526" height="178.5"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PHYSIQUE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltt-Hn-CPp">
-                                <rect key="frame" x="74" y="243" width="526" height="178"/>
+                                <rect key="frame" x="74" y="242.5" width="526" height="179"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CHIMIE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GfA-GH-d8L">
-                                <rect key="frame" x="74" y="421" width="526" height="179"/>
+                                <rect key="frame" x="74" y="421.5" width="526" height="178.5"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -1400,7 +1400,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5ru-Yl-Ltz">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="triblack" translatesAutoresizingMaskIntoConstraints="NO" id="bTk-Ye-eNf">
+                                <rect key="frame" x="140" y="140" width="320" height="320"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="aFX-Xt-EFE"/>
+                                    <constraint firstAttribute="height" constant="320" id="qhq-RB-EkE"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5ru-Yl-Ltz" userLabel="trigram">
                                 <rect key="frame" x="140" y="140" width="320" height="320"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="THP-ia-jxE"/>
@@ -1434,17 +1441,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mWA-CM-AAk" userLabel="greenRound">
-                                <rect key="frame" x="100" y="85" width="400" height="400"/>
-                                <color key="backgroundColor" red="0.30980393290519714" green="0.65490198135375977" blue="0.5372549295425415" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="400" id="QvT-cC-eJb"/>
-                                    <constraint firstAttribute="height" constant="400" id="Tr5-cf-Stg"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.92549020051956177" green="0.92549020051956177" blue="0.92549020051956177" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.1058823529" green="0.50588235290000005" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -1452,10 +1448,10 @@
                             <constraint firstAttribute="centerX" secondItem="kyr-lb-Wzp" secondAttribute="centerX" id="7Hi-na-jme"/>
                             <constraint firstItem="99E-de-qXW" firstAttribute="top" secondItem="kyr-lb-Wzp" secondAttribute="bottom" constant="8" id="C9j-3E-cwK"/>
                             <constraint firstAttribute="centerX" secondItem="5ru-Yl-Ltz" secondAttribute="centerX" id="PgA-w8-tUz"/>
-                            <constraint firstAttribute="centerX" secondItem="mWA-CM-AAk" secondAttribute="centerX" id="bAx-gC-VAB"/>
+                            <constraint firstAttribute="centerX" secondItem="bTk-Ye-eNf" secondAttribute="centerX" id="V6C-jN-RZv"/>
                             <constraint firstAttribute="centerX" secondItem="99E-de-qXW" secondAttribute="centerX" id="ca7-jH-vbW"/>
-                            <constraint firstAttribute="centerY" secondItem="mWA-CM-AAk" secondAttribute="centerY" constant="15" id="eFL-nF-SW9"/>
                             <constraint firstAttribute="centerY" secondItem="5ru-Yl-Ltz" secondAttribute="centerY" id="hVv-IJ-IIT"/>
+                            <constraint firstAttribute="centerY" secondItem="bTk-Ye-eNf" secondAttribute="centerY" id="l7r-kO-yla"/>
                             <constraint firstItem="syj-5W-bOg" firstAttribute="top" secondItem="99E-de-qXW" secondAttribute="bottom" constant="20" id="yGJ-zM-fw1"/>
                         </constraints>
                     </view>
@@ -1466,7 +1462,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="buttonChallenge" destination="99E-de-qXW" id="qY7-9g-09n"/>
-                        <outlet property="greenCircle" destination="mWA-CM-AAk" id="njO-io-7yu"/>
                         <outlet property="label" destination="kyr-lb-Wzp" id="RfZ-4A-vtK"/>
                         <outlet property="menuButton" destination="M1M-oP-5eO" id="A1i-al-r6f"/>
                         <outlet property="trigram" destination="5ru-Yl-Ltz" id="HIA-5Z-dpS"/>
@@ -2254,7 +2249,7 @@
                                     <action selector="runChallenge:" destination="Cpx-Ts-0mG" eventType="touchUpInside" id="9BJ-Qh-SHN"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bZx-mZ-hgm" userLabel="score">
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bZx-mZ-hgm" userLabel="score">
                                 <rect key="frame" x="250" y="178" width="100" height="137"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="Ksd-JV-CpK"/>
@@ -2313,7 +2308,7 @@
         <image name="chrono" width="44" height="44"/>
         <image name="circle" width="250" height="250"/>
         <image name="contest" width="44" height="44"/>
-        <image name="duo" width="44" height="44"/>
+        <image name="duo" width="22" height="22"/>
         <image name="graph" width="1000" height="496"/>
         <image name="help" width="44" height="44"/>
         <image name="home" width="44" height="44"/>
@@ -2329,6 +2324,7 @@
         <image name="settings" width="44" height="44"/>
         <image name="solo" width="44" height="44"/>
         <image name="training" width="44" height="44"/>
+        <image name="triblack" width="1317" height="1254"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="xbe-Fm-nd1"/>
