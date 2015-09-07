@@ -10,7 +10,6 @@
 		952588BB1B9742E400F68B3F /* NewsfeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952588BA1B9742E400F68B3F /* NewsfeedViewController.swift */; };
 		952588BD1B974BDF00F68B3F /* QuestionSoloViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952588BC1B974BDF00F68B3F /* QuestionSoloViewController.swift */; };
 		954441E41B9CB49F0035B7ED /* ScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954441E31B9CB49F0035B7ED /* ScoreViewController.swift */; };
-		955085F01B97003E00CC9577 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955085EF1B97003E00CC9577 /* GraphViewController.swift */; };
 		95C5C48D1B9503F6001DA9B5 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C5C48C1B9503F6001DA9B5 /* Answer.swift */; };
 		F60082D11B84F9C600F7BCBB /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60082D01B84F9C600F7BCBB /* UserPreferences.swift */; };
 		F60082D31B854F9E00F7BCBB /* VersionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60082D21B854F9E00F7BCBB /* VersionManager.swift */; };
@@ -112,7 +111,6 @@
 		952588BA1B9742E400F68B3F /* NewsfeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsfeedViewController.swift; sourceTree = "<group>"; };
 		952588BC1B974BDF00F68B3F /* QuestionSoloViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionSoloViewController.swift; sourceTree = "<group>"; };
 		954441E31B9CB49F0035B7ED /* ScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreViewController.swift; sourceTree = "<group>"; };
-		955085EF1B97003E00CC9577 /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		95C5C48C1B9503F6001DA9B5 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		F60082D01B84F9C600F7BCBB /* UserPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		F60082D21B854F9E00F7BCBB /* VersionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionManager.swift; sourceTree = "<group>"; };
@@ -234,7 +232,6 @@
 				F6ECC10F1AF6DFE8008F18E3 /* SyncViewController.swift */,
 				F61A1CDE1B0041CD00777584 /* MenuController.swift */,
 				F6C309581B0365B100B8FAC9 /* HomeViewController.swift */,
-				955085EF1B97003E00CC9577 /* GraphViewController.swift */,
 				952588BA1B9742E400F68B3F /* NewsfeedViewController.swift */,
 			);
 			name = Start;
@@ -589,7 +586,6 @@
 				F6F22A971B70EC5E00A3049B /* DetailHelpViewController.swift in Sources */,
 				F6C02C461B762A810021ABE1 /* RenderQuestionsClasses.swift in Sources */,
 				F6C3095C1B0365B100B8FAC9 /* HomeViewController.swift in Sources */,
-				955085F01B97003E00CC9577 /* GraphViewController.swift in Sources */,
 				F6AAE6D61AF433E100195E11 /* AppDelegate.swift in Sources */,
 				F6322A231B615E460074549E /* Subject.swift in Sources */,
 				F605AF181B04154800E90596 /* ProfileViewController.swift in Sources */,

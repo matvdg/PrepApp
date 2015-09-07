@@ -21,15 +21,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func rotated()
     {
-        if(UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation))
+        if UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation)
         {
+            println("landscape")
             NSNotificationCenter.defaultCenter().postNotificationName("landscape", object: nil)
         }
         
-        if(UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation))
+        if UIDevice.currentDevice().orientation == UIDeviceOrientation.Portrait
         {
+            println("portrait")
             NSNotificationCenter.defaultCenter().postNotificationName("portrait", object: nil)
         }
+        
         
     }
 

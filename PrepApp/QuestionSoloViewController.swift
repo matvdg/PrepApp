@@ -60,6 +60,8 @@ class QuestionSoloViewController: UIViewController,
         self.timeChallengeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("countdown"), userInfo: nil, repeats: true)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshQuestion", name: "portrait", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshQuestion", name: "landscape", object: nil)
         //handling swipe gestures
         var swipeRight = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipeRight.direction = UISwipeGestureRecognizerDirection.Right
@@ -79,7 +81,6 @@ class QuestionSoloViewController: UIViewController,
         
         
     }
-    
     
     //@IBOutlets properties
     @IBOutlet weak var chapter: UILabel!
@@ -282,7 +283,7 @@ class QuestionSoloViewController: UIViewController,
     
     private func loadQuestions() {
         //applying grey mask
-        let frame = CGRect(x: 0, y: 152, width: self.view.bounds.width, height: self.view.bounds.height-152)
+        let frame = CGRect(x: 0, y: 152, width: self.view.bounds.width, height: self.view.bounds.height)
         self.greyMask = UIView(frame: frame)
         self.greyMask.backgroundColor = colorGreyBackgound
         self.greyMask.layer.zPosition = 100
@@ -581,14 +582,17 @@ class QuestionSoloViewController: UIViewController,
         
     }
     
-    private func refreshQuestion(){
-        let delay = 1 * Double(NSEC_PER_SEC)
-        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-        dispatch_after(time, dispatch_get_main_queue()) {
-            //println("refreshQuestion")
-            self.cleanView()
-            self.loadQuestion()
-        }
+    func refreshQuestion(){
+        //refreshing grey mask
+        self.greyMask.removeFromSuperview()
+        let frame = CGRect(x: 0, y: 152, width: self.view.bounds.width, height: self.view.bounds.height)
+        self.greyMask = UIView(frame: frame)
+        self.greyMask.backgroundColor = colorGreyBackgound
+        self.greyMask.layer.zPosition = 100
+        self.view.addSubview(self.greyMask)
+        self.cleanView()
+        self.sizeAnswerCells.removeAll(keepCapacity: false)
+        self.loadQuestion()
     }
     
     private func loadInfos(){
@@ -925,10 +929,6 @@ class QuestionSoloViewController: UIViewController,
                 cell.number!.frame = CGRectMake(0, 0, 40, height)
                 cell.answer!.frame = CGRectMake(40, 0, self.view.bounds.width - 80, height)
             }
-            else {
-                println("error loading too fast, delegates not finished")
-                self.refreshQuestion()
-            }
         }
         //retrieving checkmarks if already done
         if find(self.selectedAnswers,answerNumber) != nil {
@@ -943,8 +943,6 @@ class QuestionSoloViewController: UIViewController,
             if let height = self.sizeAnswerCells[indexPath.row] {
                 return height
             } else {
-                println("error loading too fast, delegates not finished")
-                self.refreshQuestion()
                 return 40
             }
             

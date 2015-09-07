@@ -12,6 +12,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var phyPieChart: PieChartView!
     @IBOutlet weak var bioPieChart: PieChartView!
     @IBOutlet weak var levelButton: UIButton!
+    @IBOutlet weak var graphView: UIView!
     
     enum pie: Int {
         case biology = 1, physics, chemistry
@@ -31,16 +32,12 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "showGraph", name: "landscape", object: nil)
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "hideGraph", name: "portrait", object: nil)
+
         //handling swipe gestures
         var swipeLeft = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
         self.view.addGestureRecognizer(swipeLeft)
-        
-
-
-
-
 		if self.revealViewController() != nil {
 			menuButton.target = self.revealViewController()
 			menuButton.action = "revealToggle:"
@@ -232,10 +229,13 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     }
     
     func showGraph() {
-        println("graph")
-        self.performSegueWithIdentifier("showGraph", sender: self)
+        self.graphView.hidden = false
+        self.title = "Performances"
     }
-    
+    func hideGraph() {
+            self.graphView.hidden = true
+        self.title = "Accueil"
+    }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
