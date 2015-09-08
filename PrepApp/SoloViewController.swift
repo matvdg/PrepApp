@@ -249,7 +249,7 @@ class SoloViewController: UIViewController {
         //fetching solo questions NEVER DONE
         var questionsRealm = realm.objects(Question).filter("type = 1")
         for question in questionsRealm {
-            if History.isQuestionNew(question.id){
+            if FactoryHistory.getHistory().isQuestionNew(question.id){
                 tempQuestions.append(question)
             }
         }

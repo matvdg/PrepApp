@@ -30,7 +30,7 @@ class VersionManager {
     }
     
     func getLastVersion(callback: (Int?) -> Void) {
-        let urlRequest = NSURLRequest(URL: Factory.versionUrl!)
+        let urlRequest = NSURLRequest(URL: FactorySync.versionUrl!)
         NSURLConnection.sendAsynchronousRequest(urlRequest, queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
             if error != nil {
                 callback(nil)

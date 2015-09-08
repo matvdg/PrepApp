@@ -11,6 +11,8 @@
 		952588BD1B974BDF00F68B3F /* QuestionSoloViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952588BC1B974BDF00F68B3F /* QuestionSoloViewController.swift */; };
 		954441E41B9CB49F0035B7ED /* ScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954441E31B9CB49F0035B7ED /* ScoreViewController.swift */; };
 		95C5C48D1B9503F6001DA9B5 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C5C48C1B9503F6001DA9B5 /* Answer.swift */; };
+		95D765011B9F34AD002C31CC /* FactoryHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D765001B9F34AD002C31CC /* FactoryHistory.swift */; };
+		95D765031B9F358E002C31CC /* Scoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D765021B9F358E002C31CC /* Scoring.swift */; };
 		F60082D11B84F9C600F7BCBB /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60082D01B84F9C600F7BCBB /* UserPreferences.swift */; };
 		F60082D31B854F9E00F7BCBB /* VersionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60082D21B854F9E00F7BCBB /* VersionManager.swift */; };
 		F60406191B8DE16C006F7F4E /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F60406181B8DE14F006F7F4E /* Charts.framework */; };
@@ -41,7 +43,7 @@
 		F63B5AEC1B77D390002C0A79 /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = F63B5AEB1B77D390002C0A79 /* sounds */; };
 		F64630A11B5E662F006A5F71 /* ChapterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64630A01B5E662F006A5F71 /* ChapterManager.swift */; };
 		F64630A31B5E663C006A5F71 /* SubjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64630A21B5E663C006A5F71 /* SubjectManager.swift */; };
-		F64630A51B5E6959006A5F71 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64630A41B5E6959006A5F71 /* Factory.swift */; };
+		F64630A51B5E6959006A5F71 /* FactorySync.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64630A41B5E6959006A5F71 /* FactorySync.swift */; };
 		F64630A71B5FD451006A5F71 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F64630A61B5FD451006A5F71 /* LocalAuthentication.framework */; };
 		F649ED961B7A5F5800293BB7 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F649ED941B7A5F5800293BB7 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F649ED971B7A5F5800293BB7 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F649ED951B7A5F5800293BB7 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -112,6 +114,8 @@
 		952588BC1B974BDF00F68B3F /* QuestionSoloViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionSoloViewController.swift; sourceTree = "<group>"; };
 		954441E31B9CB49F0035B7ED /* ScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreViewController.swift; sourceTree = "<group>"; };
 		95C5C48C1B9503F6001DA9B5 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
+		95D765001B9F34AD002C31CC /* FactoryHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryHistory.swift; sourceTree = "<group>"; };
+		95D765021B9F358E002C31CC /* Scoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scoring.swift; sourceTree = "<group>"; };
 		F60082D01B84F9C600F7BCBB /* UserPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		F60082D21B854F9E00F7BCBB /* VersionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionManager.swift; sourceTree = "<group>"; };
 		F60406131B8DE14F006F7F4E /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "ios-charts-master/Charts/Charts.xcodeproj"; sourceTree = "<group>"; };
@@ -142,7 +146,7 @@
 		F63B5AEB1B77D390002C0A79 /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
 		F64630A01B5E662F006A5F71 /* ChapterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChapterManager.swift; sourceTree = "<group>"; };
 		F64630A21B5E663C006A5F71 /* SubjectManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubjectManager.swift; sourceTree = "<group>"; };
-		F64630A41B5E6959006A5F71 /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
+		F64630A41B5E6959006A5F71 /* FactorySync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactorySync.swift; sourceTree = "<group>"; };
 		F64630A61B5FD451006A5F71 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		F649ED941B7A5F5800293BB7 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		F649ED951B7A5F5800293BB7 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
@@ -319,7 +323,7 @@
 				F6767C201B5D5DFB0066FC64 /* QuestionManager.swift */,
 				F64630A01B5E662F006A5F71 /* ChapterManager.swift */,
 				F64630A21B5E663C006A5F71 /* SubjectManager.swift */,
-				F64630A41B5E6959006A5F71 /* Factory.swift */,
+				F64630A41B5E6959006A5F71 /* FactorySync.swift */,
 			);
 			name = Sync;
 			sourceTree = "<group>";
@@ -341,6 +345,8 @@
 				F6FBFAB71AFA1F5E0020B074 /* User.swift */,
 				F663E31B1B7A6BD000F23294 /* History.swift */,
 				F60082D01B84F9C600F7BCBB /* UserPreferences.swift */,
+				95D765001B9F34AD002C31CC /* FactoryHistory.swift */,
+				95D765021B9F358E002C31CC /* Scoring.swift */,
 			);
 			name = "User History";
 			sourceTree = "<group>";
@@ -588,6 +594,7 @@
 				F6C3095C1B0365B100B8FAC9 /* HomeViewController.swift in Sources */,
 				F6AAE6D61AF433E100195E11 /* AppDelegate.swift in Sources */,
 				F6322A231B615E460074549E /* Subject.swift in Sources */,
+				95D765031B9F358E002C31CC /* Scoring.swift in Sources */,
 				F605AF181B04154800E90596 /* ProfileViewController.swift in Sources */,
 				F6322A161B6157F60074549E /* ChaptersTableViewController.swift in Sources */,
 				F6322A1C1B615DFA0074549E /* Question.swift in Sources */,
@@ -615,7 +622,8 @@
 				F604061E1B8E6150006F7F4E /* Colors.swift in Sources */,
 				F605AF121B04151500E90596 /* ContestViewController.swift in Sources */,
 				F6236EA01B8C93D900892BCA /* DetailProfileViewController.swift in Sources */,
-				F64630A51B5E6959006A5F71 /* Factory.swift in Sources */,
+				95D765011B9F34AD002C31CC /* FactoryHistory.swift in Sources */,
+				F64630A51B5E6959006A5F71 /* FactorySync.swift in Sources */,
 				F60082D31B854F9E00F7BCBB /* VersionManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

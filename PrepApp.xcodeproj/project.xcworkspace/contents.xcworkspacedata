@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:PrepApp.xcodeproj">
+      location = "self:/Users/MIKALA/Desktop/PrepApp/PrepApp.xcodeproj">
    </FileRef>
 </Workspace>

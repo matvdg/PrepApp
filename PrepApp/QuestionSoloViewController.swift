@@ -40,7 +40,7 @@ class QuestionSoloViewController: UIViewController,
     var timeLeft = NSTimeInterval(20*60)
     var senseAnimationCorrection: Bool = true
     var waitBeforeNextQuestion: Bool = false
-    let baseUrl = NSURL(fileURLWithPath: Factory.path, isDirectory: true)!
+    let baseUrl = NSURL(fileURLWithPath: FactorySync.path, isDirectory: true)!
     
     //graphics properties
     var submitButton = UIButton()
@@ -125,7 +125,7 @@ class QuestionSoloViewController: UIViewController,
         
         var title = ""
         var message = ""
-        if History.isQuestionMarked(self.currentQuestion!.id){
+        if FactoryHistory.getHistory().isQuestionMarked(self.currentQuestion!.id){
             Sound.playTrack("error")
             title = "Question déjà marquée !"
             message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\" dans \"Profil\""
@@ -134,7 +134,7 @@ class QuestionSoloViewController: UIViewController,
                 var historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
                 historyQuestion.marked = false
-                History.updateQuestionMark(historyQuestion)
+                FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
                 Sound.playTrack("calc")
                 let myAlert = UIAlertController(title: "Marquage supprimé", message: nil , preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
@@ -150,7 +150,7 @@ class QuestionSoloViewController: UIViewController,
             self.presentViewController(myAlert, animated: true, completion: nil)
             
         } else {
-            if History.isQuestionDone(self.currentQuestion!.id) {
+            if FactoryHistory.getHistory().isQuestionDone(self.currentQuestion!.id) {
                 Sound.playTrack("calc")
                 title = "Question marquée"
                 message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\" dans \"Profil\""
@@ -158,12 +158,12 @@ class QuestionSoloViewController: UIViewController,
                 var historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
                 historyQuestion.marked = true
-                History.updateQuestionMark(historyQuestion)
+                FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
                 myAlert.addAction(UIAlertAction(title: "Supprimer le marquage", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                     var historyQuestion = QuestionHistory()
                     historyQuestion.id = self.currentQuestion!.id
                     historyQuestion.marked = false
-                    History.updateQuestionMark(historyQuestion)
+                    FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
                     Sound.playTrack("calc")
                     let myAlert = UIAlertController(title: "Marquage supprimé", message: nil , preferredStyle: UIAlertControllerStyle.Alert)
                     myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
@@ -294,7 +294,7 @@ class QuestionSoloViewController: UIViewController,
         //fetching solo questions NEVER DONE
         var questionsRealm = realm.objects(Question).filter("type = 1")
         for question in questionsRealm {
-            if History.isQuestionNew(question.id){
+            if FactoryHistory.getHistory().isQuestionNew(question.id){
                 tempQuestions.append(question)
                 //println("ajout solo")
             }
@@ -719,7 +719,7 @@ class QuestionSoloViewController: UIViewController,
                 historyQuestion.success = false
             }
             //saving the question result in history
-            History.addQuestionToHistory(historyQuestion)
+            FactoryHistory.getHistory().addQuestionToHistory(historyQuestion)
         }
         score = Int(succeeded * 20 / self.questions.count)
         return (succeeded,score)

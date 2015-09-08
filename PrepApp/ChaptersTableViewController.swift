@@ -81,7 +81,7 @@ class ChaptersTableViewController: UITableViewController, UITableViewDataSource 
         //fetching solo questions already DONE
         questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 1", chapter)
         for question in questionsRealm {
-            if History.isQuestionDone(question.id){
+            if FactoryHistory.getHistory().isQuestionDone(question.id){
                 tempQuestions.append(question)
             }
         }
@@ -89,7 +89,7 @@ class ChaptersTableViewController: UITableViewController, UITableViewDataSource 
         //fetching duo questions already DONE
         questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 2", chapter)
         for question in questionsRealm {
-            if History.isQuestionDone(question.id){
+            if FactoryHistory.getHistory().isQuestionDone(question.id){
                 tempQuestions.append(question)
             }
             

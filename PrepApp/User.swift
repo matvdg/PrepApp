@@ -21,8 +21,19 @@ class User {
     var assiduity: Int
     var failed: Int
     var success: Int
+    var weeksBeforeExam: Int
     
-    init(firstName :String,lastName :String,email :String,encryptedPassword :String,level : Int,assiduity : Int,failed : Int,success : Int) {
+    init(
+        firstName: String,
+        lastName: String,
+        email: String,
+        encryptedPassword: String,
+        level: Int,
+        assiduity: Int,
+        failed: Int,
+        success: Int,
+        weeksBeforeExam: Int) {
+            
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
@@ -31,14 +42,15 @@ class User {
         self.assiduity = assiduity
         self.failed = failed
         self.success = success
+        self.weeksBeforeExam = weeksBeforeExam
     }
 	
 	func printUser() -> String {
-		return ("Niveau \(self.level) \n Assiduité \(self.assiduity) \n \(self.success) questions réussies sur \(self.success + self.failed)")
+		return ("Niveau \(self.level) \n Assiduité \(self.assiduity) \n \(self.success) questions réussies sur \(self.success + self.failed). \(self.weeksBeforeExam) semaines avant l'examen.")
 	}
 	
 	func changePassword(newPass: String, callback: (String?) -> Void){
-		let request = NSMutableURLRequest(URL: Factory.passwordUrl!)
+		let request = NSMutableURLRequest(URL: FactorySync.passwordUrl!)
 		request.HTTPMethod = "POST"
 		let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&new_pass=\(newPass)"
 		request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
@@ -76,14 +88,15 @@ class User {
             String(self.level),
             String(self.assiduity),
             String(self.failed),
-            String(self.success)
+            String(self.success),
+            String(self.weeksBeforeExam)
         ]
 		NSUserDefaults.standardUserDefaults().setObject(savedUser, forKey: "user")
 		NSUserDefaults.standardUserDefaults().synchronize()
 	}
 
 	static func login(mail: String, pass: String, callback: (NSDictionary?, String?) -> Void) {
-		let request = NSMutableURLRequest(URL: Factory.userUrl!)
+		let request = NSMutableURLRequest(URL: FactorySync.userUrl!)
 		request.HTTPMethod = "POST"
 		let encryptedPassword = pass.sha1()
 		let postString = "mail=\(mail)&pass=\(encryptedPassword)"
@@ -132,7 +145,8 @@ class User {
 			level: data["level"] as! Int,
 			assiduity: data["assiduity"]as! Int,
             failed: data["failed"] as! Int,
-			success: data["success"] as! Int
+			success: data["success"] as! Int,
+            weeksBeforeExam: 10
         )
         
         User.authenticated = true
@@ -155,7 +169,9 @@ class User {
                 level: (data[4] as String).toInt()!,
                 assiduity: (data[5] as String).toInt()!,
                 failed: (data[6] as String).toInt()!,
-                success: (data[7] as String).toInt()!)
+                success: (data[7] as String).toInt()!,
+                weeksBeforeExam: (data[8] as String).toInt()!
+            )
             
 			return true
 		} else {

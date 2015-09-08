@@ -1,5 +1,5 @@
 //
-//  Factory.swift
+//  FactorySync.swift
 //  PrepApp
 //
 //  Created by Mathieu Vandeginste on 21/07/15.
@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class Factory {
+class FactorySync {
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*DEV OR PROD*/
@@ -29,16 +29,16 @@ class Factory {
     /*LOCAL OR DISTANT DB*/
     //private static let domain = NSURL(string: "http://p.com/PrepApp")
     private static let domain = NSURL(string: "http://prep-app.com")
-    private static let apiUrl = NSURL(string: "\(Factory.domain!)/api")
+    private static let apiUrl = NSURL(string: "\(FactorySync.domain!)/api")
     
-    static let uploadsUrl = NSURL(string: "\(Factory.domain!)/uploads")
-    static let questionUrl = NSURL(string: "\(Factory.apiUrl!)/questions/get")
-    static let chapterUrl = NSURL(string: "\(Factory.apiUrl!)/chapters/get")
-    static let subjectUrl = NSURL(string: "\(Factory.apiUrl!)/subjects/get")
-    static let userUrl = NSURL(string: "\(Factory.apiUrl!)/user/connection")
-    static let passwordUrl = NSURL(string: "\(Factory.apiUrl!)/user/changepass")
-    static let imageUrl = NSURL(string: "\(Factory.apiUrl!)/uploads/get")
-    static let versionUrl = NSURL(string: "\(Factory.apiUrl!)/version/get")
+    static let uploadsUrl = NSURL(string: "\(FactorySync.domain!)/uploads")
+    static let questionUrl = NSURL(string: "\(FactorySync.apiUrl!)/questions/get")
+    static let chapterUrl = NSURL(string: "\(FactorySync.apiUrl!)/chapters/get")
+    static let subjectUrl = NSURL(string: "\(FactorySync.apiUrl!)/subjects/get")
+    static let userUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/connection")
+    static let passwordUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/changepass")
+    static let imageUrl = NSURL(string: "\(FactorySync.apiUrl!)/uploads/get")
+    static let versionUrl = NSURL(string: "\(FactorySync.apiUrl!)/version/get")
     
     static let path: String = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
     
@@ -66,15 +66,15 @@ class Factory {
     //Called in SyncViewController.swift
     class func sync() {
         println("syncing")
-        Factory.getImageManager().hasFinishedSync == false
-        Factory.getQuestionManager().hasFinishedSync == false
+        FactorySync.getImageManager().hasFinishedSync == false
+        FactorySync.getQuestionManager().hasFinishedSync == false
         self.realm.write {
             self.realm.deleteAll()
         }
         println("default Realm database cleaned")
-        Factory.getSubjectManager().saveSubjects()
+        FactorySync.getSubjectManager().saveSubjects()
         // we fetch subjects then chapters then questions in order to avoid Realm bad mapping (ORM)
-        Factory.getImageManager().sync()
+        FactorySync.getImageManager().sync()
         //we save the new version number
     }
 }

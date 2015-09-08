@@ -8,15 +8,15 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     enum subject: Int {
         case biology = 1, physics, chemistry
     }
-    var bio: Double = Double(arc4random()%100)
-    var phy: Double = Double(arc4random()%100)
-    var che: Double = Double(arc4random()%100)
-    var bioNumber: Int = 10
-    var phyNumber: Int = 22
-    var cheNumber: Int = 13
-    var bioNumberToDo: Int = 5
-    var phyNumberToDo: Int = 8
-    var cheNumberToDo: Int = 9
+    var bio: Double = 0
+    var phy: Double = 0
+    var che: Double = 0
+    var bioNumber: Int = 0
+    var phyNumber: Int = 0
+    var cheNumber: Int = 0
+    var bioNumberToDo: Int = 0
+    var phyNumberToDo: Int = 0
+    var cheNumberToDo: Int = 0
     var hideTimer = NSTimer()
     var animationTimer = NSTimer()
     var counterAnimationNotification = 0
@@ -116,9 +116,20 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.showNotification()
-        self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("showNotification"), userInfo: nil, repeats: true)
-        self.hideTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("hideNotification"), userInfo: nil, repeats: false)
-        self.renderLevel()
+        //retrieving data
+        var (percent,answers,todo) = FactoryHistory.getScoring().getScore(1)
+        self.bio = Double(percent)
+        self.bioNumber = answers
+        self.bioNumberToDo = todo
+        (percent,answers,todo) = FactoryHistory.getScoring().getScore(2)
+        self.phy = Double(percent)
+        self.phyNumber = answers
+        self.phyNumberToDo = todo
+        (percent,answers,todo) = FactoryHistory.getScoring().getScore(3)
+        self.che = Double(percent)
+        self.cheNumber = answers
+        self.cheNumberToDo = todo
+        
         //designing border radius buttons
         self.bioButton.layer.cornerRadius = 6
         self.cheButton.layer.cornerRadius = 6
@@ -136,6 +147,9 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.view.backgroundColor = colorGreyBackgound
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.welcome.text = "Bonjour, \(User.currentUser!.firstName) \(User.currentUser!.lastName) !"
+        self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("showNotification"), userInfo: nil, repeats: true)
+        self.hideTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("hideNotification"), userInfo: nil, repeats: false)
+        self.renderLevel()
         //notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)

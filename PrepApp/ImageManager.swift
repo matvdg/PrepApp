@@ -43,7 +43,7 @@ class ImageManager {
 	}
     
     private func getUploads(callback: (NSDictionary?) -> Void) {
-        let request = NSMutableURLRequest(URL: Factory.imageUrl!)
+        let request = NSMutableURLRequest(URL: FactorySync.imageUrl!)
         request.HTTPMethod = "POST"
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
@@ -54,7 +54,7 @@ class ImageManager {
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
                     println("error : no connexion in getUploads")
-                    Factory.errorNetwork = true
+                    FactorySync.errorNetwork = true
                 } else {
                     
                     var err: NSError?
@@ -65,19 +65,19 @@ class ImageManager {
                         if let result = jsonResult {
                             if err != nil {
                                 println("error : parsing JSON in getUploads")
-                                Factory.errorNetwork = true
+                                FactorySync.errorNetwork = true
                             } else {
                                 callback(result as NSDictionary)
                             }
                         } else {
                             println("error : NSArray nil in getUploads")
-                            Factory.errorNetwork = true
+                            FactorySync.errorNetwork = true
                         }
                         
                         
                     } else {
                         println("error : != 200 in getUploads")
-                        Factory.errorNetwork = true
+                        FactorySync.errorNetwork = true
                     }
                 }
             }
@@ -148,8 +148,8 @@ class ImageManager {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             for objectToAdd in objectsToAdd {
-                if Factory.errorNetwork == false {
-                    let url = NSURL(string: "\(Factory.uploadsUrl!)/\(objectToAdd.id).png")
+                if FactorySync.errorNetwork == false {
+                    let url = NSURL(string: "\(FactorySync.uploadsUrl!)/\(objectToAdd.id).png")
                     self.saveFile(url!, imageName: "/\(objectToAdd.id).png", objectToAdd: objectToAdd)
                 }
             }
@@ -159,24 +159,24 @@ class ImageManager {
     
     private func saveFile(url: NSURL, imageName: String, objectToAdd: Image){
         
-        let realmImages = Realm(path: "\(Factory.path)/images.realm")
+        let realmImages = Realm(path: "\(FactorySync.path)/images.realm")
         let timeout: NSTimeInterval = 30
         let urlRequest = NSURLRequest(URL: url, cachePolicy:
         NSURLRequestCachePolicy.UseProtocolCachePolicy,timeoutInterval: timeout)
         NSURLConnection.sendAsynchronousRequest(urlRequest, queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
             
             if error != nil {
-                if Factory.errorNetwork == false {
-                    Factory.errorNetwork = true
+                if FactorySync.errorNetwork == false {
+                    FactorySync.errorNetwork = true
                     println(error)
                 }
                 
             } else {
-                if !Factory.errorNetwork {
+                if !FactorySync.errorNetwork {
                     self.sizeDownloaded += data.length
                     //println("size downloaded = \(self.sizeDownloaded/1000)KB/\(self.sizeToDownload/1000)KB")
                     
-                    let imagesPath = Factory.path + "/images"
+                    let imagesPath = FactorySync.path + "/images"
                     NSFileManager.defaultManager().createDirectoryAtPath(imagesPath, withIntermediateDirectories: false, attributes: nil, error: nil)
                     let imagePath = imagesPath + imageName
                     if let fetchedImage = UIImage(data: data) {
@@ -190,7 +190,7 @@ class ImageManager {
                         }
                     }
                 } else {
-                    println("Factory stopped sync due to error in ImageManager")
+                    println("FactorySync stopped sync due to error in ImageManager")
                 }
             }
             

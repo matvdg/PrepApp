@@ -13,8 +13,8 @@ import RealmSwift
 class FactoryRealm {
     
     static let realm = Realm()
-    static let realmHistory = Realm(path: "\(Factory.path)/history.realm")
-    static let realmImages = Realm(path: "\(Factory.path)/images.realm")
+    static let realmHistory = Realm(path: "\(FactorySync.path)/history.realm")
+    static let realmImages = Realm(path: "\(FactorySync.path)/images.realm")
     
     class func getRealm() -> Realm {
         return realm

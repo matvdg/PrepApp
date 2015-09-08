@@ -24,10 +24,10 @@ class ChapterManager {
                 self.saveChapter(chapter as! NSDictionary)
             }
             if empty {
-                Factory.errorNetwork = true
+                FactorySync.errorNetwork = true
             } else {
                 println("chapters downloaded")
-                Factory.getQuestionManager().saveQuestions()
+                FactorySync.getQuestionManager().saveQuestions()
             }
         })
         
@@ -49,7 +49,7 @@ class ChapterManager {
     }
     
     private func getChapters(callback: (NSArray?) -> Void) {
-        let request = NSMutableURLRequest(URL: Factory.chapterUrl!)
+        let request = NSMutableURLRequest(URL: FactorySync.chapterUrl!)
         request.HTTPMethod = "POST"
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
@@ -59,7 +59,7 @@ class ChapterManager {
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
                     println("error : no connexion in getChapters")
-                    Factory.errorNetwork = true
+                    FactorySync.errorNetwork = true
                 } else {
                     
                     var err: NSError?
@@ -70,17 +70,17 @@ class ChapterManager {
                         if let result = jsonResult {
                             if err != nil {
                                 println("error : parsing JSON in getChapters")
-                                Factory.errorNetwork = true
+                                FactorySync.errorNetwork = true
                             } else {
                                 callback(result as NSArray)
                             }
                         } else {
                             println("error : NSArray nil in getChapters")
-                            Factory.errorNetwork = true
+                            FactorySync.errorNetwork = true
                         }
                     } else {
                         println("error : != 200 in getChapters")
-                        Factory.errorNetwork = true
+                        FactorySync.errorNetwork = true
                     }
                     
                 }

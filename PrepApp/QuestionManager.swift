@@ -88,7 +88,6 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
             answers.removeAtIndex(answers.indexOf(minAnswer)!)
 
         }
-        println(sortedAnswers)
         return sortedAnswers
     }
     
@@ -124,7 +123,7 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
     }
     
     private func getQuestions() {
-        let request = NSMutableURLRequest(URL: Factory.questionUrl!)
+        let request = NSMutableURLRequest(URL: FactorySync.questionUrl!)
         request.HTTPMethod = "POST"
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
@@ -133,21 +132,21 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
     
     /* delegate methods */
     func connection(connection: NSURLConnection, didReceiveData data: NSData){
-        if !Factory.errorNetwork {
+        if !FactorySync.errorNetwork {
             self.sizeDownloaded = self.data.length
             self.hasFinishedComputeSize = true
             //println("Size of questions downloaded = \(self.sizeDownloaded/1000) KB / \(self.sizeToDownload/1000) KB")
             self.data.appendData(data)
         } else {
             connection.cancel()
-            println("Factory stopped sync due to error in QuestionManager > didReceiveData")
+            println("FactorySync stopped sync due to error in QuestionManager > didReceiveData")
         }
     
     }
 
     func connection(connection: NSURLConnection, didFailWithError error: NSError) {
         println("error : no connexion in getQuestions")
-        Factory.errorNetwork = true
+        FactorySync.errorNetwork = true
         connection.cancel()
     }
 
@@ -163,7 +162,7 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
     }
 
     func connectionDidFinishLoading(connection: NSURLConnection){
-        if !Factory.errorNetwork {
+        if !FactorySync.errorNetwork {
             self.sizeDownloaded = self.sizeToDownload
             //println("Size of questions downloaded = \(self.sizeDownloaded/1000) KB / \(self.sizeToDownload/1000) KB")
             println("questions downloaded")
@@ -175,13 +174,13 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
                     if err != nil {
                         connection.cancel()
                         println("error : parsing JSON in getQuestions")
-                        Factory.errorNetwork = true
+                        FactorySync.errorNetwork = true
                     } else {
                         self.questionsToSave = (result as NSArray).count
                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
                             for question in result as NSArray {
                                 self.questionsSaved++
-                                if !Factory.errorNetwork {
+                                if !FactorySync.errorNetwork {
                                     self.saveQuestion(question as! NSDictionary)
                                 }
                                 //println("\(self.questionsSaved) / \(self.questionsToSave) questions traitées")
@@ -193,19 +192,19 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
                 } else {
                     connection.cancel()
                     println("error : NSArray nil in getQuestions")
-                    Factory.errorNetwork = true
+                    FactorySync.errorNetwork = true
                 }
                 
                 
             } else {
                 connection.cancel()
                 println("error : != 200 in getQuestions")
-                Factory.errorNetwork = true
+                FactorySync.errorNetwork = true
             }
 
         } else {
             connection.cancel()
-            println("Factory stopped sync due to error in QuestionManager > connectionDidFinishLoading")
+            println("FactorySync stopped sync due to error in QuestionManager > connectionDidFinishLoading")
         }
         
     }

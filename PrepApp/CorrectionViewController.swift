@@ -11,7 +11,7 @@ import UIKit
 class CorrectionViewController: UIViewController, UIWebViewDelegate {
     
     var correctionHTML = ""
-    let baseUrl = NSURL(fileURLWithPath: Factory.path, isDirectory: true)!
+    let baseUrl = NSURL(fileURLWithPath: FactorySync.path, isDirectory: true)!
 
     @IBOutlet weak var correction: UIWebView!
     @IBOutlet weak var dismissButton: UIButton!

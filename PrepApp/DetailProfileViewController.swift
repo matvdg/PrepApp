@@ -19,13 +19,12 @@ class DetailProfileViewController: UIViewController {
             self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
             self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
         }
+        if profileTopics == "Statistiques" {
+            FactoryHistory.getScoring().sync()
+            println(User.currentUser!.printUser())
+        }
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
     
 }

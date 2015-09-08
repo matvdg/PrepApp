@@ -36,7 +36,7 @@ UIAdaptivePresentationControllerDelegate  {
     var senseAnimationCorrection: Bool = true
     var waitBeforeNextQuestion: Bool = false
     var choiceFilter = 0 // 0=ALL 1=FAILED 2=SUCCEEDED 3=NEW 4=MARKED
-    let baseUrl = NSURL(fileURLWithPath: Factory.path, isDirectory: true)!
+    let baseUrl = NSURL(fileURLWithPath: FactorySync.path, isDirectory: true)!
     
     //graphics properties
     var submitButton = UIButton()
@@ -109,7 +109,7 @@ UIAdaptivePresentationControllerDelegate  {
         
         var title = ""
         var message = ""
-        if History.isQuestionMarked(self.currentQuestion!.id){
+        if FactoryHistory.getHistory().isQuestionMarked(self.currentQuestion!.id){
             Sound.playTrack("error")
             title = "Question déjà marquée !"
             message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\" dans \"Profil\""
@@ -118,7 +118,7 @@ UIAdaptivePresentationControllerDelegate  {
                 var historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
                 historyQuestion.marked = false
-                History.updateQuestionMark(historyQuestion)
+                FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
                 Sound.playTrack("calc")
                 let myAlert = UIAlertController(title: "Marquage supprimé", message: nil , preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
@@ -134,7 +134,7 @@ UIAdaptivePresentationControllerDelegate  {
             self.presentViewController(myAlert, animated: true, completion: nil)
             
         } else {
-            if History.isQuestionDone(self.currentQuestion!.id) {
+            if FactoryHistory.getHistory().isQuestionDone(self.currentQuestion!.id) {
                 Sound.playTrack("calc")
                 title = "Question marquée"
                 message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\" dans \"Profil\""
@@ -142,12 +142,12 @@ UIAdaptivePresentationControllerDelegate  {
                 var historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
                 historyQuestion.marked = true
-                History.updateQuestionMark(historyQuestion)
+                FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
                 myAlert.addAction(UIAlertAction(title: "Supprimer le marquage", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                     var historyQuestion = QuestionHistory()
                     historyQuestion.id = self.currentQuestion!.id
                     historyQuestion.marked = false
-                    History.updateQuestionMark(historyQuestion)
+                    FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
                     Sound.playTrack("calc")
                     let myAlert = UIAlertController(title: "Marquage supprimé", message: nil , preferredStyle: UIAlertControllerStyle.Alert)
                     myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
@@ -259,7 +259,7 @@ UIAdaptivePresentationControllerDelegate  {
         //fetching solo questions already DONE
         questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 1", currentChapter!)
         for question in questionsRealm {
-            if History.isQuestionDone(question.id){
+            if FactoryHistory.getHistory().isQuestionDone(question.id){
                 tempQuestions.append(question)
                 //println("ajout solo")
             }
@@ -267,7 +267,7 @@ UIAdaptivePresentationControllerDelegate  {
         //fetching duo questions already DONE
         questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 2", currentChapter!)
         for question in questionsRealm {
-            if History.isQuestionDone(question.id){
+            if FactoryHistory.getHistory().isQuestionDone(question.id){
                 tempQuestions.append(question)
                 //println("ajout duo")
             }
@@ -278,25 +278,25 @@ UIAdaptivePresentationControllerDelegate  {
             self.questions = tempQuestions
         case 1: //FAILED
             for question in tempQuestions {
-                if History.isQuestionFailed(question.id){
+                if FactoryHistory.getHistory().isQuestionFailed(question.id){
                     self.questions.append(question)
                 }
             }
         case 2: //SUCCEEDED
             for question in tempQuestions {
-                if History.isQuestionSuccessed(question.id){
+                if FactoryHistory.getHistory().isQuestionSuccessed(question.id){
                     self.questions.append(question)
                 }
             }
         case 3: //NEW
             for question in tempQuestions {
-                if History.isQuestionNewInTraining(question.id){
+                if FactoryHistory.getHistory().isQuestionNewInTraining(question.id){
                     self.questions.append(question)
                 }
             }
         case 4: //MARKED
             for question in tempQuestions {
-                if History.isQuestionMarked(question.id){
+                if FactoryHistory.getHistory().isQuestionMarked(question.id){
                     self.questions.append(question)
                 }
             }
@@ -493,7 +493,7 @@ UIAdaptivePresentationControllerDelegate  {
                 }
             }
             //saving the question result in history
-            History.addQuestionToHistory(historyQuestion)
+            FactoryHistory.getHistory().addQuestionToHistory(historyQuestion)
             
             //displaying and animating the correction button IF AVAILABLE
             if self.currentQuestion!.correction != "" {

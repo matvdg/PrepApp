@@ -32,7 +32,7 @@ class SyncViewController: UIViewController {
         self.logo.image = UIImage(named: "l0")
         self.percentage = 0
         self.nbrFrame = 0
-        Factory.errorNetwork = false
+        FactorySync.errorNetwork = false
         self.sync()
     }
 
@@ -46,9 +46,9 @@ class SyncViewController: UIViewController {
 	}
     
     override func viewDidAppear(animated: Bool) {
-        Factory.getImageManager().hasFinishedSync = false
-        Factory.getQuestionManager().hasFinishedSync = false
-        Factory.getQuestionManager().hasFinishedComputeSize = false
+        FactorySync.getImageManager().hasFinishedSync = false
+        FactorySync.getQuestionManager().hasFinishedSync = false
+        FactorySync.getQuestionManager().hasFinishedComputeSize = false
         if User.authenticated == false {
             self.progression.text = "Déconnexion..."
             NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
@@ -61,13 +61,13 @@ class SyncViewController: UIViewController {
     }
     
     func sync(){
-        if Factory.production {
-            Factory.offlineMode = false
-            Factory.getVersionManager().getLastVersion { (version) -> Void in
+        if FactorySync.production {
+            FactorySync.offlineMode = false
+            FactorySync.getVersionManager().getLastVersion { (version) -> Void in
                 if let versionDB: Int = version { //checking if sync is needed
-                    println("localVersion = \(Factory.getVersionManager().loadVersion()) dbVersion = \(versionDB)")
-                    if Factory.getVersionManager().loadVersion() != versionDB { //syncing...
-                        Factory.sync()
+                    println("localVersion = \(FactorySync.getVersionManager().loadVersion()) dbVersion = \(versionDB)")
+                    if FactorySync.getVersionManager().loadVersion() != versionDB { //syncing...
+                        FactorySync.sync()
                         self.timer = NSTimer.scheduledTimerWithTimeInterval(0.030, target: self, selector: Selector("result"), userInfo: nil, repeats: true)
                         self.version = versionDB
                     } else { //no sync needed
@@ -76,7 +76,7 @@ class SyncViewController: UIViewController {
                     }
                 } else {
                     //offline mode
-                    if Factory.getVersionManager().loadVersion() == 0 { //if the app has never synced, can't run the app
+                    if FactorySync.getVersionManager().loadVersion() == 0 { //if the app has never synced, can't run the app
                         self.blur.hidden = true
                         Sound.playTrack("error")
                         // create alert controller
@@ -93,7 +93,7 @@ class SyncViewController: UIViewController {
 
                         
                     } else { //run the app in offline mode
-                        Factory.offlineMode = true
+                        FactorySync.offlineMode = true
                         println("offline mode")
                         self.performSegueWithIdentifier("syncDidFinish", sender: self)
                     }
@@ -110,7 +110,7 @@ class SyncViewController: UIViewController {
 	func result(){
       
         //handling network errors or bad network
-        if Factory.errorNetwork {
+        if FactorySync.errorNetwork {
             self.blur.hidden = true
             timer.invalidate()
             Sound.playTrack("error")
@@ -132,34 +132,34 @@ class SyncViewController: UIViewController {
             var name = ""
             //computing percentage progression for Questions DB & Images (We neglect to take into account the chapters or materials, as they are very light.)
             
-            if (Factory.getImageManager().sizeToDownload != -1 && Factory.getQuestionManager().sizeToDownload != -1 ) {
+            if (FactorySync.getImageManager().sizeToDownload != -1 && FactorySync.getQuestionManager().sizeToDownload != -1 ) {
                 //println("both sizes computed (≠-1)")
                 self.blur.hidden = true
                 
                 
-                if Factory.getQuestionManager().questionsToSave != 0 {
-                    self.percentage = ((Factory.getQuestionManager().questionsSaved) * 100) / (Factory.getQuestionManager().questionsToSave)
+                if FactorySync.getQuestionManager().questionsToSave != 0 {
+                    self.percentage = ((FactorySync.getQuestionManager().questionsSaved) * 100) / (FactorySync.getQuestionManager().questionsToSave)
                     self.nbrFrame = (self.percentage * self.frames) / 200 + (self.frames / 2)
                     name = "l\(self.nbrFrame)"
                     self.logo.image = UIImage(named: name)
                     self.progression.text = "Traitement des questions en cours...\n \(self.percentage)%"
                     
-                } else if Factory.getImageManager().sizeToDownload + Factory.getQuestionManager().sizeToDownload != 0 {
-                    self.percentage = ((Factory.getImageManager().sizeDownloaded + Factory.getQuestionManager().sizeDownloaded) * 100) / (Factory.getImageManager().sizeToDownload + Factory.getQuestionManager().sizeToDownload)
+                } else if FactorySync.getImageManager().sizeToDownload + FactorySync.getQuestionManager().sizeToDownload != 0 {
+                    self.percentage = ((FactorySync.getImageManager().sizeDownloaded + FactorySync.getQuestionManager().sizeDownloaded) * 100) / (FactorySync.getImageManager().sizeToDownload + FactorySync.getQuestionManager().sizeToDownload)
                     self.nbrFrame = (self.percentage * self.frames) / 200
                     name = "l\(self.nbrFrame)"
                     self.logo.image = UIImage(named: name)
                     self.progression.text = "Téléchargement du contenu en cours...\n \(self.percentage)%"
 
                 }
-                //println("Downloading... \((Factory.getImageManager().sizeDownloaded + Factory.getQuestionManager().sizeDownloaded)/1000) KB/\((Factory.getImageManager().sizeToDownload + Factory.getQuestionManager().sizeToDownload)/1000) KB")
+                //println("Downloading... \((FactorySync.getImageManager().sizeDownloaded + FactorySync.getQuestionManager().sizeDownloaded)/1000) KB/\((FactorySync.getImageManager().sizeToDownload + FactorySync.getQuestionManager().sizeToDownload)/1000) KB")
                 
                 
                 //the end...
-                if  (Factory.getImageManager().hasFinishedSync == true && Factory.getQuestionManager().hasFinishedSync == true) {
+                if  (FactorySync.getImageManager().hasFinishedSync == true && FactorySync.getQuestionManager().hasFinishedSync == true) {
                     //go to main menu
                     timer.invalidate()
-                    Factory.getVersionManager().saveVersion(self.version)
+                    FactorySync.getVersionManager().saveVersion(self.version)
                     self.performSegueWithIdentifier("syncDidFinish", sender: self)
                     self.logo.image = UIImage(named: "l350")
                     self.progression.text = ""

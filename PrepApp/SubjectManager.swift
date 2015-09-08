@@ -22,10 +22,10 @@ class SubjectManager {
                 self.saveSubject(subject as! NSDictionary)
             }
             if empty {
-                Factory.errorNetwork = true
+                FactorySync.errorNetwork = true
             } else {
                 println("subjects downloaded")
-                Factory.getChapterManager().saveChapters()
+                FactorySync.getChapterManager().saveChapters()
             }
         })
     }
@@ -41,7 +41,7 @@ class SubjectManager {
     }
     
     private func getSubjects(callback: (NSArray?) -> Void) {
-        let request = NSMutableURLRequest(URL: Factory.subjectUrl!)
+        let request = NSMutableURLRequest(URL: FactorySync.subjectUrl!)
         request.HTTPMethod = "POST"
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
@@ -51,7 +51,7 @@ class SubjectManager {
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
                     println("error : no connexion in getSubjects")
-                    Factory.errorNetwork = true
+                    FactorySync.errorNetwork = true
                 } else {
                     
                     var err: NSError?
@@ -62,19 +62,19 @@ class SubjectManager {
                         if let result = jsonResult {
                             if err != nil {
                                 println("error : parsing JSON in getSubjects")
-                                Factory.errorNetwork = true
+                                FactorySync.errorNetwork = true
                             } else {
                                 callback(result as NSArray)
                             }
                         } else {
                             println("error : NSArray nil in getSubjects")
-                            Factory.errorNetwork = true
+                            FactorySync.errorNetwork = true
                         }
                         
                         
                     } else {
                         println("error : != 200 in getSubjects")
-                        Factory.errorNetwork = true
+                        FactorySync.errorNetwork = true
                     }
                     
                 }

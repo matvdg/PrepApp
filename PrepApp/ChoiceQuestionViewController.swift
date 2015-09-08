@@ -139,7 +139,7 @@ class ChoiceQuestionViewController: UIViewController {
         //fetching solo questions already DONE
         questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 1", currentChapter!)
         for question in questionsRealm {
-            if History.isQuestionDone(question.id){
+            if FactoryHistory.getHistory().isQuestionDone(question.id){
                 tempQuestions.append(question)
                 counter++
             }
@@ -148,7 +148,7 @@ class ChoiceQuestionViewController: UIViewController {
         //fetching duo questions already DONE
         questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 2", currentChapter!)
         for question in questionsRealm {
-            if History.isQuestionDone(question.id){
+            if FactoryHistory.getHistory().isQuestionDone(question.id){
                 tempQuestions.append(question)
                 counter++
             }
@@ -161,7 +161,7 @@ class ChoiceQuestionViewController: UIViewController {
         
         //FAILED
         for question in tempQuestions {
-            if History.isQuestionFailed(question.id){
+            if FactoryHistory.getHistory().isQuestionFailed(question.id){
                 available = true
                 counter++
             }
@@ -178,7 +178,7 @@ class ChoiceQuestionViewController: UIViewController {
         available = false
         counter = 0
         for question in tempQuestions {
-            if History.isQuestionSuccessed(question.id){
+            if FactoryHistory.getHistory().isQuestionSuccessed(question.id){
                 available = true
                 counter++
             }
@@ -195,7 +195,7 @@ class ChoiceQuestionViewController: UIViewController {
         available = false
         counter = 0
         for question in tempQuestions {
-            if History.isQuestionNewInTraining(question.id){
+            if FactoryHistory.getHistory().isQuestionNewInTraining(question.id){
                 available = true
                 counter++
             }
@@ -212,7 +212,7 @@ class ChoiceQuestionViewController: UIViewController {
         available = false
         counter = 0
         for question in tempQuestions {
-            if History.isQuestionMarked(question.id){
+            if FactoryHistory.getHistory().isQuestionMarked(question.id){
                 available = true
                 counter++
             }
