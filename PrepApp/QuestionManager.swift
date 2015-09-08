@@ -65,6 +65,7 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
     
     private func extractAnswers(data: NSDictionary, images: String) -> List<Answer> {
         var answers = List<Answer>()
+        var sortedAnswers = List<Answer>()
         for (key,value) in data {
             var answerToExtract = value as! NSDictionary
             var answer = Answer()
@@ -73,7 +74,22 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
             answer.correct = (answerToExtract["correct"] as! String).toBool()!
             answers.append(answer)
         }
-        return answers
+        
+        while answers.count != 0 {
+            var minId = 1000000000
+            var minAnswer = Answer()
+            for answer in answers {
+                if answer.id < minId {
+                    minId = answer.id
+                    minAnswer = answer
+                }
+            }
+            sortedAnswers.append(minAnswer)
+            answers.removeAtIndex(answers.indexOf(minAnswer)!)
+
+        }
+        println(sortedAnswers)
+        return sortedAnswers
     }
     
     private func formatInfo(var input: String) -> String {
@@ -83,6 +99,7 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
     }
     
     private func saveQuestion(data: NSDictionary) {
+        
         let realm = Realm()
         var newQuestion: Question = Question()
         newQuestion.id =  data["id_question"] as! Int
@@ -91,6 +108,7 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
         var images = self.extractImagesPaths(data["images"] as! NSDictionary)
         newQuestion.chapter = chapter
         newQuestion.wording = parseNplaceImage(data["wording"] as! String, images: images)
+        println(data["answers"] as! NSDictionary)
         newQuestion.answers = self.extractAnswers(data["answers"] as! NSDictionary, images: images)
         newQuestion.calculator = data["calculator"] as! Bool
         newQuestion.info = self.formatInfo(data["info"] as! String)
@@ -142,8 +160,6 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
             }
         }
         println("Size of questions to download = \(self.sizeToDownload/1000) KB")
-        
-        
     }
 
     func connectionDidFinishLoading(connection: NSURLConnection){

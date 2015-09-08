@@ -106,7 +106,6 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         }
     }
 
-    
     @IBAction func showStats(sender: AnyObject) {
         self.hidePieCharts(true)
         self.performSegueWithIdentifier("showStats", sender: self)
