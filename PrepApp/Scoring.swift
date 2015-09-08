@@ -38,9 +38,9 @@ class Scoring {
         
         switch subject {
         case 1 : //biology
-            (percent, todo) = self.computePercentLevel(1, succeeded: succeeded)
+            (percent, todo) = self.computePercentLevel(6, succeeded: succeeded)
         case 2 : //physics
-            (percent, todo) = self.computePercentLevel(1, succeeded: succeeded)
+            (percent, todo) = self.computePercentLevel(2, succeeded: succeeded)
         case 3 : //chemistry
             (percent, todo) = self.computePercentLevel(1, succeeded: succeeded)
         default :
