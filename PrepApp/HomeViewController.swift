@@ -25,11 +25,10 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     var type: subject = .biology
     let offsetAngle: CGFloat = 265
     
-    
     //@IBOutlets properties
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var menuButton:UIBarButtonItem!
-    @IBOutlet weak var welcome: UILabel!
+    @IBOutlet weak var notificationMessage: UILabel!
     @IBOutlet weak var chePieChart: PieChartView!
     @IBOutlet weak var phyPieChart: PieChartView!
     @IBOutlet weak var bioPieChart: PieChartView!
@@ -53,14 +52,14 @@ class HomeViewController: UIViewController, ChartViewDelegate {
                 self.stats.hidden = true
             } else {
                 self.currentStatsPanelDisplayed = 1
-                self.stats.text = "\(self.bio)% - \(self.bioNumber) questions réussies - Niveau suivant : \(self.bioNumberToDo) questions"
+                self.stats.text = "\(Int(self.bio))%    -    \(self.bioNumber) \(self.singularOrPlural(1, type: 0))    Niveau suivant : \(self.bioNumberToDo) \(self.singularOrPlural(1, type: 1))"
                 self.stats.backgroundColor = colorBio
                 self.stats.hidden = false
             }
         } else {
             self.statsPanelDisplayed = true
             self.currentStatsPanelDisplayed = 1
-            self.stats.text = "\(self.bio)% - \(self.bioNumber) questions réussies - Niveau suivant : \(self.bioNumberToDo) questions"
+            self.stats.text = "\(Int(self.bio))%    -    \(self.bioNumber) \(self.singularOrPlural(1, type: 0))    Niveau suivant : \(self.bioNumberToDo) \(self.singularOrPlural(1, type: 1))"
             self.stats.backgroundColor = colorBio
             self.stats.hidden = false
         }
@@ -73,14 +72,14 @@ class HomeViewController: UIViewController, ChartViewDelegate {
                 self.stats.hidden = true
             } else {
                 self.currentStatsPanelDisplayed = 2
-                self.stats.text = "\(self.phy)% - \(self.phyNumber) questions réussies - Niveau suivant : \(self.phyNumberToDo) questions"
+                self.stats.text = "\(Int(self.phy))%    -    \(self.phyNumber) \(self.singularOrPlural(2, type: 0))    Niveau suivant : \(self.phyNumberToDo) \(self.singularOrPlural(2, type: 1))"
                 self.stats.backgroundColor = colorPhy
                 self.stats.hidden = false
             }
         } else {
             self.statsPanelDisplayed = true
             self.currentStatsPanelDisplayed = 2
-            self.stats.text = "\(self.phy)% - \(self.phyNumber) questions réussies - Niveau suivant : \(self.phyNumberToDo) questions"
+            self.stats.text = "\(Int(self.phy))%    -    \(self.phyNumber) \(self.singularOrPlural(2, type: 0))    Niveau suivant : \(self.phyNumberToDo) \(self.singularOrPlural(2, type: 1))"
             self.stats.backgroundColor = colorPhy
             self.stats.hidden = false
         }
@@ -93,14 +92,14 @@ class HomeViewController: UIViewController, ChartViewDelegate {
                 self.stats.hidden = true
             } else {
                 self.currentStatsPanelDisplayed = 3
-                self.stats.text = "\(self.che)% - \(self.cheNumber) questions réussies - Niveau suivant : \(self.cheNumberToDo) questions"
+                self.stats.text = "\(Int(self.che))%    -    \(self.cheNumber) \(self.singularOrPlural(3, type: 0))    Niveau suivant : \(self.cheNumberToDo) \(self.singularOrPlural(3, type: 1))"
                 self.stats.backgroundColor = colorChe
                 self.stats.hidden = false
             }
         } else {
             self.statsPanelDisplayed = true
             self.currentStatsPanelDisplayed = 3
-            self.stats.text = "\(self.che)% - \(self.cheNumber) questions réussies - Niveau suivant : \(self.cheNumberToDo) questions"
+            self.stats.text = "\(Int(self.che))%    -    \(self.cheNumber) \(self.singularOrPlural(3, type: 0))    Niveau suivant : \(self.cheNumberToDo) \(self.singularOrPlural(3, type: 1))"
             self.stats.backgroundColor = colorChe
             self.stats.hidden = false
         }
@@ -117,19 +116,8 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         super.viewDidLoad()
         self.showNotification()
         //retrieving data
-        var (percent,answers,todo) = FactoryHistory.getScoring().getScore(1)
-        self.bio = Double(percent)
-        self.bioNumber = answers
-        self.bioNumberToDo = todo
-        (percent,answers,todo) = FactoryHistory.getScoring().getScore(2)
-        self.phy = Double(percent)
-        self.phyNumber = answers
-        self.phyNumberToDo = todo
-        (percent,answers,todo) = FactoryHistory.getScoring().getScore(3)
-        self.che = Double(percent)
-        self.cheNumber = answers
-        self.cheNumberToDo = todo
-        
+        self.renderLevel()
+        self.retrieveData()
         //designing border radius buttons
         self.bioButton.layer.cornerRadius = 6
         self.cheButton.layer.cornerRadius = 6
@@ -146,10 +134,12 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.stats.hidden = true
         self.view.backgroundColor = colorGreyBackgound
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.welcome.text = "Bonjour, \(User.currentUser!.firstName) \(User.currentUser!.lastName) !"
-        self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("showNotification"), userInfo: nil, repeats: true)
-        self.hideTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("hideNotification"), userInfo: nil, repeats: false)
-        self.renderLevel()
+        if User.firstNotifMessage {
+            User.firstNotifMessage = false
+            self.notificationMessage.text = self.loadNotificationMessage()
+            self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("showNotification"), userInfo: nil, repeats: true)
+            self.hideTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("hideNotification"), userInfo: nil, repeats: false)
+        }
         //notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
@@ -173,6 +163,86 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     
     
     //methods
+    func retrieveData() {
+        var (percent,answers,todo) = FactoryHistory.getScoring().getScore(1)
+        self.bio = Double(percent)
+        self.bioNumber = answers
+        self.bioNumberToDo = todo
+        (percent,answers,todo) = FactoryHistory.getScoring().getScore(2)
+        self.phy = Double(percent)
+        self.phyNumber = answers
+        self.phyNumberToDo = todo
+        (percent,answers,todo) = FactoryHistory.getScoring().getScore(3)
+        self.che = Double(percent)
+        self.cheNumber = answers
+        self.cheNumberToDo = todo
+    }
+    
+    func loadNotificationMessage() -> String {
+        if UserPreferences.welcome {
+            UserPreferences.welcome = false
+            UserPreferences.saveUserPreferences()
+            return "Bienvenue, \(User.currentUser!.firstName) \(User.currentUser!.lastName) !"
+        } else {
+            return "Bonjour, \(User.currentUser!.firstName) !"
+        }
+    }
+    
+    func singularOrPlural(subject: Int, type: Int) -> String {
+        
+        var number = 0
+        
+        switch subject {
+        case 1 : //biology
+            switch type {
+            case 0 : //succeeded
+                    number = bioNumber
+            case 1 : //todo
+                number = bioNumberToDo
+            default :
+                println("error")
+            }
+        
+        case 2 : //physics
+            switch type {
+            case 0 : //succeeded
+                number = phyNumber
+            case 1 : //todo
+                number = phyNumberToDo
+            default :
+                println("error")
+            }
+        case 3 : //chemistry
+            switch type {
+            case 0 : //succeeded
+                number = cheNumber
+            case 1 : //todo
+                number = cheNumberToDo
+            default :
+                println("error")
+            }
+        default:
+            println("error")
+        }
+        
+        switch type {
+        case 0 : //succeeded
+            if number == 0 || number == 1 {
+                return "question réussie"
+            } else {
+                return "questions réussies"
+            }
+        case 1 : //todo
+            if number == 0 || number == 1 {
+                return "question"
+            } else {
+                return "questions"
+            }
+        default :
+            return "error"
+        }
+    }
+    
     func swiped(gesture : UIGestureRecognizer) {
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
             
@@ -358,7 +428,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     func showNotification() {
         self.counterAnimationNotification++
         if self.counterAnimationNotification <= 25 {
-            self.welcome.center = CGPointMake(self.welcome.center.x, self.welcome.center.y + 2)
+            self.notificationMessage.center = CGPointMake(self.notificationMessage.center.x, self.notificationMessage.center.y + 2)
         } else {
             self.animationTimer.invalidate()
         }
@@ -373,13 +443,34 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         } else {
             self.counterAnimationNotification--
             if self.counterAnimationNotification >= -25 {
-                self.welcome.center = CGPointMake(self.welcome.center.x, self.welcome.center.y - 2)
+                self.notificationMessage.center = CGPointMake(self.notificationMessage.center.x, self.notificationMessage.center.y - 2)
             } else {
                 self.animationTimer.invalidate()
             }
         }
         
     }
+    
+    func hideNotificationLevel() {
+        if self.counterAnimationNotification > 0 {
+            
+            self.renderPieCharts()
+            self.counterAnimationNotification = 0
+            self.hideTimer.invalidate()
+            self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("hideNotification"), userInfo: nil, repeats: true)
+            
+        } else {
+            self.counterAnimationNotification--
+            if self.counterAnimationNotification >= -25 {
+                self.notificationMessage.center = CGPointMake(self.notificationMessage.center.x, self.notificationMessage.center.y - 2)
+            } else {
+                self.animationTimer.invalidate()
+            }
+        }
+        
+    }
+
+    
     
     func logout() {
         ///called when touchID failed, authenticated = false
@@ -412,11 +503,11 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.levelButton.titleLabel!.adjustsFontSizeToFitWidth = true
         self.levelButton.titleLabel!.numberOfLines = 1
         self.levelButton.titleLabel!.baselineAdjustment = UIBaselineAdjustment.AlignCenters
-        println(User.currentUser!.printUser())
         self.levelButton.layer.cornerRadius = self.levelButton.frame.width / 2
     }
     
     func renderPieCharts() {
+        self.renderLevel()
         self.renderChemistryPieChart()
         self.renderPhysicsPieChart()
         self.renderBiologyPieChart()
@@ -426,6 +517,17 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.bioPieChart.animate(yAxisDuration: timeInterval, easingOption: animation)
         self.phyPieChart.animate(yAxisDuration: timeInterval, easingOption: animation)
         self.chePieChart.animate(yAxisDuration: timeInterval, easingOption: animation)
+        //after animation, one level up if necessary
+        while (self.bio == 100 && self.phy == 100 && self.che == 100) {
+            //everything at 100%, one level up!
+            self.notificationMessage.text = "Félicitations, vous gagnez un niveau !"
+            self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("showNotification"), userInfo: nil, repeats: true)
+            self.hideTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: Selector("hideNotificationLevel"), userInfo: nil, repeats: false)
+            User.currentUser!.level = User.currentUser!.level + 1
+            User.currentUser!.saveUser()
+            //retrieving new data
+            self.retrieveData()
+        }
     }
     
     func showGraph() {

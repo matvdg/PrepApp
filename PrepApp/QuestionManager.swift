@@ -107,7 +107,6 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
         var images = self.extractImagesPaths(data["images"] as! NSDictionary)
         newQuestion.chapter = chapter
         newQuestion.wording = parseNplaceImage(data["wording"] as! String, images: images)
-        println(data["answers"] as! NSDictionary)
         newQuestion.answers = self.extractAnswers(data["answers"] as! NSDictionary, images: images)
         newQuestion.calculator = data["calculator"] as! Bool
         newQuestion.info = self.formatInfo(data["info"] as! String)

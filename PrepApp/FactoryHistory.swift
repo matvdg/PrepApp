@@ -2,7 +2,7 @@
 //  FactoryHistory.swift
 //  PrepApp
 //
-//  Created by Mikael Vandeginste on 08/09/2015.
+//  Created by Mathieu Vandeginste on 08/09/2015.
 //  Copyright (c) 2015 PrepApp. All rights reserved.
 //
 

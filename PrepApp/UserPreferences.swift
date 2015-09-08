@@ -13,6 +13,7 @@ class UserPreferences {
     
     static var touchId: Bool = false
     static var sounds: Bool = true
+    static var welcome: Bool = true
     
     static func touchID() {
         
@@ -66,7 +67,7 @@ class UserPreferences {
     static func saveUserPreferences() {
         //we backup the userPreferences in a boolean array for persistence storage
         
-        var savedUserPreferences = [self.touchId, self.sounds]
+        var savedUserPreferences = [self.touchId, self.sounds, self.welcome]
         NSUserDefaults.standardUserDefaults().setObject(savedUserPreferences, forKey: "userPreferences")
         NSUserDefaults.standardUserDefaults().synchronize()
         //println("preferences saved")
@@ -81,6 +82,7 @@ class UserPreferences {
             }
             self.touchId = data[0]
             self.sounds = data[1]
+            self.welcome = data[2]
             //println("preferences loaded")
         } else {
             //println("default preferences")

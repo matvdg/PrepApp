@@ -2,11 +2,12 @@
 //  Scoring.swift
 //  PrepApp
 //
-//  Created by Mikael Vandeginste on 08/09/2015.
+//  Created by Mathieu Vandeginste on 08/09/2015.
 //  Copyright (c) 2015 PrepApp. All rights reserved.
 //
 
 import UIKit
+import RealmSwift
 
 class Scoring {
     
@@ -16,13 +17,60 @@ class Scoring {
     func getScore(subject: Int) -> (Int,Int,Int) {
         
         let questionsHistory = self.realmHistory.objects(QuestionHistory)
-        let questions = self.realm.objects(Question)
-        return (0,0,0)
+        var questionsToCompute = List<QuestionHistory>()
+        var succeeded = 0
+        var percent = 0
+        var todo = 0
+        
+        //fetching the appropriate questions
+        for questionHistory in questionsHistory {
+            let question = self.realm.objects(Question).filter("id = \(questionHistory.id)")[0]
+            if question.chapter!.subject!.id == subject {
+                questionsToCompute.append(questionHistory)
+            }
+        }
+        
+        for question in questionsToCompute {
+            if question.success {
+                succeeded++
+            }
+        }
+        
+        switch subject {
+        case 1 : //biology
+            (percent, todo) = self.computePercentLevel(1, succeeded: succeeded)
+        case 2 : //physics
+            (percent, todo) = self.computePercentLevel(1, succeeded: succeeded)
+        case 3 : //chemistry
+            (percent, todo) = self.computePercentLevel(1, succeeded: succeeded)
+        default :
+            println("error")
+        }
+        return (percent, succeeded, todo)
     }
     
+    private func computePercentLevel(ratio: Int, succeeded: Int) -> (Int,Int) {
+        var currentLevel = User.currentUser!.level + 1
+        var units: Int = succeeded / ratio
+        var percent = 0
+        var todo = 0
+        var unitsNeededForNextLevel = computeUnitsNeededForNextLevel(currentLevel)
+        if units < unitsNeededForNextLevel { //we haven't reached yet the level
+            var nextStep = (unitsNeededForNextLevel * ratio)
+            todo = nextStep - succeeded
+            var unitsNeededForPreviousLevel = computeUnitsNeededForNextLevel(currentLevel-1)
+            var previousStep = (unitsNeededForPreviousLevel * ratio)
+            var totalToSucceedForThisLevel = nextStep - previousStep
+            percent = (totalToSucceedForThisLevel - todo) * 100 / totalToSucceedForThisLevel
+        } else { //we are above the required level
+            percent = 100
+            todo = 0
+        }
+        return (percent, todo)
+    }
     
-    private func computeLevel() {
-        
+    private func computeUnitsNeededForNextLevel(level: Int) -> Int {
+        return (level+1) * (level) / 2
     }
     
     private func computeSucceeded() {
@@ -62,7 +110,6 @@ class Scoring {
         self.computeAssiduity()
         self.computeFailed()
         self.computeSucceeded()
-        self.computeLevel()
         User.currentUser!.saveUser()
     }
 

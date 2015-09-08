@@ -30,7 +30,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 		//if user already logged in persistent data, load it
         println(FactorySync.path)
         if (User.instantiateUserStored()){
-            //println(User.currentUser!.printUser())
             if (UserPreferences.touchId) {
                 UserPreferences.touchID()
             } else {

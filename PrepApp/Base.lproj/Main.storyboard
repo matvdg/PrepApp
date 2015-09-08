@@ -566,7 +566,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bienvenue !" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I14-K1-5eU">
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bienvenue !" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I14-K1-5eU" userLabel="notificationMessage">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <color key="backgroundColor" red="0.1058823529" green="0.50588235290000005" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -788,12 +788,12 @@
                         <outlet property="graphView" destination="CfO-OI-T9T" id="ccj-aW-r3o"/>
                         <outlet property="levelButton" destination="9Yt-xV-MI6" id="bbF-aw-oOh"/>
                         <outlet property="menuButton" destination="WXL-5v-uEP" id="FAB-bz-ArX"/>
+                        <outlet property="notificationMessage" destination="I14-K1-5eU" id="ERe-fk-Kto"/>
                         <outlet property="pageControl" destination="CwS-oL-FUV" id="A7K-CY-e3B"/>
                         <outlet property="phyButton" destination="FxA-OF-tna" id="CSj-JV-LgA"/>
                         <outlet property="phyLogo" destination="2Mu-Mk-Mg7" id="zxd-Cv-9bC"/>
                         <outlet property="phyPieChart" destination="cKS-C0-uxG" id="2Ti-0y-IjA"/>
                         <outlet property="stats" destination="Hyq-jX-Cjm" id="m5K-s3-PZu"/>
-                        <outlet property="welcome" destination="I14-K1-5eU" id="YcA-Ad-gEt"/>
                         <segue destination="hmY-5I-27E" kind="show" identifier="showNews" id="kkr-JM-FGR"/>
                         <segue destination="T3t-Zp-DnJ" kind="show" identifier="showStats" id="qhl-TE-py5"/>
                     </connections>
