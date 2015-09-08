@@ -42,7 +42,15 @@ class SoloViewController: UIViewController {
 
         } else {
             if self.checkQuestions() {
-                self.performSegueWithIdentifier("showQuestionsSolo", sender: self)
+                // create alert controller
+                let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous devez disposer de 20 minutes. Un défi lancé ne peut être mis en pause et un défi abandonné fait perdre des points !", preferredStyle: UIAlertControllerStyle.Alert)
+                // add buttons
+                myAlert.addAction(UIAlertAction(title: "OUI", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                    self.performSegueWithIdentifier("showQuestionsSolo", sender: self)
+                }))
+                myAlert.addAction(UIAlertAction(title: "NON", style: UIAlertActionStyle.Default, handler: nil))
+                // show the alert
+                self.presentViewController(myAlert, animated: true, completion: nil)
             } else {
                 // create alert controller
                 let myAlert = UIAlertController(title: "Ce défi n'est plus disponible pour le moment", message: "Revenez plus tard pour de nouvelles questions ou allez dans le mode entraînement pour refaire les questions déjà vues.", preferredStyle: UIAlertControllerStyle.Alert)

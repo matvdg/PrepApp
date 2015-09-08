@@ -48,8 +48,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.renderPhysicsPieChart()
         self.renderBiologyPieChart()
         self.renderLevel()
-
-       
+        self.animate()
 	}
     
     func swiped(gesture : UIGestureRecognizer) {
@@ -73,7 +72,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     func renderBiologyPieChart(){
         
         //pie settings
-        self.self.bioPieChart.delegate = self
+        self.bioPieChart.delegate = self
         self.self.bioPieChart.backgroundColor = UIColor.clearColor()
         self.self.bioPieChart.usePercentValuesEnabled = false
         self.bioPieChart.holeTransparent = true
@@ -158,18 +157,21 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     }
     
     func getChartData(pie: Int) -> ChartData {
+        var bio: Double = Double(arc4random()%100)
+        var phy: Double = Double(arc4random()%100)
+        var che: Double = Double(arc4random()%100)
         
         var yVals: [ChartDataEntry] = []
         switch pie {
         case 1 :
-            yVals.append(BarChartDataEntry(value: 100, xIndex: 1))
-            yVals.append(BarChartDataEntry(value: 0, xIndex: 2))
+            yVals.append(BarChartDataEntry(value: bio, xIndex: 1))
+            yVals.append(BarChartDataEntry(value: 100-bio, xIndex: 2))
         case 2 :
-            yVals.append(BarChartDataEntry(value: 100, xIndex: 1))
-            yVals.append(BarChartDataEntry(value: 0, xIndex: 2))
+            yVals.append(BarChartDataEntry(value: phy, xIndex: 1))
+            yVals.append(BarChartDataEntry(value: 100-phy, xIndex: 2))
         case 3 :
-            yVals.append(BarChartDataEntry(value: 100, xIndex: 1))
-            yVals.append(BarChartDataEntry(value: 0, xIndex: 2))
+            yVals.append(BarChartDataEntry(value: che, xIndex: 1))
+            yVals.append(BarChartDataEntry(value: 100-che, xIndex: 2))
         default :
             yVals.append(BarChartDataEntry(value: 50, xIndex: 1))
         }
@@ -228,13 +230,22 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.levelButton.layer.cornerRadius = self.levelButton.frame.width / 2
     }
     
+    func animate() {
+        let animation = ChartEasingOption.Linear
+        let timeInterval = NSTimeInterval(1.0)
+        self.bioPieChart.animate(yAxisDuration: timeInterval, easingOption: animation)
+        self.phyPieChart.animate(yAxisDuration: timeInterval, easingOption: animation)
+        self.chePieChart.animate(yAxisDuration: timeInterval, easingOption: animation)
+    }
+    
     func showGraph() {
         self.graphView.hidden = false
         self.title = "Performances"
     }
     func hideGraph() {
-            self.graphView.hidden = true
+        self.graphView.hidden = true
         self.title = "Accueil"
+        self.animate()
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
