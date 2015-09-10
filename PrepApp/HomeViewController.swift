@@ -35,14 +35,13 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var graphView: UIView!
     @IBOutlet weak var bioButton: UIButton!
     @IBOutlet weak var cheButton: UIButton!
-    
-    
     @IBOutlet weak var phyButton: UIButton!
     @IBOutlet weak var bioLogo: UIImageView!
     @IBOutlet weak var cheLogo: UIImageView!
     @IBOutlet weak var phyLogo: UIImageView!
     @IBOutlet weak var stats: UILabel!
     @IBOutlet weak var legend: UILabel!
+    @IBOutlet weak var target: UIImageView!
     
     
     
@@ -271,7 +270,6 @@ class HomeViewController: UIViewController, ChartViewDelegate {
             switch swipeGesture.direction {
                 
             case UISwipeGestureRecognizerDirection.Left:
-                println("right")
                 self.hidePieCharts(true)
                 self.performSegueWithIdentifier("showNews", sender: self)
             
@@ -531,9 +529,14 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.renderChemistryPieChart()
         self.renderPhysicsPieChart()
         self.renderBiologyPieChart()
+        self.hidePieCharts(false)
+        self.animatePieCharts()
+    }
+    
+    func animatePieCharts() {
+        self.hidePieCharts(false)
         let animation = ChartEasingOption.Linear
         let timeInterval = NSTimeInterval(1.0)
-        self.hidePieCharts(false)
         self.bioPieChart.animate(yAxisDuration: timeInterval, easingOption: animation)
         self.phyPieChart.animate(yAxisDuration: timeInterval, easingOption: animation)
         self.chePieChart.animate(yAxisDuration: timeInterval, easingOption: animation)
@@ -561,13 +564,14 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     func hideGraph() {
         self.graphView.hidden = true
         self.title = "Accueil"
-        self.renderPieCharts()
+        self.animatePieCharts()
     }
     
     func hidePieCharts(bool: Bool) {
-        self.bioPieChart.hidden = bool
-        self.phyPieChart.hidden = bool
+        //self.bioPieChart.hidden = bool
+        //self.phyPieChart.hidden = bool
         self.chePieChart.hidden = bool
+        self.target.hidden = bool
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation

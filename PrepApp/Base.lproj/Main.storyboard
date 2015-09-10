@@ -593,13 +593,13 @@
                                     <constraint firstAttribute="height" constant="260" id="hhL-Fu-uMz"/>
                                 </constraints>
                             </imageView>
-                            <view opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y4y-U5-ty2" userLabel="Pie Chart View Chemistry" customClass="PieChartView" customModule="Charts">
+                            <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y4y-U5-ty2" userLabel="Pie Chart View Chemistry" customClass="PieChartView" customModule="Charts">
                                 <rect key="frame" x="150" y="140" width="300" height="300"/>
                                 <subviews>
-                                    <view opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKS-C0-uxG" userLabel="Pie Chart View Physics" customClass="PieChartView" customModule="Charts">
+                                    <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKS-C0-uxG" userLabel="Pie Chart View Physics" customClass="PieChartView" customModule="Charts">
                                         <rect key="frame" x="25" y="25" width="250" height="250"/>
                                         <subviews>
-                                            <view opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h4a-g1-aFZ" userLabel="Pie Chart View Biology" customClass="PieChartView" customModule="Charts">
+                                            <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h4a-g1-aFZ" userLabel="Pie Chart View Biology" customClass="PieChartView" customModule="Charts">
                                                 <rect key="frame" x="25" y="25" width="200" height="200"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Yt-xV-MI6">
@@ -788,6 +788,7 @@
                         <outlet property="phyLogo" destination="2Mu-Mk-Mg7" id="zxd-Cv-9bC"/>
                         <outlet property="phyPieChart" destination="cKS-C0-uxG" id="2Ti-0y-IjA"/>
                         <outlet property="stats" destination="Hyq-jX-Cjm" id="m5K-s3-PZu"/>
+                        <outlet property="target" destination="WEF-WD-hnQ" id="h1h-Iw-eKp"/>
                         <segue destination="hmY-5I-27E" kind="show" identifier="showNews" id="kkr-JM-FGR"/>
                         <segue destination="T3t-Zp-DnJ" kind="show" identifier="showStats" id="qhl-TE-py5"/>
                     </connections>

@@ -32,7 +32,6 @@ class NewsfeedViewController: UIViewController {
             
                 
             case UISwipeGestureRecognizerDirection.Right:
-                println("left")
                 self.navigationController?.popToRootViewControllerAnimated(true)
                 
             default:
