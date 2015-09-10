@@ -26,7 +26,6 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     let offsetAngle: CGFloat = 270
     
     //@IBOutlets properties
-    @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var menuButton:UIBarButtonItem!
     @IBOutlet weak var notificationMessage: UILabel!
     @IBOutlet weak var chePieChart: PieChartView!
@@ -41,6 +40,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var cheLogo: UIImageView!
     @IBOutlet weak var phyLogo: UIImageView!
     @IBOutlet weak var stats: UILabel!
+    @IBOutlet weak var legend: UILabel!
     
     
     
@@ -121,6 +121,8 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         //designing border radius buttons
         self.bioButton.layer.cornerRadius = 6
         self.cheButton.layer.cornerRadius = 6
+        self.stats.layer.cornerRadius = 6
+        self.stats.layer.masksToBounds = true
         //z positions
         self.phyButton.layer.zPosition = 3
         self.phyLogo.layer.zPosition = 4
@@ -129,8 +131,10 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.cheButton.layer.zPosition = 2
         self.cheLogo.layer.zPosition = 4
         self.stats.layer.zPosition = 1
-        self.graphView.layer.zPosition = 5
+        self.graphView.layer.zPosition = 7
+        self.notificationMessage.layer.zPosition = 5
         //other customization
+        self.legend.text = "Inclinez en mode paysage pour voir votre graphe performance. Glissez à droite pour voir le fil d'actualité Prep'App."
         self.stats.hidden = true
         self.view.backgroundColor = colorGreyBackgound
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
@@ -269,7 +273,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.self.bioPieChart.backgroundColor = UIColor.clearColor()
         self.self.bioPieChart.usePercentValuesEnabled = false
         self.bioPieChart.holeTransparent = true
-        self.bioPieChart.holeColor = colorGreyBackgound
+        self.bioPieChart.holeColor = UIColor.clearColor()
         self.bioPieChart.holeRadiusPercent = 0
         self.bioPieChart.transparentCircleRadiusPercent = 0
         self.bioPieChart.drawHoleEnabled = false
@@ -299,9 +303,9 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.phyPieChart.backgroundColor = UIColor.clearColor()
         self.phyPieChart.usePercentValuesEnabled = true
         self.phyPieChart.holeTransparent = true
-        self.phyPieChart.holeColor = colorGreyBackgound
+        self.phyPieChart.holeColor = UIColor.clearColor()
         self.phyPieChart.holeRadiusPercent = 0.75
-        self.phyPieChart.transparentCircleRadiusPercent = 0.80
+        self.phyPieChart.transparentCircleRadiusPercent = 0
         self.phyPieChart.drawHoleEnabled = true
         self.phyPieChart.drawSliceTextEnabled = true
         self.phyPieChart.drawMarkers = false
@@ -327,9 +331,9 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.chePieChart.backgroundColor = UIColor.clearColor()
         self.chePieChart.usePercentValuesEnabled = true
         self.chePieChart.holeTransparent = true
-        self.chePieChart.holeColor = colorGreyBackgound
+        self.chePieChart.holeColor = UIColor.clearColor()
         self.chePieChart.holeRadiusPercent = 0.805
-        self.chePieChart.transparentCircleRadiusPercent = 0.84
+        self.chePieChart.transparentCircleRadiusPercent = 0
         self.chePieChart.drawHoleEnabled = true
         self.chePieChart.drawSliceTextEnabled = false
         self.chePieChart.drawMarkers = false
@@ -372,11 +376,11 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         
         switch subject {
         case 1 :
-            colors = [colorBio,colorBioBlurred]
+            colors = [colorBio,UIColor.clearColor()]
         case 2 :
-            colors = [colorPhy,colorPhyBlurred]
+            colors = [colorPhy,UIColor.clearColor()]
         case 3 :
-            colors = [colorChe,colorCheBlurred]
+            colors = [colorChe,UIColor.clearColor()]
         default :
             colors = [colorGreyBackgound]
         }
