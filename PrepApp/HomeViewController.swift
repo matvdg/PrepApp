@@ -35,6 +35,8 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var graphView: UIView!
     @IBOutlet weak var bioButton: UIButton!
     @IBOutlet weak var cheButton: UIButton!
+    
+    
     @IBOutlet weak var phyButton: UIButton!
     @IBOutlet weak var bioLogo: UIImageView!
     @IBOutlet weak var cheLogo: UIImageView!
@@ -522,7 +524,9 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         //after animation, one level up if necessary
         while (self.bio == 100 && self.phy == 100 && self.che == 100) {
             //everything at 100%, one level up!
-            self.notificationMessage.text = "Félicitations, vous gagnez un niveau !"
+            var win = ["Le travail est la clef du succès !","Félicitations ! Vous avez gagné un niveau !","Le succès naît de la persévérance.","L'obstination est le chemin de la réussite !","Un travail constant vient à bout de tout.","Le mérite résulte de la persévérance.","La persévérance est la mère des succès.","La persévérance fait surmonter bien des obstacles."]
+            win.shuffle()
+            self.notificationMessage.text = win[0]
             self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("showNotification"), userInfo: nil, repeats: true)
             self.hideTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: Selector("hideNotificationLevel"), userInfo: nil, repeats: false)
             User.currentUser!.level = User.currentUser!.level + 1
