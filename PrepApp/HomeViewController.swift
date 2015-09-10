@@ -320,7 +320,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.phyPieChart.usePercentValuesEnabled = true
         self.phyPieChart.holeTransparent = true
         self.phyPieChart.holeColor = UIColor.clearColor()
-        self.phyPieChart.holeRadiusPercent = 0.75
+        self.phyPieChart.holeRadiusPercent = 0.76
         self.phyPieChart.transparentCircleRadiusPercent = 0
         self.phyPieChart.drawHoleEnabled = true
         self.phyPieChart.drawSliceTextEnabled = true
