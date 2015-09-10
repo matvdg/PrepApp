@@ -140,11 +140,15 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.stats.hidden = true
         self.view.backgroundColor = colorGreyBackgound
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        if User.firstNotifMessage {
-            User.firstNotifMessage = false
+        let date = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components(.CalendarUnitDay, fromDate: date)
+        var currentDay = components.day
+        if  User.currentDay != currentDay {
+            User.currentDay = currentDay
             self.notificationMessage.text = self.loadNotificationMessage()
             self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("showNotification"), userInfo: nil, repeats: true)
-            self.hideTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("hideNotification"), userInfo: nil, repeats: false)
+            self.hideTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: Selector("hideNotification"), userInfo: nil, repeats: false)
         }
         //notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
@@ -190,7 +194,16 @@ class HomeViewController: UIViewController, ChartViewDelegate {
             UserPreferences.saveUserPreferences()
             return "Bienvenue, \(User.currentUser!.firstName) \(User.currentUser!.lastName) !"
         } else {
-            return "Bonjour, \(User.currentUser!.firstName) !"
+            let date = NSDate()
+            let calendar = NSCalendar.currentCalendar()
+            let components = calendar.components(.CalendarUnitHour, fromDate: date)
+            let hour = components.hour
+            if hour > 18 {
+                return "Bonsoir \(User.currentUser!.firstName) !"
+            } else {
+                return "Bonjour \(User.currentUser!.firstName) !"
+            }
+            
         }
     }
     

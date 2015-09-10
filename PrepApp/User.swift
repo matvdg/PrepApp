@@ -12,7 +12,7 @@ class User {
     
     static var currentUser: User?
     static var authenticated: Bool = false
-    static var firstNotifMessage = true
+    static var currentDay = 0
 	
     var firstName: String
     var lastName: String
