@@ -16,7 +16,19 @@ extension Array {
             swap(&self[i], &self[j])
         }
     }
+    
+    func answersPrepApp() -> String {
+        var string = ""
+        for answer in self {
+            if let answerNumber = answer as? Int {
+                string += "\(answerNumber.answerPrepApp()) "
+            }
+        }
+        return string
+    }
 }
+
+
 
 extension Int {
     func levelPrepApp() -> String {

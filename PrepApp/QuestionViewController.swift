@@ -327,7 +327,7 @@ UIAdaptivePresentationControllerDelegate  {
             }
             numberAnswer++
         }
-        println("Question n°\(self.currentQuestion!.id) , bonne(s) réponse(s) = \(self.goodAnswers)")
+        println("Question n°\(self.currentQuestion!.id) , bonne(s) réponse(s) = \(self.goodAnswers.answersPrepApp())")
         self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "calc") : UIImage(named: "nocalc"))
         self.didLoadWording = false
         self.didLoadAnswers = false

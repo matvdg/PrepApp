@@ -505,7 +505,7 @@ class QuestionSoloViewController: UIViewController,
             self.selectedAnswers = savedAnswers
         }
         
-        println("Question n°\(self.currentQuestion!.id) , bonne(s) réponse(s) = \(self.goodAnswers)")
+        println("Question n°\(self.currentQuestion!.id) , bonne(s) réponse(s) = \(self.goodAnswers.answersPrepApp())")
         if self.mode == 0 {
             self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "calc") : UIImage(named: "nocalc"))
         }

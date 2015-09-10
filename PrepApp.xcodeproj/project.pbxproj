@@ -155,6 +155,7 @@
 		F66771801B61A31900042145 /* FactoryRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryRealm.swift; sourceTree = "<group>"; };
 		F6767C201B5D5DFB0066FC64 /* QuestionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionManager.swift; sourceTree = "<group>"; };
 		F68320D91B03C6F1006B974E /* TrainingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingViewController.swift; sourceTree = "<group>"; };
+		F6868A3E1BA073C200DB93F1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		F6987A6C1B16321B002989C6 /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		F6AAE6D01AF433E100195E11 /* PrepApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrepApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6AAE6D41AF433E100195E11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -657,6 +658,7 @@
 			children = (
 				F6AAE6DC1AF433E100195E11 /* Base */,
 				F6FBB4B71B160CE300A18600 /* fr */,
+				F6868A3E1BA073C200DB93F1 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

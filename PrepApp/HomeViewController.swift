@@ -23,7 +23,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     var statsPanelDisplayed: Bool = false
     var currentStatsPanelDisplayed: Int = 0
     var type: subject = .biology
-    let offsetAngle: CGFloat = 265
+    let offsetAngle: CGFloat = 270
     
     //@IBOutlets properties
     @IBOutlet weak var pageControl: UIPageControl!
@@ -367,16 +367,16 @@ class HomeViewController: UIViewController, ChartViewDelegate {
             yVals.append(BarChartDataEntry(value: 50, xIndex: 1))
         }
         var dataSet : PieChartDataSet = PieChartDataSet(yVals: yVals)
-        dataSet.sliceSpace = 10.0
+        dataSet.sliceSpace = 0.0
         var colors: [UIColor] = [colorBio,colorPhy,colorChe]
         
         switch subject {
         case 1 :
-            colors = [colorBio,colorGreyBackgound]
+            colors = [colorBio,colorBioBlurred]
         case 2 :
-            colors = [colorPhy,colorGreyBackgound]
+            colors = [colorPhy,colorPhyBlurred]
         case 3 :
-            colors = [colorChe,colorGreyBackgound]
+            colors = [colorChe,colorCheBlurred]
         default :
             colors = [colorGreyBackgound]
         }
@@ -470,8 +470,6 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         
     }
 
-    
-    
     func logout() {
         ///called when touchID failed, authenticated = false
         println("logging out")
