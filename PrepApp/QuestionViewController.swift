@@ -399,6 +399,9 @@ UIAdaptivePresentationControllerDelegate  {
         self.view.addSubview(self.greyMask)
         self.cleanView()
         self.sizeAnswerCells.removeAll(keepCapacity: false)
+        self.didLoadWording = false
+        self.didLoadAnswers = false
+        self.didLoadInfos = false
         self.loadWording()
     }
     
@@ -658,6 +661,11 @@ UIAdaptivePresentationControllerDelegate  {
                 cell.answer!.frame = CGRectMake(40, 0, self.view.bounds.width - 80, height)
             }
         }
+        //retrieving checkmarks if already done
+        if find(self.selectedAnswers,answerNumber) != nil {
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+        }
+
         return cell
     }
     

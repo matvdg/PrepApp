@@ -592,6 +592,9 @@ class QuestionSoloViewController: UIViewController,
         self.view.addSubview(self.greyMask)
         self.cleanView()
         self.sizeAnswerCells.removeAll(keepCapacity: false)
+        self.didLoadWording = false
+        self.didLoadAnswers = false
+        self.didLoadInfos = false
         self.loadWording()
     }
     
