@@ -12,6 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
+    var portrait: Bool = true
 
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -23,17 +24,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     {
         if UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation)
         {
-            println("landscape")
-            NSNotificationCenter.defaultCenter().postNotificationName("landscape", object: nil)
+            if self.portrait {
+                println("landscape")
+                self.portrait = false
+                NSNotificationCenter.defaultCenter().postNotificationName("landscape", object: nil)
+            }
+            
         }
         
         if UIDevice.currentDevice().orientation == UIDeviceOrientation.Portrait
         {
-            println("portrait")
-            NSNotificationCenter.defaultCenter().postNotificationName("portrait", object: nil)
+            if !self.portrait {
+                println("portrait")
+                self.portrait = true
+                NSNotificationCenter.defaultCenter().postNotificationName("portrait", object: nil)
+
+            }
         }
-        
-        
     }
 
 	func applicationWillResignActive(application: UIApplication) {
