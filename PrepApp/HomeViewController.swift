@@ -48,6 +48,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     
     //@IBAction methods
     @IBAction func showBioStats(sender: AnyObject) {
+        Sound.playTrack("next")
         if self.statsPanelDisplayed {
             if self.currentStatsPanelDisplayed == 1 {
                 self.statsPanelDisplayed = false
@@ -68,6 +69,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     }
     
     @IBAction func showPhyStats(sender: AnyObject) {
+        Sound.playTrack("next")
         if self.statsPanelDisplayed {
             if self.currentStatsPanelDisplayed == 2 {
                 self.statsPanelDisplayed = false
@@ -88,6 +90,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     }
     
     @IBAction func showCheStats(sender: AnyObject) {
+        Sound.playTrack("next")
         if self.statsPanelDisplayed {
             if self.currentStatsPanelDisplayed == 3 {
                 self.statsPanelDisplayed = false
@@ -192,7 +195,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         if UserPreferences.welcome {
             UserPreferences.welcome = false
             UserPreferences.saveUserPreferences()
-            return "Bienvenue, \(User.currentUser!.firstName) \(User.currentUser!.lastName) !"
+            return "Bienvenue \(User.currentUser!.firstName) \(User.currentUser!.lastName) !"
         } else {
             let date = NSDate()
             let calendar = NSCalendar.currentCalendar()
