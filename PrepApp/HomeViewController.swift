@@ -524,7 +524,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         //after animation, one level up if necessary
         while (self.bio == 100 && self.phy == 100 && self.che == 100) {
             //everything at 100%, one level up!
-            var win = ["Le succès ne vient qu'avec le travail !","Félicitations ! Vous avez gagné un niveau !","La persévérance est la clef du succès","L'obstination est le chemin de la réussite"]
+            var win = ["Le travail est la clef du succès !","Félicitations ! Vous avez gagné un niveau !","Le succès naît de la persévérance.","L'obstination est le chemin de la réussite !","Un travail constant vient à bout de tout.","Le mérite résulte de la persévérance.","La persévérance est la mère des succès.","La persévérance fait surmonter bien des obstacles."]
             win.shuffle()
             self.notificationMessage.text = win[0]
             self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("showNotification"), userInfo: nil, repeats: true)
