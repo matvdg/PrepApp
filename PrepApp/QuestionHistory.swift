@@ -13,5 +13,8 @@ class QuestionHistory : Object {
     dynamic var id: Int = 0
     dynamic var training: Bool = false
     dynamic var success: Bool = false
+    dynamic var firstSuccess: Bool = false
     dynamic var marked: Bool = false
+    dynamic var assiduityDouble: Bool = false
+    dynamic var weeksBeforeExam: Int = 0
 }

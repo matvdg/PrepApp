@@ -22,6 +22,7 @@ class User {
     var assiduity: Int
     var failed: Int
     var success: Int
+    var keyPoints: Int
     var weeksBeforeExam: Int
     
     init(
@@ -33,6 +34,7 @@ class User {
         assiduity: Int,
         failed: Int,
         success: Int,
+        keyPoints: Int,
         weeksBeforeExam: Int) {
             
         self.firstName = firstName
@@ -43,6 +45,7 @@ class User {
         self.assiduity = assiduity
         self.failed = failed
         self.success = success
+        self.keyPoints = keyPoints
         self.weeksBeforeExam = weeksBeforeExam
     }
 	
@@ -90,6 +93,7 @@ class User {
             String(self.assiduity),
             String(self.failed),
             String(self.success),
+            String(self.keyPoints),
             String(self.weeksBeforeExam)
         ]
 		NSUserDefaults.standardUserDefaults().setObject(savedUser, forKey: "user")
@@ -147,6 +151,7 @@ class User {
 			assiduity: data["assiduity"]as! Int,
             failed: data["failed"] as! Int,
 			success: data["success"] as! Int,
+            keyPoints: 0,
             weeksBeforeExam: 10
         )
         
@@ -171,7 +176,8 @@ class User {
                 assiduity: (data[5] as String).toInt()!,
                 failed: (data[6] as String).toInt()!,
                 success: (data[7] as String).toInt()!,
-                weeksBeforeExam: (data[8] as String).toInt()!
+                keyPoints: (data[8] as String).toInt()!,
+                weeksBeforeExam: (data[9] as String).toInt()!
             )
             
 			return true

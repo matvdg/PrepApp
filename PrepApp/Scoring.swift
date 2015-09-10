@@ -31,7 +31,7 @@ class Scoring {
         }
         
         for question in questionsToCompute {
-            if question.success {
+            if question.firstSuccess {
                 succeeded++
             }
         }
@@ -101,6 +101,9 @@ class Scoring {
         var counter = 0
         for question in questionsHistory {
             counter++
+            if question.assiduityDouble {
+                counter++
+            }
         }
         User.currentUser!.assiduity = counter
         

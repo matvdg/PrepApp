@@ -17,21 +17,29 @@ class History {
         
         var questionsHistory = self.realmHistory.objects(QuestionHistory)
         var updated = false
+        
         for questionHistory in questionsHistory {
             
             if question.id == questionHistory.id {
+                if !questionHistory.training {
+                    question.assiduityDouble = true
+                    println("double assiduity")
+                }
                 realmHistory.write {
                     questionHistory.success = question.success
                     questionHistory.training = question.training
+                    questionHistory.assiduityDouble = question.assiduityDouble
+                    println("updated")
                 }
-                println("updated")
                 updated = true
                 break
             }
             
         }
-        if updated == false {
+        if updated == false { //firstTime in DB
             realmHistory.write {
+                question.firstSuccess = question.success
+                question.weeksBeforeExam = User.currentUser!.weeksBeforeExam
                 self.realmHistory.add(question)
             }
             println("added")
