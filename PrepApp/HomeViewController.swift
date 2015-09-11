@@ -119,6 +119,12 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.showNotification()
+        self.bioPieChart.noDataText = ""
+        self.bioPieChart.noDataTextDescription = ""
+        self.chePieChart.noDataText = ""
+        self.chePieChart.noDataTextDescription = ""
+        self.phyPieChart.noDataText = ""
+        self.phyPieChart.noDataTextDescription = ""
         //retrieving data
         self.renderLevel()
         self.retrieveData()
@@ -286,8 +292,8 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         
         //pie settings
         self.bioPieChart.delegate = self
-        self.self.bioPieChart.backgroundColor = UIColor.clearColor()
-        self.self.bioPieChart.usePercentValuesEnabled = false
+        self.bioPieChart.backgroundColor = UIColor.clearColor()
+        self.bioPieChart.usePercentValuesEnabled = false
         self.bioPieChart.holeTransparent = true
         self.bioPieChart.holeColor = UIColor.clearColor()
         self.bioPieChart.holeRadiusPercent = 0
@@ -511,7 +517,6 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     }
     
     func renderLevel(){
-        
         self.levelButton.titleLabel!.font = UIFont(name: "Times New Roman", size: 70)
         self.levelButton.backgroundColor = colorGreenLogo
         self.levelButton.layer.zPosition = 100
