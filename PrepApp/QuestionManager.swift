@@ -42,7 +42,7 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
             counter = imagesArray.count
             
             for index in 1...counter {
-                input = input.stringByReplacingOccurrencesOfString("{\(index)}", withString: "<img width=\"\(SyncViewController.widthImage)\" src=\"images/\(imagesArray[index-1])\"/>", options: nil, range: nil)
+                input = input.stringByReplacingOccurrencesOfString("{\(index)}", withString: "<img width=\"300\" src=\"images/\(imagesArray[index-1])\"/>", options: nil, range: nil)
                 input = input.stringByReplacingOccurrencesOfString("#f9f9f9", withString: "transparent", options: nil, range: nil)
             }
         }

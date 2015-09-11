@@ -79,7 +79,7 @@ class SoloViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refresh", name: "portrait", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refresh", name: "landscape", object: nil)
 
-        self.view.backgroundColor = colorGreyBackgound
+        self.view.backgroundColor = colorGreyBackground
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
 

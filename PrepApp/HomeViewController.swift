@@ -17,6 +17,11 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     var bioNumberToDo: Int = 0
     var phyNumberToDo: Int = 0
     var cheNumberToDo: Int = 0
+    var bioPerf: [Double] = [60, 66, 70, 75, 72, 70, 73, 80, 82, 84, 86]
+    var phyPerf: [Double] = [70, 68, 65, 57, 43, 62, 66, 64, 66, 70, 72]
+    var chePerf: [Double] = [40, 43, 45, 48, 48, 51, 55, 62, 73, 80, 92]
+    var levels: [Double] = [1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 5]
+    var weeksBeforeExam : [String] = ["10", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0"]
     var hideTimer = NSTimer()
     var animationTimer = NSTimer()
     var counterAnimationNotification = 0
@@ -24,6 +29,10 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     var currentStatsPanelDisplayed: Int = 0
     var type: subject = .biology
     let offsetAngle: CGFloat = 270
+    var legendLeftAxis = UILabel()
+    var legendRightAxis = UILabel()
+    var legendXAxis = UILabel()
+    
     
     //@IBOutlets properties
     @IBOutlet weak var menuButton:UIBarButtonItem!
@@ -32,7 +41,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var phyPieChart: PieChartView!
     @IBOutlet weak var bioPieChart: PieChartView!
     @IBOutlet weak var levelButton: UIButton!
-    @IBOutlet weak var graphView: UIView!
+    @IBOutlet weak var perfChart: CombinedChartView!
     @IBOutlet weak var bioButton: UIButton!
     @IBOutlet weak var cheButton: UIButton!
     @IBOutlet weak var phyButton: UIButton!
@@ -125,6 +134,8 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.chePieChart.noDataTextDescription = ""
         self.phyPieChart.noDataText = ""
         self.phyPieChart.noDataTextDescription = ""
+        self.perfChart.noDataText = "Aucune données pour le moment"
+        self.perfChart.noDataTextDescription = "Revenez ultérieurement"
         //retrieving data
         self.renderLevel()
         self.retrieveData()
@@ -141,12 +152,14 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.cheButton.layer.zPosition = 2
         self.cheLogo.layer.zPosition = 4
         self.stats.layer.zPosition = 1
-        self.graphView.layer.zPosition = 7
+        self.perfChart.layer.zPosition = 7
+        self.legend.layer.zPosition = 0
         self.notificationMessage.layer.zPosition = 5
+        self.notificationMessage.layer.zPosition = 6
         //other customization
         self.legend.text = "Inclinez en mode paysage pour voir votre graphe performance. Glissez à droite pour voir le fil d'actualité Prep'App."
         self.stats.hidden = true
-        self.view.backgroundColor = colorGreyBackgound
+        self.view.backgroundColor = colorGreyBackground
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         let date = NSDate()
         let calendar = NSCalendar.currentCalendar()
@@ -194,6 +207,11 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.che = Double(percent)
         self.cheNumber = answers
         self.cheNumberToDo = todo
+//        self.bioPerf = FactoryHistory.getScoring().getPerf(1)
+//        self.phyPerf = FactoryHistory.getScoring().getPerf(2)
+//        self.chiPerf = FactoryHistory.getScoring().getPerf(3)
+//        self.levels = FactoryHistory.getScoring().getLevels()
+//        self.weeksBeforeExam = FactoryHistory.getScoring().getWeeksBeforeExam()
     }
     
     func loadNotificationMessage() -> String {
@@ -375,20 +393,134 @@ class HomeViewController: UIViewController, ChartViewDelegate {
 
     }
     
+    func renderLevel(){
+        self.levelButton.titleLabel!.font = UIFont(name: "Times New Roman", size: 70)
+        self.levelButton.backgroundColor = colorGreenLogo
+        self.levelButton.layer.zPosition = 100
+        self.levelButton.layer.borderColor = UIColor.whiteColor().CGColor
+        self.levelButton.layer.borderWidth = 6
+        self.levelButton.setTitle(User.currentUser!.level.levelPrepApp(), forState: .Normal)
+        self.levelButton.titleLabel!.adjustsFontSizeToFitWidth = true
+        self.levelButton.titleLabel!.numberOfLines = 1
+        self.levelButton.titleLabel!.baselineAdjustment = UIBaselineAdjustment.AlignCenters
+        self.levelButton.layer.cornerRadius = self.levelButton.frame.width / 2
+    }
+    
+    func renderPieCharts() {
+        self.renderLevel()
+        self.renderChemistryPieChart()
+        self.renderPhysicsPieChart()
+        self.renderBiologyPieChart()
+        self.hidePieCharts(false)
+        self.animatePieCharts()
+    }
+    
+    func renderPerfChart() {
+        //settings
+        self.perfChart.delegate = self
+        self.perfChart.drawBarShadowEnabled = false
+        self.perfChart.drawGridBackgroundEnabled = false
+        self.perfChart.drawOrder = [CombinedChartDrawOrder.Bar.rawValue, CombinedChartDrawOrder.Line.rawValue]
+        self.perfChart.backgroundColor = colorGreyBackground
+        self.perfChart.drawMarkers = true
+    
+        self.perfChart.autoScaleMinMaxEnabled = true
+        self.perfChart.rightAxis.drawGridLinesEnabled = false
+        self.perfChart.rightAxis.axisLineColor = colorGreenAppButtons
+        self.perfChart.rightAxis.startAtZeroEnabled = true
+        self.perfChart.rightAxis.axisLineWidth = 4
+        self.perfChart.rightAxis.labelFont = UIFont(name: "Segoe UI", size: 12)!
+        self.perfChart.rightAxis.labelCount = Int(self.levels.max())
+        println(self.levels.max())
+        var formatter = NSNumberFormatter()
+        formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
+        formatter.minimumIntegerDigits = 1
+        formatter.maximumIntegerDigits = 2
+        formatter.maximumFractionDigits = 0
+        formatter.minimumSignificantDigits = 1
+        formatter.maximumSignificantDigits = 2
+        self.perfChart.rightAxis.valueFormatter = formatter
+
+
+        
+        self.perfChart.leftAxis.drawGridLinesEnabled = false
+        self.perfChart.leftAxis.axisMaximum = 100
+        self.perfChart.leftAxis.axisRange = 100
+        self.perfChart.leftAxis.axisLineColor = colorGreenAppButtons
+        self.perfChart.leftAxis.startAtZeroEnabled = true
+        self.perfChart.leftAxis.axisLineWidth = 4
+        self.perfChart.leftAxis.labelCount = 10
+        self.perfChart.leftAxis.labelFont = UIFont(name: "Segoe UI", size: 12)!
+        formatter.numberStyle = NSNumberFormatterStyle.NoStyle
+        formatter.minimumIntegerDigits = 2
+        formatter.maximumIntegerDigits = 3
+        formatter.maximumFractionDigits = 0
+        formatter.maximumSignificantDigits = 3
+        self.perfChart.leftAxis.valueFormatter = formatter
+        
+        
+        self.perfChart.xAxis.labelPosition = ChartXAxis.XAxisLabelPosition.Bottom
+        self.perfChart.xAxis.drawGridLinesEnabled = false
+        self.perfChart.xAxis.axisLineColor = colorGreenAppButtons
+        self.perfChart.xAxis.axisLineWidth = 4
+        
+        //data
+        self.getPerfChartData()
+        
+        //description
+        self.perfChart.descriptionFont = UIFont(name: "Segoe UI", size: 17)!
+        self.perfChart.descriptionText = ""
+        self.perfChart.legend.font = UIFont(name: "Segoe UI", size: 10)!
+        self.renderLegendAxis()
+        
+
+    }
+    
+    func renderLegendAxis() {
+        println("render legend axis")
+        self.legendXAxis = UILabel(frame: CGRectMake(self.view.bounds.width - 250, self.view.bounds.height - 30, 200, 30))
+        self.legendLeftAxis = UILabel(frame: CGRectMake(40, 50, 20, 20))
+        self.legendRightAxis = UILabel(frame: CGRectMake(self.view.bounds.width - 70, 50, 50, 30))
+        self.legendLeftAxis.text = "%"
+        self.legendRightAxis.text = "Niveau"
+        self.legendXAxis.text = "Semaines avant le concours"
+        self.legendLeftAxis.textColor = colorGreenAppButtons
+        self.legendRightAxis.textColor = colorGreenAppButtons
+        self.legendXAxis.textColor = colorGreenAppButtons
+        self.legendLeftAxis.font = UIFont(name: "Segoe UI", size: 20)
+        self.legendRightAxis.font = UIFont(name: "Segoe UI", size: 15)
+        self.legendXAxis.font = UIFont(name: "Segoe UI", size: 15)
+        self.view.addSubview(self.legendXAxis)
+        self.view.addSubview(self.legendLeftAxis)
+        self.view.addSubview(self.legendRightAxis)
+        self.legendLeftAxis.layer.zPosition = 8
+        self.legendRightAxis.layer.zPosition = 8
+        self.legendXAxis.layer.zPosition = 8
+
+
+        
+    }
+    
+    func removeLegendAxis(){
+        self.legendLeftAxis.removeFromSuperview()
+        self.legendRightAxis.removeFromSuperview()
+        self.legendXAxis.removeFromSuperview()
+    }
+    
     func getPieChartData(subject: Int) -> ChartData {
         
         
         var yVals: [ChartDataEntry] = []
         switch subject {
         case 1 :
-            yVals.append(BarChartDataEntry(value: bio, xIndex: 1))
-            yVals.append(BarChartDataEntry(value: 100-bio, xIndex: 2))
+            yVals.append(BarChartDataEntry(value: self.bio, xIndex: 1))
+            yVals.append(BarChartDataEntry(value: 100-self.bio, xIndex: 2))
         case 2 :
-            yVals.append(BarChartDataEntry(value: phy, xIndex: 1))
-            yVals.append(BarChartDataEntry(value: 100-phy, xIndex: 2))
+            yVals.append(BarChartDataEntry(value: self.phy, xIndex: 1))
+            yVals.append(BarChartDataEntry(value: 100-self.phy, xIndex: 2))
         case 3 :
-            yVals.append(BarChartDataEntry(value: che, xIndex: 1))
-            yVals.append(BarChartDataEntry(value: 100-che, xIndex: 2))
+            yVals.append(BarChartDataEntry(value: self.che, xIndex: 1))
+            yVals.append(BarChartDataEntry(value: 100-self.che, xIndex: 2))
         default :
             yVals.append(BarChartDataEntry(value: 50, xIndex: 1))
         }
@@ -404,7 +536,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         case 3 :
             colors = [colorChe,UIColor.clearColor()]
         default :
-            colors = [colorGreyBackgound]
+            colors = [colorGreyBackground]
         }
         dataSet.colors = colors
         dataSet.valueTextColor = UIColor.clearColor()
@@ -412,43 +544,79 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         return data
     }
     
-    func getPerfChartData(subject: Int) -> ChartData {
-        var bio: Double = Double(arc4random()%100)
-        var phy: Double = Double(arc4random()%100)
-        var che: Double = Double(arc4random()%100)
+    func getPerfChartData() {
         
-        var yVals: [ChartDataEntry] = []
-        switch subject {
-        case 1 :
-            yVals.append(BarChartDataEntry(value: bio, xIndex: 1))
-            yVals.append(BarChartDataEntry(value: 100-bio, xIndex: 2))
-        case 2 :
-            yVals.append(BarChartDataEntry(value: phy, xIndex: 1))
-            yVals.append(BarChartDataEntry(value: 100-phy, xIndex: 2))
-        case 3 :
-            yVals.append(BarChartDataEntry(value: che, xIndex: 1))
-            yVals.append(BarChartDataEntry(value: 100-che, xIndex: 2))
-        default :
-            yVals.append(BarChartDataEntry(value: 50, xIndex: 1))
+        //biology
+        var dataEntries: [ChartDataEntry] = []
+        for i in 0..<weeksBeforeExam.count {
+            let dataEntry = ChartDataEntry(value: self.bioPerf[i], xIndex: i)
+            dataEntries.append(dataEntry)
         }
-        var dataSet : PieChartDataSet = PieChartDataSet(yVals: yVals)
-        dataSet.sliceSpace = 10.0
-        var colors: [UIColor] = [colorBio,colorPhy,colorChe]
+        let bioLineChartDataSet = LineChartDataSet(yVals: dataEntries, label: "Biologie")
+        bioLineChartDataSet.colors = [colorBio]
+        bioLineChartDataSet.lineWidth = 5.0
+        bioLineChartDataSet
+        bioLineChartDataSet.circleColors = [colorBio]
+        bioLineChartDataSet.circleHoleColor = colorBio
+        bioLineChartDataSet.circleRadius = 2
+        bioLineChartDataSet.valueTextColor = UIColor.clearColor()
+        bioLineChartDataSet.drawCubicEnabled = true
+        bioLineChartDataSet.drawValuesEnabled = false
+        bioLineChartDataSet.axisDependency = ChartYAxis.AxisDependency.Left
         
-        switch subject {
-        case 1 :
-            colors = [colorBio,colorGreyBackgound]
-        case 2 :
-            colors = [colorPhy,colorGreyBackgound]
-        case 3 :
-            colors = [colorChe,colorGreyBackgound]
-        default :
-            colors = [colorGreyBackgound]
+        //physics
+        dataEntries = []
+        for i in 0..<self.weeksBeforeExam.count {
+            let dataEntry = ChartDataEntry(value: self.phyPerf[i], xIndex: i)
+            dataEntries.append(dataEntry)
         }
-        dataSet.colors = colors
-        dataSet.valueTextColor = UIColor.clearColor()
-        var data: PieChartData = PieChartData(xVals: ["",""], dataSet: dataSet)
-        return data
+        let phyLineChartDataSet = LineChartDataSet(yVals: dataEntries, label: "Physique")
+        phyLineChartDataSet.colors = [colorPhy]
+        phyLineChartDataSet.lineWidth = 5.0
+        phyLineChartDataSet.circleColors = [colorPhy]
+        phyLineChartDataSet.circleHoleColor = colorPhy
+        phyLineChartDataSet.circleRadius = 2
+        phyLineChartDataSet.valueTextColor = UIColor.clearColor()
+        phyLineChartDataSet.drawCubicEnabled = true
+        phyLineChartDataSet.drawValuesEnabled = false
+        phyLineChartDataSet.axisDependency = ChartYAxis.AxisDependency.Left
+
+        //chemistry
+        dataEntries = []
+        for i in 0..<self.weeksBeforeExam.count {
+            let dataEntry = ChartDataEntry(value: self.chePerf[i], xIndex: i)
+            dataEntries.append(dataEntry)
+        }
+        let cheLineChartDataSet = LineChartDataSet(yVals: dataEntries, label: "Chimie")
+        cheLineChartDataSet.colors = [colorChe]
+        cheLineChartDataSet.lineWidth = 5.0
+        cheLineChartDataSet.circleColors = [colorChe]
+        cheLineChartDataSet.circleHoleColor = colorChe
+        cheLineChartDataSet.circleRadius = 2
+        cheLineChartDataSet.valueTextColor = UIColor.clearColor()
+        cheLineChartDataSet.drawCubicEnabled = true
+        cheLineChartDataSet.drawValuesEnabled = false
+        cheLineChartDataSet.axisDependency = ChartYAxis.AxisDependency.Left
+        
+        //levels
+        dataEntries = []
+        for i in 0..<self.weeksBeforeExam.count {
+            let dataEntry = BarChartDataEntry(value: self.levels[i], xIndex: i)
+            dataEntries.append(dataEntry)
+        }
+        let barDataSet = BarChartDataSet(yVals: dataEntries, label: "Niveau")
+        barDataSet.colors = [colorGreenLogo.colorWithAlphaComponent(0.5)]
+        barDataSet.valueTextColor = UIColor.clearColor()
+        barDataSet.drawValuesEnabled = false
+        barDataSet.axisDependency = ChartYAxis.AxisDependency.Right
+        
+        //global
+        let lineChartData = LineChartData(xVals: self.weeksBeforeExam, dataSets: [bioLineChartDataSet,phyLineChartDataSet,cheLineChartDataSet])
+        let barChartData = BarChartData(xVals: self.weeksBeforeExam, dataSet: barDataSet)
+        var data = CombinedChartData(xVals: self.weeksBeforeExam)
+        data.lineData = lineChartData
+        data.barData = barChartData
+        self.perfChart.data = data
     }
     
     func showNotification() {
@@ -472,6 +640,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
                 self.notificationMessage.center = CGPointMake(self.notificationMessage.center.x, self.notificationMessage.center.y - 2)
             } else {
                 self.animationTimer.invalidate()
+                self.notificationMessage.center = CGPointMake(self.notificationMessage.center.x, 42)
             }
         }
         
@@ -491,6 +660,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
                 self.notificationMessage.center = CGPointMake(self.notificationMessage.center.x, self.notificationMessage.center.y - 2)
             } else {
                 self.animationTimer.invalidate()
+                self.notificationMessage.center = CGPointMake(self.notificationMessage.center.x, 42)
             }
         }
         
@@ -516,28 +686,6 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.presentViewController(myAlert, animated: true, completion: nil)
     }
     
-    func renderLevel(){
-        self.levelButton.titleLabel!.font = UIFont(name: "Times New Roman", size: 70)
-        self.levelButton.backgroundColor = colorGreenLogo
-        self.levelButton.layer.zPosition = 100
-        self.levelButton.layer.borderColor = UIColor.whiteColor().CGColor
-        self.levelButton.layer.borderWidth = 6
-        self.levelButton.setTitle(User.currentUser!.level.levelPrepApp(), forState: .Normal)
-        self.levelButton.titleLabel!.adjustsFontSizeToFitWidth = true
-        self.levelButton.titleLabel!.numberOfLines = 1
-        self.levelButton.titleLabel!.baselineAdjustment = UIBaselineAdjustment.AlignCenters
-        self.levelButton.layer.cornerRadius = self.levelButton.frame.width / 2
-    }
-    
-    func renderPieCharts() {
-        self.renderLevel()
-        self.renderChemistryPieChart()
-        self.renderPhysicsPieChart()
-        self.renderBiologyPieChart()
-        self.hidePieCharts(false)
-        self.animatePieCharts()
-    }
-    
     func animatePieCharts() {
         self.hidePieCharts(false)
         let animation = ChartEasingOption.Linear
@@ -550,8 +698,11 @@ class HomeViewController: UIViewController, ChartViewDelegate {
             //everything at 100%, one level up!
             var win = ["Le travail est la clef du succès !","Félicitations ! Vous avez gagné un niveau !","Le succès naît de la persévérance.","L'obstination est le chemin de la réussite !","Un travail constant vient à bout de tout.","Le mérite résulte de la persévérance.","La persévérance est la mère des succès.","La persévérance fait surmonter bien des obstacles."]
             win.shuffle()
+            self.animationTimer.invalidate()
+            self.hideTimer.invalidate()
+            self.counterAnimationNotification = 0
             self.notificationMessage.text = win[0]
-            self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("showNotification"), userInfo: nil, repeats: true)
+            self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("showNotificationLevel"), userInfo: nil, repeats: true)
             self.hideTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: Selector("hideNotificationLevel"), userInfo: nil, repeats: false)
             User.currentUser!.level = User.currentUser!.level + 1
             User.currentUser!.saveUser()
@@ -561,22 +712,21 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     }
     
     func showGraph() {
+        self.renderPerfChart()
         self.hidePieCharts(true)
-        self.graphView.hidden = false
+        self.perfChart.hidden = false
         self.title = "Performances"
     }
     
     func hideGraph() {
-        self.graphView.hidden = true
+        self.removeLegendAxis()
+        self.perfChart.hidden = true
         self.title = "Accueil"
         self.animatePieCharts()
     }
     
     func hidePieCharts(bool: Bool) {
-        //self.bioPieChart.hidden = bool
-        //self.phyPieChart.hidden = bool
         self.chePieChart.hidden = bool
-        self.target.hidden = bool
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation

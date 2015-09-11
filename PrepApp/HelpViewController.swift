@@ -28,7 +28,7 @@ class HelpViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //Aide réglages
         "Dans cette section vous pouvez changer votre mot de passe, activer la protection Touch ID si disponible et activer/désactiver les bruitages dans Prep'App.",
         //Aide mentions légales
-        "©Prep'App est une société par actions simplifiées au capital social de 10000€. L'équipe Prep'App est composée de Maximilien Rochaix, Julien Perennou, Julien Sergent, Jonathan Carsalade et de Mathieu Vandeginste. Cette app a été développée en Swift à l'aide de ©Realm, base de donnée locale orientée objets."]
+        "©Prep'App est une société par actions simplifiées au capital social de 10000€. L'équipe Prep'App est composée de Maximilien Rochaix, Julien Perennou, Julien Sergent, Jonathan Carsalade et de Mathieu Vandeginste. Cette app a été développée en Swift à l'aide de ©Realm (base de donnée locale orientée objets)et du framework ios-charts. Legal mentions: ios-charts created by Daniel Cohen Gindi, inspired by Philipp Jahoda, an iOS port of MPAndroidChart. Realm Objective-C & Realm Swift, ios-charts are published under the Apache 2.0 license. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0"]
     var selectedHelp: Int = -1
 
 

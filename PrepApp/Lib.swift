@@ -26,6 +26,18 @@ extension Array {
         }
         return string
     }
+    
+    func max() -> Double {
+        var max: Double = 0
+        for level in self {
+            if let levelNumber = level as? Double {
+                if levelNumber > max {
+                    max = levelNumber
+                }
+            }
+        }
+        return max
+    }
 }
 
 
