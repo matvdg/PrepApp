@@ -152,7 +152,7 @@ class User {
             failed: data["failed"] as! Int,
 			success: data["success"] as! Int,
             keyPoints: 0,
-            weeksBeforeExam: 10
+            weeksBeforeExam: 9
         )
         
         User.authenticated = true
@@ -177,7 +177,8 @@ class User {
                 failed: (data[6] as String).toInt()!,
                 success: (data[7] as String).toInt()!,
                 keyPoints: (data[8] as String).toInt()!,
-                weeksBeforeExam: (data[9] as String).toInt()!
+                weeksBeforeExam: 9
+                //(data[9] as String).toInt()!
             )
             
 			return true

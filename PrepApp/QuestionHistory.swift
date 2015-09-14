@@ -17,4 +17,5 @@ class QuestionHistory : Object {
     dynamic var marked: Bool = false
     dynamic var assiduityDouble: Bool = false
     dynamic var weeksBeforeExam: Int = 0
+    dynamic var level: Int = 0
 }

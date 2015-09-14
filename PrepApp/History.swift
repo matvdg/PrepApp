@@ -39,6 +39,7 @@ class History {
         if updated == false { //firstTime in DB
             realmHistory.write {
                 question.firstSuccess = question.success
+                question.level = User.currentUser!.level + 1
                 question.weeksBeforeExam = User.currentUser!.weeksBeforeExam
                 self.realmHistory.add(question)
             }

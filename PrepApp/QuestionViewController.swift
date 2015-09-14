@@ -19,6 +19,7 @@ UIAdaptivePresentationControllerDelegate  {
     
     //properties
     let realm = FactoryRealm.getRealm()
+    var mode = 0 //0 = training 1 = results
     var questions: [Question] = []
     var currentChapter: Chapter?
     var currentSubject: Subject?
@@ -198,6 +199,7 @@ UIAdaptivePresentationControllerDelegate  {
     
     //methods
     private func goNext() {
+        self.mode = 0
         if self.currentNumber == 0 {
             self.previousButton.enabled = true
         }
@@ -220,6 +222,7 @@ UIAdaptivePresentationControllerDelegate  {
     }
     
     private func goPrevious() {
+        self.mode = 0
         if self.currentNumber + 1 == self.questions.count {
             self.nextButton.enabled = true
         }
@@ -436,10 +439,14 @@ UIAdaptivePresentationControllerDelegate  {
         self.submitButton.addTarget(self, action: "submit", forControlEvents: UIControlEvents.TouchUpInside)
         self.scrollView.addSubview(self.infos)
         self.scrollView.addSubview(self.submitButton)
+        if self.mode == 1 {
+            self.submit()
+        }
         
     }
     
     func submit() {
+        self.mode = 1
         
         if self.selectedAnswers.isEmpty {
             Sound.playTrack("error")

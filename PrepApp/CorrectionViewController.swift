@@ -48,11 +48,20 @@ class CorrectionViewController: UIViewController, UIWebViewDelegate {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshCorrection", name: "portrait", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshCorrection", name: "landscape", object: nil)
         self.correction.opaque = false
         self.dismissButton.layer.cornerRadius = 6
         self.correction.delegate = self
         
         self.correction.loadHTMLString(self.correctionHTML, baseURL: self.baseUrl)
     }
-
+    
+    func refreshCorrection(){
+        self.correction.loadHTMLString(self.correctionHTML, baseURL: self.baseUrl)
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return true
+    }
 }

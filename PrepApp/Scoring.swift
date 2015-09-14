@@ -115,5 +115,133 @@ class Scoring {
         self.computeSucceeded()
         User.currentUser!.saveUser()
     }
+    
+    func getPerf(subject: Int) -> [Double] {
+        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        var questionsToCompute: [Int:[QuestionHistory]] = [:]
+        var performances: [Int:Int] = [:]
+        var result: [Double] = []
+        var succeeded = 0
+        var counter = 0
+        var maxWeek = 0
+        
+        //fetching the appropriate questions
+        for questionHistory in questionsHistory {
+            let question = self.realm.objects(Question).filter("id = \(questionHistory.id)")[0]
+            if question.chapter!.subject!.id == subject {
+                if let entry = questionsToCompute[questionHistory.weeksBeforeExam] {
+                    questionsToCompute[questionHistory.weeksBeforeExam]!.append(questionHistory)
+                } else {
+                    questionsToCompute[questionHistory.weeksBeforeExam] = [questionHistory]
+                }
+            }
+        }
+        for (week,value) in questionsToCompute {
+            for question in value {
+                if question.firstSuccess {
+                    succeeded++
+                }
+                counter++
+                if week > maxWeek {
+                    maxWeek = week
+                }
+            }
+            performances[week] = Int(succeeded * 100 / counter)
+            succeeded = 0
+            counter = 0
+        }
+        while performances.count != 0 {
+            for (week, value) in performances {
+                if week == maxWeek {
+                    result.append(Double(value))
+                    performances.removeValueForKey(week)
+                }
+            }
+            maxWeek--
 
+        }
+        
+        println("performances matière \(subject) = \(result)")
+        return result
+    }
+    
+    func getLevels() -> [Double] {
+        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        var questionsToCompute: [Int:[QuestionHistory]] = [:]
+        var levels: [Int:Int] = [:]
+        var result: [Double] = []
+        var maxWeek = 0
+        var level = 0
+        
+        //fetching the appropriate questions
+        for questionHistory in questionsHistory {
+                if let entry = questionsToCompute[questionHistory.weeksBeforeExam] {
+                    questionsToCompute[questionHistory.weeksBeforeExam]!.append(questionHistory)
+                } else {
+                    questionsToCompute[questionHistory.weeksBeforeExam] = [questionHistory]
+                }
+        }
+        
+        for (week,value) in questionsToCompute {
+            for question in value {
+                if question.level > level {
+                    level = question.level
+                }
+                if week > maxWeek {
+                    maxWeek = week
+                }
+            }
+            levels[week] = level
+            level = 0
+        }
+        
+        while levels.count != 0 {
+            for (week, value) in levels {
+                if week == maxWeek {
+                    result.append(Double(value))
+                    levels.removeValueForKey(week)
+                }
+            }
+            maxWeek--
+            
+        }
+        
+        println("levels \(result)")
+        return result
+    }
+    
+    func getWeeksBeforeExam () -> [String] {
+        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        var weeks: [Int] = []
+        var result: [String] = []
+        var maxWeek = 0
+        var index = 0
+        
+        //fetching the appropriate questions
+        for questionHistory in questionsHistory {
+            if find(weeks,questionHistory.weeksBeforeExam) == nil {
+                weeks.append(questionHistory.weeksBeforeExam)
+            }
+        }
+        println(weeks)
+        
+        
+        while weeks.count != 0 {
+            for week in weeks {
+                if week > maxWeek {
+                    maxWeek = week
+                    index = find(weeks, week)!
+                }
+            }
+            result.append(String(maxWeek))
+            weeks.removeAtIndex(index)
+            maxWeek = 0
+            
+            
+        }
+        
+        println("weeksStrings \(result)")
+        return result
+
+    }
 }
