@@ -17,17 +17,17 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     var bioNumberToDo: Int = 0
     var phyNumberToDo: Int = 0
     var cheNumberToDo: Int = 0
-    var bioPerf: [Double] = []
-    var phyPerf: [Double] = []
-    var chePerf: [Double] = []
-    var levels: [Double] = []
-    var weeksBeforeExam : [String] = []
+//    var bioPerf: [Double] = []
+//    var phyPerf: [Double] = []
+//    var chePerf: [Double] = []
+//    var levels: [Double] = []
+//    var weeksBeforeExam : [String] = []
     
-//    var bioPerf: [Double] = [60, 66, 70, 75, 72, 70, 73, 80, 82, 84, 86]
-//    var phyPerf: [Double] = [70, 68, 65, 57, 43, 62, 66, 64, 66, 70, 72]
-//    var chePerf: [Double] = [40, 43, 45, 48, 48, 51, 55, 62, 73, 80, 92]
-//    var levels: [Double] = [1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 5]
-//    var weeksBeforeExam : [String] = ["10", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0"]
+    var bioPerf: [Double] = [60, 66, 70, 75, 72, 70, 73, 80, 82, 84, 86]
+    var phyPerf: [Double] = [70, 68, 65, 57, 43, 62, 66, 64, 66, 70, 72]
+    var chePerf: [Double] = [40, 43, 45, 48, 48, 51, 55, 62, 73, 80, 92]
+    var levels: [Double] = [1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 5]
+    var weeksBeforeExam : [String] = ["10", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0"]
 
     var hideTimer = NSTimer()
     var animationTimer = NSTimer()
@@ -212,12 +212,12 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.cheNumber = answers
         self.cheNumberToDo = todo
         
-        self.bioPerf = FactoryHistory.getScoring().getPerf(1)
-        self.phyPerf = FactoryHistory.getScoring().getPerf(2)
-        self.chePerf = FactoryHistory.getScoring().getPerf(3)
-        self.levels = FactoryHistory.getScoring().getLevels()
-        self.weeksBeforeExam = FactoryHistory.getScoring().getWeeksBeforeExam()
-        self.checkNumberOfData()
+//        self.bioPerf = FactoryHistory.getScoring().getPerf(1)
+//        self.phyPerf = FactoryHistory.getScoring().getPerf(2)
+//        self.chePerf = FactoryHistory.getScoring().getPerf(3)
+//        self.levels = FactoryHistory.getScoring().getLevels()
+//        self.weeksBeforeExam = FactoryHistory.getScoring().getWeeksBeforeExam()
+//        self.checkNumberOfData()
     }
     
     func checkNumberOfData() {
@@ -468,8 +468,8 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.perfChart.highlightPerDragEnabled = false
         self.perfChart.scaleYEnabled = false
         self.perfChart.drawHighlightArrowEnabled = false
-        self.perfChart.userInteractionEnabled = false
-        self.levelButton.userInteractionEnabled = true
+        self.perfChart.userInteractionEnabled = true
+        self.levelButton.userInteractionEnabled = false
     
         self.perfChart.autoScaleMinMaxEnabled = true
         self.perfChart.rightAxis.drawGridLinesEnabled = false

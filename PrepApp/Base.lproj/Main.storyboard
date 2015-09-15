@@ -224,33 +224,20 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PFs-65-cbu">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="25t-OO-CVe">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <blurEffect style="light"/>
-                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="dVL-mY-U78" secondAttribute="centerX" id="Dbf-Vd-jBb"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="PFs-65-cbu" secondAttribute="trailing" constant="-16" id="PXt-Yc-rLj"/>
-                            <constraint firstItem="PFs-65-cbu" firstAttribute="leading" secondItem="SBk-1G-kwL" secondAttribute="leadingMargin" constant="-16" id="Pir-Bq-QRI"/>
                             <constraint firstItem="HXs-wp-Ivn" firstAttribute="top" secondItem="32u-zU-DFS" secondAttribute="bottom" constant="51" id="XK8-gh-D9K"/>
                             <constraint firstItem="t12-T3-ZOd" firstAttribute="top" secondItem="HXs-wp-Ivn" secondAttribute="bottom" constant="77" id="dXK-yb-QiZ"/>
                             <constraint firstItem="HXs-wp-Ivn" firstAttribute="width" secondItem="HXs-wp-Ivn" secondAttribute="height" multiplier="1:1" id="f3b-Bt-0li"/>
                             <constraint firstAttribute="centerX" secondItem="t12-T3-ZOd" secondAttribute="centerX" id="fhn-sY-C6E"/>
-                            <constraint firstItem="KXh-bj-Ipr" firstAttribute="top" secondItem="PFs-65-cbu" secondAttribute="bottom" id="hT9-Wv-Qia"/>
-                            <constraint firstItem="PFs-65-cbu" firstAttribute="top" secondItem="SBk-1G-kwL" secondAttribute="topMargin" id="jW9-RI-Vio"/>
                             <constraint firstItem="KXh-bj-Ipr" firstAttribute="top" secondItem="dVL-mY-U78" secondAttribute="bottom" constant="211" id="qOC-jh-CKd"/>
                             <constraint firstAttribute="centerX" secondItem="HXs-wp-Ivn" secondAttribute="centerX" id="s6z-jU-zc8"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="blur" destination="PFs-65-cbu" id="DuE-AW-3UI"/>
                         <outlet property="logo" destination="HXs-wp-Ivn" id="SUw-N9-DAY"/>
                         <outlet property="progression" destination="t12-T3-ZOd" id="FoE-Sl-GkN"/>
                         <outlet property="tryAgainButton" destination="dVL-mY-U78" id="8jf-7B-SVa"/>
@@ -907,7 +894,7 @@
                                     <action selector="bio:" destination="Ir2-cz-PBY" eventType="touchUpInside" id="0AN-WR-l96"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NAj-JJ-6z1" userLabel="PHY">
+                            <button opaque="NO" contentMode="scaleAspectFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NAj-JJ-6z1" userLabel="PHY">
                                 <rect key="frame" x="0.0" y="243" width="600" height="178"/>
                                 <color key="backgroundColor" red="0.9529411792755127" green="0.47843137383460999" blue="0.43529412150382996" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="60"/>
@@ -936,7 +923,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PHYSIQUE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltt-Hn-CPp">
+                            <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="PHYSIQUE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltt-Hn-CPp">
                                 <rect key="frame" x="74" y="243" width="526" height="178"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2312,9 +2299,9 @@
         <image name="trimask" width="1317" height="1254"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2V6-ZR-wfX"/>
-        <segue reference="WYj-iM-Hx0"/>
         <segue reference="78B-T2-OOj"/>
+        <segue reference="xbe-Fm-nd1"/>
+        <segue reference="WYj-iM-Hx0"/>
         <segue reference="qhl-TE-py5"/>
     </inferredMetricsTieBreakers>
 </document>

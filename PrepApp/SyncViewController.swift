@@ -17,14 +17,12 @@ class SyncViewController: UIViewController {
     var nbrFrame: Int = 0
     var percentage: Int = 0
 	let frames = 350
-    var blurAnimate = true
     var version: Int = 0
     //var sentences = ["Prep'App est la clef de votre réussite ! ","Entraînez-vous contre la montre dans défi solo...","...ou affrontez d'autres étudiants dans défi duo !","Evaluez-vous grâce aux concours !" ]
     
     @IBOutlet weak var progression: UILabel!
     @IBOutlet weak var logo: UIImageView!
     @IBOutlet weak var tryAgainButton: UIButton!
-    @IBOutlet weak var blur: UIVisualEffectView!
     
     @IBAction func tryAgain(sender: AnyObject) {
         self.progression.hidden = false
@@ -40,7 +38,6 @@ class SyncViewController: UIViewController {
         
         SyncViewController.widthImage = self.view.frame.width - 20
 		super.viewDidLoad()
-        self.blur.alpha = 0
         self.tryAgainButton.layer.cornerRadius = 6
         self.tryAgainButton.hidden = true
 	}
@@ -77,7 +74,6 @@ class SyncViewController: UIViewController {
                 } else {
                     //offline mode
                     if FactorySync.getVersionManager().loadVersion() == 0 { //if the app has never synced, can't run the app
-                        self.blur.hidden = true
                         Sound.playTrack("error")
                         // create alert controller
                         let myAlert = UIAlertController(title: "Erreur de téléchargement", message: "Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -111,7 +107,6 @@ class SyncViewController: UIViewController {
       
         //handling network errors or bad network
         if FactorySync.errorNetwork {
-            self.blur.hidden = true
             timer.invalidate()
             Sound.playTrack("error")
             // create alert controller
@@ -134,7 +129,6 @@ class SyncViewController: UIViewController {
             
             if (FactorySync.getImageManager().sizeToDownload != -1 && FactorySync.getQuestionManager().sizeToDownload != -1 ) {
                 //println("both sizes computed (≠-1)")
-                self.blur.hidden = true
                 
                 
                 if FactorySync.getQuestionManager().questionsToSave != 0 {
@@ -168,21 +162,9 @@ class SyncViewController: UIViewController {
             
             
             } else { //waiting for server's answer
-                self.blur.hidden = false
                 //before getting sizes, waiting for server response
                 self.progression.text = "Connexion au serveur Prep'App.\n Veuillez patienter..."
                 self.logo.image = UIImage(named: "l350")
-                if self.blurAnimate {
-                    self.blur.alpha += 0.02
-                    if self.blur.alpha >= 0.8 {
-                        self.blurAnimate = false
-                    }
-                } else {
-                    self.blur.alpha -= 0.02
-                    if self.blur.alpha <= 0 {
-                        self.blurAnimate = true
-                    }
-                }
             }
         }
 	}
