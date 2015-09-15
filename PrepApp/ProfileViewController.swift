@@ -50,10 +50,10 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         self.presentViewController(myAlert, animated: true, completion: nil)
     }
     
+    //UITableViewDataSource Methods
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.profilePics.count
     }
-    
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("profileSection", forIndexPath: indexPath) as! UITableViewCell
@@ -64,26 +64,27 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         cell.textLabel!.text = self.profileTopics[indexPath.row]
         return cell
     }
-
-    
+    //UITableViewDelegate Methods
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.selectedSection = indexPath.row
         if self.revealViewController() != nil {
             self.revealViewController().setFrontViewPosition(FrontViewPosition.Left, animated: true)
         }
-        self.performSegueWithIdentifier("presentProfile", sender: self)
-    }
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        var profileVC = segue.destinationViewController as! DetailProfileViewController
-        // Pass the selected object to the new view controller.
-        
-        if self.selectedSection != -1 {
-            profileVC.profileTopics = self.profileTopics[self.selectedSection]
+        switch self.selectedSection { //"Statistiques","Classement","Questions marquées","Suggestions/remarques"
+        case 0 : //Statistiques
+           self.performSegueWithIdentifier("showStats", sender: self)
+        case 1 : //Classement
+            self.performSegueWithIdentifier("showLeaderboard", sender: self)
+        case 2 : //Questions marquées
+            self.performSegueWithIdentifier("showMarkedQuestions", sender: self)
+        case 3 : //Suggestions/remarques
+            self.performSegueWithIdentifier("showSuggestions", sender: self)
+        default:
+            println("nothing selected")
         }
         
     }
+    
+   
 
 }

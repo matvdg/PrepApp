@@ -767,9 +767,8 @@ UIAdaptivePresentationControllerDelegate  {
             correctionVC.correctionHTML = self.currentQuestion!.correction
         }
         
-        if let profileVC = segue.destinationViewController as? DetailProfileViewController {
+        if let markedQuestionsVC = segue.destinationViewController as? MarkedQuestionsTableViewController {
             // Pass the selected object to the new view controller.
-            profileVC.profileTopics = "Questions marquées"
         }
     }
     

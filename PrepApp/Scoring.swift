@@ -77,7 +77,7 @@ class Scoring {
         let questionsHistory = self.realmHistory.objects(QuestionHistory)
         var succeeded = 0
         for question in questionsHistory {
-            if question.success {
+            if question.firstSuccess {
                 succeeded++
             }
         }
@@ -89,7 +89,7 @@ class Scoring {
         let questionsHistory = self.realmHistory.objects(QuestionHistory)
         var failed = 0
         for question in questionsHistory {
-            if !question.success {
+            if !question.firstSuccess {
                 failed++
             }
         }
@@ -160,8 +160,6 @@ class Scoring {
             maxWeek--
 
         }
-        
-        println("performances matière \(subject) = \(result)")
         return result
     }
     
@@ -205,8 +203,6 @@ class Scoring {
             maxWeek--
             
         }
-        
-        println("levels \(result)")
         return result
     }
     
@@ -223,8 +219,6 @@ class Scoring {
                 weeks.append(questionHistory.weeksBeforeExam)
             }
         }
-        println(weeks)
-        
         
         while weeks.count != 0 {
             for week in weeks {
@@ -239,8 +233,6 @@ class Scoring {
             
             
         }
-        
-        println("weeksStrings \(result)")
         return result
 
     }

@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation)
         {
             if self.portrait {
-                println("landscape")
+                //println("landscape")
                 self.portrait = false
                 NSNotificationCenter.defaultCenter().postNotificationName("landscape", object: nil)
             }
@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if UIDevice.currentDevice().orientation == UIDeviceOrientation.Portrait
         {
             if !self.portrait {
-                println("portrait")
+                //println("portrait")
                 self.portrait = true
                 NSNotificationCenter.defaultCenter().postNotificationName("portrait", object: nil)
 

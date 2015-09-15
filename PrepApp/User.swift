@@ -24,6 +24,8 @@ class User {
     var success: Int
     var keyPoints: Int
     var weeksBeforeExam: Int
+    var successPointsApp: Int = 10
+    var successPointsGlobal: Int = 10
     
     init(
         firstName: String,
