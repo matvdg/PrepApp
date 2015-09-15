@@ -22,10 +22,9 @@ class User {
     var assiduity: Int
     var failed: Int
     var success: Int
-    var keyPoints: Int
     var weeksBeforeExam: Int
-    var successPointsApp: Int = 10
-    var successPointsGlobal: Int = 10
+    var successPointsApp: Int
+    var successPointsGlobal: Int
     
     init(
         firstName: String,
@@ -36,8 +35,9 @@ class User {
         assiduity: Int,
         failed: Int,
         success: Int,
-        keyPoints: Int,
-        weeksBeforeExam: Int) {
+        weeksBeforeExam: Int,
+        successPointsApp: Int,
+        successPointsGlobal: Int) {
             
         self.firstName = firstName
         self.lastName = lastName
@@ -47,13 +47,10 @@ class User {
         self.assiduity = assiduity
         self.failed = failed
         self.success = success
-        self.keyPoints = keyPoints
         self.weeksBeforeExam = weeksBeforeExam
+        self.successPointsApp = successPointsApp
+        self.successPointsGlobal = successPointsGlobal
     }
-	
-	func printUser() -> String {
-		return ("Niveau \(self.level) \n Assiduité \(self.assiduity) \n \(self.success) questions réussies sur \(self.success + self.failed). \(self.weeksBeforeExam) semaines avant l'examen.")
-	}
 	
 	func changePassword(newPass: String, callback: (String?) -> Void){
 		let request = NSMutableURLRequest(URL: FactorySync.passwordUrl!)
@@ -95,8 +92,9 @@ class User {
             String(self.assiduity),
             String(self.failed),
             String(self.success),
-            String(self.keyPoints),
-            String(self.weeksBeforeExam)
+            String(self.weeksBeforeExam),
+            String(self.successPointsApp),
+            String(self.successPointsGlobal)
         ]
 		NSUserDefaults.standardUserDefaults().setObject(savedUser, forKey: "user")
 		NSUserDefaults.standardUserDefaults().synchronize()
@@ -153,8 +151,9 @@ class User {
 			assiduity: data["assiduity"]as! Int,
             failed: data["failed"] as! Int,
 			success: data["success"] as! Int,
-            keyPoints: 0,
-            weeksBeforeExam: 9
+            weeksBeforeExam: 9,
+            successPointsApp: 0,
+            successPointsGlobal: 0
         )
         
         User.authenticated = true
@@ -178,9 +177,9 @@ class User {
                 assiduity: (data[5] as String).toInt()!,
                 failed: (data[6] as String).toInt()!,
                 success: (data[7] as String).toInt()!,
-                keyPoints: (data[8] as String).toInt()!,
-                weeksBeforeExam: 9
-                //(data[9] as String).toInt()!
+                weeksBeforeExam: (data[8] as String).toInt()!,
+                successPointsApp: (data[9] as String).toInt()!,
+                successPointsGlobal: (data[10] as String).toInt()!
             )
             
 			return true

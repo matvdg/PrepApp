@@ -12,6 +12,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var statsTopics = ["Niveau", "Assiduité", "Questions réussies", "Temps restant avant concours", "SuccessPoints Kiné","SuccessPoints Prep'App"]
     var statsData: [String] = []
+    var statsPics = ["level","fist","check","solo","greenSP","home"]
     
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var email: UILabel!
@@ -85,6 +86,8 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("stat", forIndexPath: indexPath) as! UITableViewCell
+        var image = self.statsPics[indexPath.row]
+        cell.imageView!.image = UIImage(named: image)
         cell.textLabel?.textColor = UIColor.blackColor()
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 18)
         cell.textLabel!.text = self.statsTopics[indexPath.row]
@@ -93,7 +96,10 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 18)
         cell.detailTextLabel!.textColor = colorGreenAppButtons
         cell.textLabel!.adjustsFontSizeToFitWidth = true
-        cell.detailTextLabel!.adjustsFontSizeToFitWidth = false
+        cell.detailTextLabel!.adjustsFontSizeToFitWidth = true
+        if indexPath.row == 3 {
+            cell.textLabel!.font = UIFont(name: "Segoe UI", size: 12)
+        }
         return cell
 
     }
