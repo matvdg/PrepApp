@@ -23,8 +23,8 @@ class User {
     var failed: Int
     var success: Int
     var weeksBeforeExam: Int
-    var successPointsApp: Int
-    var successPointsGlobal: Int
+    var awardPointsApp: Int
+    var awardPointsGlobal: Int
     
     init(
         firstName: String,
@@ -36,8 +36,8 @@ class User {
         failed: Int,
         success: Int,
         weeksBeforeExam: Int,
-        successPointsApp: Int,
-        successPointsGlobal: Int) {
+        awardPointsApp: Int,
+        awardPointsGlobal: Int) {
             
         self.firstName = firstName
         self.lastName = lastName
@@ -48,8 +48,8 @@ class User {
         self.failed = failed
         self.success = success
         self.weeksBeforeExam = weeksBeforeExam
-        self.successPointsApp = successPointsApp
-        self.successPointsGlobal = successPointsGlobal
+        self.awardPointsApp = awardPointsApp
+        self.awardPointsGlobal = awardPointsGlobal
     }
 	
 	func changePassword(newPass: String, callback: (String?) -> Void){
@@ -93,8 +93,8 @@ class User {
             String(self.failed),
             String(self.success),
             String(self.weeksBeforeExam),
-            String(self.successPointsApp),
-            String(self.successPointsGlobal)
+            String(self.awardPointsApp),
+            String(self.awardPointsGlobal)
         ]
 		NSUserDefaults.standardUserDefaults().setObject(savedUser, forKey: "user")
 		NSUserDefaults.standardUserDefaults().synchronize()
@@ -151,9 +151,9 @@ class User {
 			assiduity: data["assiduity"]as! Int,
             failed: data["failed"] as! Int,
 			success: data["success"] as! Int,
-            weeksBeforeExam: 9,
-            successPointsApp: 0,
-            successPointsGlobal: 0
+            weeksBeforeExam: 7,
+            awardPointsApp: 0,
+            awardPointsGlobal: 0
         )
         
         User.authenticated = true
@@ -177,11 +177,10 @@ class User {
                 assiduity: (data[5] as String).toInt()!,
                 failed: (data[6] as String).toInt()!,
                 success: (data[7] as String).toInt()!,
-                weeksBeforeExam: (data[8] as String).toInt()!,
-                successPointsApp: (data[9] as String).toInt()!,
-                successPointsGlobal: (data[10] as String).toInt()!
+                weeksBeforeExam: 7,
+                awardPointsApp: (data[9] as String).toInt()!,
+                awardPointsGlobal: (data[10] as String).toInt()!
             )
-            
 			return true
 		} else {
 			return false

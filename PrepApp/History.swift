@@ -72,15 +72,16 @@ class History {
     
     func isQuestionNewInTraining(id: Int)-> Bool {
         let questionsHistory = self.realmHistory.objects(QuestionHistory)
-        var result = true
+        var result = true //all questions are by default new
         for questionHistory in questionsHistory {
             if id == questionHistory.id && questionHistory.training == true {
-                result = false
+                result = false //if there is a question in history with training mark, it's not new
                 break
             }
         }
         return result
     }
+
     
     func isQuestionDone(id: Int)-> Bool {
         let questionsHistory = self.realmHistory.objects(QuestionHistory)

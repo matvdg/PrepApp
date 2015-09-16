@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import QuartzCore
 
 class QuestionViewController: UIViewController,
 UITableViewDataSource,
@@ -32,6 +33,8 @@ UIAdaptivePresentationControllerDelegate  {
     var didLoadInfos = false
     var sizeAnswerCells: [Int:CGFloat] = [:]
     var numberOfAnswers = 0
+    var animatingKeyPointTimer = NSTimer()
+    var stateAnimationKeyPoint = 0
     var animatingCorrectionTimer = NSTimer()
     var stopAnimationCorrectionTimer = NSTimer()
     var senseAnimationCorrection: Bool = true
@@ -84,6 +87,7 @@ UIAdaptivePresentationControllerDelegate  {
     @IBOutlet weak var calc: UIBarButtonItem!
     @IBOutlet weak var nextButton: UIBarButtonItem!
     @IBOutlet weak var previousButton: UIBarButtonItem!
+    @IBOutlet weak var keyPoint: UILabel!
     
     //@IBActions methods
     @IBAction func previous(sender: AnyObject) {
@@ -462,6 +466,7 @@ UIAdaptivePresentationControllerDelegate  {
             historyQuestion.id = self.currentQuestion!.id
             historyQuestion.training = true
             if self.checkAnswers() {
+                
                 //true
                 Sound.playTrack("true")
                 historyQuestion.success = true
@@ -471,6 +476,10 @@ UIAdaptivePresentationControllerDelegate  {
                     let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
                     cell.number.backgroundColor = colorRightAnswer
                     //green
+                }
+                //generating KeyPoint 5 + 1 assiduity = +6
+                if FactoryHistory.getHistory().isQuestionNew(self.currentQuestion!.id) {
+                    self.animateKeyPoint(6)
                 }
                 
             } else {
@@ -501,6 +510,16 @@ UIAdaptivePresentationControllerDelegate  {
                         }
                     }
                 }
+                //generating KeyPoint assiduity +1
+                if FactoryHistory.getHistory().isQuestionNew(self.currentQuestion!.id) {
+                    self.animateKeyPoint(1)
+                } else {
+                    //generating KeyPoint double assiduity +1
+                    if FactoryHistory.getHistory().isQuestionNewInTraining(self.currentQuestion!.id) {
+                        self.animateKeyPoint(1)
+                    }
+                }
+
             }
             //saving the question result in history
             FactoryHistory.getHistory().addQuestionToHistory(historyQuestion)
@@ -543,6 +562,26 @@ UIAdaptivePresentationControllerDelegate  {
         }
         
         
+    }
+    
+    func animateKeyPoint(awardPoints: Int) {
+        User.currentUser!.awardPointsApp += awardPoints
+        User.currentUser!.saveUser()
+        self.keyPoint.alpha = 1
+        self.keyPoint.text = awardPoints.toStringPoints()
+        self.keyPoint.font = UIFont(name: "Segoe UI", size: 20)
+        self.keyPoint.hidden = false
+        self.keyPoint.layer.zPosition = 10
+        UIView.animateWithDuration(1, animations: { () -> Void in
+            self.keyPoint.alpha = 0
+
+        })
+        var animation = CABasicAnimation(keyPath: "transform.scale")
+        animation.toValue = NSNumber(float: 10)
+        animation.duration = 1
+        animation.repeatCount = 0
+        animation.autoreverses = true
+        self.keyPoint.layer.addAnimation(animation, forKey: nil)
     }
     
     func stopAnimation(){
@@ -623,7 +662,6 @@ UIAdaptivePresentationControllerDelegate  {
         }
         return result
     }
-    
     
     //ChoiceQuestionViewControllerDelegate method
     func applyChoice(var choice: Int){

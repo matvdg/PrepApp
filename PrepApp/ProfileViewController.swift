@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var profilePics = ["stats","contest","marked","credits"]
+    var profilePics = ["stats","cup","marked","credits"]
     var profileTopics = ["Statistiques","Classement","Questions marquées","Suggestions/remarques"]
     var selectedSection: Int = -1
 

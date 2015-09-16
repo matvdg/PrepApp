@@ -236,4 +236,10 @@ class Scoring {
         return result
 
     }
+    
+    func computeAwardPoints(questionId: Int) -> Int {
+        var points = 0
+        
+        return 0
+    }
 }

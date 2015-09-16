@@ -447,7 +447,6 @@ class QuestionSoloViewController: UIViewController,
             self.titleLabel.textColor = UIColor.blackColor()
             self.titleBar.backgroundColor = colorPhy
 
-
         case 3: //chemistry
             self.titleLabel.text = "Défi solo Chimie"
             self.titleLabel.textColor = UIColor.blackColor()
@@ -458,7 +457,6 @@ class QuestionSoloViewController: UIViewController,
             self.titleLabel.text = "Défi solo Biologie/Physique"
             self.titleLabel.textColor = UIColor.blackColor()
             self.titleBar.backgroundColor = colorBioPhy
-
             
         case 5: //bioChe
             self.titleLabel.text = "Défi solo Biologie/Chimie"

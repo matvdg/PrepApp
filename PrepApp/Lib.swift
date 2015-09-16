@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import QuartzCore
+
+// Usage: insert view.fadeTransition right before changing content
 
 extension Array {
     mutating func shuffle() {
@@ -152,6 +155,15 @@ extension Int {
             
         }
     }
+    
+    func toStringPoints() -> String {
+        if self < 2 {
+            return "\(self)pt"
+        } else {
+            return "\(self)pts"
+        }
+    }
+
 
 }
 

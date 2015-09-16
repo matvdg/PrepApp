@@ -10,9 +10,9 @@ import UIKit
 
 class StatsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var statsTopics = ["Niveau", "Assiduité", "Questions réussies", "Temps restant avant concours", "SuccessPoints Kiné","SuccessPoints Prep'App"]
+    var statsTopics = ["Niveau", "Assiduité", "Questions réussies", "Temps restant avant concours", "AwardPoints"]
     var statsData: [String] = []
-    var statsPics = ["level","fist","check","solo","greenSP","home"]
+    var statsPics = ["level","puzzle","check","solo","awardPoint"]
     
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var email: UILabel!
@@ -69,16 +69,17 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func loadData() {
         self.statsData.append("\(User.currentUser!.level + 1)")
-        self.statsData.append("\(User.currentUser!.assiduity)")
+        self.statsData.append(User.currentUser!.assiduity.toStringPoints())
         self.statsData.append("\(User.currentUser!.success)/\(User.currentUser!.success + User.currentUser!.failed)")
         self.statsData.append("\(User.currentUser!.weeksBeforeExam) semaines")
-        self.statsData.append("\(User.currentUser!.successPointsApp)")
-        self.statsData.append("\(User.currentUser!.successPointsGlobal)")
+        self.statsData.append(User.currentUser!.awardPointsApp.toStringPoints())
+        self.statsData.append(User.currentUser!.awardPointsGlobal.toStringPoints())
     }
     
+        
     //UITableViewDataSource Methods
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return 5
     }
     
     // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
@@ -97,12 +98,11 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.detailTextLabel!.textColor = colorGreenAppButtons
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.detailTextLabel!.adjustsFontSizeToFitWidth = true
-        if indexPath.row == 3 {
-            cell.textLabel!.font = UIFont(name: "Segoe UI", size: 12)
-        }
+        cell.textLabel!.font = UIFont(name: "Segoe UI", size: 12)
         return cell
-
     }
-
-
+    //UITableViewDelegate Methods
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.01
+    }
 }
