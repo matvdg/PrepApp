@@ -72,6 +72,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 			if data == nil {
 				// create alert controller
 				let myAlert = UIAlertController(title: error, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                myAlert.view.tintColor = colorGreenAppButtons
 				// add an "OK" button
 				myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
 				// show the alert

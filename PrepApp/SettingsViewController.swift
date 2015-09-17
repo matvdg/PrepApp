@@ -29,6 +29,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
             UserPreferences.saveUserPreferences()
             // create alert controller
             let myAlert = UIAlertController(title: "Touch ID activé", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+            myAlert.view.tintColor = colorGreenAppButtons
             // add an "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert
@@ -39,6 +40,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
             UserPreferences.saveUserPreferences()
             // create alert controller
             let myAlert = UIAlertController(title: "Touch ID désactivé", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+            myAlert.view.tintColor = colorGreenAppButtons
             // add an "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert
@@ -65,6 +67,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
 				User.currentUser?.changePassword(newPwd.text.sha1(), callback: { (message) -> Void in
 					// create alert controller
 					let myAlert = UIAlertController(title: message!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                    myAlert.view.tintColor = colorGreenAppButtons
 					// add an "OK" button
 					myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
 					// show the alert
@@ -74,6 +77,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
 			} else {
 				// create alert controller
 				let myAlert = UIAlertController(title: "Oups !", message: "Le nouveau mot de passe et la confirmation ne correspondent pas.", preferredStyle: UIAlertControllerStyle.Alert)
+                myAlert.view.tintColor = colorGreenAppButtons
 				// add an "OK" button
 				myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
 				// show the alert
@@ -82,6 +86,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
 		} else {
 			// create alert controller
 			let myAlert = UIAlertController(title: "Le mot de passe est trop faible !", message: "Minimum 8 caractères dont 1 majuscule et 2 chiffres.", preferredStyle: UIAlertControllerStyle.Alert)
+            myAlert.view.tintColor = colorGreenAppButtons
 			// add an "OK" button
 			myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
 			// show the alert
@@ -155,6 +160,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        myAlert.view.tintColor = colorGreenAppButtons
         // add an "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
         // add an "update" button

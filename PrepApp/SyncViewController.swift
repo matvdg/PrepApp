@@ -77,6 +77,7 @@ class SyncViewController: UIViewController {
                         Sound.playTrack("error")
                         // create alert controller
                         let myAlert = UIAlertController(title: "Erreur de téléchargement", message: "Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
+                        myAlert.view.tintColor = colorGreenAppButtons
                         // add an "OK" button
                         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                             self.progression.hidden = true
@@ -111,6 +112,7 @@ class SyncViewController: UIViewController {
             Sound.playTrack("error")
             // create alert controller
             let myAlert = UIAlertController(title: "Erreur de téléchargement", message: "Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
+            myAlert.view.tintColor = colorGreenAppButtons
             // add an "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 self.progression.hidden = true

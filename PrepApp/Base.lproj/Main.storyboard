@@ -1229,15 +1229,22 @@
                                 </items>
                             </toolbar>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1pt" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Yu-gi-t3W">
-                                <rect key="frame" x="150" y="150" width="300" height="300"/>
+                                <rect key="frame" x="150" y="325" width="300" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="0LU-cS-PY0"/>
-                                    <constraint firstAttribute="height" constant="300" id="RD7-kB-MEX"/>
+                                    <constraint firstAttribute="height" constant="150" id="RD7-kB-MEX"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="10"/>
                                 <color key="textColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="awardPointHD" translatesAutoresizingMaskIntoConstraints="NO" id="MmM-mY-hJL">
+                                <rect key="frame" x="225" y="175" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="KLI-V5-MFD"/>
+                                    <constraint firstAttribute="height" constant="150" id="uvC-zN-1r3"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.92549020051956177" green="0.92549020051956177" blue="0.92549020051956177" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.10588235408067703" green="0.5058823823928833" blue="0.36862745881080627" alpha="1" colorSpace="calibratedRGB"/>
@@ -1246,17 +1253,20 @@
                             <constraint firstItem="Ufd-hO-c6S" firstAttribute="top" secondItem="dp8-K3-32C" secondAttribute="bottom" id="1Wt-lj-MHz"/>
                             <constraint firstAttribute="trailing" secondItem="dp8-K3-32C" secondAttribute="trailing" id="Bhq-ga-hnD"/>
                             <constraint firstAttribute="centerX" secondItem="3Yu-gi-t3W" secondAttribute="centerX" id="N2k-a3-pcJ"/>
+                            <constraint firstAttribute="centerX" secondItem="MmM-mY-hJL" secondAttribute="centerX" id="Oah-ji-Ar3"/>
                             <constraint firstItem="Ufd-hO-c6S" firstAttribute="leading" secondItem="qO2-nI-xaY" secondAttribute="leading" id="Oxg-bC-4uz"/>
-                            <constraint firstAttribute="centerY" secondItem="3Yu-gi-t3W" secondAttribute="centerY" id="hOy-af-bYz"/>
+                            <constraint firstAttribute="centerY" secondItem="3Yu-gi-t3W" secondAttribute="centerY" constant="-100" id="hOy-af-bYz"/>
                             <constraint firstItem="dp8-K3-32C" firstAttribute="top" secondItem="ed0-0I-h9u" secondAttribute="bottom" id="kf9-X8-uy9"/>
+                            <constraint firstAttribute="centerY" secondItem="MmM-mY-hJL" secondAttribute="centerY" constant="50" id="lPV-4I-VJi"/>
                             <constraint firstItem="dp8-K3-32C" firstAttribute="leading" secondItem="qO2-nI-xaY" secondAttribute="leading" id="rNK-I7-oaH"/>
                             <constraint firstAttribute="trailing" secondItem="Ufd-hO-c6S" secondAttribute="trailing" id="sZL-WD-iDS"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="awardPoint" destination="3Yu-gi-t3W" id="mxn-gl-6A0"/>
+                        <outlet property="awardPointImage" destination="MmM-mY-hJL" id="kus-9A-Ll2"/>
                         <outlet property="calc" destination="csE-kF-ELV" id="itW-rT-7X8"/>
                         <outlet property="chapter" destination="dp8-K3-32C" id="Dqm-dY-G3f"/>
-                        <outlet property="keyPoint" destination="3Yu-gi-t3W" id="mxn-gl-6A0"/>
                         <outlet property="nextButton" destination="Fer-bE-i3u" id="Ufp-Yi-8zr"/>
                         <outlet property="previousButton" destination="YaD-y2-nOb" id="6Zy-fq-f9h"/>
                         <outlet property="questionNumber" destination="jVL-k9-dd8" id="mTh-cq-Rd3"/>
@@ -2396,7 +2406,7 @@
                                 <rect key="frame" x="16" y="224" width="568" height="308"/>
                                 <color key="backgroundColor" red="0.90980392694473267" green="0.90980392694473267" blue="0.90980392694473267" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="stat" textLabel="Rju-J4-ax6" detailTextLabel="F26-1t-VAP" style="IBUITableViewCellStyleValue1" id="Gct-y8-qNC">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="detailButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="stat" textLabel="Rju-J4-ax6" detailTextLabel="F26-1t-VAP" style="IBUITableViewCellStyleValue1" id="Gct-y8-qNC">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gct-y8-qNC" id="YgA-NL-gMs">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -2429,6 +2439,13 @@
                                     <constraint firstAttribute="width" constant="30" id="WPZ-KK-gHU"/>
                                 </constraints>
                             </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="awardPointHD" translatesAutoresizingMaskIntoConstraints="NO" id="pyS-d6-PbU">
+                                <rect key="frame" x="225" y="225" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="gg3-0x-zAj"/>
+                                    <constraint firstAttribute="width" constant="150" id="svI-DR-cp6"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.90980392694473267" green="0.90980392694473267" blue="0.90980392694473267" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -2443,6 +2460,7 @@
                             <constraint firstItem="bZx-mZ-hgm" firstAttribute="top" secondItem="nYq-wi-pd0" secondAttribute="bottom" constant="8" id="H3a-ni-yRQ"/>
                             <constraint firstItem="ARN-bh-yQl" firstAttribute="top" secondItem="Up1-qP-QcP" secondAttribute="bottom" constant="8" id="N68-3D-Urg"/>
                             <constraint firstItem="pzq-BN-AbK" firstAttribute="centerX" secondItem="uU9-eX-awC" secondAttribute="centerX" id="OiS-UE-jaa"/>
+                            <constraint firstAttribute="centerY" secondItem="pyS-d6-PbU" secondAttribute="centerY" id="PKg-3q-z51"/>
                             <constraint firstItem="Up1-qP-QcP" firstAttribute="top" secondItem="pzq-BN-AbK" secondAttribute="bottom" constant="8" id="Quj-M5-kX3"/>
                             <constraint firstItem="Up1-qP-QcP" firstAttribute="leading" secondItem="jN9-Ui-3RQ" secondAttribute="leadingMargin" id="Sa0-TZ-0Ic"/>
                             <constraint firstItem="Yn0-aJ-aOY" firstAttribute="leading" secondItem="jN9-Ui-3RQ" secondAttribute="leading" id="ZSA-68-jgh"/>
@@ -2452,6 +2470,7 @@
                             <constraint firstItem="Up1-qP-QcP" firstAttribute="trailing" secondItem="jN9-Ui-3RQ" secondAttribute="trailingMargin" id="g19-VC-MbK"/>
                             <constraint firstAttribute="trailing" secondItem="FsX-tW-fei" secondAttribute="trailing" id="jh8-mA-gbz"/>
                             <constraint firstItem="tWU-s1-4ar" firstAttribute="top" secondItem="ARN-bh-yQl" secondAttribute="bottom" constant="20" id="lTr-1Y-dGr"/>
+                            <constraint firstAttribute="centerX" secondItem="pyS-d6-PbU" secondAttribute="centerX" id="nkN-qL-MdF"/>
                             <constraint firstAttribute="trailing" secondItem="nYq-wi-pd0" secondAttribute="trailing" id="oGC-Zx-n0p"/>
                             <constraint firstItem="nYq-wi-pd0" firstAttribute="leading" secondItem="jN9-Ui-3RQ" secondAttribute="leading" id="r69-fq-lhs"/>
                             <constraint firstItem="Ha6-Bc-BYR" firstAttribute="top" secondItem="Yn0-aJ-aOY" secondAttribute="bottom" constant="8" id="rMN-SN-liA"/>
@@ -2460,6 +2479,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="awardPointImage" destination="pyS-d6-PbU" id="2qa-Am-SOZ"/>
                         <outlet property="dismissButton" destination="ARN-bh-yQl" id="3LK-0R-v36"/>
                         <outlet property="greenRound" destination="pzq-BN-AbK" id="7Aq-LO-AFO"/>
                         <outlet property="scoreLabel" destination="bZx-mZ-hgm" id="sTM-Zv-ODZ"/>
@@ -2474,6 +2494,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="awardPointHD" width="500" height="500"/>
         <image name="bio" width="512" height="512"/>
         <image name="blur" width="1242" height="2146"/>
         <image name="calc" width="22" height="22"/>
@@ -2501,10 +2522,10 @@
         <image name="trimask" width="1317" height="1254"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ran-RH-FRH"/>
         <segue reference="xbe-Fm-nd1"/>
         <segue reference="WYj-iM-Hx0"/>
-        <segue reference="lqZ-eW-hiS"/>
         <segue reference="Y06-RT-izm"/>
+        <segue reference="78B-T2-OOj"/>
+        <segue reference="Ran-RH-FRH"/>
     </inferredMetricsTieBreakers>
 </document>

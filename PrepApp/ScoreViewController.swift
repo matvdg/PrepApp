@@ -20,6 +20,7 @@ class ScoreViewController: UIViewController, UITableViewDataSource, UITableViewD
     var awardPointsBonus = 0
     var statsTopics = ["Questions réussies", "AwardPoints réussites", "AwardPoints assiduité",  "AwardPoints bonus", "Total AwardPoints"]
     var statsData: [String] = []
+    var statsDetails: [String] = []
     var statsPics = ["check","stars","puzzle","bonus","awardPoint"]
     var scoreTimer = NSTimer()
 
@@ -31,6 +32,7 @@ class ScoreViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var greenRound: UILabel!
     @IBOutlet weak var titleBar: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var awardPointImage: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +41,10 @@ class ScoreViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.designScore()
         self.designSoloChallengeTitleBar()
     }
-
+    
+    override func viewDidAppear(animated: Bool) {
+        self.animateAwardPoint()
+    }
 
     @IBAction func dismiss(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -100,7 +105,7 @@ class ScoreViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.greenRound.layer.masksToBounds = true
         self.scoreLabel.textColor = colorWrongAnswer
         self.scoreLabel.text = "\(self.animationScore)"
-        self.scoreTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("animateScore"), userInfo: nil, repeats: true)
+        self.scoreTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("animateScore"), userInfo: nil, repeats: true)
     }
     
     func animateScore() {
@@ -126,15 +131,61 @@ class ScoreViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     }
     
+    private func animateAwardPoint() {
+        println("coucou")
+        self.awardPointImage.alpha = 1
+        self.awardPointImage.hidden = false
+        self.awardPointImage.layer.zPosition = 100
+        UIView.animateWithDuration(1, animations: { () -> Void in
+            self.awardPointImage.alpha = 0
+        })
+        var animation = CABasicAnimation(keyPath: "transform.scale")
+        animation.toValue = NSNumber(float: 10)
+        animation.duration = 1
+        animation.repeatCount = 0
+        animation.autoreverses = true
+        self.awardPointImage.layer.addAnimation(animation, forKey: nil)
+    }
+    
+    private func grammarQuestionString(int: Int) -> String {
+        if int < 2 {
+            return "question"
+        } else {
+            return "questions"
+        }
+    }
+    
+    private func grammarFailedString(int: Int) -> String {
+        if int < 2 {
+            return "échouée"
+        } else {
+            return "échouées"
+        }
+    }
+    
+    private func grammarSucceededString(int: Int) -> String {
+        if int < 2 {
+            return "réussie"
+        } else {
+            return "réussies"
+        }
+    }
+
+    
     private func loadData() {
         self.awardPointsBonus = ((self.score - 10) > 1) ? (self.score - 10) : 0
         self.awardPoints = self.awardPointsBonus + self.numberOfQuestions + 5*self.succeeded
         //"Questions réussies", "AwardPoints réussites", "AwardPoints assiduité",  "AwardPoints bonus", "Total AwardPoints"
         self.statsData.append("\(self.succeeded) / \(self.numberOfQuestions)")
-        self.statsData.append("5pts 𝗫 \(self.succeeded) = \((self.succeeded*5).toStringPoints())")
-        self.statsData.append("1pt 𝗫 \(self.numberOfQuestions) = \(self.numberOfQuestions.toStringPoints())")
+        self.statsDetails.append("\(self.succeeded) \(self.grammarQuestionString(self.succeeded)) \(self.grammarSucceededString(self.succeeded)), \(self.numberOfQuestions-self.succeeded) \(self.grammarQuestionString(self.numberOfQuestions-self.succeeded)) \(self.grammarFailedString(self.numberOfQuestions-self.succeeded)) sur un total de \(self.numberOfQuestions) \(self.grammarQuestionString(self.numberOfQuestions)), soit une note de \(self.score) sur 20.")
+        self.statsData.append((self.succeeded*5).toStringPoints())
+        self.statsDetails.append("5pts 𝗫 \(self.succeeded) \(self.grammarQuestionString(self.succeeded)) \(self.grammarSucceededString(self.succeeded)) = \((self.succeeded*5).toStringPoints())")
+        self.statsData.append(self.numberOfQuestions.toStringPoints())
+        self.statsDetails.append("1pt 𝗫 \(self.numberOfQuestions) questions = \(self.numberOfQuestions.toStringPoints())")
         self.statsData.append(self.awardPointsBonus.toStringPoints())
+        self.statsDetails.append("Tous les points au dessus de la note 10/20 vous rapportent un AwardPoint en bonus. Vous gagnez \(self.awardPointsBonus.toStringPoints()).")
         self.statsData.append(self.awardPoints.toStringPoints())
+        self.statsDetails.append("AwardPoints réussites (\((self.succeeded*5).toStringPoints())) + AwardPoints assiduité (\(self.awardPointsBonus.toStringPoints())) + AwardPoints bonus (\(self.awardPointsBonus.toStringPoints())) = total AwardPoints (\(self.awardPoints.toStringPoints()))")
         //save scoring
         User.currentUser!.awardPointsApp += self.awardPoints
         User.currentUser!.saveUser()
@@ -163,11 +214,21 @@ class ScoreViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.detailTextLabel!.adjustsFontSizeToFitWidth = true
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 12)
+        cell.tintColor = colorGreenAppButtons
         return cell
     }
+    
     //UITableViewDelegate Methods
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.01
+    }
+    
+    func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+        let myAlert = UIAlertController(title: self.statsTopics[indexPath.row], message: self.statsDetails[indexPath.row] , preferredStyle: UIAlertControllerStyle.Alert)
+        myAlert.view.tintColor = colorGreenAppButtons
+        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        // show the alert
+        self.presentViewController(myAlert, animated: true, completion: nil)
     }
 
 

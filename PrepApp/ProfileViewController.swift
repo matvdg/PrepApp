@@ -39,6 +39,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        myAlert.view.tintColor = colorGreenAppButtons
         // add an "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
         // add an "update" button

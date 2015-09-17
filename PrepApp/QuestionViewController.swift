@@ -33,8 +33,8 @@ UIAdaptivePresentationControllerDelegate  {
     var didLoadInfos = false
     var sizeAnswerCells: [Int:CGFloat] = [:]
     var numberOfAnswers = 0
-    var animatingKeyPointTimer = NSTimer()
-    var stateAnimationKeyPoint = 0
+    var animatingAwardPointTimer = NSTimer()
+    var stateAnimationAwardPoint = 0
     var animatingCorrectionTimer = NSTimer()
     var stopAnimationCorrectionTimer = NSTimer()
     var senseAnimationCorrection: Bool = true
@@ -87,7 +87,8 @@ UIAdaptivePresentationControllerDelegate  {
     @IBOutlet weak var calc: UIBarButtonItem!
     @IBOutlet weak var nextButton: UIBarButtonItem!
     @IBOutlet weak var previousButton: UIBarButtonItem!
-    @IBOutlet weak var keyPoint: UILabel!
+    @IBOutlet weak var awardPoint: UILabel!
+    @IBOutlet weak var awardPointImage: UIImageView!
     
     //@IBActions methods
     @IBAction func previous(sender: AnyObject) {
@@ -103,6 +104,7 @@ UIAdaptivePresentationControllerDelegate  {
         self.questions[self.currentNumber].calculator ? Sound.playTrack("calc") : Sound.playTrack("nocalc")
         // create alert controller
         let myAlert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        myAlert.view.tintColor = colorGreenAppButtons
         // add an "OK" button
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         // show the alert
@@ -119,6 +121,7 @@ UIAdaptivePresentationControllerDelegate  {
             title = "Question déjà marquée !"
             message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\" dans \"Profil\""
             let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
+            myAlert.view.tintColor = colorGreenAppButtons
             myAlert.addAction(UIAlertAction(title: "Supprimer le marquage", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 var historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
@@ -126,6 +129,7 @@ UIAdaptivePresentationControllerDelegate  {
                 FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
                 Sound.playTrack("calc")
                 let myAlert = UIAlertController(title: "Marquage supprimé", message: nil , preferredStyle: UIAlertControllerStyle.Alert)
+                myAlert.view.tintColor = colorGreenAppButtons
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
@@ -144,6 +148,7 @@ UIAdaptivePresentationControllerDelegate  {
                 title = "Question marquée"
                 message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\" dans \"Profil\""
                 let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
+                myAlert.view.tintColor = colorGreenAppButtons
                 var historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
                 historyQuestion.marked = true
@@ -155,6 +160,7 @@ UIAdaptivePresentationControllerDelegate  {
                     FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
                     Sound.playTrack("calc")
                     let myAlert = UIAlertController(title: "Marquage supprimé", message: nil , preferredStyle: UIAlertControllerStyle.Alert)
+                    myAlert.view.tintColor = colorGreenAppButtons
                     myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                     // show the alert
                     self.presentViewController(myAlert, animated: true, completion: nil)
@@ -172,6 +178,7 @@ UIAdaptivePresentationControllerDelegate  {
                 title = "Oups !"
                 message = "Vous devez d'abord répondre à la question pour pouvoir la marquer"
                 let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
+                myAlert.view.tintColor = colorGreenAppButtons
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
@@ -456,6 +463,7 @@ UIAdaptivePresentationControllerDelegate  {
             Sound.playTrack("error")
             // create alert controller
             let myAlert = UIAlertController(title: "Vous devez sélectionner au moins une réponse !", message: "Touchez les cases pour cocher une ou plusieurs réponses", preferredStyle: UIAlertControllerStyle.Alert)
+            myAlert.view.tintColor = colorGreenAppButtons
             // add an "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert
@@ -477,9 +485,9 @@ UIAdaptivePresentationControllerDelegate  {
                     cell.number.backgroundColor = colorRightAnswer
                     //green
                 }
-                //generating KeyPoint 5 + 1 assiduity = +6
+                //generating AwardPoint 5 + 1 assiduity = +6
                 if FactoryHistory.getHistory().isQuestionNew(self.currentQuestion!.id) {
-                    self.animateKeyPoint(6)
+                    self.animateAwardPoint(6)
                 }
                 
             } else {
@@ -510,13 +518,13 @@ UIAdaptivePresentationControllerDelegate  {
                         }
                     }
                 }
-                //generating KeyPoint assiduity +1
+                //generating AwardPoint assiduity +1
                 if FactoryHistory.getHistory().isQuestionNew(self.currentQuestion!.id) {
-                    self.animateKeyPoint(1)
+                    self.animateAwardPoint(1)
                 } else {
-                    //generating KeyPoint double assiduity +1
+                    //generating AwardPoint double assiduity +1
                     if FactoryHistory.getHistory().isQuestionNewInTraining(self.currentQuestion!.id) {
-                        self.animateKeyPoint(1)
+                        self.animateAwardPoint(1)
                     }
                 }
 
@@ -564,24 +572,28 @@ UIAdaptivePresentationControllerDelegate  {
         
     }
     
-    func animateKeyPoint(awardPoints: Int) {
+    func animateAwardPoint(awardPoints: Int) {
         User.currentUser!.awardPointsApp += awardPoints
         User.currentUser!.saveUser()
-        self.keyPoint.alpha = 1
-        self.keyPoint.text = awardPoints.toStringPoints()
-        self.keyPoint.font = UIFont(name: "Segoe UI", size: 20)
-        self.keyPoint.hidden = false
-        self.keyPoint.layer.zPosition = 10
+        self.awardPointImage.alpha = 1
+        self.awardPoint.alpha = 1
+        self.awardPoint.text = awardPoints.toStringPoints()
+        self.awardPoint.font = UIFont(name: "Segoe UI", size: 20)
+        self.awardPoint.hidden = false
+        self.awardPointImage.hidden = false
+        self.awardPoint.layer.zPosition = 10
+        self.awardPointImage.layer.zPosition = 10
         UIView.animateWithDuration(1, animations: { () -> Void in
-            self.keyPoint.alpha = 0
-
+            self.awardPoint.alpha = 0
+            self.awardPointImage.alpha = 0
         })
         var animation = CABasicAnimation(keyPath: "transform.scale")
         animation.toValue = NSNumber(float: 10)
         animation.duration = 1
         animation.repeatCount = 0
         animation.autoreverses = true
-        self.keyPoint.layer.addAnimation(animation, forKey: nil)
+        self.awardPoint.layer.addAnimation(animation, forKey: nil)
+        self.awardPointImage.layer.addAnimation(animation, forKey: nil)
     }
     
     func stopAnimation(){
@@ -633,6 +645,7 @@ UIAdaptivePresentationControllerDelegate  {
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        myAlert.view.tintColor = colorGreenAppButtons
         // add an "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
         // add an "update" button
