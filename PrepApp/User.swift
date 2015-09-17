@@ -152,7 +152,7 @@ class User {
             failed: data["failed"] as! Int,
 			success: data["success"] as! Int,
             weeksBeforeExam: 7,
-            awardPointsApp: data["award_points"] as! Int,,
+            awardPointsApp: data["award_points"] as! Int,
             awardPointsGlobal: 0
         )
         
