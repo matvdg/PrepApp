@@ -20,13 +20,13 @@ class HomeViewController: UIViewController, ChartViewDelegate {
 //    var bioPerf: [Double] = []
 //    var phyPerf: [Double] = []
 //    var chePerf: [Double] = []
-//    var levels: [Double] = []
+//    var questionsAnswered: [Double] = []
 //    var weeksBeforeExam : [String] = []
     
     var bioPerf: [Double] = [60, 66, 70, 75, 72, 70, 73, 80, 82, 84, 86]
     var phyPerf: [Double] = [70, 68, 65, 57, 43, 62, 66, 64, 66, 70, 72]
     var chePerf: [Double] = [40, 43, 45, 48, 48, 51, 55, 62, 73, 80, 92]
-    var levels: [Double] = [1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 5]
+    var questionsAnswered: [Double] = [25, 34, 22, 3, 10, 50, 63, 57, 69, 80, 98]
     var weeksBeforeExam : [String] = ["10", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0"]
 
     var hideTimer = NSTimer()
@@ -215,7 +215,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
 //        self.bioPerf = FactoryHistory.getScoring().getPerf(1)
 //        self.phyPerf = FactoryHistory.getScoring().getPerf(2)
 //        self.chePerf = FactoryHistory.getScoring().getPerf(3)
-//        self.levels = FactoryHistory.getScoring().getLevels()
+//        self.questionsAnswered = FactoryHistory.getScoring().getQuestionsAnswered()
 //        self.weeksBeforeExam = FactoryHistory.getScoring().getWeeksBeforeExam()
 //        self.checkNumberOfData()
     }
@@ -234,8 +234,8 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         while self.weeksBeforeExam.count != max {
             self.weeksBeforeExam.removeLast()
         }
-        while self.levels.count != max {
-            self.levels.removeLast()
+        while self.questionsAnswered.count != max {
+            self.questionsAnswered.removeLast()
         }
         while self.bioPerf.count != max {
             self.bioPerf.removeLast()
@@ -246,11 +246,6 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         while self.chePerf.count != max {
             self.chePerf.removeLast()
         }
-        println(self.bioPerf)
-        println(self.phyPerf)
-        println(self.chePerf)
-        println(self.levels)
-        println(self.weeksBeforeExam)
     }
     
     func loadNotificationMessage() -> String {
@@ -477,15 +472,15 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.perfChart.rightAxis.startAtZeroEnabled = true
         self.perfChart.rightAxis.axisLineWidth = 4
         self.perfChart.rightAxis.labelFont = UIFont(name: "Segoe UI", size: 12)!
-        self.perfChart.rightAxis.labelCount = Int(self.levels.max())
+        self.perfChart.rightAxis.labelCount = 10
         self.perfChart.rightAxis.labelTextColor = colorGreenAppButtons
         var formatter = NSNumberFormatter()
         formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
         formatter.minimumIntegerDigits = 1
-        formatter.maximumIntegerDigits = 2
+        formatter.maximumIntegerDigits = 3
         formatter.maximumFractionDigits = 0
         formatter.minimumSignificantDigits = 1
-        formatter.maximumSignificantDigits = 2
+        formatter.maximumSignificantDigits = 3
         self.perfChart.rightAxis.valueFormatter = formatter
         
         self.perfChart.leftAxis.drawGridLinesEnabled = false
@@ -525,11 +520,11 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     }
     
     func renderLegendAxis() {
-        self.legendXAxis = UILabel(frame: CGRectMake(self.view.bounds.width - 200, self.view.bounds.height - 40, 190, 30))
+        self.legendXAxis = UILabel(frame: CGRectMake(self.view.bounds.width - 210, self.view.bounds.height - 40, 190, 30))
         self.legendLeftAxis = UILabel(frame: CGRectMake(35, 50, 150, 20))
-        self.legendRightAxis = UILabel(frame: CGRectMake(self.view.bounds.width - 70, 50, 50, 20))
+        self.legendRightAxis = UILabel(frame: CGRectMake(self.view.bounds.width - 250, 50, 220, 20))
         self.legendLeftAxis.text = "Questions réussies (%)"
-        self.legendRightAxis.text = "Niveau"
+        self.legendRightAxis.text = "Nombre de questions répondues"
         self.legendXAxis.text = "Semaines avant le concours"
         self.legendLeftAxis.textColor = colorGreenAppButtons
         self.legendRightAxis.textColor = colorGreenAppButtons
@@ -654,13 +649,13 @@ class HomeViewController: UIViewController, ChartViewDelegate {
             cheLineChartDataSet.drawValuesEnabled = false
             cheLineChartDataSet.axisDependency = ChartYAxis.AxisDependency.Left
             
-            //levels
+            //barChart
             dataEntries = []
             for i in 0..<self.weeksBeforeExam.count {
-                let dataEntry = BarChartDataEntry(value: self.levels[i], xIndex: i)
+                let dataEntry = BarChartDataEntry(value: self.questionsAnswered[i], xIndex: i)
                 dataEntries.append(dataEntry)
             }
-            let barDataSet = BarChartDataSet(yVals: dataEntries, label: "Niveau")
+            let barDataSet = BarChartDataSet(yVals: dataEntries, label: "Nombre de questions répondues")
             barDataSet.colors = [colorGreenLogo.colorWithAlphaComponent(0.5)]
             barDataSet.valueTextColor = UIColor.clearColor()
             barDataSet.drawValuesEnabled = false

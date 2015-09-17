@@ -136,8 +136,9 @@ class Scoring {
                 }
             }
         }
-        for (week,value) in questionsToCompute {
-            for question in value {
+        //fetching the perf...
+        for (week,questions) in questionsToCompute {
+            for question in questions {
                 if question.firstSuccess {
                     succeeded++
                 }
@@ -150,10 +151,11 @@ class Scoring {
             succeeded = 0
             counter = 0
         }
+        //sorting...
         while performances.count != 0 {
-            for (week, value) in performances {
+            for (week, performance) in performances {
                 if week == maxWeek {
-                    result.append(Double(value))
+                    result.append(Double(performance))
                     performances.removeValueForKey(week)
                 }
             }
@@ -179,9 +181,9 @@ class Scoring {
                     questionsToCompute[questionHistory.weeksBeforeExam] = [questionHistory]
                 }
         }
-        
-        for (week,value) in questionsToCompute {
-            for question in value {
+        //fetching the levels
+        for (week,questions) in questionsToCompute {
+            for question in questions {
                 if question.level > level {
                     level = question.level
                 }
@@ -192,12 +194,55 @@ class Scoring {
             levels[week] = level
             level = 0
         }
-        
+        //sorting...
         while levels.count != 0 {
             for (week, value) in levels {
                 if week == maxWeek {
                     result.append(Double(value))
                     levels.removeValueForKey(week)
+                }
+            }
+            maxWeek--
+            
+        }
+        return result
+    }
+    
+    func getQuestionsAnswered() -> [Double] {
+        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        var questionsToCompute: [Int:[QuestionHistory]] = [:]
+        var questionsAnsweredDic: [Int:Int] = [:]
+        var result: [Double] = []
+        var maxWeek = 0
+        var questionsAnswered = 0
+        
+        //fetching the appropriate questions
+        for questionHistory in questionsHistory {
+            if let entry = questionsToCompute[questionHistory.weeksBeforeExam] {
+                questionsToCompute[questionHistory.weeksBeforeExam]!.append(questionHistory)
+            } else {
+                questionsToCompute[questionHistory.weeksBeforeExam] = [questionHistory]
+            }
+        }
+        
+        for (week,questions) in questionsToCompute {
+            for question in questions {
+                questionsAnswered++
+                
+                if week > maxWeek {
+                    maxWeek = week
+                }
+            }
+            questionsAnsweredDic[week] = questionsAnswered
+            questionsAnswered = 0
+        }
+        
+        //sorting...
+        while questionsAnsweredDic.count != 0 {
+            for (week, value) in questionsAnsweredDic {
+                if week == maxWeek {
+                    result.append(Double(value))
+                    questionsAnsweredDic.removeValueForKey(week)
                 }
             }
             maxWeek--
@@ -219,7 +264,7 @@ class Scoring {
                 weeks.append(questionHistory.weeksBeforeExam)
             }
         }
-        
+        //sorting...
         while weeks.count != 0 {
             for week in weeks {
                 if week > maxWeek {
@@ -237,9 +282,4 @@ class Scoring {
 
     }
     
-    func computeAwardPoints(questionId: Int) -> Int {
-        var points = 0
-        
-        return 0
-    }
 }

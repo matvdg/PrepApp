@@ -19,6 +19,7 @@ class DetailHelpViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         self.helpText.text = self.help
+        self.helpText.textAlignment = NSTextAlignment.Justified
         self.title = self.helpTopic
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
