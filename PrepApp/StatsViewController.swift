@@ -10,8 +10,9 @@ import UIKit
 
 class StatsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var statsTopics = ["Niveau", "Assiduité", "Questions réussies", "Temps restant avant concours", "AwardPoints"]
+    var statsTopics = ["Niveau", "Assiduité", "Questions réussies", "Echéance", "AwardPoints"]
     var statsData: [String] = []
+    var statsDetails: [String] = []
     var statsPics = ["level","puzzle","check","solo","awardPoint"]
     
     @IBOutlet weak var name: UILabel!
@@ -70,11 +71,41 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func loadData() {
         self.statsData.append("\(User.currentUser!.level + 1)")
+        self.statsDetails.append("Niveau \(User.currentUser!.level.levelPrepApp()) (\(User.currentUser!.level + 1)). Le niveau est calculé à partir des questions réussies dans chaque matière et ce dans les proportions de l'examen final. Dans l'accueil, le graphe vous indique la progression du niveau en cours pour chaque matière.")
         self.statsData.append(User.currentUser!.assiduity.toStringPoints())
+        self.statsDetails.append("L'assiduité est récompensée ! 1pt 𝗫 \(User.currentUser!.assiduity) \(self.grammarQuestionString(User.currentUser!.assiduity)) = \(User.currentUser!.assiduity.toStringPoints())")
         self.statsData.append("\(User.currentUser!.success)/\(User.currentUser!.success + User.currentUser!.failed)")
+        self.statsDetails.append("\(User.currentUser!.success) \(self.grammarQuestionString(User.currentUser!.success)) \(self.grammarSucceededString(User.currentUser!.success)), \(User.currentUser!.failed) \(self.grammarQuestionString(User.currentUser!.failed)) \(self.grammarFailedString(User.currentUser!.failed)) sur un total de \(User.currentUser!.failed+User.currentUser!.success) \(self.grammarQuestionString(User.currentUser!.failed+User.currentUser!.success)).")
         self.statsData.append("\(User.currentUser!.weeksBeforeExam) semaines")
+        self.statsDetails.append("Vous avez \(User.currentUser!.weeksBeforeExam) semaines avant l'échéance fixée par votre établissement (concours/examen/partiels)")
         self.statsData.append(User.currentUser!.awardPointsApp.toStringPoints())
+        self.statsDetails.append("\(User.currentUser!.awardPointsApp.toStringPoints()) AwardsPoints gagnés dans Prep'App Kiné, total des AwardPoints réussites, assiduité et bonus.")
         self.statsData.append(User.currentUser!.awardPointsGlobal.toStringPoints())
+        self.statsDetails.append("\(User.currentUser!.awardPointsGlobal.toStringPoints()) AwardsPoints gagnés dans toutes les applications Prep'App, total des AwardPoints réussites, assiduité et bonus.")
+    }
+    
+    private func grammarQuestionString(int: Int) -> String {
+        if int < 2 {
+            return "question"
+        } else {
+            return "questions"
+        }
+    }
+    
+    private func grammarFailedString(int: Int) -> String {
+        if int < 2 {
+            return "échouée"
+        } else {
+            return "échouées"
+        }
+    }
+    
+    private func grammarSucceededString(int: Int) -> String {
+        if int < 2 {
+            return "réussie"
+        } else {
+            return "réussies"
+        }
     }
     
         
@@ -100,10 +131,20 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.detailTextLabel!.adjustsFontSizeToFitWidth = true
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 12)
+        cell.tintColor = colorGreenAppButtons
         return cell
     }
     //UITableViewDelegate Methods
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.01
     }
+    
+    func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+        let myAlert = UIAlertController(title: self.statsTopics[indexPath.row], message: self.statsDetails[indexPath.row] , preferredStyle: UIAlertControllerStyle.Alert)
+        myAlert.view.tintColor = colorGreenAppButtons
+        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        // show the alert
+        self.presentViewController(myAlert, animated: true, completion: nil)
+    }
+
 }

@@ -181,7 +181,7 @@ class ScoreViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.statsData.append((self.succeeded*5).toStringPoints())
         self.statsDetails.append("5pts 𝗫 \(self.succeeded) \(self.grammarQuestionString(self.succeeded)) \(self.grammarSucceededString(self.succeeded)) = \((self.succeeded*5).toStringPoints())")
         self.statsData.append(self.numberOfQuestions.toStringPoints())
-        self.statsDetails.append("1pt 𝗫 \(self.numberOfQuestions) questions = \(self.numberOfQuestions.toStringPoints())")
+        self.statsDetails.append("L'assiduité est récompensée ! 1pt 𝗫 \(self.numberOfQuestions) questions = \(self.numberOfQuestions.toStringPoints())")
         self.statsData.append(self.awardPointsBonus.toStringPoints())
         self.statsDetails.append("Tous les points au dessus de la note 10/20 vous rapportent un AwardPoint en bonus. Vous gagnez \(self.awardPointsBonus.toStringPoints()).")
         self.statsData.append(self.awardPoints.toStringPoints())

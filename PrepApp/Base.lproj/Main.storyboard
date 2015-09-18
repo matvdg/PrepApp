@@ -1398,7 +1398,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trimask" translatesAutoresizingMaskIntoConstraints="NO" id="bTk-Ye-eNf" userLabel="trimask">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trimaskgreen" translatesAutoresizingMaskIntoConstraints="NO" id="bTk-Ye-eNf" userLabel="trimask">
                                 <rect key="frame" x="140" y="140" width="320" height="320"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="aFX-Xt-EFE"/>
@@ -2007,7 +2007,7 @@
                                 <rect key="frame" x="16" y="209" width="568" height="371"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="stat" textLabel="CGB-cq-id7" detailTextLabel="Ewl-BZ-Opn" style="IBUITableViewCellStyleValue1" id="lpx-lG-2si">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="detailButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="stat" textLabel="CGB-cq-id7" detailTextLabel="Ewl-BZ-Opn" style="IBUITableViewCellStyleValue1" id="lpx-lG-2si">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lpx-lG-2si" id="OKx-Ye-pk5">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -2026,6 +2026,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                 </prototypes>
                                 <sections/>
@@ -2519,7 +2520,7 @@
         <image name="solo" width="66" height="66"/>
         <image name="target" width="775" height="775"/>
         <image name="training" width="66" height="66"/>
-        <image name="trimask" width="1317" height="1254"/>
+        <image name="trimaskgreen" width="1317" height="1254"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="xbe-Fm-nd1"/>
