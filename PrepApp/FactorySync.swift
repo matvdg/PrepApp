@@ -26,19 +26,43 @@ class FactorySync {
     private static let versionManager = VersionManager()
     private static let realm = FactoryRealm.getRealm()
     
-    /*LOCAL OR DISTANT DB*/
-    //private static let domain = NSURL(string: "http://p.com/PrepApp")
+    /*APIs*/
     private static let domain = NSURL(string: "http://prep-app.com")
     private static let apiUrl = NSURL(string: "\(FactorySync.domain!)/api")
     
+    //UPLOADS (images)
     static let uploadsUrl = NSURL(string: "\(FactorySync.domain!)/uploads")
-    static let questionUrl = NSURL(string: "\(FactorySync.apiUrl!)/questions/get")
-    static let chapterUrl = NSURL(string: "\(FactorySync.apiUrl!)/chapters/get")
-    static let subjectUrl = NSURL(string: "\(FactorySync.apiUrl!)/subjects/get")
+    
+    //CONFIG
+    static let configUrl = NSURL(string: "\(FactorySync.apiUrl!)/configs/")
+    
+    //QUESTIONS
+    static let questionUrl = NSURL(string: "\(FactorySync.apiUrl!)/questions/")
+    static let chapterUrl = NSURL(string: "\(FactorySync.apiUrl!)/chapters/")
+    static let subjectUrl = NSURL(string: "\(FactorySync.apiUrl!)/subjects/")
+    static let imageUrl = NSURL(string: "\(FactorySync.apiUrl!)/uploads/")
+
+    //DUO
+    static let friendUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/friend")
+    static let shuffleDuoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/shuffle")
+    static let duoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/")
+    
+    //CONTEST
+    static let contestUrl = NSURL(string: "\(FactorySync.apiUrl!)/contest/")
+    
+    //SUGGESTIONS
+    static let suggestionsUrl = NSURL(string: "\(FactorySync.apiUrl!)/suggestions/")
+    
+    //LEADERBOARD
+    static let learderboardUrl = NSURL(string: "\(FactorySync.apiUrl!)/learderboard/")
+    
+    //USER APIs
     static let userUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/connection")
-    static let passwordUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/changepass")
-    static let imageUrl = NSURL(string: "\(FactorySync.apiUrl!)/uploads/get")
-    static let versionUrl = NSURL(string: "\(FactorySync.apiUrl!)/version/get")
+    static let passwordUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/pass")
+    static let nicknameUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/nickname")
+    static let levelUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/level")
+    static let awardPointsUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/award_points")
+    static let historyUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/history")
     
     static let path: String = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
     
