@@ -18,7 +18,7 @@
 		95D765011B9F34AD002C31CC /* FactoryHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D765001B9F34AD002C31CC /* FactoryHistory.swift */; };
 		95D765031B9F358E002C31CC /* Scoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D765021B9F358E002C31CC /* Scoring.swift */; };
 		F60082D11B84F9C600F7BCBB /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60082D01B84F9C600F7BCBB /* UserPreferences.swift */; };
-		F60082D31B854F9E00F7BCBB /* VersionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60082D21B854F9E00F7BCBB /* VersionManager.swift */; };
+		F60082D31B854F9E00F7BCBB /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60082D21B854F9E00F7BCBB /* ConfigManager.swift */; };
 		F60406191B8DE16C006F7F4E /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F60406181B8DE14F006F7F4E /* Charts.framework */; };
 		F604061A1B8DE16C006F7F4E /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F60406181B8DE14F006F7F4E /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F604061E1B8E6150006F7F4E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F604061D1B8E6150006F7F4E /* Colors.swift */; };
@@ -124,7 +124,7 @@
 		95D765001B9F34AD002C31CC /* FactoryHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryHistory.swift; sourceTree = "<group>"; };
 		95D765021B9F358E002C31CC /* Scoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scoring.swift; sourceTree = "<group>"; };
 		F60082D01B84F9C600F7BCBB /* UserPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
-		F60082D21B854F9E00F7BCBB /* VersionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionManager.swift; sourceTree = "<group>"; };
+		F60082D21B854F9E00F7BCBB /* ConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		F60406131B8DE14F006F7F4E /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "ios-charts-master/Charts/Charts.xcodeproj"; sourceTree = "<group>"; };
 		F604061D1B8E6150006F7F4E /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		F605AF0D1B04146C00E90596 /* SoloViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoloViewController.swift; sourceTree = "<group>"; };
@@ -334,7 +334,7 @@
 		F64630A81B5FD5C9006A5F71 /* Sync */ = {
 			isa = PBXGroup;
 			children = (
-				F60082D21B854F9E00F7BCBB /* VersionManager.swift */,
+				F60082D21B854F9E00F7BCBB /* ConfigManager.swift */,
 				F6987A6C1B16321B002989C6 /* ImageManager.swift */,
 				F6767C201B5D5DFB0066FC64 /* QuestionManager.swift */,
 				F64630A01B5E662F006A5F71 /* ChapterManager.swift */,
@@ -643,7 +643,7 @@
 				F605AF121B04151500E90596 /* ContestViewController.swift in Sources */,
 				95D765011B9F34AD002C31CC /* FactoryHistory.swift in Sources */,
 				F64630A51B5E6959006A5F71 /* FactorySync.swift in Sources */,
-				F60082D31B854F9E00F7BCBB /* VersionManager.swift in Sources */,
+				F60082D31B854F9E00F7BCBB /* ConfigManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

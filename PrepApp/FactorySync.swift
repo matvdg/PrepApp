@@ -23,7 +23,7 @@ class FactorySync {
     private static let chapterManager = ChapterManager()
     private static let questionManager = QuestionManager()
     private static let subjectManager = SubjectManager()
-    private static let versionManager = VersionManager()
+    private static let configManager = ConfigManager()
     private static let realm = FactoryRealm.getRealm()
     
     /*APIs*/
@@ -83,8 +83,8 @@ class FactorySync {
         return self.subjectManager
     }
     
-    class func getVersionManager() -> VersionManager {
-        return self.versionManager
+    class func getConfigManager() -> ConfigManager {
+        return self.configManager
     }
     
     //Called in SyncViewController.swift

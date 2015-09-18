@@ -60,10 +60,10 @@ class SyncViewController: UIViewController {
     func sync(){
         if FactorySync.production {
             FactorySync.offlineMode = false
-            FactorySync.getVersionManager().getLastVersion { (version) -> Void in
+            FactorySync.getConfigManager().getLastVersion { (version) -> Void in
                 if let versionDB: Int = version { //checking if sync is needed
-                    println("localVersion = \(FactorySync.getVersionManager().loadVersion()) dbVersion = \(versionDB)")
-                    if FactorySync.getVersionManager().loadVersion() != versionDB { //syncing...
+                    println("localVersion = \(FactorySync.getConfigManager().loadVersion()) dbVersion = \(versionDB)")
+                    if FactorySync.getConfigManager().loadVersion() != versionDB { //syncing...
                         FactorySync.sync()
                         self.timer = NSTimer.scheduledTimerWithTimeInterval(0.030, target: self, selector: Selector("result"), userInfo: nil, repeats: true)
                         self.version = versionDB
@@ -73,7 +73,7 @@ class SyncViewController: UIViewController {
                     }
                 } else {
                     //offline mode
-                    if FactorySync.getVersionManager().loadVersion() == 0 { //if the app has never synced, can't run the app
+                    if FactorySync.getConfigManager().loadVersion() == 0 { //if the app has never synced, can't run the app
                         Sound.playTrack("error")
                         // create alert controller
                         let myAlert = UIAlertController(title: "Erreur de téléchargement", message: "Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -155,7 +155,7 @@ class SyncViewController: UIViewController {
                 if  (FactorySync.getImageManager().hasFinishedSync == true && FactorySync.getQuestionManager().hasFinishedSync == true) {
                     //go to main menu
                     timer.invalidate()
-                    FactorySync.getVersionManager().saveVersion(self.version)
+                    FactorySync.getConfigManager().saveVersion(self.version)
                     self.performSegueWithIdentifier("syncDidFinish", sender: self)
                     self.logo.image = UIImage(named: "l350")
                     self.progression.text = ""

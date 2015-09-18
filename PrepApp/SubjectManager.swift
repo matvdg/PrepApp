@@ -17,7 +17,7 @@ class SubjectManager {
     func saveSubjects() {
         self.getSubjects({ (subjects) -> Void in
             var empty = true
-            for subject in subjects! {
+            for subject in subjects {
                 empty = false
                 self.saveSubject(subject as! NSDictionary)
             }
@@ -40,7 +40,7 @@ class SubjectManager {
         }
     }
     
-    private func getSubjects(callback: (NSArray?) -> Void) {
+    private func getSubjects(callback: (NSArray) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.subjectUrl!)
         request.HTTPMethod = "POST"
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
@@ -64,7 +64,7 @@ class SubjectManager {
                                 println("error : parsing JSON in getSubjects")
                                 FactorySync.errorNetwork = true
                             } else {
-                                callback(result as NSArray)
+                                callback(result)
                             }
                         } else {
                             println("error : NSArray nil in getSubjects")

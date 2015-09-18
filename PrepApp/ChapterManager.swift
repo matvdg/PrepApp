@@ -19,7 +19,7 @@ class ChapterManager {
     func saveChapters() {
         self.getChapters({ (chapters) -> Void in
             var empty = true
-            for chapter in chapters! {
+            for chapter in chapters {
                 empty = false
                 self.saveChapter(chapter as! NSDictionary)
             }
@@ -48,7 +48,7 @@ class ChapterManager {
         } 
     }
     
-    private func getChapters(callback: (NSArray?) -> Void) {
+    private func getChapters(callback: (NSArray) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.chapterUrl!)
         request.HTTPMethod = "POST"
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
@@ -72,7 +72,7 @@ class ChapterManager {
                                 println("error : parsing JSON in getChapters")
                                 FactorySync.errorNetwork = true
                             } else {
-                                callback(result as NSArray)
+                                callback(result)
                             }
                         } else {
                             println("error : NSArray nil in getChapters")

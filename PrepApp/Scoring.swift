@@ -165,48 +165,6 @@ class Scoring {
         return result
     }
     
-    func getLevels() -> [Double] {
-        let questionsHistory = self.realmHistory.objects(QuestionHistory)
-        var questionsToCompute: [Int:[QuestionHistory]] = [:]
-        var levels: [Int:Int] = [:]
-        var result: [Double] = []
-        var maxWeek = 0
-        var level = 0
-        
-        //fetching the appropriate questions
-        for questionHistory in questionsHistory {
-                if let entry = questionsToCompute[questionHistory.weeksBeforeExam] {
-                    questionsToCompute[questionHistory.weeksBeforeExam]!.append(questionHistory)
-                } else {
-                    questionsToCompute[questionHistory.weeksBeforeExam] = [questionHistory]
-                }
-        }
-        //fetching the levels
-        for (week,questions) in questionsToCompute {
-            for question in questions {
-                if question.level > level {
-                    level = question.level
-                }
-                if week > maxWeek {
-                    maxWeek = week
-                }
-            }
-            levels[week] = level
-            level = 0
-        }
-        //sorting...
-        while levels.count != 0 {
-            for (week, value) in levels {
-                if week == maxWeek {
-                    result.append(Double(value))
-                    levels.removeValueForKey(week)
-                }
-            }
-            maxWeek--
-            
-        }
-        return result
-    }
     
     func getQuestionsAnswered() -> [Double] {
         let questionsHistory = self.realmHistory.objects(QuestionHistory)

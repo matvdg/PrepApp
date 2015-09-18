@@ -39,7 +39,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         if User.authenticated {
             self.performSegueWithIdentifier("loginDidSucceded", sender: self)
         } else {
-            self.mail.text = "matvdg@me.com"
+            self.mail.text = "matvdg@icloud.com"
             self.pass.text = "Draconis31*"
 //            self.mail.text = ""
 //            self.pass.text = ""

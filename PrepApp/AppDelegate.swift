@@ -69,10 +69,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //println("applicationWillEnterForeground")
         UserPreferences.touchID()
         FactorySync.offlineMode = false
-        FactorySync.getVersionManager().getLastVersion { (version) -> Void in
+        FactorySync.getConfigManager().getLastVersion { (version) -> Void in
             if let versionDB: Int = version { //checking if sync is needed
-                println("localVersion = \(FactorySync.getVersionManager().loadVersion()) dbVersion = \(versionDB)")
-                if FactorySync.getVersionManager().loadVersion() != versionDB { //prompting a sync
+                println("localVersion = \(FactorySync.getConfigManager().loadVersion()) dbVersion = \(versionDB)")
+                if FactorySync.getConfigManager().loadVersion() != versionDB { //prompting a sync
                     NSNotificationCenter.defaultCenter().postNotificationName("update", object: nil)
                 }
             }
