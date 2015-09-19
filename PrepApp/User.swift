@@ -12,19 +12,14 @@ class User {
     
     static var currentUser: User?
     static var authenticated: Bool = false
-    static var currentDay = 0
 	
     var firstName: String
     var lastName: String
     var email: String
     var encryptedPassword: String
     var level: Int
-    var assiduity: Int
-    var failed: Int
-    var success: Int
-    var weeksBeforeExam: Int
-    var awardPointsApp: Int
-    var awardPointsGlobal: Int
+    var awardPoints: Int
+    var currentDay = 0
     
     init(
         firstName: String,
@@ -32,24 +27,14 @@ class User {
         email: String,
         encryptedPassword: String,
         level: Int,
-        assiduity: Int,
-        failed: Int,
-        success: Int,
-        weeksBeforeExam: Int,
-        awardPointsApp: Int,
-        awardPointsGlobal: Int) {
+        awardPoints: Int) {
             
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
         self.encryptedPassword = encryptedPassword
         self.level = level
-        self.assiduity = assiduity
-        self.failed = failed
-        self.success = success
-        self.weeksBeforeExam = weeksBeforeExam
-        self.awardPointsApp = awardPointsApp
-        self.awardPointsGlobal = awardPointsGlobal
+        self.awardPoints = awardPoints
     }
 	
 	func changePassword(newPass: String, callback: (String?) -> Void){
@@ -89,12 +74,7 @@ class User {
             self.email,
             self.encryptedPassword,
             String(self.level),
-            String(self.assiduity),
-            String(self.failed),
-            String(self.success),
-            String(self.weeksBeforeExam),
-            String(self.awardPointsApp),
-            String(self.awardPointsGlobal)
+            String(self.awardPoints)
         ]
 		NSUserDefaults.standardUserDefaults().setObject(savedUser, forKey: "user")
 		NSUserDefaults.standardUserDefaults().synchronize()
@@ -148,12 +128,7 @@ class User {
 			email: data["mail"] as! String,
 			encryptedPassword: pass.sha1() as String,
 			level: data["level"] as! Int,
-			assiduity: data["assiduity"]as! Int,
-            failed: data["failed"] as! Int,
-			success: data["success"] as! Int,
-            weeksBeforeExam: 7,
-            awardPointsApp: data["award_points"] as! Int,
-            awardPointsGlobal: 0
+            awardPoints: data["award_points"] as! Int
         )
         
         User.authenticated = true
@@ -174,12 +149,7 @@ class User {
                 email: data[2] as String,
                 encryptedPassword: data[3] as String,
                 level: (data[4] as String).toInt()!,
-                assiduity: (data[5] as String).toInt()!,
-                failed: (data[6] as String).toInt()!,
-                success: (data[7] as String).toInt()!,
-                weeksBeforeExam: 7,
-                awardPointsApp: (data[9] as String).toInt()!,
-                awardPointsGlobal: (data[10] as String).toInt()!
+                awardPoints: (data[5] as String).toInt()!
             )
 			return true
 		} else {
