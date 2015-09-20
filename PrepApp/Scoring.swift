@@ -49,31 +49,7 @@ class Scoring {
         return (percent, succeeded, todo)
     }
     
-    private func computePercentLevel(ratio: Int, succeeded: Int) -> (Int,Int) {
-        var currentLevel = User.currentUser!.level + 1
-        var units: Int = succeeded / ratio
-        var percent = 0
-        var todo = 0
-        var unitsNeededForNextLevel = computeUnitsNeededForNextLevel(currentLevel)
-        if units < unitsNeededForNextLevel { //we haven't reached yet the level
-            var nextStep = (unitsNeededForNextLevel * ratio)
-            todo = nextStep - succeeded
-            var unitsNeededForPreviousLevel = computeUnitsNeededForNextLevel(currentLevel-1)
-            var previousStep = (unitsNeededForPreviousLevel * ratio)
-            var totalToSucceedForThisLevel = nextStep - previousStep
-            percent = (totalToSucceedForThisLevel - todo) * 100 / totalToSucceedForThisLevel
-        } else { //we are above the required level
-            percent = 100
-            todo = 0
-        }
-        return (percent, todo)
-    }
-    
-    private func computeUnitsNeededForNextLevel(level: Int) -> Int {
-        return (level+1) * (level) / 2
-    }
-    
-    private func computeSucceeded() {
+    func getSucceeded() -> Int {
         let questionsHistory = self.realmHistory.objects(QuestionHistory)
         var succeeded = 0
         for question in questionsHistory {
@@ -81,11 +57,11 @@ class Scoring {
                 succeeded++
             }
         }
-        User.currentUser!.success = succeeded
+        return succeeded
 
     }
     
-    private func computeFailed() {
+    func getFailed() -> Int {
         let questionsHistory = self.realmHistory.objects(QuestionHistory)
         var failed = 0
         for question in questionsHistory {
@@ -93,10 +69,10 @@ class Scoring {
                 failed++
             }
         }
-        User.currentUser!.failed = failed
+        return failed
     }
     
-    private func computeAssiduity() {
+    func getAssiduity() -> Int {
         let questionsHistory = self.realmHistory.objects(QuestionHistory)
         var counter = 0
         for question in questionsHistory {
@@ -105,15 +81,7 @@ class Scoring {
                 counter++
             }
         }
-        User.currentUser!.assiduity = counter
-        
-    }
-    
-    func sync() {
-        self.computeAssiduity()
-        self.computeFailed()
-        self.computeSucceeded()
-        User.currentUser!.saveUser()
+        return counter
     }
     
     func getPerf(subject: Int) -> [Double] {
@@ -164,7 +132,6 @@ class Scoring {
         }
         return result
     }
-    
     
     func getQuestionsAnswered() -> [Double] {
         let questionsHistory = self.realmHistory.objects(QuestionHistory)
@@ -240,4 +207,27 @@ class Scoring {
 
     }
     
+    private func computeUnitsNeededForNextLevel(level: Int) -> Int {
+        return (level+1) * (level) / 2
+    }
+    
+    private func computePercentLevel(ratio: Int, succeeded: Int) -> (Int,Int) {
+        var currentLevel = User.currentUser!.level
+        var units: Int = succeeded / ratio
+        var percent = 0
+        var todo = 0
+        var unitsNeededForNextLevel = computeUnitsNeededForNextLevel(currentLevel)
+        if units < unitsNeededForNextLevel { //we haven't reached yet the level
+            var nextStep = (unitsNeededForNextLevel * ratio)
+            todo = nextStep - succeeded
+            var unitsNeededForPreviousLevel = computeUnitsNeededForNextLevel(currentLevel-1)
+            var previousStep = (unitsNeededForPreviousLevel * ratio)
+            var totalToSucceedForThisLevel = nextStep - previousStep
+            percent = (totalToSucceedForThisLevel - todo) * 100 / totalToSucceedForThisLevel
+        } else { //we are above the required level
+            percent = 100
+            todo = 0
+        }
+        return (percent, todo)
+    }
 }

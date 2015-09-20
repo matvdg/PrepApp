@@ -187,7 +187,7 @@ class ScoreViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.statsData.append(self.awardPoints.toStringPoints())
         self.statsDetails.append("AwardPoints réussites (\((self.succeeded*5).toStringPoints())) + AwardPoints assiduité (\(self.awardPointsBonus.toStringPoints())) + AwardPoints bonus (\(self.awardPointsBonus.toStringPoints())) = total AwardPoints (\(self.awardPoints.toStringPoints()))")
         //save scoring
-        User.currentUser!.awardPointsApp += self.awardPoints
+        User.currentUser!.awardPoints += self.awardPoints
         User.currentUser!.saveUser()
 
     }

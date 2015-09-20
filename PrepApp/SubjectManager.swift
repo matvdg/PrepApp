@@ -73,7 +73,7 @@ class SubjectManager {
                         
                         
                     } else {
-                        println("error : != 200 in getSubjects")
+                        println("header status = \(statusCode)  in getSubjects")
                         FactorySync.errorNetwork = true
                     }
                     

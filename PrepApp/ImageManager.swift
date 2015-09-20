@@ -76,7 +76,7 @@ class ImageManager {
                         
                         
                     } else {
-                        println("error : != 200 in getUploads")
+                        println("header status = \(statusCode)  in getUploads")
                         FactorySync.errorNetwork = true
                     }
                 }

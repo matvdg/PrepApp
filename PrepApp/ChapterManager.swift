@@ -79,7 +79,7 @@ class ChapterManager {
                             FactorySync.errorNetwork = true
                         }
                     } else {
-                        println("error : != 200 in getChapters")
+                        println("header status = \(statusCode)  in getChapters")
                         FactorySync.errorNetwork = true
                     }
                     

@@ -61,18 +61,36 @@ class SyncViewController: UIViewController {
         if FactorySync.production {
             FactorySync.offlineMode = false
             FactorySync.getConfigManager().getLastVersion { (version) -> Void in
-                if let versionDB: Int = version { //checking if sync is needed
-                    println("localVersion = \(FactorySync.getConfigManager().loadVersion()) dbVersion = \(versionDB)")
-                    if FactorySync.getConfigManager().loadVersion() != versionDB { //syncing...
-                        FactorySync.sync()
-                        self.timer = NSTimer.scheduledTimerWithTimeInterval(0.030, target: self, selector: Selector("result"), userInfo: nil, repeats: true)
-                        self.version = versionDB
-                    } else { //no sync needed
-                        println("no need to sync")
-                        self.performSegueWithIdentifier("syncDidFinish", sender: self)
-                    }
-                } else {
-                    //offline mode
+                if let versionDB: Int = version { //online mode
+                    FactorySync.getConfigManager().saveConfig({ (result) -> Void in
+                        if result {
+                            println("localVersion = \(FactorySync.getConfigManager().loadVersion()) dbVersion = \(versionDB)")
+                            if FactorySync.getConfigManager().loadVersion() != versionDB { //syncing...
+                                FactorySync.sync()
+                                self.timer = NSTimer.scheduledTimerWithTimeInterval(0.030, target: self, selector: Selector("result"), userInfo: nil, repeats: true)
+                                self.version = versionDB
+                            } else { //no sync needed
+                                println("no need to sync")
+                                self.performSegueWithIdentifier("syncDidFinish", sender: self)
+                            }
+                        } else {
+                            Sound.playTrack("error")
+                            // create alert controller
+                            let myAlert = UIAlertController(title: "Erreur de téléchargement", message: "Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
+                            myAlert.view.tintColor = colorGreenAppButtons
+                            // add an "OK" button
+                            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                                self.progression.hidden = true
+                                self.tryAgainButton.hidden = false
+                                self.logo.image = UIImage(named: "l350")
+                                
+                            }))
+                            // show the alert
+                            self.presentViewController(myAlert, animated: true, completion: nil)
+                        }
+                    })
+                    
+                } else { //offline mode
                     if FactorySync.getConfigManager().loadVersion() == 0 { //if the app has never synced, can't run the app
                         Sound.playTrack("error")
                         // create alert controller
@@ -94,15 +112,12 @@ class SyncViewController: UIViewController {
                         println("offline mode")
                         self.performSegueWithIdentifier("syncDidFinish", sender: self)
                     }
-                    
                 }
             }
         } else {
             self.performSegueWithIdentifier("syncDidFinish", sender: self)
         }
     }
-	
-
     
 	func result(){
       

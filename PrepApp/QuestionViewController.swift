@@ -573,7 +573,7 @@ UIAdaptivePresentationControllerDelegate  {
     }
     
     func animateAwardPoint(awardPoints: Int) {
-        User.currentUser!.awardPointsApp += awardPoints
+        User.currentUser!.awardPoints += awardPoints
         User.currentUser!.saveUser()
         self.awardPointImage.alpha = 1
         self.awardPoint.alpha = 1

@@ -48,47 +48,47 @@ extension Array {
 extension Int {
     func levelPrepApp() -> String {
         switch self {
-        case 0:
-            return "I"
         case 1:
-            return "II"
+            return "I"
         case 2:
-            return "III"
+            return "II"
         case 3:
-            return "IV"
+            return "III"
         case 4:
-            return "V"
+            return "IV"
         case 5:
-            return "VI"
+            return "V"
         case 6:
-            return "VII"
+            return "VI"
         case 7:
-            return "VIII"
+            return "VII"
         case 8:
-            return "IX"
+            return "VIII"
         case 9:
-            return "X"
+            return "IX"
         case 10:
-            return "XI"
+            return "X"
         case 11:
-            return "XII"
+            return "XI"
         case 12:
-            return "XIII"
+            return "XII"
         case 13:
-            return "XIV"
+            return "XIII"
         case 14:
-            return "XV"
+            return "XIV"
         case 15:
-            return "XVI"
+            return "XV"
         case 16:
-            return "XVII"
+            return "XVI"
         case 17:
-            return "XVIII"
+            return "XVII"
         case 18:
-            return "XIX"
+            return "XVIII"
         case 19:
-            return "XX"
+            return "XIX"
         case 20:
+            return "XX"
+        case 21:
             return "XXI"
         default :
             return "error"

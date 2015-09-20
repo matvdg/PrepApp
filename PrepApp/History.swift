@@ -39,7 +39,7 @@ class History {
         if updated == false { //firstTime in DB
             realmHistory.write {
                 question.firstSuccess = question.success
-                question.weeksBeforeExam = User.currentUser!.weeksBeforeExam
+                question.weeksBeforeExam = FactorySync.getConfigManager().loadWeeksBeforeExam()
                 self.realmHistory.add(question)
             }
             println("added")

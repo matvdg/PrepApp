@@ -169,8 +169,8 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         let calendar = NSCalendar.currentCalendar()
         let components = calendar.components(.CalendarUnitDay, fromDate: date)
         var currentDay = components.day
-        if  User.currentDay != currentDay {
-            User.currentDay = currentDay
+        if  FactorySync.getConfigManager().loadCurrentDay() != currentDay {
+            FactorySync.getConfigManager().saveCurrentDay(currentDay)
             self.notificationMessage.text = self.loadNotificationMessage()
             self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("showNotification"), userInfo: nil, repeats: true)
             self.hideTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: Selector("hideNotification"), userInfo: nil, repeats: false)
@@ -760,7 +760,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
             self.notificationMessage.text = win[0]
             self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("showNotification"), userInfo: nil, repeats: true)
             self.hideTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: Selector("hideNotificationLevel"), userInfo: nil, repeats: false)
-            User.currentUser!.level = User.currentUser!.level + 1
+            User.currentUser!.level = User.currentUser!.level
             User.currentUser!.saveUser()
             //retrieving new data
             self.retrieveData()

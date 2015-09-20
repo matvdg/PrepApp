@@ -22,7 +22,6 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        FactoryHistory.getScoring().sync()
         self.loadData()
         self.statsTable.backgroundColor = colorGreyBackground
         self.renderLevel()
@@ -70,18 +69,18 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func loadData() {
-        self.statsData.append("\(User.currentUser!.level + 1)")
-        self.statsDetails.append("Niveau \(User.currentUser!.level.levelPrepApp()) (\(User.currentUser!.level + 1)). Le niveau est calculé à partir des questions réussies dans chaque matière et ce dans les proportions de l'examen final. Dans l'accueil, le graphe vous indique la progression du niveau en cours pour chaque matière.")
-        self.statsData.append(User.currentUser!.assiduity.toStringPoints())
-        self.statsDetails.append("L'assiduité est récompensée ! 1pt 𝗫 \(User.currentUser!.assiduity) \(self.grammarQuestionString(User.currentUser!.assiduity)) = \(User.currentUser!.assiduity.toStringPoints())")
-        self.statsData.append("\(User.currentUser!.success)/\(User.currentUser!.success + User.currentUser!.failed)")
-        self.statsDetails.append("\(User.currentUser!.success) \(self.grammarQuestionString(User.currentUser!.success)) \(self.grammarSucceededString(User.currentUser!.success)), \(User.currentUser!.failed) \(self.grammarQuestionString(User.currentUser!.failed)) \(self.grammarFailedString(User.currentUser!.failed)) sur un total de \(User.currentUser!.failed+User.currentUser!.success) \(self.grammarQuestionString(User.currentUser!.failed+User.currentUser!.success)).")
-        self.statsData.append("\(User.currentUser!.weeksBeforeExam) semaines")
-        self.statsDetails.append("Vous avez \(User.currentUser!.weeksBeforeExam) semaines avant l'échéance fixée par votre établissement (concours/examen/partiels)")
-        self.statsData.append(User.currentUser!.awardPointsApp.toStringPoints())
-        self.statsDetails.append("\(User.currentUser!.awardPointsApp.toStringPoints()) AwardsPoints gagnés dans Prep'App Kiné, total des AwardPoints réussites, assiduité et bonus.")
-        self.statsData.append(User.currentUser!.awardPointsGlobal.toStringPoints())
-        self.statsDetails.append("\(User.currentUser!.awardPointsGlobal.toStringPoints()) AwardsPoints gagnés dans toutes les applications Prep'App, total des AwardPoints réussites, assiduité et bonus.")
+        self.statsData.append("\(User.currentUser!.level )")
+        self.statsDetails.append("Niveau \(User.currentUser!.level.levelPrepApp()) (\(User.currentUser!.level)). Le niveau est calculé à partir des questions réussies dans chaque matière et ce dans les proportions de l'examen final. Dans l'accueil, le graphe vous indique la progression du niveau en cours pour chaque matière.")
+        self.statsData.append(FactoryHistory.getScoring().getAssiduity().toStringPoints())
+        self.statsDetails.append("L'assiduité est récompensée ! 1pt/question faite = \(FactoryHistory.getScoring().getAssiduity().toStringPoints())")
+        self.statsData.append("\(FactoryHistory.getScoring().getSucceeded())/\(FactoryHistory.getScoring().getSucceeded() + FactoryHistory.getScoring().getFailed())")
+        self.statsDetails.append("\(FactoryHistory.getScoring().getSucceeded()) \(self.grammarQuestionString(FactoryHistory.getScoring().getSucceeded())) \(self.grammarSucceededString(FactoryHistory.getScoring().getSucceeded())), \(FactoryHistory.getScoring().getSucceeded()) \(self.grammarQuestionString(FactoryHistory.getScoring().getFailed())) \(self.grammarFailedString(FactoryHistory.getScoring().getFailed())) sur un total de \(FactoryHistory.getScoring().getFailed()+FactoryHistory.getScoring().getSucceeded()) \(self.grammarQuestionString(FactoryHistory.getScoring().getFailed()+FactoryHistory.getScoring().getSucceeded())).")
+        self.statsData.append("\(FactorySync.getConfigManager().loadWeeksBeforeExam()) semaines")
+        self.statsDetails.append("Vous avez \(FactorySync.getConfigManager().loadWeeksBeforeExam()) semaines avant l'échéance fixée par votre établissement (concours/examen/partiels) le \(FactorySync.getConfigManager().loadDate())")
+        self.statsData.append(User.currentUser!.awardPoints.toStringPoints())
+        self.statsDetails.append("\(User.currentUser!.awardPoints.toStringPoints()) AwardsPoints gagnés dans Prep'App Kiné, total des AwardPoints réussites, assiduité et bonus.")
+        self.statsData.append(User.currentUser!.awardPoints.toStringPoints())
+        self.statsDetails.append("\(User.currentUser!.awardPoints.toStringPoints()) AwardsPoints gagnés dans toutes les applications Prep'App, total des AwardPoints réussites, assiduité et bonus.")
     }
     
     private func grammarQuestionString(int: Int) -> String {

@@ -197,7 +197,7 @@ class QuestionManager: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDel
                 
             } else {
                 connection.cancel()
-                println("error : != 200 in getQuestions")
+                println("header status = \(statusCode)  in getQuestions")
                 FactorySync.errorNetwork = true
             }
 
