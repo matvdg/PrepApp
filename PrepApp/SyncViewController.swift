@@ -45,7 +45,6 @@ class SyncViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         FactorySync.getImageManager().hasFinishedSync = false
         FactorySync.getQuestionManager().hasFinishedSync = false
-        FactorySync.getQuestionManager().hasFinishedComputeSize = false
         if User.authenticated == false {
             self.progression.text = "Déconnexion..."
             NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
@@ -67,7 +66,6 @@ class SyncViewController: UIViewController {
                             print("localVersion = \(FactorySync.getConfigManager().loadVersion()) dbVersion = \(versionDB), ")
                             if FactorySync.getConfigManager().loadVersion() != versionDB { //syncing...
                                 FactorySync.sync()
-                                println("syncing")
                                 self.timer = NSTimer.scheduledTimerWithTimeInterval(0.030, target: self, selector: Selector("result"), userInfo: nil, repeats: true)
                                 self.version = versionDB
                             } else { //no sync needed
@@ -122,8 +120,7 @@ class SyncViewController: UIViewController {
     
 	func result(){
       
-        //handling network errors or bad network
-        if FactorySync.errorNetwork {
+        if FactorySync.errorNetwork { //handling network errors or bad network
             timer.invalidate()
             Sound.playTrack("error")
             // create alert controller
@@ -145,27 +142,30 @@ class SyncViewController: UIViewController {
             var name = ""
             //computing percentage progression for Questions DB & Images (We neglect to take into account the chapters or materials, as they are very light.)
             
-            if (FactorySync.getImageManager().sizeToDownload != -1 && FactorySync.getQuestionManager().sizeToDownload != -1 ) {
-                //println("both sizes computed (≠-1)")
-                
+            if !FactorySync.getQuestionManager().hasFinishedSync { //downloading questions
                 
                 if FactorySync.getQuestionManager().questionsToSave != 0 {
-                    self.percentage = ((FactorySync.getQuestionManager().questionsSaved) * 100) / (FactorySync.getQuestionManager().questionsToSave)
-                    self.nbrFrame = (self.percentage * self.frames) / 200 + (self.frames / 2)
+                    self.percentage = (FactorySync.getQuestionManager().questionsSaved * 100) / (FactorySync.getQuestionManager().questionsToSave)
+                    self.nbrFrame = (self.percentage * self.frames) / 100
                     name = "l\(self.nbrFrame)"
                     self.logo.image = UIImage(named: name)
-                    self.progression.text = "Traitement des questions en cours...\n \(self.percentage)%"
+                    self.progression.text = "Téléchargement de la question \(FactorySync.getQuestionManager().questionsSaved) sur \(FactorySync.getQuestionManager().questionsToSave)\n \(self.percentage)%"
                     
-                } else if FactorySync.getImageManager().sizeToDownload + FactorySync.getQuestionManager().sizeToDownload != 0 {
-                    self.percentage = ((FactorySync.getImageManager().sizeDownloaded + FactorySync.getQuestionManager().sizeDownloaded) * 100) / (FactorySync.getImageManager().sizeToDownload + FactorySync.getQuestionManager().sizeToDownload)
-                    self.nbrFrame = (self.percentage * self.frames) / 200
+                } else {
+                    self.progression.text = "Connexion au serveur Prep'App..."
+                }
+                
+            } else { //downloading images
+                if FactorySync.getImageManager().numberOfImagesToDownload != 0 {
+                    self.percentage = (FactorySync.getImageManager().numberOfImagesDownloaded * 100) / (FactorySync.getImageManager().numberOfImagesToDownload)
+                    self.nbrFrame = (self.percentage * self.frames) / 100
                     name = "l\(self.nbrFrame)"
                     self.logo.image = UIImage(named: name)
-                    self.progression.text = "Téléchargement du contenu en cours...\n \(self.percentage)%"
-
+                    self.progression.text = "Téléchargement du visuel \(FactorySync.getImageManager().numberOfImagesDownloaded) sur \(FactorySync.getImageManager().numberOfImagesToDownload)\n \(self.percentage)%"
+                    
+                } else {
+                    self.progression.text = "Questions téléchargées !"
                 }
-                //println("Downloading... \((FactorySync.getImageManager().sizeDownloaded + FactorySync.getQuestionManager().sizeDownloaded)/1000) KB/\((FactorySync.getImageManager().sizeToDownload + FactorySync.getQuestionManager().sizeToDownload)/1000) KB")
-                
                 
                 //the end...
                 if  (FactorySync.getImageManager().hasFinishedSync == true && FactorySync.getQuestionManager().hasFinishedSync == true) {
@@ -177,12 +177,7 @@ class SyncViewController: UIViewController {
                     self.progression.text = ""
                     //println("syncFinished")
                 }
-            
-            
-            } else { //waiting for server's answer
-                //before getting sizes, waiting for server response
-                self.progression.text = "Connexion au serveur Prep'App.\n Veuillez patienter..."
-                self.logo.image = UIImage(named: "l350")
+
             }
         }
 	}

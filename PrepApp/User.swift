@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 PrepApp. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class User {
     
@@ -54,7 +54,7 @@ class User {
 					var err: NSError?
 					var statusCode = (response as! NSHTTPURLResponse).statusCode
 					if statusCode == 200 {
-						User.currentUser?.encryptedPassword = newPass
+						User.currentUser!.encryptedPassword = newPass
 						User.currentUser!.saveUser()
 						callback("Mot de passe changé avec succès.")
 					} else {
@@ -82,7 +82,63 @@ class User {
                     var err: NSError?
                     var statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        User.currentUser?.nickname = newNickname
+                        User.currentUser!.nickname = newNickname
+                        User.currentUser!.saveUser()
+                        callback("Pseudo changé avec succès.")
+                    } else {
+                        callback("Erreur de connexion, veuillez réessayer ultérieurement.")
+                        
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    func changeLevel(newLevel: Int, callback: (String?) -> Void){
+        let request = NSMutableURLRequest(URL: FactorySync.levelUrl!)
+        request.HTTPMethod = "POST"
+        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&nickname=\(newLevel)"
+        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
+            (data, response, error) in
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                if error != nil {
+                    callback("Échec de la connexion. Vérifier la connexion Internet et réessayer.")
+                } else {
+                    var err: NSError?
+                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    if statusCode == 200 {
+                        User.currentUser!.level = newLevel
+                        User.currentUser!.saveUser()
+                        callback("Pseudo changé avec succès.")
+                    } else {
+                        callback("Erreur de connexion, veuillez réessayer ultérieurement.")
+                        
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
+
+    func changeAwardPoints(newAwardPoints: Int, callback: (String?) -> Void){
+        let request = NSMutableURLRequest(URL: FactorySync.awardPointsUrl!)
+        request.HTTPMethod = "POST"
+        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&nickname=\(newAwardPoints)"
+        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
+            (data, response, error) in
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                if error != nil {
+                    callback("Échec de la connexion. Vérifier la connexion Internet et réessayer.")
+                } else {
+                    var err: NSError?
+                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    if statusCode == 200 {
+                        User.currentUser?.awardPoints = newAwardPoints
                         User.currentUser!.saveUser()
                         callback("Pseudo changé avec succès.")
                     } else {

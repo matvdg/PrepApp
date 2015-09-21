@@ -13,36 +13,29 @@ import RealmSwift
 
 class ImageManager {
     
-    var sizeToDownload: Int = -1
-    var sizeDownloaded: Int = 0
     var numberOfImagesToDownload: Int = 0
     var numberOfImagesDownloaded: Int = 0
     var hasFinishedSync: Bool = false
-    var hasFinishedComputeSize: Bool = false
     let realm = FactoryRealm.getRealmImages()
-       
 	
     func sync(){
         self.hasFinishedSync = false
-        self.hasFinishedComputeSize = false
-        self.sizeToDownload = -1
-        self.sizeDownloaded = 0
         self.numberOfImagesToDownload = 0
         self.numberOfImagesDownloaded = 0
 		self.getUploads({ (data) -> Void in
 			var onlineUploads = [Image]()
 			// dictionary
-			for (id, size) in data! {
+			for (id, size) in data {
 				let upload = Image()
 				upload.id = (id as! String).toInt()!
-				upload.size = (size as! String).toInt()!
+				upload.size = (size as! Int)
 				onlineUploads.append(upload)
 			}
 			self.compare(onlineUploads)
 		})
 	}
     
-    private func getUploads(callback: (NSDictionary?) -> Void) {
+    private func getUploads(callback: (NSDictionary) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.imageUrl!)
         request.HTTPMethod = "POST"
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
@@ -125,24 +118,14 @@ class ImageManager {
                 objectsToAdd.append(onlineUpload)
 			}
 		}
-        self.computeSize(objectsToAdd)
+        self.numberOfImagesToDownload = objectsToAdd.count
+        if self.numberOfImagesToDownload == 0 {
+            self.hasFinishedSync = true
+            println("Nothing new to download (images)")
+        }
         self.fetchImages(objectsToAdd)
 
 	}
-	
-    private func computeSize(objectsToAdd: [Image]) {
-        self.sizeToDownload = 0
-        for objectToAdd in objectsToAdd {
-            self.sizeToDownload += objectToAdd.size
-        }
-        self.numberOfImagesToDownload = objectsToAdd.count
-        //println("Size of images to download = \(self.sizeToDownload/1000) KB")
-        self.hasFinishedComputeSize = true
-        if self.sizeToDownload == 0 {
-            self.hasFinishedSync = true
-            println("Nothing new to upload (images)")
-        }
-    }
     
     private  func fetchImages(objectsToAdd: [Image]){
         
@@ -173,7 +156,6 @@ class ImageManager {
                 
             } else {
                 if !FactorySync.errorNetwork {
-                    self.sizeDownloaded += data.length
                     //println("size downloaded = \(self.sizeDownloaded/1000)KB/\(self.sizeToDownload/1000)KB")
                     
                     let imagesPath = FactorySync.path + "/images"
@@ -195,7 +177,6 @@ class ImageManager {
             }
             
             if self.numberOfImagesDownloaded == self.numberOfImagesToDownload && self.numberOfImagesToDownload != 0 {
-                self.sizeDownloaded = self.sizeToDownload
                 //println("size downloaded = \(self.sizeDownloaded/1000)KB/\(self.sizeToDownload/1000)KB")
                 self.hasFinishedSync = true
                 println("images downloaded")

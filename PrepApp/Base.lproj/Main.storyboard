@@ -222,12 +222,12 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connexion au serveur Prep'App en cours... Veuillez patienter..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t12-T3-ZOd">
-                                <rect key="frame" x="149" y="342" width="302" height="52"/>
+                                <rect key="frame" x="149" y="342" width="302" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="302" id="1eq-Q6-DpD"/>
-                                    <constraint firstAttribute="height" constant="52" id="WRS-mO-9IR"/>
+                                    <constraint firstAttribute="height" constant="70" id="WRS-mO-9IR"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -891,7 +891,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aze-o2-J1l" userLabel="BIO">
-                                <rect key="frame" x="0.0" y="64" width="600" height="179"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="178.5"/>
                                 <color key="backgroundColor" red="0.60000002384185791" green="0.89019608497619629" blue="0.52549022436141968" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="60"/>
                                 <state key="normal">
@@ -902,7 +902,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NAj-JJ-6z1" userLabel="PHY">
-                                <rect key="frame" x="0.0" y="243" width="600" height="178"/>
+                                <rect key="frame" x="0.0" y="242.5" width="600" height="179"/>
                                 <color key="backgroundColor" red="0.9529411792755127" green="0.47843137383460999" blue="0.43529412150382996" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="60"/>
                                 <state key="normal">
@@ -913,7 +913,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYV-LY-s4f" userLabel="CHI">
-                                <rect key="frame" x="0.0" y="421" width="600" height="179"/>
+                                <rect key="frame" x="0.0" y="421.5" width="600" height="178.5"/>
                                 <color key="backgroundColor" red="0.5372549295425415" green="0.74901962280273438" blue="0.87843137979507446" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="60"/>
                                 <state key="normal">
@@ -925,19 +925,19 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BIOLOGIE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMw-N9-580">
-                                <rect key="frame" x="74" y="64" width="526" height="179"/>
+                                <rect key="frame" x="74" y="64" width="526" height="178.5"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PHYSIQUE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltt-Hn-CPp">
-                                <rect key="frame" x="74" y="243" width="526" height="178"/>
+                                <rect key="frame" x="74" y="242.5" width="526" height="179"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CHIMIE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GfA-GH-d8L">
-                                <rect key="frame" x="74" y="421" width="526" height="179"/>
+                                <rect key="frame" x="74" y="421.5" width="526" height="178.5"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>

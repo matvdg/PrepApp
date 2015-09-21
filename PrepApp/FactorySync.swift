@@ -100,8 +100,6 @@ class FactorySync {
             self.realm.delete(chapters)
         }
         FactorySync.getSubjectManager().saveSubjects()
-        // we fetch subjects then chapters then questions in order to avoid Realm bad mapping (ORM)
-        FactorySync.getImageManager().sync()
-        //we save the new version number
+        // we fetch subjects then chapters then questions then images in order to avoid Realm bad mapping (ORM)
     }
 }
