@@ -19,7 +19,7 @@ class User {
     var encryptedPassword: String
     var level: Int
     var awardPoints: Int
-    var currentDay = 0
+    var nickname: String
     
     init(
         firstName: String,
@@ -27,7 +27,8 @@ class User {
         email: String,
         encryptedPassword: String,
         level: Int,
-        awardPoints: Int) {
+        awardPoints: Int,
+        nickname: String) {
             
         self.firstName = firstName
         self.lastName = lastName
@@ -35,6 +36,7 @@ class User {
         self.encryptedPassword = encryptedPassword
         self.level = level
         self.awardPoints = awardPoints
+        self.nickname = nickname
     }
 	
 	func changePassword(newPass: String, callback: (String?) -> Void){
@@ -64,17 +66,45 @@ class User {
 		}
 		task.resume()
 	}
-	
+    
+    func changeNickname(newNickname: String, callback: (String?) -> Void){
+        let request = NSMutableURLRequest(URL: FactorySync.nicknameUrl!)
+        request.HTTPMethod = "POST"
+        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&nickname=\(newNickname)"
+        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
+            (data, response, error) in
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                if error != nil {
+                    callback("Échec de la connexion. Vérifier la connexion Internet et réessayer.")
+                } else {
+                    var err: NSError?
+                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    if statusCode == 200 {
+                        User.currentUser?.nickname = newNickname
+                        User.currentUser!.saveUser()
+                        callback("Pseudo changé avec succès.")
+                    } else {
+                        callback("Erreur de connexion, veuillez réessayer ultérieurement.")
+                        
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
+
 	func saveUser() {
 		//we backup the user in a string array for persistence storage
-        
 		var savedUser = [
             self.firstName,
             self.lastName,
             self.email,
             self.encryptedPassword,
             String(self.level),
-            String(self.awardPoints)
+            String(self.awardPoints),
+            self.nickname
         ]
 		NSUserDefaults.standardUserDefaults().setObject(savedUser, forKey: "user")
 		NSUserDefaults.standardUserDefaults().synchronize()
@@ -128,7 +158,8 @@ class User {
 			email: data["mail"] as! String,
 			encryptedPassword: pass.sha1() as String,
 			level: data["level"] as! Int,
-            awardPoints: data["award_points"] as! Int
+            awardPoints: data["award_points"] as! Int,
+            nickname: data["nickname"] as! String
         )
         
         User.authenticated = true
@@ -149,7 +180,8 @@ class User {
                 email: data[2] as String,
                 encryptedPassword: data[3] as String,
                 level: (data[4] as String).toInt()!,
-                awardPoints: (data[5] as String).toInt()!
+                awardPoints: (data[5] as String).toInt()!,
+                nickname: data[6] as String
             )
 			return true
 		} else {

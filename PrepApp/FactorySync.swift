@@ -37,6 +37,7 @@ class FactorySync {
     static let configUrl = NSURL(string: "\(FactorySync.apiUrl!)/configs/")
     
     //QUESTIONS
+    static let questionsListUrl = NSURL(string: "\(FactorySync.apiUrl!)/questions/list/")
     static let questionUrl = NSURL(string: "\(FactorySync.apiUrl!)/questions/")
     static let chapterUrl = NSURL(string: "\(FactorySync.apiUrl!)/chapters/")
     static let subjectUrl = NSURL(string: "\(FactorySync.apiUrl!)/subjects/")
@@ -92,10 +93,12 @@ class FactorySync {
         println("syncing")
         FactorySync.getImageManager().hasFinishedSync == false
         FactorySync.getQuestionManager().hasFinishedSync == false
+        var subjects = self.realm.objects(Subject)
+        var chapters = self.realm.objects(Chapter)
         self.realm.write {
-            self.realm.deleteAll()
+            self.realm.delete(subjects)
+            self.realm.delete(chapters)
         }
-        println("default Realm database cleaned")
         FactorySync.getSubjectManager().saveSubjects()
         // we fetch subjects then chapters then questions in order to avoid Realm bad mapping (ORM)
         FactorySync.getImageManager().sync()

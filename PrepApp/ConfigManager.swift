@@ -15,18 +15,18 @@ class ConfigManager {
         self.getConfig({ (config) -> Void in
             if let config: NSDictionary = config {
                 var date = NSDate(timeIntervalSince1970: NSTimeInterval((config["date_exam"] as! String).toInt()!))
-                println(date)
+                //println(date)
                 var weeksBeforeExam = (config["weeks_before_exam"] as! String).toInt()!
-                println(weeksBeforeExam)
+                //println(weeksBeforeExam)
                 var nicknameAllowed = (config["nickname"] as! String).toBool()!
-                println(nicknameAllowed)
+                //println(nicknameAllowed)
                 
                 //we backup the config for persistence storage
                 NSUserDefaults.standardUserDefaults().setObject(date, forKey: "date")
                 NSUserDefaults.standardUserDefaults().setObject(weeksBeforeExam, forKey: "weeksBeforeExam")
                 NSUserDefaults.standardUserDefaults().setObject(nicknameAllowed, forKey: "nicknamePreference")
                 NSUserDefaults.standardUserDefaults().synchronize()
-                println("config saved")
+                //println("config saved")
                 callback(true)
             } else {
                 callback(false)
@@ -98,12 +98,16 @@ class ConfigManager {
         println("currentDay saved")
     }
 
-    func loadNicknamePreference() -> Bool? {
+    func loadNicknamePreference() -> Bool {
         //we retrieve the nicknamePreference from the local Persistence Storage
         if let nicknamePreference : AnyObject = NSUserDefaults.standardUserDefaults().objectForKey("nicknamePreference") {
-            return nicknamePreference as? Bool
+            if let result = nicknamePreference as? Bool {
+                return result
+            } else {
+                return false
+            }
         } else {
-            return nil
+            return false
         }
     }
     

@@ -64,9 +64,10 @@ class SyncViewController: UIViewController {
                 if let versionDB: Int = version { //online mode
                     FactorySync.getConfigManager().saveConfig({ (result) -> Void in
                         if result {
-                            println("localVersion = \(FactorySync.getConfigManager().loadVersion()) dbVersion = \(versionDB)")
+                            print("localVersion = \(FactorySync.getConfigManager().loadVersion()) dbVersion = \(versionDB), ")
                             if FactorySync.getConfigManager().loadVersion() != versionDB { //syncing...
                                 FactorySync.sync()
+                                println("syncing")
                                 self.timer = NSTimer.scheduledTimerWithTimeInterval(0.030, target: self, selector: Selector("result"), userInfo: nil, repeats: true)
                                 self.version = versionDB
                             } else { //no sync needed

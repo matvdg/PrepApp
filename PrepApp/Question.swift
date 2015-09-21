@@ -20,6 +20,7 @@ class Question : Object {
     dynamic var idDuo: Int = 0
     dynamic var idConcours: Int = 0
     dynamic var correction: String = ""
+    dynamic var version: Int = 0
     
     
 }

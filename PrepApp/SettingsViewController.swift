@@ -11,17 +11,25 @@ import LocalAuthentication
 
 class SettingsViewController: UIViewController, UITextFieldDelegate {
 
-	@IBOutlet weak var designButton: UIButton!
+	@IBOutlet weak var designPwdButton: UIButton!
+    @IBOutlet weak var designNNButton: UIButton!
+    @IBOutlet weak var nicknameLabel: UILabel!
+    @IBOutlet weak var newNickname: UITextField!
     @IBOutlet weak var touchIDlabel: UILabel!
     @IBOutlet weak var soundSwitch: UISwitch!
     @IBOutlet weak var touchIDswitch: UISwitch!
 	@IBOutlet var menuButton: UIBarButtonItem!
 	@IBOutlet weak var newPwd: UITextField!
 	@IBOutlet weak var newPwdBis: UITextField!
-    
+    @IBOutlet weak var separator: UIImageView!
+
 	@IBAction func changePwd(sender: AnyObject) {
-		changeCheckedPassword()
+        self.changeCheckedPassword()
 	}
+    
+    @IBAction func changeNickname(sender: AnyObject) {
+        self.changeNickname()
+    }
 	
     @IBAction func touchIDaction(sender: AnyObject) {
         if self.touchIDswitch.on {
@@ -60,57 +68,89 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-	func changeCheckedPassword(){
-		self.view.endEditing(true)
-		if (newPwd.text.hasGoodLength() && newPwd.text.hasTwoNumber() && newPwd.text.hasUppercase()){
-			if newPwd.text == newPwdBis.text {
-				User.currentUser?.changePassword(newPwd.text.sha1(), callback: { (message) -> Void in
-					// create alert controller
-					let myAlert = UIAlertController(title: message!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-                    myAlert.view.tintColor = colorGreenAppButtons
-					// add an "OK" button
-					myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-					// show the alert
-					self.presentViewController(myAlert, animated: true, completion: nil)
-				})
-				
-			} else {
-				// create alert controller
-				let myAlert = UIAlertController(title: "Oups !", message: "Le nouveau mot de passe et la confirmation ne correspondent pas.", preferredStyle: UIAlertControllerStyle.Alert)
+    private func changeNickname() {
+        self.view.endEditing(true)
+        if self.newNickname.text != "" {
+            User.currentUser!.changeNickname(self.newNickname.text, callback: { (message) -> Void in
+                // create alert controller
+                let myAlert = UIAlertController(title: message!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreenAppButtons
-				// add an "OK" button
-				myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-				// show the alert
-				self.presentViewController(myAlert, animated: true, completion: nil)
-			}
-		} else {
-			// create alert controller
-			let myAlert = UIAlertController(title: "Le mot de passe est trop faible !", message: "Minimum 8 caractères dont 1 majuscule et 2 chiffres.", preferredStyle: UIAlertControllerStyle.Alert)
+                // add an "OK" button
+                myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                // show the alert
+                self.presentViewController(myAlert, animated: true, completion: nil)
+                self.newNickname.text = ""
+                self.newNickname.placeholder = User.currentUser!.nickname
+            })
+
+        } else {
+            // create alert controller
+            let myAlert = UIAlertController(title: "Oups !", message: "Le pseudo ne peut être vide.", preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreenAppButtons
-			// add an "OK" button
-			myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-			// show the alert
-			self.presentViewController(myAlert, animated: true, completion: nil)
-		}
-		newPwd.text = ""
-		newPwdBis.text = ""
-	}
+            // add an "OK" button
+            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            // show the alert
+            self.presentViewController(myAlert, animated: true, completion: nil)
+        }
+        
+    }
+    
+    private func changeCheckedPassword() {
+        self.view.endEditing(true)
+        if (self.newPwd.text.hasGoodLength() && self.newPwd.text.hasTwoNumber() && self.newPwd.text.hasUppercase()){
+            if self.newPwd.text == self.newPwdBis.text {
+                User.currentUser?.changePassword(self.newPwd.text.sha1(), callback: { (message) -> Void in
+                    // create alert controller
+                    let myAlert = UIAlertController(title: message!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                    myAlert.view.tintColor = colorGreenAppButtons
+                    // add an "OK" button
+                    myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                    // show the alert
+                    self.presentViewController(myAlert, animated: true, completion: nil)
+                })
+                
+            } else {
+                // create alert controller
+                let myAlert = UIAlertController(title: "Oups !", message: "Le nouveau mot de passe et la confirmation ne correspondent pas.", preferredStyle: UIAlertControllerStyle.Alert)
+                myAlert.view.tintColor = colorGreenAppButtons
+                // add an "OK" button
+                myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                // show the alert
+                self.presentViewController(myAlert, animated: true, completion: nil)
+            }
+        } else {
+            // create alert controller
+            let myAlert = UIAlertController(title: "Le mot de passe est trop faible !", message: "Minimum 8 caractères dont 1 majuscule et 2 chiffres.", preferredStyle: UIAlertControllerStyle.Alert)
+            myAlert.view.tintColor = colorGreenAppButtons
+            // add an "OK" button
+            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            // show the alert
+            self.presentViewController(myAlert, animated: true, completion: nil)
+        }
+        self.newPwd.text = ""
+        self.newPwdBis.text = ""
+
+    }
 	
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
-		var nextTag: NSInteger = textField.tag + 1
-		// Try to find next responder
-		var nextResponder: UIResponder? = textField.superview?.viewWithTag(nextTag)
-		
-		if ((nextResponder) != nil) {
-			// Found next responder, so set it.
-			nextResponder!.becomeFirstResponder()
-		} else {
-			// Not found, so remove keyboard.
+        if textField.tag == 4 {
             self.resignFirstResponder()
-			self.changeCheckedPassword()
-		}
-		return false
-		// We do not want UITextField to insert line-breaks.
+            self.changeNickname()
+        } else {
+            var nextTag: NSInteger = textField.tag + 1
+            // Try to find next responder
+            var nextResponder: UIResponder? = textField.superview?.viewWithTag(nextTag)
+            
+            if ((nextResponder) != nil) {
+                // Found next responder, so set it.
+                nextResponder!.becomeFirstResponder()
+            } else {
+                // Not found, so remove keyboard.
+                self.resignFirstResponder()
+                self.changeCheckedPassword()
+            }
+        }
+        return false // We do not want UITextField to insert line-breaks.
 	}
 	
 	override func viewDidLoad() {
@@ -120,7 +160,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
-		designButton.layer.cornerRadius = 6
+		self.designPwdButton.layer.cornerRadius = 6
+        self.designNNButton.layer.cornerRadius = 6
 		if self.revealViewController() != nil {
 			menuButton.target = self.revealViewController()
 			menuButton.action = "revealToggle:"
@@ -145,7 +186,19 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
             self.touchIDswitch.setOn(UserPreferences.touchId, animated: true)
             
         }
-
+        if FactorySync.getConfigManager().loadNicknamePreference() {
+            self.nicknameLabel.hidden = false
+            self.newNickname.hidden = false
+            self.designNNButton.hidden = false
+            self.separator.hidden = false
+            self.separator.layer.zPosition = 10
+            self.newNickname.placeholder = User.currentUser!.nickname
+        } else {
+            self.nicknameLabel.hidden = true
+            self.separator.hidden = true
+            self.newNickname.hidden = true
+            self.designNNButton.hidden = true
+        }
 	}
 	
 	override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {

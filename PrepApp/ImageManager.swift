@@ -223,13 +223,4 @@ class ImageManager {
 		
 	}
     
-
-	
-	
-    
-    
-
-
-
-	
 }

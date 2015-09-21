@@ -15,6 +15,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     var statsDetails: [String] = []
     var statsPics = ["level","puzzle","check","solo","awardPoint"]
     
+    @IBOutlet weak var nickname: UILabel!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var email: UILabel!
     @IBOutlet weak var level: UILabel!
@@ -26,6 +27,11 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.statsTable.backgroundColor = colorGreyBackground
         self.renderLevel()
         self.name.text = "\(User.currentUser!.firstName) \(User.currentUser!.lastName)"
+        if FactorySync.getConfigManager().loadNicknamePreference() {
+            self.nickname.text = User.currentUser!.nickname
+        } else {
+            self.nickname.hidden = true
+        }
         self.email.text = "\(User.currentUser!.email)"
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
@@ -72,11 +78,11 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.statsData.append("\(User.currentUser!.level )")
         self.statsDetails.append("Niveau \(User.currentUser!.level.levelPrepApp()) (\(User.currentUser!.level)). Le niveau est calculé à partir des questions réussies dans chaque matière et ce dans les proportions de l'examen final. Dans l'accueil, le graphe vous indique la progression du niveau en cours pour chaque matière.")
         self.statsData.append(FactoryHistory.getScoring().getAssiduity().toStringPoints())
-        self.statsDetails.append("L'assiduité est récompensée ! 1pt/question faite = \(FactoryHistory.getScoring().getAssiduity().toStringPoints())")
+        self.statsDetails.append("L'assiduité est récompensée ! 1 point par question faite = \(FactoryHistory.getScoring().getAssiduity().toStringPoints())")
         self.statsData.append("\(FactoryHistory.getScoring().getSucceeded())/\(FactoryHistory.getScoring().getSucceeded() + FactoryHistory.getScoring().getFailed())")
         self.statsDetails.append("\(FactoryHistory.getScoring().getSucceeded()) \(self.grammarQuestionString(FactoryHistory.getScoring().getSucceeded())) \(self.grammarSucceededString(FactoryHistory.getScoring().getSucceeded())), \(FactoryHistory.getScoring().getSucceeded()) \(self.grammarQuestionString(FactoryHistory.getScoring().getFailed())) \(self.grammarFailedString(FactoryHistory.getScoring().getFailed())) sur un total de \(FactoryHistory.getScoring().getFailed()+FactoryHistory.getScoring().getSucceeded()) \(self.grammarQuestionString(FactoryHistory.getScoring().getFailed()+FactoryHistory.getScoring().getSucceeded())).")
-        self.statsData.append("\(FactorySync.getConfigManager().loadWeeksBeforeExam()) semaines")
-        self.statsDetails.append("Vous avez \(FactorySync.getConfigManager().loadWeeksBeforeExam()) semaines avant l'échéance fixée par votre établissement (concours/examen/partiels) le \(FactorySync.getConfigManager().loadDate())")
+        self.statsData.append("\(FactorySync.getConfigManager().loadWeeksBeforeExam()) \(self.grammarWeekString(FactorySync.getConfigManager().loadWeeksBeforeExam()))")
+        self.statsDetails.append("Vous avez \(FactorySync.getConfigManager().loadWeeksBeforeExam()) \(self.grammarWeekString(FactorySync.getConfigManager().loadWeeksBeforeExam())) avant l'échéance fixée par votre établissement (concours/examen/partiels) le \(FactorySync.getConfigManager().loadDate())")
         self.statsData.append(User.currentUser!.awardPoints.toStringPoints())
         self.statsDetails.append("\(User.currentUser!.awardPoints.toStringPoints()) AwardsPoints gagnés dans Prep'App Kiné, total des AwardPoints réussites, assiduité et bonus.")
         self.statsData.append(User.currentUser!.awardPoints.toStringPoints())
@@ -107,7 +113,14 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
     }
     
-        
+    private func grammarWeekString(int: Int) -> String {
+        if int < 2 {
+            return "semaine"
+        } else {
+            return "semaines"
+        }
+    }
+    
     //UITableViewDataSource Methods
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
