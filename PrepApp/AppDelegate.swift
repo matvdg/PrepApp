@@ -14,14 +14,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
     var portrait: Bool = true
 
-
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
 		return true
 	}
     
-    func rotated()
-    {
+    func rotated(){
         if UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation)
         {
             if self.portrait {
@@ -71,6 +69,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FactorySync.offlineMode = false
         FactorySync.getConfigManager().getLastVersion { (version) -> Void in
             if let versionDB: Int = version { //checking if sync is needed
+                FactorySync.getConfigManager().saveConfig({ (result) -> Void in
+                    if result {
+                        println("config saved")
+                    }
+                })
                 println("localVersion = \(FactorySync.getConfigManager().loadVersion()) dbVersion = \(versionDB)")
                 if FactorySync.getConfigManager().loadVersion() != versionDB { //prompting a sync
                     NSNotificationCenter.defaultCenter().postNotificationName("update", object: nil)

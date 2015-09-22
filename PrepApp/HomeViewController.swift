@@ -199,6 +199,8 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     
     //methods
     func retrieveData() {
+        User.currentUser!.updateLevel(User.currentUser!.level)
+        User.currentUser!.updateAwardPoints(User.currentUser!.awardPoints)
         var (percent,answers,todo) = FactoryHistory.getScoring().getScore(1)
         self.bio = Double(percent)
         self.bioNumber = answers
@@ -760,8 +762,8 @@ class HomeViewController: UIViewController, ChartViewDelegate {
             self.notificationMessage.text = win[0]
             self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("showNotification"), userInfo: nil, repeats: true)
             self.hideTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: Selector("hideNotificationLevel"), userInfo: nil, repeats: false)
-            User.currentUser!.level = User.currentUser!.level
-            User.currentUser!.saveUser()
+            User.currentUser!.level = User.currentUser!.level + 1
+            User.currentUser!.updateLevel(User.currentUser!.level)
             //retrieving new data
             self.retrieveData()
         }

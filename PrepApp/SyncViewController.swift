@@ -13,12 +13,10 @@ class SyncViewController: UIViewController {
     static var widthImage: CGFloat = 300
 
 	var timer = NSTimer()
-    var waiter = NSTimer()
     var nbrFrame: Int = 0
     var percentage: Int = 0
 	let frames = 350
     var version: Int = 0
-    //var sentences = ["Prep'App est la clef de votre réussite ! ","Entraînez-vous contre la montre dans défi solo...","...ou affrontez d'autres étudiants dans défi duo !","Evaluez-vous grâce aux concours !" ]
     
     @IBOutlet weak var progression: UILabel!
     @IBOutlet weak var logo: UIImageView!
@@ -123,6 +121,8 @@ class SyncViewController: UIViewController {
         if FactorySync.errorNetwork { //handling network errors or bad network
             timer.invalidate()
             Sound.playTrack("error")
+            self.logo.image = UIImage(named: "l350")
+            self.progression.text = ""
             // create alert controller
             let myAlert = UIAlertController(title: "Erreur de téléchargement", message: "Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreenAppButtons
@@ -140,7 +140,7 @@ class SyncViewController: UIViewController {
         } else { //progression of sync
             
             var name = ""
-            //computing percentage progression for Questions DB & Images (We neglect to take into account the chapters or materials, as they are very light.)
+            //computing percentage progression for Questions DB & Images (We neglect to take into account the chapters or materials, as they're very light.)
             
             if !FactorySync.getQuestionManager().hasFinishedSync { //downloading questions
                 
@@ -170,18 +170,16 @@ class SyncViewController: UIViewController {
                 //the end...
                 if  (FactorySync.getImageManager().hasFinishedSync == true && FactorySync.getQuestionManager().hasFinishedSync == true) {
                     //go to main menu
+                    self.logo.image = UIImage(named: "l350")
+                    self.progression.text = ""
                     timer.invalidate()
                     FactorySync.getConfigManager().saveVersion(self.version)
                     self.performSegueWithIdentifier("syncDidFinish", sender: self)
-                    self.logo.image = UIImage(named: "l350")
-                    self.progression.text = ""
-                    //println("syncFinished")
                 }
 
             }
         }
 	}
-	
 	
 }
 

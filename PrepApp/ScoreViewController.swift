@@ -132,7 +132,6 @@ class ScoreViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     private func animateAwardPoint() {
-        println("coucou")
         self.awardPointImage.alpha = 1
         self.awardPointImage.hidden = false
         self.awardPointImage.layer.zPosition = 100
@@ -188,7 +187,7 @@ class ScoreViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.statsDetails.append("AwardPoints réussites (\((self.succeeded*5).toStringPoints())) + AwardPoints assiduité (\(self.awardPointsBonus.toStringPoints())) + AwardPoints bonus (\(self.awardPointsBonus.toStringPoints())) = total AwardPoints (\(self.awardPoints.toStringPoints()))")
         //save scoring
         User.currentUser!.awardPoints += self.awardPoints
-        User.currentUser!.saveUser()
+        User.currentUser!.updateAwardPoints(User.currentUser!.awardPoints)
 
     }
     

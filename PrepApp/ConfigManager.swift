@@ -1,5 +1,5 @@
 //
-//  DatabaseVersion.swift
+//  ConfigManager.swift
 //  PrepApp
 //
 //  Created by Mathieu Vandeginste on 20/08/15.

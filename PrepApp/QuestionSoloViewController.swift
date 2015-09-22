@@ -21,6 +21,7 @@ class QuestionSoloViewController: UIViewController,
     var mode = 0 //0 = challenge 1 = results
     var choice: Int = 0
     var score = 0
+    var soundAlreadyPlayed = false
     var succeeded = 0
     let realm = FactoryRealm.getRealm()
     var questions: [Question] = []
@@ -264,6 +265,7 @@ class QuestionSoloViewController: UIViewController,
                 self.currentNumber = (self.currentNumber + 1) % self.questions.count
                 self.loadQuestion()
                 self.waitBeforeNextQuestion = false
+                self.soundAlreadyPlayed = false
             }
         }
     }
@@ -286,6 +288,7 @@ class QuestionSoloViewController: UIViewController,
                 self.currentNumber = (self.currentNumber - 1) % self.questions.count
                 self.loadQuestion()
                 self.waitBeforeNextQuestion = false
+                self.soundAlreadyPlayed = false
             }
         }
     }
@@ -555,7 +558,8 @@ class QuestionSoloViewController: UIViewController,
         self.wording =  UIWebView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 1))
         self.wording.delegate = self
         self.wording.loadHTMLString( self.currentQuestion!.wording, baseURL: self.baseUrl)
-        let scrollFrame = CGRect(x: 0, y: 152, width: self.view.bounds.width, height: self.view.bounds.height-152)
+        var y: CGFloat = UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation) ? 132 : 152
+        let scrollFrame = CGRect(x: 0, y: y, width: self.view.bounds.width, height: self.view.bounds.height-y)
         self.scrollView = UIScrollView(frame: scrollFrame)
         self.scrollView.backgroundColor = colorGreyBackground
         self.scrollView.addSubview(self.wording)
@@ -648,7 +652,11 @@ class QuestionSoloViewController: UIViewController,
         self.answers.userInteractionEnabled = false
         if self.checkAnswers() {
             //true
-            Sound.playTrack("true")
+            if !self.soundAlreadyPlayed {
+                Sound.playTrack("true")
+                self.soundAlreadyPlayed = true
+            }
+            
             //colouring the results
             for answer in self.goodAnswers {
                 let indexPath = NSIndexPath(forRow: answer, inSection: 0)
@@ -659,7 +667,11 @@ class QuestionSoloViewController: UIViewController,
             
         } else {
             //false
-            Sound.playTrack("false")
+            if !self.soundAlreadyPlayed {
+                Sound.playTrack("false")
+                self.soundAlreadyPlayed = true
+            }
+            
             //colouring the results
             for answer in self.selectedAnswers {
                 let indexPath = NSIndexPath(forRow: answer, inSection: 0)

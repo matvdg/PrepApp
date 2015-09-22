@@ -13,7 +13,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     var statsTopics = ["Niveau", "Assiduité", "Questions réussies", "Echéance", "AwardPoints"]
     var statsData: [String] = []
     var statsDetails: [String] = []
-    var statsPics = ["level","puzzle","check","solo","awardPoint"]
+    var statsPics = ["level","puzzle","check","term","awardPoint"]
     
     @IBOutlet weak var nickname: UILabel!
     @IBOutlet weak var name: UILabel!
@@ -134,15 +134,14 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         var image = self.statsPics[indexPath.row]
         cell.imageView!.image = UIImage(named: image)
         cell.textLabel?.textColor = UIColor.blackColor()
-        cell.textLabel!.font = UIFont(name: "Segoe UI", size: 18)
         cell.textLabel!.text = self.statsTopics[indexPath.row]
         cell.backgroundColor = colorGreyBackground
         cell.detailTextLabel!.text = statsData[indexPath.row]
-        cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 18)
+        cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 16)
         cell.detailTextLabel!.textColor = colorGreenAppButtons
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.detailTextLabel!.adjustsFontSizeToFitWidth = true
-        cell.textLabel!.font = UIFont(name: "Segoe UI", size: 12)
+        cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
         cell.tintColor = colorGreenAppButtons
         return cell
     }

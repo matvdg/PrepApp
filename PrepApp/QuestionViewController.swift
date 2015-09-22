@@ -79,7 +79,7 @@ UIAdaptivePresentationControllerDelegate  {
         self.loadQuestion()
         
         
-    }    
+    }
     
     //@IBOutlets properties
     @IBOutlet weak var chapter: UILabel!
@@ -355,7 +355,8 @@ UIAdaptivePresentationControllerDelegate  {
         self.wording =  UIWebView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 1))
         self.wording.delegate = self
         self.wording.loadHTMLString( self.currentQuestion!.wording, baseURL: self.baseUrl)
-        let scrollFrame = CGRect(x: 0, y: 152, width: self.view.bounds.width, height: self.view.bounds.height-152)
+        var y: CGFloat = UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation) ? 132 : 152
+        let scrollFrame = CGRect(x: 0, y: y, width: self.view.bounds.width, height: self.view.bounds.height-y)
         self.scrollView = UIScrollView(frame: scrollFrame)
         self.scrollView.backgroundColor = colorGreyBackground
         self.scrollView.addSubview(self.wording)
@@ -457,10 +458,11 @@ UIAdaptivePresentationControllerDelegate  {
     }
     
     func submit() {
-        self.mode = 1
-        
         if self.selectedAnswers.isEmpty {
-            Sound.playTrack("error")
+            if self.mode == 0 {
+                Sound.playTrack("error")
+            }
+            self.mode = 1
             // create alert controller
             let myAlert = UIAlertController(title: "Vous devez sélectionner au moins une réponse !", message: "Touchez les cases pour cocher une ou plusieurs réponses", preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreenAppButtons
@@ -476,7 +478,10 @@ UIAdaptivePresentationControllerDelegate  {
             if self.checkAnswers() {
                 
                 //true
-                Sound.playTrack("true")
+                if self.mode == 0 {
+                    Sound.playTrack("true")
+                }
+                self.mode = 1
                 historyQuestion.success = true
                 //colouring the results
                 for answer in self.goodAnswers {
@@ -574,7 +579,7 @@ UIAdaptivePresentationControllerDelegate  {
     
     func animateAwardPoint(awardPoints: Int) {
         User.currentUser!.awardPoints += awardPoints
-        User.currentUser!.saveUser()
+        User.currentUser!.updateAwardPoints(User.currentUser!.awardPoints)
         self.awardPointImage.alpha = 1
         self.awardPoint.alpha = 1
         self.awardPoint.text = awardPoints.toStringPoints()

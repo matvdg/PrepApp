@@ -25,9 +25,7 @@ class Sound {
                 player!.prepareToPlay()
                 player?.play()
             }
- 
         }
-        
     }
     
     class func playPage() {
