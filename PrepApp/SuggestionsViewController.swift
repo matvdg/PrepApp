@@ -22,7 +22,7 @@ class SuggestionsViewController: UIViewController, UIPickerViewDataSource, UIPic
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Suggestions/Remarques"
+        self.title = "Envoyer des commentaires"
         self.remark.text = "Taper votre commentaire ici :"
         self.remark.textColor = UIColor.lightGrayColor()
         self.designButton.layer.cornerRadius = 6
