@@ -42,7 +42,7 @@ class User {
 	func changePassword(newPass: String, callback: (String?) -> Void){
 		let request = NSMutableURLRequest(URL: FactorySync.passwordUrl!)
 		request.HTTPMethod = "POST"
-		let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&new_pass=\(newPass)"
+		let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&newPass=\(newPass)"
 		request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
 		let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
 			(data, response, error) in
@@ -193,12 +193,12 @@ class User {
 	static func instantiateUser(data: NSDictionary, pass:String) {
 		//we instantiate the user retrieved in the distant DB into the  dictionary
 		currentUser = User(
-			firstName: data["first_name"] as! String,
-			lastName: data["last_name"] as! String,
+			firstName: data["firstName"] as! String,
+			lastName: data["lastName"] as! String,
 			email: data["mail"] as! String,
 			encryptedPassword: pass.sha1() as String,
 			level: data["level"] as! Int,
-            awardPoints: data["award_points"] as! Int,
+            awardPoints: data["awardPoints"] as! Int,
             nickname: data["nickname"] as! String
         )
         

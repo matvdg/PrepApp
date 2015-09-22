@@ -25,7 +25,7 @@ class History {
                     question.assiduityDouble = true
                     println("double assiduity")
                 }
-                realmHistory.write {
+                self.realmHistory.write {
                     questionHistory.success = question.success
                     questionHistory.training = question.training
                     questionHistory.assiduityDouble = question.assiduityDouble
@@ -37,7 +37,7 @@ class History {
             
         }
         if updated == false { //firstTime in DB
-            realmHistory.write {
+            self.realmHistory.write {
                 question.firstSuccess = question.success
                 question.weeksBeforeExam = FactorySync.getConfigManager().loadWeeksBeforeExam()
                 self.realmHistory.add(question)
@@ -54,14 +54,13 @@ class History {
         for questionHistory in questionsHistory {
             
             if question.id == questionHistory.id {
-                realmHistory.write {
+                self.realmHistory.write {
                     questionHistory.marked = question.marked
                 }
                 //println("updated")
                 updated = true
                 break
             }
-            
         }
     }
     

@@ -14,5 +14,5 @@ class Chapter : Object {
     dynamic var subject: Subject?
     dynamic var number: Int = 0
     dynamic var name: String = ""
-    
+    dynamic var version: Int = 0    
 }

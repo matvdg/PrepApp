@@ -13,5 +13,7 @@ import RealmSwift
 class Subject : Object {
     dynamic var id: Int = 0
     dynamic var name: String = ""
-    
+    dynamic var version: Int = 0
+    dynamic var ratio: Int = 0
+    dynamic var timePerQuestion: Int = 0 //seconds
 }

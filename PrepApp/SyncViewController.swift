@@ -38,6 +38,8 @@ class SyncViewController: UIViewController {
 		super.viewDidLoad()
         self.tryAgainButton.layer.cornerRadius = 6
         self.tryAgainButton.hidden = true
+        self.logo.image = UIImage(named: "l350")
+        self.progression.text = ""
 	}
     
     override func viewDidAppear(animated: Bool) {
@@ -49,6 +51,8 @@ class SyncViewController: UIViewController {
             NSUserDefaults.standardUserDefaults().synchronize()
             self.dismissViewControllerAnimated(true, completion: nil)
         } else {
+            self.logo.image = UIImage(named: "l350")
+            self.progression.text = ""
             self.sync()
         }
         

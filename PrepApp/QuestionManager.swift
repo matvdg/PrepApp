@@ -35,7 +35,7 @@ class QuestionManager {
     }
     
     private func getQuestions(callback: (NSDictionary) -> Void) {
-        let request = NSMutableURLRequest(URL: FactorySync.questionsListUrl!)
+        let request = NSMutableURLRequest(URL: FactorySync.questionUrl!)
         request.HTTPMethod = "POST"
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
@@ -100,7 +100,7 @@ class QuestionManager {
         
         
         // we check what we have to add OR update
-        var objectsToAdd = [Question]()
+        var idsToAdd = [Int]()
         for onlineQuestion in onlineQuestions {
             var willBeAdded = true
             for offlineQuestion in offlineQuestions {
@@ -109,16 +109,16 @@ class QuestionManager {
                 }
             }
             if willBeAdded {
-                objectsToAdd.append(onlineQuestion)
+                idsToAdd.append(onlineQuestion.id)
             }
         }
-        self.questionsToSave = objectsToAdd.count
+        self.questionsToSave = idsToAdd.count
         if self.questionsToSave == 0 {
             self.hasFinishedSync = true
             FactorySync.getImageManager().sync()
-            println("There isn't any new question to download")
+            println("questions: nothing new to sync")
         }
-        self.saveQuestions(objectsToAdd)
+        self.saveQuestions(idsToAdd)
     }
     
     private func deleteQuestions(idsToRemove: [Int]){
@@ -130,10 +130,10 @@ class QuestionManager {
         }
     }
     
-    private  func saveQuestions(objectsToAdd: [Question]){
-        for objectToAdd in objectsToAdd {
+    private  func saveQuestions(idsToAdd: [Int]){
+        for idToAdd in idsToAdd {
             if FactorySync.errorNetwork == false {
-                self.getQuestion(objectToAdd.id, callback: { (questionData) -> Void in
+                self.getQuestion(idToAdd, callback: { (questionData) -> Void in
                     self.saveQuestion(questionData)
                 })
             }
@@ -185,8 +185,8 @@ class QuestionManager {
     private func saveQuestion(data: NSDictionary) {
         let realm = Realm()
         var newQuestion: Question = Question()
-        newQuestion.id =  data["id_question"] as! Int
-        let id = data["id_chapter"] as! Int
+        newQuestion.id =  data["id"] as! Int
+        let id = data["idChapter"] as! Int
         let chapter = self.realm.objects(Chapter).filter("id=\(id)")[0]
         var images = self.extractImagesPaths(data["images"] as! NSDictionary)
         newQuestion.chapter = chapter
@@ -195,8 +195,8 @@ class QuestionManager {
         newQuestion.calculator = data["calculator"] as! Bool
         newQuestion.info = self.formatInfo(data["info"] as! String)
         newQuestion.type = data["type"] as! Int
-        newQuestion.idDuo = data["id_group_duo"] as! Int
-        newQuestion.idConcours = data["id_group_duo"] as! Int
+        newQuestion.idDuo = data["idGroupDuo"] as! Int
+        newQuestion.idConcours = data["idConcours"] as! Int
         newQuestion.correction = self.parseNplaceImage(data["correction"] as! String, images: images)
         newQuestion.version = data["version"] as! Int
         
@@ -274,15 +274,6 @@ class QuestionManager {
         input = input.stringByReplacingOccurrencesOfString("<p>", withString: "<p style=\"font-style: italic; font-size: 12px; text-align: center;\">", options: nil, range: nil)
         return input
     }
-    
-    
-    
-    
-    
-    
-
-    
-    
     
     
 }

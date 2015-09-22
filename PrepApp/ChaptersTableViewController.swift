@@ -63,10 +63,28 @@ class ChaptersTableViewController: UITableViewController, UITableViewDataSource 
     //methods
     private func loadChapters() {
         self.chaptersRealm = self.realm.objects(Chapter).filter("subject == %@", subject!)
+        
+        var tempChapters = [Chapter]()
         for chapter in self.chaptersRealm! {
             if !self.isChapterEmpty(chapter){
-                self.chapters.append(chapter)
+                tempChapters.append(chapter)
             }
+        }
+        
+        //sorting
+        while tempChapters.count != 0 {
+            var minimum = 100000
+            var index = 0
+            var tempChapter = Chapter()
+            for chapter in tempChapters {
+                if chapter.number < minimum {
+                    minimum = chapter.number
+                    tempChapter = chapter
+                    index = find(tempChapters, chapter)!
+                }
+            }
+            self.chapters.append(tempChapter)
+            tempChapters.removeAtIndex(index)
         }
     }
     

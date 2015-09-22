@@ -14,9 +14,9 @@ class ConfigManager {
     func saveConfig(callback: (Bool) -> Void) {
         self.getConfig({ (config) -> Void in
             if let config: NSDictionary = config {
-                var date = NSDate(timeIntervalSince1970: NSTimeInterval((config["date_exam"] as! String).toInt()!))
+                var date = NSDate(timeIntervalSince1970: NSTimeInterval((config["dateExam"] as! String).toInt()!))
                 //println(date)
-                var weeksBeforeExam = (config["weeks_before_exam"] as! String).toInt()!
+                var weeksBeforeExam = (config["weeksBeforeExam"] as! String).toInt()!
                 //println(weeksBeforeExam)
                 var nicknameAllowed = (config["nickname"] as! String).toBool()!
                 //println(nicknameAllowed)
@@ -205,6 +205,4 @@ class ConfigManager {
         }
     }
 
-
-    
 }

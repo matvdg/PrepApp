@@ -11,50 +11,34 @@ import UIKit
 import RealmSwift
 
 
-
 class ChapterManager {
     
     let realm = FactoryRealm.getRealm()
+    var counter = 0
     
     func saveChapters() {
-        self.getChapters({ (chapters) -> Void in
-            var empty = true
-            for chapter in chapters {
-                empty = false
-                self.saveChapter(chapter as! NSDictionary)
+        self.counter = 0
+        self.getChapters({ (data) -> Void in
+            var onlineChapters = [Chapter]()
+            // dictionary
+            for (id, version) in data {
+                let chapter = Chapter()
+                chapter.id = (id as! String).toInt()!
+                chapter.version = (version as! Int)
+                onlineChapters.append(chapter)
             }
-            if empty {
-                FactorySync.errorNetwork = true
-            } else {
-                println("chapters downloaded")
-                FactorySync.getQuestionManager().saveQuestions()
-            }
+            self.compare(onlineChapters)
         })
-        
     }
     
-    private func saveChapter(data: NSDictionary) {
-        
-        var newChapter = Chapter()
-        newChapter.id = data["id"] as! Int
-        let id = data["id_subject"] as! Int
-        let subject = realm.objects(Subject).filter("id=\(id)")[0]
-        newChapter.subject = subject
-        newChapter.number = data["number"] as! Int
-        newChapter.name = data["name"] as! String
-        
-        self.realm.write {
-            self.realm.add(newChapter)
-        } 
-    }
-    
-    private func getChapters(callback: (NSArray) -> Void) {
+    private func getChapters(callback: (NSDictionary) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.chapterUrl!)
         request.HTTPMethod = "POST"
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
             (data, response, error) in
+            
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
@@ -65,31 +49,189 @@ class ChapterManager {
                     var err: NSError?
                     var statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSArray
+                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSDictionary
                         
                         if let result = jsonResult {
                             if err != nil {
                                 println("error : parsing JSON in getChapters")
                                 FactorySync.errorNetwork = true
                             } else {
-                                callback(result)
+                                callback(result as NSDictionary)
                             }
                         } else {
                             println("error : NSArray nil in getChapters")
                             FactorySync.errorNetwork = true
                         }
+                        
+                        
                     } else {
-                        println("header status = \(statusCode)  in getChapters")
+                        println("header status = \(statusCode) in getChapters")
                         FactorySync.errorNetwork = true
                     }
-                    
+                }
+            }
+            
+        }
+        task.resume()
+    }
+    
+    private func compare(onlineChapters: [Chapter]){
+        
+        // Query a Realm
+        let offlineChapters = self.realm.objects(Chapter)
+        
+        // we check what has been removed
+        var idsToRemove = [Int]()
+        for offlineChapter in offlineChapters {
+            var willBeRemoved = true
+            for onlineChapter in onlineChapters {
+                if onlineChapter.id == offlineChapter.id {
+                    willBeRemoved = false
+                }
+            }
+            if willBeRemoved {
+                idsToRemove.append(offlineChapter.id)
+                println("removing chapter")
+            }
+        }
+        self.deleteChapters(idsToRemove)
+        
+        // we check what has been updated
+        var idsToUpdate = [Int]()
+        for offlineChapter in offlineChapters {
+            var willBeUpdated = true
+            for onlineChapter in onlineChapters {
+                if onlineChapter.id == offlineChapter.id && onlineChapter.version == offlineChapter.version {
+                    willBeUpdated = false
+                }
+            }
+            if willBeUpdated {
+                idsToUpdate.append(offlineChapter.id)
+                println("updating chapter")
+            }
+        }
+        self.updateChapters(idsToUpdate)
+        self.counter += idsToUpdate.count
+        
+        // we check what we have to add
+        var idsToAdd = [Int]()
+        for onlineChapter in onlineChapters {
+            var willBeAdded = true
+            for offlineChapter in offlineChapters {
+                if onlineChapter.id == offlineChapter.id {
+                    willBeAdded = false
+                }
+            }
+            if willBeAdded {
+                idsToAdd.append(onlineChapter.id)
+                println("adding chapter")
+            }
+        }
+        self.saveChapters(idsToAdd)
+        self.counter += idsToAdd.count
+        if self.counter == 0 {
+            println("chapters: nothing new to sync")
+            FactorySync.getQuestionManager().saveQuestions()
+        }
+    }
+    
+    private func deleteChapters(idsToRemove: [Int]){
+        for idToRemove in idsToRemove {
+            if FactorySync.errorNetwork == false {
+                var objectToRemove = realm.objects(Chapter).filter("id=\(idToRemove)")
+                self.realm.write {
+                    self.realm.delete(objectToRemove)
                 }
             }
         }
-        task.resume()
-        
-        
     }
     
+    private func updateChapters(idsToUpdate: [Int]){
+        for idToUpdate in idsToUpdate {
+            if FactorySync.errorNetwork == false {
+                self.getChapter(idToUpdate, callback: { (chapterData) -> Void in
+                    let chapters = self.realm.objects(Chapter)
+                    for chapter in chapters {
+                        if chapter.id == idToUpdate {
+                            self.realm.write {
+                                chapter.name = chapterData["name"] as! String
+                                let id = chapterData["idSubject"] as! Int
+                                chapter.number = chapterData["number"] as! Int
+                                let subject = self.realm.objects(Subject).filter("id=\(id)")[0]
+                                chapter.subject = subject
+                                chapter.version = chapterData["version"] as! Int
+                            }
+                        }
+                    }
+                })
+            }
+        }
+    }
     
+    private  func saveChapters(idsToAdd: [Int]){
+        for idToAdd in idsToAdd {
+            if FactorySync.errorNetwork == false {
+                self.getChapter(idToAdd, callback: { (chapterData) -> Void in
+                    var newChapter = Chapter()
+                    newChapter.id =  chapterData["id"] as! Int
+                    newChapter.name = chapterData["name"] as! String
+                    newChapter.number = chapterData["number"] as! Int
+                    newChapter.version = chapterData["version"] as! Int
+                    let id = chapterData["idSubject"] as! Int
+                    let subject = self.realm.objects(Subject).filter("id=\(id)")[0]
+                    newChapter.subject = subject
+                    self.realm.write {
+                        self.realm.add(newChapter)
+                    }
+                })
+            }
+        }
+    }
+    
+    private func getChapter(id: Int, callback: (NSDictionary) -> Void) {
+        let url = NSURL(string: "\(FactorySync.chapterUrl!)\(id)")
+        let request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = "POST"
+        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
+        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
+            (data, response, error) in
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                if error != nil {
+                    println("error : no connexion in getChapter")
+                    FactorySync.errorNetwork = true
+                } else {
+                    
+                    var err: NSError?
+                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    if statusCode == 200 {
+                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSDictionary
+                        
+                        if let result = jsonResult {
+                            if err != nil {
+                                println("error: parsing JSON in getChapter")
+                                FactorySync.errorNetwork = true
+                            } else {
+                                callback(result as NSDictionary)
+                                self.counter--
+                                if self.counter == 0 {
+                                    println("chapters downloaded")
+                                    FactorySync.getQuestionManager().saveQuestions()
+                                }
+                            }
+                        } else {
+                            println("error : NSArray nil in getChapter")
+                            FactorySync.errorNetwork = true
+                        }
+                    } else {
+                        println("header status = \(statusCode) in getChapter")
+                        FactorySync.errorNetwork = true
+                    }
+                }
+            }
+            
+        }
+        task.resume()
+    }
 }

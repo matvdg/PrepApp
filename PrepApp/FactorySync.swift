@@ -37,7 +37,6 @@ class FactorySync {
     static let configUrl = NSURL(string: "\(FactorySync.apiUrl!)/configs/")
     
     //QUESTIONS
-    static let questionsListUrl = NSURL(string: "\(FactorySync.apiUrl!)/questions/list/")
     static let questionUrl = NSURL(string: "\(FactorySync.apiUrl!)/questions/")
     static let chapterUrl = NSURL(string: "\(FactorySync.apiUrl!)/chapters/")
     static let subjectUrl = NSURL(string: "\(FactorySync.apiUrl!)/subjects/")
@@ -62,7 +61,7 @@ class FactorySync {
     static let passwordUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/pass")
     static let nicknameUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/nickname")
     static let levelUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/level")
-    static let awardPointsUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/award_points")
+    static let awardPointsUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/awardPoints")
     static let historyUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/history")
     
     static let path: String = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
@@ -93,12 +92,6 @@ class FactorySync {
         println("syncing")
         FactorySync.getImageManager().hasFinishedSync == false
         FactorySync.getQuestionManager().hasFinishedSync == false
-        var subjects = self.realm.objects(Subject)
-        var chapters = self.realm.objects(Chapter)
-        self.realm.write {
-            self.realm.delete(subjects)
-            self.realm.delete(chapters)
-        }
         FactorySync.getSubjectManager().saveSubjects()
         // we fetch subjects then chapters then questions then images in order to avoid Realm bad mapping (ORM)
     }
