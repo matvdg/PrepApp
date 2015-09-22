@@ -16,7 +16,7 @@ class Question : Object {
     dynamic var answers = List<Answer>()
     dynamic var calculator: Bool = true
     dynamic var info: String = ""
-    dynamic var type: Int = 0
+    dynamic var type: Int = 0 //0 = training, 1 = solo, 2 = duo, 3 = contest
     dynamic var idDuo: Int = 0
     dynamic var idConcours: Int = 0
     dynamic var correction: String = ""

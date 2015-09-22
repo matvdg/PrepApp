@@ -12,6 +12,7 @@ import UIKit
 class History {
     
     private let realmHistory = FactoryRealm.getRealmHistory()
+    private let realm = FactoryRealm.getRealm()
     
     func addQuestionToHistory(question: QuestionHistory) {
         
@@ -79,7 +80,6 @@ class History {
         }
         return result
     }
-
     
     func isQuestionDone(id: Int)-> Bool {
         let questionsHistory = self.realmHistory.objects(QuestionHistory)
@@ -128,6 +128,25 @@ class History {
             }
         }
         return result
+    }
+    
+    func getMarkedQuestions() -> ([Question],[Bool]) {
+        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        let questions = self.realm.objects(Question)
+        var isTraining = [Bool]()
+        var markedQuestions = [Question]()
+        for questionHistory in questionsHistory {
+            if questionHistory.marked {
+                for question in questions {
+                    if question.id == questionHistory.id {
+                        markedQuestions.append(question)
+                        isTraining.append(questionHistory.training)
+                    }
+                }
+                
+            }
+        }
+        return (markedQuestions,isTraining)
     }
     
 }

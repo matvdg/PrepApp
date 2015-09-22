@@ -145,6 +145,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.tintColor = colorGreenAppButtons
         return cell
     }
+    
     //UITableViewDelegate Methods
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.01
