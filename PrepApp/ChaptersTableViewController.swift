@@ -44,7 +44,6 @@ class ChaptersTableViewController: UITableViewController, UITableViewDataSource 
     }
 
     // MARK: - Table view data source
-
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
         // Return the number of rows in the section.

@@ -787,16 +787,6 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     
     func hidePieCharts(bool: Bool) {
         self.chePieChart.hidden = bool
-    }
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        if let statsVC = segue.destinationViewController as? StatsViewController {
-            // Pass the selected object to the new view controller.
-        }
-    }
-
-	
+    }	
 
 }

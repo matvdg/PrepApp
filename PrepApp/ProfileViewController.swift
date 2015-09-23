@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var profilePics = ["stats","podium","marked","credits"]
+    var profilePics = ["stats","podium","marked","remark"]
     var profileTopics = ["Statistiques","Classement","Questions marquées","Suggestions/remarques"]
     var selectedSection: Int = -1
 
@@ -79,7 +79,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         case 2 : //Questions marquées
             self.performSegueWithIdentifier("showMarkedQuestions", sender: self)
         case 3 : //Suggestions/remarques
-            self.performSegueWithIdentifier("showSuggestions", sender: self)
+            self.performSegueWithIdentifier("showRemark", sender: self)
         default:
             println("nothing selected")
         }

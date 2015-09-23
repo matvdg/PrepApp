@@ -1,22 +1,20 @@
 //
-//  SuggestionsViewController.swift
+//  CommentViewController.swift
 //  PrepApp
 //
-//  Created by Mikael Vandeginste on 15/09/2015.
+//  Created by Mathieu Vandeginste on 23/09/15.
 //  Copyright (c) 2015 PrepApp. All rights reserved.
 //
 
 import UIKit
 
-class SuggestionsViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate {
+class CommentViewController: UIViewController {
     
-    var topics = ["Une suggestion/idée", "Un bug/remarque", "Une nouvelle fonctionnalité", "Un autre commentaire"]
-    
-    
-    @IBOutlet weak var topicsPicker: UIPickerView!
+    var selectedId = 0
+
     @IBOutlet weak var designButton: UIButton!
     @IBOutlet weak var remark: UITextView!
-
+    
     @IBAction func send(sender: AnyObject) {
         self.sendRemark()
     }
@@ -53,24 +51,9 @@ class SuggestionsViewController: UIViewController, UIPickerViewDataSource, UIPic
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         self.view.endEditing(true)
     }
-
+    
     func sendRemark() {
         println("coucou")
-    }
-    
-    //UIPickerViewDataSource/Delegate Methods
-    // returns the number of 'columns' to display.
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    // returns the # of rows in each component..
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.topics.count
-    }
-    
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-        return self.topics[row]
     }
     
     //UITextViewDelegate Methods
@@ -87,8 +70,6 @@ class SuggestionsViewController: UIViewController, UIPickerViewDataSource, UIPic
             textView.textColor = UIColor.lightGrayColor()
         }
     }
-
-
 
 
 }

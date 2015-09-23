@@ -12,7 +12,7 @@
 		953686E71BB0179100CD6615 /* QuestionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953686E61BB0179100CD6615 /* QuestionManager.swift */; };
 		954441E41B9CB49F0035B7ED /* ScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954441E31B9CB49F0035B7ED /* ScoreViewController.swift */; };
 		9555BBC91BA836EF00BED5A2 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9555BBC81BA836EF00BED5A2 /* StatsViewController.swift */; };
-		9555BBCB1BA836FB00BED5A2 /* SuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9555BBCA1BA836FB00BED5A2 /* SuggestionsViewController.swift */; };
+		9555BBCB1BA836FB00BED5A2 /* RemarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9555BBCA1BA836FB00BED5A2 /* RemarkViewController.swift */; };
 		9555BBCD1BA8371600BED5A2 /* LeaderboardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9555BBCC1BA8371600BED5A2 /* LeaderboardTableViewController.swift */; };
 		9555BBCF1BA8372500BED5A2 /* MarkedQuestionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9555BBCE1BA8372500BED5A2 /* MarkedQuestionsTableViewController.swift */; };
 		95C5C48D1B9503F6001DA9B5 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C5C48C1B9503F6001DA9B5 /* Answer.swift */; };
@@ -29,6 +29,8 @@
 		F605AF141B04153200E90596 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605AF131B04153200E90596 /* SettingsViewController.swift */; };
 		F605AF161B04153C00E90596 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605AF151B04153C00E90596 /* HelpViewController.swift */; };
 		F605AF181B04154800E90596 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605AF171B04154800E90596 /* ProfileViewController.swift */; };
+		F60739E21BB216BE004DEC32 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60739E11BB216BE004DEC32 /* CommentViewController.swift */; };
+		F60739E41BB216CB004DEC32 /* PreviewQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60739E31BB216CB004DEC32 /* PreviewQuestionViewController.swift */; };
 		F61A1CDB1B003F7500777584 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F61A1CDA1B003F7500777584 /* SWRevealViewController.m */; };
 		F61A1CDF1B0041CD00777584 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61A1CDE1B0041CD00777584 /* MenuController.swift */; };
 		F62D408A1AF442890051DE83 /* stix.otf in Resources */ = {isa = PBXBuildFile; fileRef = F62D40891AF442890051DE83 /* stix.otf */; };
@@ -119,7 +121,7 @@
 		953686E61BB0179100CD6615 /* QuestionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionManager.swift; sourceTree = "<group>"; };
 		954441E31B9CB49F0035B7ED /* ScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreViewController.swift; sourceTree = "<group>"; };
 		9555BBC81BA836EF00BED5A2 /* StatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
-		9555BBCA1BA836FB00BED5A2 /* SuggestionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionsViewController.swift; sourceTree = "<group>"; };
+		9555BBCA1BA836FB00BED5A2 /* RemarkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemarkViewController.swift; sourceTree = "<group>"; };
 		9555BBCC1BA8371600BED5A2 /* LeaderboardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardTableViewController.swift; sourceTree = "<group>"; };
 		9555BBCE1BA8372500BED5A2 /* MarkedQuestionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkedQuestionsTableViewController.swift; sourceTree = "<group>"; };
 		95C5C48C1B9503F6001DA9B5 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
@@ -135,6 +137,8 @@
 		F605AF131B04153200E90596 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F605AF151B04153C00E90596 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		F605AF171B04154800E90596 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		F60739E11BB216BE004DEC32 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		F60739E31BB216CB004DEC32 /* PreviewQuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewQuestionViewController.swift; sourceTree = "<group>"; };
 		F61A1CD91B003F7500777584 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		F61A1CDA1B003F7500777584 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		F61A1CDE1B0041CD00777584 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
@@ -212,9 +216,11 @@
 			children = (
 				F605AF171B04154800E90596 /* ProfileViewController.swift */,
 				9555BBC81BA836EF00BED5A2 /* StatsViewController.swift */,
-				9555BBCA1BA836FB00BED5A2 /* SuggestionsViewController.swift */,
+				9555BBCA1BA836FB00BED5A2 /* RemarkViewController.swift */,
 				9555BBCC1BA8371600BED5A2 /* LeaderboardTableViewController.swift */,
 				9555BBCE1BA8372500BED5A2 /* MarkedQuestionsTableViewController.swift */,
+				F60739E11BB216BE004DEC32 /* CommentViewController.swift */,
+				F60739E31BB216CB004DEC32 /* PreviewQuestionViewController.swift */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -608,7 +614,9 @@
 				9555BBC91BA836EF00BED5A2 /* StatsViewController.swift in Sources */,
 				F6AC7B4D1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift in Sources */,
 				953686E71BB0179100CD6615 /* QuestionManager.swift in Sources */,
+				F60739E41BB216CB004DEC32 /* PreviewQuestionViewController.swift in Sources */,
 				95C5C48D1B9503F6001DA9B5 /* Answer.swift in Sources */,
+				F60739E21BB216BE004DEC32 /* CommentViewController.swift in Sources */,
 				F6ECC1101AF6DFE8008F18E3 /* SyncViewController.swift in Sources */,
 				F6F22A971B70EC5E00A3049B /* DetailHelpViewController.swift in Sources */,
 				9555BBCD1BA8371600BED5A2 /* LeaderboardTableViewController.swift in Sources */,
@@ -618,7 +626,7 @@
 				9555BBCF1BA8372500BED5A2 /* MarkedQuestionsTableViewController.swift in Sources */,
 				F6322A231B615E460074549E /* Subject.swift in Sources */,
 				95D765031B9F358E002C31CC /* Scoring.swift in Sources */,
-				9555BBCB1BA836FB00BED5A2 /* SuggestionsViewController.swift in Sources */,
+				9555BBCB1BA836FB00BED5A2 /* RemarkViewController.swift in Sources */,
 				F605AF181B04154800E90596 /* ProfileViewController.swift in Sources */,
 				F6322A161B6157F60074549E /* ChaptersTableViewController.swift in Sources */,
 				F6322A1C1B615DFA0074549E /* Question.swift in Sources */,
