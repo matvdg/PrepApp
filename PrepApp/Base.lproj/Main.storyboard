@@ -84,6 +84,7 @@
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -1285,6 +1286,7 @@
                         <outlet property="previousButton" destination="YaD-y2-nOb" id="6Zy-fq-f9h"/>
                         <outlet property="questionNumber" destination="jVL-k9-dd8" id="mTh-cq-Rd3"/>
                         <segue destination="wd7-J6-c5g" kind="presentation" identifier="showCorrection" modalTransitionStyle="partialCurl" id="78B-T2-OOj"/>
+                        <segue destination="spP-v5-DZw" kind="show" identifier="showMarkedQuestion" id="FJi-Sh-npJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Npr-RE-GW6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2066,10 +2068,10 @@
             </objects>
             <point key="canvasLocation" x="3603" y="-5509"/>
         </scene>
-        <!--RemarkVC-->
+        <!--FeedbackVC-->
         <scene sceneID="CnV-ea-rxX">
             <objects>
-                <viewController title="RemarkVC" id="n3b-Gr-NOZ" customClass="RemarkViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="FeedbackVC" id="n3b-Gr-NOZ" customClass="FeedbackViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZAQ-L6-Qo8"/>
                         <viewControllerLayoutGuide type="bottom" id="qAu-Bh-kjT"/>
@@ -2144,7 +2146,7 @@
                     </view>
                     <connections>
                         <outlet property="designButton" destination="HLK-VW-UKa" id="Ewe-rg-sfy"/>
-                        <outlet property="remark" destination="VFC-co-lCN" id="O6H-1Y-ef1"/>
+                        <outlet property="feedback" destination="VFC-co-lCN" id="Pq3-2i-IrP"/>
                         <outlet property="topicsPicker" destination="5PE-3y-D0T" id="FFE-NK-Geh"/>
                     </connections>
                 </viewController>
@@ -2487,6 +2489,7 @@
                         <outlet property="titleLabel" destination="of3-me-pjg" id="wZS-jR-P8u"/>
                         <segue destination="wd7-J6-c5g" kind="presentation" identifier="showCorrection" modalTransitionStyle="partialCurl" id="lqZ-eW-hiS"/>
                         <segue destination="obN-Bd-9Nx" kind="presentation" identifier="showScore" modalTransitionStyle="coverVertical" id="oz6-34-cqp"/>
+                        <segue destination="spP-v5-DZw" kind="show" identifier="showMarkedQuestion" id="EuL-Gj-hVY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xpA-Dm-hgB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2810,6 +2813,22 @@
                                     <action selector="send:" destination="spP-v5-DZw" eventType="touchUpInside" id="cUh-9T-tGH"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pa2-4n-Giw">
+                                <rect key="frame" x="16" y="64" width="77" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="bCL-C9-ZfS"/>
+                                    <constraint firstAttribute="width" constant="77" id="e8k-fD-xMR"/>
+                                </constraints>
+                                <state key="normal" title="Retour" image="previous">
+                                    <color key="titleColor" red="0.3058823645" green="0.6549019814" blue="0.53725492949999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="changeNickname:" destination="rUx-R3-kpb" eventType="touchUpInside" id="Bh1-oZ-TBp"/>
+                                    <action selector="dismiss:" destination="spP-v5-DZw" eventType="touchUpInside" id="twP-Ba-1kk"/>
+                                    <action selector="send:" destination="spP-v5-DZw" eventType="touchUpInside" id="82M-3H-if5"/>
+                                </connections>
+                            </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="ZWL-2Y-puZ">
                                 <rect key="frame" x="16" y="162" width="568" height="370"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2821,13 +2840,21 @@
                                 </connections>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000298023224" translatesAutoresizingMaskIntoConstraints="NO" id="k9l-Oc-DZJ">
-                                <rect key="frame" x="16" y="64" width="568" height="90"/>
+                                <rect key="frame" x="16" y="112" width="568" height="42"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="90" id="ig2-PZ-EfT"/>
+                                    <constraint firstAttribute="height" constant="42" id="ig2-PZ-EfT"/>
                                 </constraints>
                                 <string key="text">Contacter ici directement votre professeur qui a créé cette question pour lui demander des explications, lui faire part d'une erreur ou pour toute aide dont vous avez besoin.</string>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="17"/>
                                 <color key="textColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Envoyer un commentaire" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fjU-Cf-djz">
+                                <rect key="frame" x="101" y="64" width="483" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Qh4-Ws-aMw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="20"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -2835,18 +2862,25 @@
                         <constraints>
                             <constraint firstItem="ZWL-2Y-puZ" firstAttribute="leading" secondItem="hto-3Z-dUF" secondAttribute="leadingMargin" id="19a-tC-1v4"/>
                             <constraint firstItem="k9l-Oc-DZJ" firstAttribute="leading" secondItem="hto-3Z-dUF" secondAttribute="leadingMargin" id="8ji-07-W02"/>
+                            <constraint firstItem="fjU-Cf-djz" firstAttribute="leading" secondItem="pa2-4n-Giw" secondAttribute="trailing" constant="8" id="9Vl-tr-hrX"/>
+                            <constraint firstItem="pa2-4n-Giw" firstAttribute="leading" secondItem="hto-3Z-dUF" secondAttribute="leadingMargin" id="Dwm-lN-QmS"/>
                             <constraint firstItem="ZWL-2Y-puZ" firstAttribute="trailing" secondItem="hto-3Z-dUF" secondAttribute="trailingMargin" id="EzT-yX-knc"/>
+                            <constraint firstItem="fjU-Cf-djz" firstAttribute="top" secondItem="iaX-Rg-p09" secondAttribute="bottom" id="iBo-1H-Pgm"/>
                             <constraint firstItem="ZWL-2Y-puZ" firstAttribute="top" secondItem="k9l-Oc-DZJ" secondAttribute="bottom" constant="8" id="jBX-zj-Ay6"/>
                             <constraint firstItem="F9a-jI-It7" firstAttribute="top" secondItem="UlF-kS-X6A" secondAttribute="bottom" constant="20" id="o6r-Mb-e2e"/>
                             <constraint firstItem="k9l-Oc-DZJ" firstAttribute="trailing" secondItem="hto-3Z-dUF" secondAttribute="trailingMargin" id="rBr-NU-KmZ"/>
                             <constraint firstAttribute="centerX" secondItem="UlF-kS-X6A" secondAttribute="centerX" id="rDZ-sm-WWj"/>
-                            <constraint firstItem="k9l-Oc-DZJ" firstAttribute="top" secondItem="iaX-Rg-p09" secondAttribute="bottom" id="rgi-TR-gOA"/>
+                            <constraint firstItem="k9l-Oc-DZJ" firstAttribute="top" secondItem="iaX-Rg-p09" secondAttribute="bottom" constant="48" id="rgi-TR-gOA"/>
+                            <constraint firstItem="pa2-4n-Giw" firstAttribute="top" secondItem="iaX-Rg-p09" secondAttribute="bottom" id="utg-IC-PDw"/>
                             <constraint firstItem="UlF-kS-X6A" firstAttribute="top" secondItem="ZWL-2Y-puZ" secondAttribute="bottom" constant="8" id="xvS-rI-5T7"/>
+                            <constraint firstItem="fjU-Cf-djz" firstAttribute="trailing" secondItem="hto-3Z-dUF" secondAttribute="trailingMargin" id="zmg-9w-18u"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="comment" destination="ZWL-2Y-puZ" id="sfK-XD-576"/>
                         <outlet property="designButton" destination="UlF-kS-X6A" id="c3u-l4-vRX"/>
-                        <outlet property="remark" destination="ZWL-2Y-puZ" id="Ht5-uN-UB2"/>
+                        <outlet property="dismissButton" destination="pa2-4n-Giw" id="veq-4z-oT1"/>
+                        <outlet property="titleLabel" destination="fjU-Cf-djz" id="3Tv-hn-1s6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZzJ-xt-hep" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2885,6 +2919,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="xbe-Fm-nd1"/>
         <segue reference="WYj-iM-Hx0"/>
+        <segue reference="FJi-Sh-npJ"/>
         <segue reference="Y06-RT-izm"/>
         <segue reference="4dk-zf-p2A"/>
     </inferredMetricsTieBreakers>

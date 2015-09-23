@@ -38,6 +38,7 @@ class FactorySync {
     
     //QUESTIONS
     static let questionUrl = NSURL(string: "\(FactorySync.apiUrl!)/questions/")
+    static let questionMarkedUrl = NSURL(string: "\(FactorySync.apiUrl!)/questions/mark/")
     static let chapterUrl = NSURL(string: "\(FactorySync.apiUrl!)/chapters/")
     static let subjectUrl = NSURL(string: "\(FactorySync.apiUrl!)/subjects/")
     static let imageUrl = NSURL(string: "\(FactorySync.apiUrl!)/uploads/")
@@ -50,8 +51,8 @@ class FactorySync {
     //CONTEST
     static let contestUrl = NSURL(string: "\(FactorySync.apiUrl!)/contest/")
     
-    //SUGGESTIONS
-    static let suggestionsUrl = NSURL(string: "\(FactorySync.apiUrl!)/suggestions/")
+    //FEEDBACK
+    static let feedbackUrl = NSURL(string: "\(FactorySync.apiUrl!)/feedback/")
     
     //LEADERBOARD
     static let learderboardUrl = NSURL(string: "\(FactorySync.apiUrl!)/learderboard/")

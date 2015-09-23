@@ -1,5 +1,5 @@
 //
-//  SuggestionsViewController.swift
+//  FeedbackViewController.swift
 //  PrepApp
 //
 //  Created by Mikael Vandeginste on 15/09/2015.
@@ -8,23 +8,24 @@
 
 import UIKit
 
-class RemarkViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate {
+class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate {
     
     var topics = ["Une suggestion/idée", "Un bug/remarque", "Une nouvelle fonctionnalité", "Un autre commentaire"]
+    var selectedTopic = 0
     
     
     @IBOutlet weak var topicsPicker: UIPickerView!
     @IBOutlet weak var designButton: UIButton!
-    @IBOutlet weak var remark: UITextView!
+    @IBOutlet weak var feedback: UITextView!
 
     @IBAction func send(sender: AnyObject) {
-        self.sendRemark()
+        self.sendFeedback()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Envoyer des commentaires"
-        self.remark.text = "Taper votre commentaire ici :"
-        self.remark.textColor = UIColor.lightGrayColor()
+        self.title = "Envoyer un feedback"
+        self.feedback.text = "Taper votre commentaire ici :"
+        self.feedback.textColor = UIColor.lightGrayColor()
         self.designButton.layer.cornerRadius = 6
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
@@ -54,8 +55,31 @@ class RemarkViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         self.view.endEditing(true)
     }
 
-    func sendRemark() {
-        println("coucou")
+    func sendFeedback() {
+        if self.feedback.text == "Taper votre feedback ici :" || self.feedback.text == "" {
+            // create alert controller
+            let myAlert = UIAlertController(title: "Erreur", message: "Votre message est vide !", preferredStyle: UIAlertControllerStyle.Alert)
+            myAlert.view.tintColor = colorGreenAppButtons
+            // add an "OK" button
+            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            // show the alert
+            self.presentViewController(myAlert, animated: true, completion: nil)
+        } else {
+            User.currentUser!.sendFeedback(self.topics[self.selectedTopic], feedback: self.feedback.text) { (title, message, result) -> Void in
+                // create alert controller
+                let myAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                myAlert.view.tintColor = colorGreenAppButtons
+                // add an "OK" button
+                myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+                    if result {
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    }
+                })
+                // show the alert
+                self.presentViewController(myAlert, animated: true, completion: nil)
+            }
+        }
     }
     
     //UIPickerViewDataSource/Delegate Methods
@@ -83,7 +107,7 @@ class RemarkViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     func textViewDidEndEditing(textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = "Taper votre commentaire ici :"
+            textView.text = "Taper votre feedback ici :"
             textView.textColor = UIColor.lightGrayColor()
         }
     }

@@ -19,6 +19,8 @@ class MarkedQuestionsTableViewController: UITableViewController {
         super.viewDidLoad()
         self.questions = FactoryHistory.getHistory().getMarkedQuestions().0
         self.isTrainingQuestions = FactoryHistory.getHistory().getMarkedQuestions().1
+        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
+        self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
         if self.questions.isEmpty {
             var templateQuestion = Question()
             var templateChapter = Chapter()

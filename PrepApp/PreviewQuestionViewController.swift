@@ -93,7 +93,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
             }
             numberAnswer++
         }
-        println("Question n°\(self.currentQuestion!.id) , bonne(s) réponse(s) = \(self.goodAnswers.answersPrepApp())")
+        println("Question n°\(self.currentQuestion!.id), bonne(s) réponse(s) = \(self.goodAnswers.answersPrepApp())")
         self.didLoadWording = false
         self.didLoadAnswers = false
         self.didLoadInfos = false

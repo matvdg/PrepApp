@@ -12,7 +12,7 @@
 		953686E71BB0179100CD6615 /* QuestionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953686E61BB0179100CD6615 /* QuestionManager.swift */; };
 		954441E41B9CB49F0035B7ED /* ScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954441E31B9CB49F0035B7ED /* ScoreViewController.swift */; };
 		9555BBC91BA836EF00BED5A2 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9555BBC81BA836EF00BED5A2 /* StatsViewController.swift */; };
-		9555BBCB1BA836FB00BED5A2 /* RemarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9555BBCA1BA836FB00BED5A2 /* RemarkViewController.swift */; };
+		9555BBCB1BA836FB00BED5A2 /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9555BBCA1BA836FB00BED5A2 /* FeedbackViewController.swift */; };
 		9555BBCD1BA8371600BED5A2 /* LeaderboardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9555BBCC1BA8371600BED5A2 /* LeaderboardTableViewController.swift */; };
 		9555BBCF1BA8372500BED5A2 /* MarkedQuestionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9555BBCE1BA8372500BED5A2 /* MarkedQuestionsTableViewController.swift */; };
 		95C5C48D1B9503F6001DA9B5 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C5C48C1B9503F6001DA9B5 /* Answer.swift */; };
@@ -121,7 +121,7 @@
 		953686E61BB0179100CD6615 /* QuestionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionManager.swift; sourceTree = "<group>"; };
 		954441E31B9CB49F0035B7ED /* ScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreViewController.swift; sourceTree = "<group>"; };
 		9555BBC81BA836EF00BED5A2 /* StatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
-		9555BBCA1BA836FB00BED5A2 /* RemarkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemarkViewController.swift; sourceTree = "<group>"; };
+		9555BBCA1BA836FB00BED5A2 /* FeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
 		9555BBCC1BA8371600BED5A2 /* LeaderboardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardTableViewController.swift; sourceTree = "<group>"; };
 		9555BBCE1BA8372500BED5A2 /* MarkedQuestionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkedQuestionsTableViewController.swift; sourceTree = "<group>"; };
 		95C5C48C1B9503F6001DA9B5 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
@@ -216,7 +216,7 @@
 			children = (
 				F605AF171B04154800E90596 /* ProfileViewController.swift */,
 				9555BBC81BA836EF00BED5A2 /* StatsViewController.swift */,
-				9555BBCA1BA836FB00BED5A2 /* RemarkViewController.swift */,
+				9555BBCA1BA836FB00BED5A2 /* FeedbackViewController.swift */,
 				9555BBCC1BA8371600BED5A2 /* LeaderboardTableViewController.swift */,
 				9555BBCE1BA8372500BED5A2 /* MarkedQuestionsTableViewController.swift */,
 				F60739E11BB216BE004DEC32 /* CommentViewController.swift */,
@@ -626,7 +626,7 @@
 				9555BBCF1BA8372500BED5A2 /* MarkedQuestionsTableViewController.swift in Sources */,
 				F6322A231B615E460074549E /* Subject.swift in Sources */,
 				95D765031B9F358E002C31CC /* Scoring.swift in Sources */,
-				9555BBCB1BA836FB00BED5A2 /* RemarkViewController.swift in Sources */,
+				9555BBCB1BA836FB00BED5A2 /* FeedbackViewController.swift in Sources */,
 				F605AF181B04154800E90596 /* ProfileViewController.swift in Sources */,
 				F6322A161B6157F60074549E /* ChaptersTableViewController.swift in Sources */,
 				F6322A1C1B615DFA0074549E /* Question.swift in Sources */,

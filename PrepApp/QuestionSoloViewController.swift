@@ -146,7 +146,7 @@ class QuestionSoloViewController: UIViewController,
                 self.presentViewController(myAlert, animated: true, completion: nil)
             }))
             myAlert.addAction(UIAlertAction(title: "Envoyer un commentaire", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                self.performSegueWithIdentifier("showMarkedQuestions", sender: self)
+                self.performSegueWithIdentifier("showMarkedQuestion", sender: self)
             }))
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             
@@ -178,7 +178,7 @@ class QuestionSoloViewController: UIViewController,
                 }))
                 
                 myAlert.addAction(UIAlertAction(title: "Envoyer un commentaire", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                    self.performSegueWithIdentifier("showMarkedQuestions", sender: self)
+                    self.performSegueWithIdentifier("showMarkedQuestion", sender: self)
                 }))
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
@@ -515,7 +515,7 @@ class QuestionSoloViewController: UIViewController,
             self.selectedAnswers = savedAnswers
         }
         
-        println("Question n°\(self.currentQuestion!.id) , bonne(s) réponse(s) = \(self.goodAnswers.answersPrepApp())")
+        println("Question n°\(self.currentQuestion!.id), bonne(s) réponse(s) = \(self.goodAnswers.answersPrepApp())")
         if self.mode == 0 {
             self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "calc") : UIImage(named: "nocalc"))
         }
@@ -1053,8 +1053,8 @@ class QuestionSoloViewController: UIViewController,
             correctionVC.correctionHTML = self.currentQuestion!.correction
         }
         
-        if let markedQuestionsVC = segue.destinationViewController as? MarkedQuestionsTableViewController {
-            // Pass the selected object to the new view controller.
+        if let commentVC = segue.destinationViewController as? CommentViewController {
+            commentVC.selectedId = self.currentQuestion!.id
         }
         
         if let scoreVC = segue.destinationViewController as? ScoreViewController {

@@ -134,6 +134,55 @@ class User {
         }
         task.resume()
     }
+    
+    func sendComment(id: Int, comment: String, callback: (String, String, Bool) -> Void){
+        let url = NSURL(string: "\(FactorySync.feedbackUrl!)\(id)")
+        let request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = "POST"
+        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&comment=\(comment)"
+        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
+            (data, response, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil {
+                    var err: NSError?
+                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    if statusCode == 200 {
+                        callback("Envoyé !","Commentaire envoyé avec succès.", true)
+                    } else {
+                        callback("Échec de la connexion.","Vérifier la connexion Internet et réessayer.", false)
+                    }
+                } else {
+                    callback("Échec de la connexion.","Vérifier la connexion Internet et réessayer.", false)
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    func sendFeedback(topic: String, feedback: String, callback: (String, String, Bool) -> Void){
+        let request = NSMutableURLRequest(URL: FactorySync.levelUrl!)
+        request.HTTPMethod = "POST"
+        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&topic=\(topic)&feedback=\(feedback)"
+        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
+            (data, response, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil {
+                    var err: NSError?
+                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    if statusCode == 200 {
+                        callback("Envoyé !","Feedback envoyé avec succès.", true)
+                    } else {
+                        callback("Échec de la connexion.","Vérifier la connexion Internet et réessayer.", false)
+                    }
+                } else {
+                    callback("Échec de la connexion.","Vérifier la connexion Internet et réessayer.", false)
+                }
+            }
+        }
+        task.resume()
+    }
 
 	func saveUser() {
 		//we backup the user in a string array for persistence storage
