@@ -72,7 +72,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 FactorySync.getConfigManager().saveConfig({ (result) -> Void in
                     if result {
                         println("config saved")
+                    } else {
+                        println("error loading config, working with local config")
                     }
+                        
                 })
                 println("localVersion = \(FactorySync.getConfigManager().loadVersion()) dbVersion = \(versionDB)")
                 if FactorySync.getConfigManager().loadVersion() != versionDB { //prompting a sync

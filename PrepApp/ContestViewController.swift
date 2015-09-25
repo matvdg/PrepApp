@@ -12,8 +12,11 @@ class ContestViewController: UIViewController {
 
 	@IBOutlet var menuButton: UIBarButtonItem!
 	
+    @IBOutlet weak var designButton: UIButton!
+    
 	override func viewDidLoad() {
         super.viewDidLoad()
+        self.designButton.layer.cornerRadius = 6
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)

@@ -77,7 +77,7 @@ class Scoring {
         var counter = 0
         for question in questionsHistory {
             counter++
-            if question.assiduityDouble {
+            if question.doubleAssiduity {
                 counter++
             }
         }
@@ -209,6 +209,68 @@ class Scoring {
     
     private func computeUnitsNeededForNextLevel(level: Int) -> Int {
         return (level+1) * (level) / 2
+    }
+    
+    private func getLeaderboard(callback: (NSArray?) -> Void) {
+        
+        let request = NSMutableURLRequest(URL: FactorySync.leaderboardUrl!)
+        request.HTTPMethod = "POST"
+        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
+        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
+            (data, response, error) in
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                if error != nil {
+                    callback(nil)
+                    
+                } else {
+                    var err: NSError?
+                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    if statusCode == 200 {
+                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSArray
+                        
+                        if let result = jsonResult {
+                            if err != nil {
+                                callback(nil)
+                            } else {
+                                callback(result)
+                            }
+                        } else {
+                            callback(nil)
+                        }
+                    } else {
+                        callback(nil)
+                    }
+                }
+            }
+            
+        }
+        task.resume()
+    }
+    
+    func loadLeaderboard(callback: ([Friend]?) -> Void ) {
+        self.getLeaderboard { (data) -> Void in
+            if let leaderboard = data {
+                var result = [Friend]()
+                for element in leaderboard {
+                    if let friend = element as? NSDictionary {
+                        var newFriend = Friend()
+                        newFriend.id = friend["id"] as! Int
+                        newFriend.firstName = friend["firstName"] as! String
+                        newFriend.lastName = friend["lastName"] as! String
+                        newFriend.nickname = friend["nickname"] as! String
+                        newFriend.awardPoint = friend["awardPoints"] as! Int
+                        result.append(newFriend)
+                    } else {
+                        callback(nil)
+                    }
+                }
+                callback(result)
+            } else {
+                callback(nil)
+            }
+        }
     }
     
     private func computePercentLevel(ratio: Int, succeeded: Int) -> (Int,Int) {

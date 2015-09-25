@@ -6,7 +6,7 @@ class MenuController: UITableViewController {
     let sreenSize : CGRect = UIScreen.mainScreen().bounds
 	
     override func viewDidLoad() {
-        self.revealViewController().rearViewRevealWidth = self.sreenSize.width * self.proportionMenuBar
+        self.revealViewController().rearViewRevealWidth = 200
     }
 
 	@IBAction func logout(sender: AnyObject) {

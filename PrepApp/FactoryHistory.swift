@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 PrepApp. All rights reserved.
 //
 
-import UIKit
 
 class FactoryHistory {
     

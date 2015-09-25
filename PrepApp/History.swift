@@ -23,13 +23,13 @@ class History {
             
             if question.id == questionHistory.id {
                 if !questionHistory.training {
-                    question.assiduityDouble = true
+                    question.doubleAssiduity = true
                     println("double assiduity")
                 }
                 self.realmHistory.write {
                     questionHistory.success = question.success
                     questionHistory.training = question.training
-                    questionHistory.assiduityDouble = question.assiduityDouble
+                    questionHistory.doubleAssiduity = question.doubleAssiduity
                     println("updated")
                 }
                 updated = true
@@ -148,5 +148,48 @@ class History {
         }
         return (markedQuestions,isTraining)
     }
+    
+    func syncHistory() {
+        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        
+        var post: [NSMutableDictionary] = []
+        for question in questionsHistory {
+            var questionHistory = NSMutableDictionary()
+            questionHistory["idQuestion"] = question.id
+            questionHistory["success"] = question.firstSuccess
+            questionHistory["doubleAssiduity"] = question.doubleAssiduity
+            questionHistory["weeksBeforeExam"] = question.weeksBeforeExam
+            post.append(questionHistory)
+        }
+        let json = NSJSONSerialization.dataWithJSONObject(post, options: NSJSONWritingOptions(0), error: nil)
+        let history = NSString(data: json!, encoding: NSUTF8StringEncoding)
+        //println(history!)
+        self.postHistory(history!)
+    }
+    
+    private func postHistory(history: NSString){
+        let request = NSMutableURLRequest(URL: FactorySync.historyUrl!)
+        request.HTTPMethod = "POST"
+        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&history=\(history)"
+        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
+            (data, response, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil {
+                    var err: NSError?
+                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    if statusCode == 200 {
+                        println("history sync success")
+                    } else {
+                        println("history sync failed")
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
+
+    
+    
     
 }

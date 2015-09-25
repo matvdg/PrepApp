@@ -247,9 +247,9 @@ class QuestionManager {
         for (key,value) in data {
             var answerToExtract = value as! NSDictionary
             var answer = Answer()
-            answer.id = (answerToExtract["id"] as! String).toInt()!
+            answer.id = (answerToExtract["id"] as! Int)
             answer.content = parseNplaceImage((answerToExtract["content"] as! String), images: images)
-            answer.correct = (answerToExtract["correct"] as! String).toBool()!
+            answer.correct = (answerToExtract["correct"] as! Bool)
             answers.append(answer)
         }
         

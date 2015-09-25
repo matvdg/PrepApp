@@ -11,8 +11,6 @@ import UIKit
 class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate {
     
     var topics = ["Une suggestion/idée", "Un bug/remarque", "Une nouvelle fonctionnalité", "Un autre commentaire"]
-    var selectedTopic = 0
-    
     
     @IBOutlet weak var topicsPicker: UIPickerView!
     @IBOutlet weak var designButton: UIButton!
@@ -21,10 +19,11 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
     @IBAction func send(sender: AnyObject) {
         self.sendFeedback()
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Envoyer un feedback"
-        self.feedback.text = "Taper votre commentaire ici :"
+        self.feedback.text = "Taper votre feedback ici :"
         self.feedback.textColor = UIColor.lightGrayColor()
         self.designButton.layer.cornerRadius = 6
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
@@ -65,7 +64,8 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
         } else {
-            User.currentUser!.sendFeedback(self.topics[self.selectedTopic], feedback: self.feedback.text) { (title, message, result) -> Void in
+            
+            User.currentUser!.sendFeedback(self.topics[self.topicsPicker.selectedRowInComponent(0)], feedback: self.feedback.text) { (title, message, result) -> Void in
                 // create alert controller
                 let myAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreenAppButtons

@@ -12,7 +12,8 @@ class User {
     
     static var currentUser: User?
     static var authenticated: Bool = false
-	
+    
+    var id: Int
     var firstName: String
     var lastName: String
     var email: String
@@ -22,6 +23,7 @@ class User {
     var nickname: String
     
     init(
+        id: Int,
         firstName: String,
         lastName: String,
         email: String,
@@ -30,6 +32,7 @@ class User {
         awardPoints: Int,
         nickname: String) {
             
+        self.id = id
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
@@ -50,7 +53,6 @@ class User {
 				if error != nil {
 					callback("Échec de la connexion. Vérifier la connexion Internet et réessayer.")
 				} else {
-					var err: NSError?
 					var statusCode = (response as! NSHTTPURLResponse).statusCode
 					if statusCode == 200 {
 						User.currentUser!.encryptedPassword = newPass
@@ -74,16 +76,15 @@ class User {
             (data, response, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    callback("Échec de la connexion. Vérifier la connexion Internet et réessayer.")
+                    callback("Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
                 } else {
-                    var err: NSError?
                     var statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
                         User.currentUser!.nickname = newNickname
                         User.currentUser!.saveUser()
                         callback("Pseudo changé avec succès.")
                     } else {
-                        callback("Erreur de connexion, veuillez réessayer ultérieurement.")
+                        callback("Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
                     }
                 }
             }
@@ -100,7 +101,6 @@ class User {
             (data, response, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil {
-                    var err: NSError?
                     var statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
                         User.currentUser!.level = newLevel
@@ -136,7 +136,7 @@ class User {
     }
     
     func sendComment(id: Int, comment: String, callback: (String, String, Bool) -> Void){
-        let url = NSURL(string: "\(FactorySync.feedbackUrl!)\(id)")
+        let url = NSURL(string: "\(FactorySync.questionMarkedUrl!)\(id)")
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&comment=\(comment)"
@@ -145,15 +145,14 @@ class User {
             (data, response, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil {
-                    var err: NSError?
                     var statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
                         callback("Envoyé !","Commentaire envoyé avec succès.", true)
                     } else {
-                        callback("Échec de la connexion.","Vérifier la connexion Internet et réessayer.", false)
+                        callback("Échec de la connexion.","Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", false)
                     }
                 } else {
-                    callback("Échec de la connexion.","Vérifier la connexion Internet et réessayer.", false)
+                    callback("Échec de la connexion.","Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", false)
                 }
             }
         }
@@ -161,7 +160,7 @@ class User {
     }
     
     func sendFeedback(topic: String, feedback: String, callback: (String, String, Bool) -> Void){
-        let request = NSMutableURLRequest(URL: FactorySync.levelUrl!)
+        let request = NSMutableURLRequest(URL: FactorySync.feedbackUrl!)
         request.HTTPMethod = "POST"
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&topic=\(topic)&feedback=\(feedback)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
@@ -169,15 +168,16 @@ class User {
             (data, response, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil {
-                    var err: NSError?
                     var statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
                         callback("Envoyé !","Feedback envoyé avec succès.", true)
                     } else {
-                        callback("Échec de la connexion.","Vérifier la connexion Internet et réessayer.", false)
+                        println(response)
+                        callback("Échec de la connexion.","Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", false)
                     }
                 } else {
-                    callback("Échec de la connexion.","Vérifier la connexion Internet et réessayer.", false)
+                    println("error1")
+                    callback("Échec de la connexion.","Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", false)
                 }
             }
         }
@@ -187,6 +187,7 @@ class User {
 	func saveUser() {
 		//we backup the user in a string array for persistence storage
 		var savedUser = [
+            String(self.id),
             self.firstName,
             self.lastName,
             self.email,
@@ -211,7 +212,7 @@ class User {
 			dispatch_async(dispatch_get_main_queue()) {
 				if error != nil {
                     // no connexion
-					callback(nil, "Échec de la connexion. Vérifier la connexion Internet et réessayer.")
+					callback(nil, "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
 				} else {
 					var err: NSError?
 					var statusCode = (response as! NSHTTPURLResponse).statusCode
@@ -242,6 +243,7 @@ class User {
 	static func instantiateUser(data: NSDictionary, pass:String) {
 		//we instantiate the user retrieved in the distant DB into the  dictionary
 		currentUser = User(
+            id: data["id"] as! Int,
 			firstName: data["firstName"] as! String,
 			lastName: data["lastName"] as! String,
 			email: data["mail"] as! String,
@@ -264,21 +266,20 @@ class User {
 			}
             
             User.currentUser = User(
-                firstName: data[0] as String,
-                lastName: data[1] as String,
-                email: data[2] as String,
-                encryptedPassword: data[3] as String,
-                level: (data[4] as String).toInt()!,
-                awardPoints: (data[5] as String).toInt()!,
-                nickname: data[6] as String
+                id: (data[0] as String).toInt()!,
+                firstName: data[1] as String,
+                lastName: data[2] as String,
+                email: data[3] as String,
+                encryptedPassword: data[4] as String,
+                level: (data[5] as String).toInt()!,
+                awardPoints: (data[6] as String).toInt()!,
+                nickname: data[7] as String
             )
 			return true
 		} else {
 			return false
 		}
 	}
-	
-    
 
 }
 

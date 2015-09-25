@@ -201,6 +201,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     func retrieveData() {
         User.currentUser!.updateLevel(User.currentUser!.level)
         User.currentUser!.updateAwardPoints(User.currentUser!.awardPoints)
+        FactoryHistory.getHistory().syncHistory()
         var (percent,answers,todo) = FactoryHistory.getScoring().getScore(1)
         self.bio = Double(percent)
         self.bioNumber = answers

@@ -98,6 +98,7 @@ class ConfigManager {
         println("currentDay saved")
     }
 
+    ///return true if nickname allowed
     func loadNicknamePreference() -> Bool {
         //we retrieve the nicknamePreference from the local Persistence Storage
         if let nicknamePreference : AnyObject = NSUserDefaults.standardUserDefaults().objectForKey("nicknamePreference") {

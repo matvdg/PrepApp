@@ -85,6 +85,9 @@
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -273,260 +276,265 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="dqd-0t-X6t">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.90980392694473267" green="0.90980392694473267" blue="0.90980392694473267" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="separatorColor" white="0.93999999761581421" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="sectionIndexBackgroundColor" red="0.90980392694473267" green="0.90980392694473267" blue="0.90980392694473267" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
                             <tableViewSection id="3qe-9Q-8j7">
                                 <cells>
-                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Qal-pP-7x6">
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="Qal-pP-7x6">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" tableViewCell="Qal-pP-7x6" id="rYS-eU-hgM">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Prep'App Kiné" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QD2-SX-3N8">
                                                     <rect key="frame" x="21" y="11" width="138" height="31"/>
-                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="22"/>
+                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="18"/>
                                                     <color key="textColor" red="0.25628075" green="0.59876227380000002" blue="0.4630164504" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.9098039269" green="0.9098039269" blue="0.9098039269" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ua0-0M-Tbn">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="ua0-0M-Tbn">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ua0-0M-Tbn" id="7a1-sY-6hK">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="home" translatesAutoresizingMaskIntoConstraints="NO" id="5gx-2l-39H">
-                                                    <rect key="frame" x="13" y="7" width="35" height="35"/>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Accueil" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbu-pJ-hY8">
-                                                    <rect key="frame" x="56" y="9" width="151" height="31"/>
-                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="18"/>
+                                                    <rect key="frame" x="65" y="9" width="56" height="31"/>
+                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="16"/>
                                                     <color key="textColor" red="0.35864504419191923" green="0.35864504419191923" blue="0.35864504419191923" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="home" translatesAutoresizingMaskIntoConstraints="NO" id="5gx-2l-39H">
+                                                    <rect key="frame" x="25" y="15" width="20" height="20"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.9098039269" green="0.9098039269" blue="0.9098039269" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <segue destination="knK-1U-k0E" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="WYj-iM-Hx0"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="10" id="4Cz-zM-eTq">
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="10" id="4Cz-zM-eTq">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Cz-zM-eTq" id="H42-Yd-zyU">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator" translatesAutoresizingMaskIntoConstraints="NO" id="YY9-BO-fHH">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="separator" translatesAutoresizingMaskIntoConstraints="NO" id="YY9-BO-fHH">
                                                     <rect key="frame" x="0.0" y="5" width="600" height="1"/>
                                                 </imageView>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="YY9-BO-fHH" firstAttribute="centerY" secondItem="H42-Yd-zyU" secondAttribute="centerY" id="Rb3-TM-71o"/>
-                                                <constraint firstItem="YY9-BO-fHH" firstAttribute="leading" secondItem="H42-Yd-zyU" secondAttribute="leading" id="kdw-fh-Cp9"/>
-                                                <constraint firstAttribute="trailing" secondItem="YY9-BO-fHH" secondAttribute="trailing" id="uhk-KX-fIf"/>
-                                            </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.9098039269" green="0.9098039269" blue="0.9098039269" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="8Qc-TF-bmM">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="8Qc-TF-bmM">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8Qc-TF-bmM" id="Ucf-sV-VVI">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="training" translatesAutoresizingMaskIntoConstraints="NO" id="Oct-79-cLX">
-                                                    <rect key="frame" x="11" y="4" width="35" height="35"/>
+                                                    <rect key="frame" x="25" y="15" width="20" height="20"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Entraînement" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KOR-vh-wHL">
-                                                    <rect key="frame" x="54" y="6" width="109" height="31"/>
-                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="18"/>
+                                                    <rect key="frame" x="65" y="9" width="98" height="31"/>
+                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="16"/>
                                                     <color key="textColor" red="0.35864504419191923" green="0.35864504419191923" blue="0.35864504419191923" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.9098039269" green="0.9098039269" blue="0.9098039269" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <segue destination="Q20-H2-akI" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="dOb-Hk-MCF"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Pdb-Um-RUK">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="Pdb-Um-RUK">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pdb-Um-RUK" id="kLp-35-iyk">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="solo" translatesAutoresizingMaskIntoConstraints="NO" id="2cT-pP-Rs0">
-                                                    <rect key="frame" x="11" y="4" width="35" height="35"/>
+                                                    <rect key="frame" x="25" y="15" width="20" height="20"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Défi solo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6v-lZ-qCe">
-                                                    <rect key="frame" x="54" y="6" width="70" height="31"/>
-                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="18"/>
+                                                    <rect key="frame" x="65" y="9" width="68" height="31"/>
+                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="16"/>
                                                     <color key="textColor" red="0.35864504419191923" green="0.35864504419191923" blue="0.35864504419191923" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.90980392694473267" green="0.90980392694473267" blue="0.90980392694473267" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <segue destination="Z5P-zY-itP" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="X6A-Qp-egL"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="gIe-5N-50d">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="gIe-5N-50d">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gIe-5N-50d" id="Kd4-T6-mGh">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="duo" translatesAutoresizingMaskIntoConstraints="NO" id="eyE-j8-1pq">
-                                                    <rect key="frame" x="11" y="4" width="35" height="35"/>
+                                                    <rect key="frame" x="25" y="12" width="20" height="20"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Défi duo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XuF-Gb-gBL">
-                                                    <rect key="frame" x="54" y="9" width="69" height="25"/>
-                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="18"/>
+                                                    <rect key="frame" x="65" y="12" width="66" height="25"/>
+                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="16"/>
                                                     <color key="textColor" red="0.35864504419191923" green="0.35864504419191923" blue="0.35864504419191923" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.9098039269" green="0.9098039269" blue="0.9098039269" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <segue destination="lmf-3H-IB0" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="9Zt-vc-ZPx"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="6UC-uP-T2p">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="6UC-uP-T2p">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6UC-uP-T2p" id="ljE-v1-iMe">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="contest" translatesAutoresizingMaskIntoConstraints="NO" id="Wo3-Xq-Fz0">
-                                                    <rect key="frame" x="11" y="4" width="35" height="35"/>
+                                                    <rect key="frame" x="25" y="15" width="20" height="20"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Concours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IBN-tV-HSm">
-                                                    <rect key="frame" x="54" y="9" width="75" height="25"/>
-                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="18"/>
+                                                    <rect key="frame" x="65" y="12" width="67" height="25"/>
+                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="16"/>
                                                     <color key="textColor" red="0.35864504419191923" green="0.35864504419191923" blue="0.35864504419191923" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.9098039269" green="0.9098039269" blue="0.9098039269" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <segue destination="w8h-D0-bRK" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="pkL-Jx-0og"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="10" id="3tw-fW-9Oe">
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="10" id="3tw-fW-9Oe">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3tw-fW-9Oe" id="58I-1o-j4z">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="separator" translatesAutoresizingMaskIntoConstraints="NO" id="7o2-1h-LyH">
-                                                    <rect key="frame" x="0.0" y="5" width="600" height="1"/>
+                                                    <rect key="frame" x="-12" y="5" width="612" height="1"/>
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.9098039269" green="0.9098039269" blue="0.9098039269" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="rqP-s5-cJe">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="rqP-s5-cJe">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rqP-s5-cJe" id="Kyw-ig-xus">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="Bj3-xx-oae">
-                                                    <rect key="frame" x="11" y="4" width="35" height="35"/>
+                                                    <rect key="frame" x="25" y="15" width="20" height="20"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Profil" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUT-7Z-alE">
-                                                    <rect key="frame" x="54" y="6" width="84" height="31"/>
-                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="18"/>
+                                                    <rect key="frame" x="65" y="9" width="43" height="31"/>
+                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="16"/>
                                                     <color key="textColor" red="0.35864504419191923" green="0.35864504419191923" blue="0.35864504419191923" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.9098039269" green="0.9098039269" blue="0.9098039269" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <segue destination="rsx-zm-KUu" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="2J9-iu-eXo"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="VBu-aE-Fvn">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="VBu-aE-Fvn">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VBu-aE-Fvn" id="Cca-jk-NYP">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="settings" translatesAutoresizingMaskIntoConstraints="NO" id="BW1-ex-M2A">
-                                                    <rect key="frame" x="11" y="4" width="35" height="35"/>
+                                                    <rect key="frame" x="25" y="15" width="20" height="20"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Préférences" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ctW-xK-1Rf">
-                                                    <rect key="frame" x="54" y="6" width="93" height="31"/>
-                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="18"/>
+                                                    <rect key="frame" x="65" y="9" width="86" height="31"/>
+                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="16"/>
                                                     <color key="textColor" red="0.35864504419191923" green="0.35864504419191923" blue="0.35864504419191923" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.9098039269" green="0.9098039269" blue="0.9098039269" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <segue destination="YIQ-le-JF7" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="XhI-sn-M6v"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="3rH-3N-eed">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="3rH-3N-eed">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3rH-3N-eed" id="DoW-XL-6qk">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="help" translatesAutoresizingMaskIntoConstraints="NO" id="89I-JM-TiX">
-                                                    <rect key="frame" x="11" y="4" width="35" height="35"/>
+                                                    <rect key="frame" x="25" y="15" width="20" height="20"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Aide" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="czF-00-8jz">
-                                                    <rect key="frame" x="54" y="6" width="37" height="31"/>
-                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="18"/>
+                                                    <rect key="frame" x="65" y="9" width="37" height="31"/>
+                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="16"/>
                                                     <color key="textColor" red="0.35864504419191923" green="0.35864504419191923" blue="0.35864504419191923" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.9098039269" green="0.9098039269" blue="0.9098039269" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <segue destination="kDZ-0J-0fk" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="n5V-tY-BFq"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="10" id="gm9-6Z-1TK">
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="10" id="gm9-6Z-1TK">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gm9-6Z-1TK" id="9o4-0n-kk1">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="separator" translatesAutoresizingMaskIntoConstraints="NO" id="nop-0F-ZDH">
-                                                    <rect key="frame" x="0.0" y="5" width="600" height="1"/>
+                                                    <rect key="frame" x="-12" y="5" width="612" height="1"/>
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.9098039269" green="0.9098039269" blue="0.9098039269" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="5hG-7Y-2ez">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="5hG-7Y-2ez">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5hG-7Y-2ez" id="g12-sC-5xe">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jpn-U4-STX">
-                                                    <rect key="frame" x="0.0" y="3" width="600" height="44"/>
-                                                    <color key="backgroundColor" red="0.90980392694473267" green="0.90980392694473267" blue="0.90980392694473267" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="18"/>
-                                                    <inset key="contentEdgeInsets" minX="54" minY="0.0" maxX="0.0" maxY="10"/>
-                                                    <state key="normal" title="Se déconnecter">
-                                                        <color key="titleColor" red="0.35864504419191923" green="0.35864504419191923" blue="0.35864504419191923" alpha="1" colorSpace="calibratedRGB"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logout" translatesAutoresizingMaskIntoConstraints="NO" id="S0g-sW-D0T">
+                                                    <rect key="frame" x="25" y="15" width="20" height="20"/>
+                                                </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1my-YW-bCC">
+                                                    <rect key="frame" x="0.0" y="-6" width="600" height="56"/>
+                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
+                                                    <state key="normal" title="                Se déconnecter">
+                                                        <color key="titleColor" red="0.35864504419999998" green="0.35864504419999998" blue="0.35864504419999998" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="logout:" destination="mqf-gF-nK3" eventType="touchUpInside" id="IBq-bK-XA3"/>
+                                                        <action selector="logout:" destination="mqf-gF-nK3" eventType="touchUpInside" id="Lat-oB-2K2"/>
                                                     </connections>
                                                 </button>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logout" translatesAutoresizingMaskIntoConstraints="NO" id="S0g-sW-D0T">
-                                                    <rect key="frame" x="11" y="4" width="35" height="35"/>
-                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.90980392694473267" green="0.90980392694473267" blue="0.90980392694473267" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -825,25 +833,21 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2VZ-13-dGV">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newsfeed" translatesAutoresizingMaskIntoConstraints="NO" id="hk1-Tt-2bU">
                                 <rect key="frame" x="0.0" y="108" width="600" height="492"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </webView>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.90980392694473267" green="0.90980392694473267" blue="0.90980392694473267" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="2VZ-13-dGV" firstAttribute="leading" secondItem="ERc-nd-uab" secondAttribute="leading" id="2uq-2g-fpf"/>
-                            <constraint firstAttribute="bottom" secondItem="2VZ-13-dGV" secondAttribute="bottom" id="Adf-3d-s7S"/>
+                            <constraint firstAttribute="trailing" secondItem="hk1-Tt-2bU" secondAttribute="trailing" id="GbF-Y8-mas"/>
+                            <constraint firstItem="hk1-Tt-2bU" firstAttribute="leading" secondItem="ERc-nd-uab" secondAttribute="leading" id="MLh-Rm-Tc7"/>
                             <constraint firstItem="Qvd-SZ-NUK" firstAttribute="top" secondItem="buI-Qy-i4u" secondAttribute="bottom" id="THk-aV-Vhm"/>
+                            <constraint firstItem="0mI-qB-WDn" firstAttribute="top" secondItem="hk1-Tt-2bU" secondAttribute="bottom" id="arF-Bx-67H"/>
                             <constraint firstAttribute="trailing" secondItem="Qvd-SZ-NUK" secondAttribute="trailing" id="bnF-kH-37g"/>
-                            <constraint firstAttribute="trailing" secondItem="2VZ-13-dGV" secondAttribute="trailing" id="dua-Sm-epl"/>
                             <constraint firstItem="Qvd-SZ-NUK" firstAttribute="leading" secondItem="ERc-nd-uab" secondAttribute="leading" id="ev9-ro-dZA"/>
-                            <constraint firstItem="2VZ-13-dGV" firstAttribute="top" secondItem="Qvd-SZ-NUK" secondAttribute="bottom" id="rtb-ej-Xv7"/>
+                            <constraint firstItem="hk1-Tt-2bU" firstAttribute="top" secondItem="Qvd-SZ-NUK" secondAttribute="bottom" id="nC5-Hz-X1Q"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="newsWV" destination="2VZ-13-dGV" id="2YI-cv-RrQ"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RhJ-29-qr9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1488,7 +1492,7 @@
         <!--Défi duo-->
         <scene sceneID="RGY-ao-WMC">
             <objects>
-                <viewController title="Défi duo" id="LtT-CV-61z" customClass="DuoViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Défi duo" id="LtT-CV-61z" customClass="FriendViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iKX-A5-3fo"/>
                         <viewControllerLayoutGuide type="bottom" id="E9y-N2-7c0"/>
@@ -1497,23 +1501,158 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Section disponible prochainement !" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Vt-rs-Sec">
-                                <rect key="frame" x="0.0" y="278" width="600" height="44"/>
-                                <color key="backgroundColor" red="0.10588235408067703" green="0.5058823823928833" blue="0.36862745881080627" alpha="1" colorSpace="calibratedRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Défi duo aléatoire" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Vt-rs-Sec">
+                                <rect key="frame" x="140" y="97" width="100" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="TnM-Z4-PcI"/>
+                                    <constraint firstAttribute="width" constant="100" id="aJI-4C-cuR"/>
+                                    <constraint firstAttribute="height" constant="20" id="ttY-UP-HTK"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="11"/>
+                                <color key="textColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Partager mon code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ifO-jx-Tbg">
+                                <rect key="frame" x="360" y="97" width="100" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="GNM-KD-eVD"/>
+                                    <constraint firstAttribute="height" constant="20" id="glb-0S-u18"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="11"/>
+                                <color key="textColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ajouter un ami" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vmI-bv-ejs">
+                                <rect key="frame" x="250" y="97" width="100" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="Oq9-xy-CR4"/>
+                                    <constraint firstAttribute="width" constant="100" id="sqs-Jf-xiq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="11"/>
+                                <color key="textColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yIj-bj-0b2">
+                                <rect key="frame" x="175" y="72" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="CI7-EZ-L3P"/>
+                                    <constraint firstAttribute="width" constant="30" id="sDT-JQ-1ba"/>
+                                </constraints>
+                                <state key="normal" image="shuffle">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="changeNickname:" destination="rUx-R3-kpb" eventType="touchUpInside" id="ad4-f3-LbK"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WbU-f4-UbY">
+                                <rect key="frame" x="395" y="72" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="BEa-Gu-l9U"/>
+                                    <constraint firstAttribute="width" constant="30" id="VZc-vg-SMB"/>
+                                </constraints>
+                                <state key="normal" image="share">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="changeNickname:" destination="rUx-R3-kpb" eventType="touchUpInside" id="9yg-j4-41B"/>
+                                    <action selector="shareCode:" destination="LtT-CV-61z" eventType="touchUpInside" id="qbl-6n-13W"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="jkn-gm-ZUH">
+                                <rect key="frame" x="0.0" y="125" width="600" height="475"/>
+                                <color key="backgroundColor" red="0.93609845638275146" green="0.93607044219970703" blue="0.93608629703521729" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="0.93609845638275146" green="0.93607044219970703" blue="0.93608629703521729" alpha="1" colorSpace="calibratedRGB"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="friend" textLabel="mzi-8i-pfI" style="IBUITableViewCellStyleDefault" id="aWv-PX-hvF">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aWv-PX-hvF" id="i9m-uY-M1w">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Aucun ami pour le moment. Ajoutez-en ou partagez votre code à vos amis !" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mzi-8i-pfI">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.9360984564" green="0.93607044220000002" blue="0.93608629700000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="pendingChallenge" textLabel="ehR-5L-elZ" detailTextLabel="MaJ-MQ-IEB" style="IBUITableViewCellStyleValue1" id="hrr-Kt-BaY">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hrr-Kt-BaY" id="dzm-bi-qjg">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Défi de Julien Sergent" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ehR-5L-elZ">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="22/05/2015" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MaJ-MQ-IEB">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.9360984564" green="0.93607044220000002" blue="0.93608629700000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="LtT-CV-61z" id="fKD-wq-tJW"/>
+                                    <outlet property="delegate" destination="LtT-CV-61z" id="E66-FK-fIF"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEe-79-dBg">
+                                <rect key="frame" x="285" y="72" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ndn-PD-xBI"/>
+                                    <constraint firstAttribute="width" constant="30" id="zcG-tj-SuO"/>
+                                </constraints>
+                                <state key="normal" image="add">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addFriend:" destination="LtT-CV-61z" eventType="touchUpInside" id="nZL-0W-Chl"/>
+                                    <action selector="changeNickname:" destination="rUx-R3-kpb" eventType="touchUpInside" id="z9N-mR-kqT"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator" translatesAutoresizingMaskIntoConstraints="NO" id="QaF-Zf-ibB">
+                                <rect key="frame" x="0.0" y="125" width="600" height="1"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="aWV-6y-Da3"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.92549020051956177" green="0.92549020051956177" blue="0.92549020051956177" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.1058823529" green="0.50588235290000005" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="3Vt-rs-Sec" firstAttribute="leading" secondItem="24h-qr-kyw" secondAttribute="leading" id="sye-YR-38h"/>
-                            <constraint firstAttribute="centerY" secondItem="3Vt-rs-Sec" secondAttribute="centerY" id="tIb-Ck-tC0"/>
-                            <constraint firstAttribute="trailing" secondItem="3Vt-rs-Sec" secondAttribute="trailing" id="zv5-9o-sqT"/>
+                            <constraint firstItem="yIj-bj-0b2" firstAttribute="top" secondItem="iKX-A5-3fo" secondAttribute="bottom" constant="8" id="0mr-WY-Byz"/>
+                            <constraint firstItem="ifO-jx-Tbg" firstAttribute="leading" secondItem="vmI-bv-ejs" secondAttribute="trailing" constant="10" id="24n-do-reM"/>
+                            <constraint firstItem="vmI-bv-ejs" firstAttribute="leading" secondItem="3Vt-rs-Sec" secondAttribute="trailing" constant="10" id="37S-IR-g0Q"/>
+                            <constraint firstAttribute="centerX" secondItem="sEe-79-dBg" secondAttribute="centerX" id="3bf-2S-1rZ"/>
+                            <constraint firstAttribute="trailing" secondItem="QaF-Zf-ibB" secondAttribute="trailing" id="6ZA-rd-WD9"/>
+                            <constraint firstItem="QaF-Zf-ibB" firstAttribute="leading" secondItem="24h-qr-kyw" secondAttribute="leading" id="7r6-s9-daz"/>
+                            <constraint firstItem="vmI-bv-ejs" firstAttribute="top" secondItem="iKX-A5-3fo" secondAttribute="bottom" constant="33" id="C9P-C5-yXy"/>
+                            <constraint firstItem="jkn-gm-ZUH" firstAttribute="leading" secondItem="24h-qr-kyw" secondAttribute="leading" id="JK9-fV-eDY"/>
+                            <constraint firstItem="E9y-N2-7c0" firstAttribute="top" secondItem="jkn-gm-ZUH" secondAttribute="bottom" id="N6Q-lh-Weo"/>
+                            <constraint firstItem="jkn-gm-ZUH" firstAttribute="top" secondItem="vmI-bv-ejs" secondAttribute="bottom" constant="8" id="VRi-7P-snb"/>
+                            <constraint firstItem="sEe-79-dBg" firstAttribute="leading" secondItem="yIj-bj-0b2" secondAttribute="trailing" constant="80" id="adX-97-6bM"/>
+                            <constraint firstItem="WbU-f4-UbY" firstAttribute="leading" secondItem="sEe-79-dBg" secondAttribute="trailing" constant="80" id="ash-Eu-yXS"/>
+                            <constraint firstItem="WbU-f4-UbY" firstAttribute="top" secondItem="iKX-A5-3fo" secondAttribute="bottom" constant="8" id="kJw-KT-pum"/>
+                            <constraint firstAttribute="centerX" secondItem="vmI-bv-ejs" secondAttribute="centerX" id="mPE-XR-1W4"/>
+                            <constraint firstItem="sEe-79-dBg" firstAttribute="top" secondItem="iKX-A5-3fo" secondAttribute="bottom" constant="8" id="s9W-UJ-4Ct"/>
+                            <constraint firstAttribute="trailing" secondItem="jkn-gm-ZUH" secondAttribute="trailing" id="u6w-TA-j75"/>
+                            <constraint firstItem="ifO-jx-Tbg" firstAttribute="top" secondItem="iKX-A5-3fo" secondAttribute="bottom" constant="33" id="uB9-QS-ZgS"/>
+                            <constraint firstItem="QaF-Zf-ibB" firstAttribute="top" secondItem="vmI-bv-ejs" secondAttribute="bottom" constant="8" id="vgP-OQ-cHW"/>
+                            <constraint firstItem="3Vt-rs-Sec" firstAttribute="top" secondItem="iKX-A5-3fo" secondAttribute="bottom" constant="33" id="ym8-dt-8XX"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Défi duo" id="2A9-pF-PgA">
@@ -1522,6 +1661,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="designAdd" destination="sEe-79-dBg" id="aeK-W5-MgW"/>
+                        <outlet property="designShare" destination="WbU-f4-UbY" id="LWk-Gc-R4e"/>
+                        <outlet property="designShuffle" destination="yIj-bj-0b2" id="gtT-hJ-heY"/>
+                        <outlet property="friendsTable" destination="jkn-gm-ZUH" id="VJS-mD-Lii"/>
                         <outlet property="menuButton" destination="I5u-0a-hvk" id="0t7-98-PWT"/>
                     </connections>
                 </viewController>
@@ -1541,23 +1684,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Section disponible prochainement !" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2FE-d7-LAf">
-                                <rect key="frame" x="0.0" y="278" width="600" height="44"/>
-                                <color key="backgroundColor" red="0.10588235408067703" green="0.5058823823928833" blue="0.36862745881080627" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0IW-Jq-fJH">
+                                <rect key="frame" x="202" y="540" width="197" height="40"/>
+                                <color key="backgroundColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="ygg-zf-TUN"/>
+                                    <constraint firstAttribute="height" constant="40" id="Aff-RK-kbG"/>
+                                    <constraint firstAttribute="width" constant="197" id="Dlz-aF-GaJ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <state key="normal" title="Participer">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="changeNickname:" destination="rUx-R3-kpb" eventType="touchUpInside" id="ZeT-6d-7yt"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="concours" translatesAutoresizingMaskIntoConstraints="NO" id="Q6H-uh-SbJ">
+                                <rect key="frame" x="0.0" y="64" width="600" height="468"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.92549020051956177" green="0.92549020051956177" blue="0.92549020051956177" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.1058823529" green="0.50588235290000005" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="2FE-d7-LAf" secondAttribute="trailing" id="AWj-JJ-E0s"/>
-                            <constraint firstAttribute="centerY" secondItem="2FE-d7-LAf" secondAttribute="centerY" id="pxz-F6-9Uq"/>
-                            <constraint firstItem="2FE-d7-LAf" firstAttribute="leading" secondItem="tmV-aZ-BMz" secondAttribute="leading" id="xvN-Qq-H0Y"/>
+                            <constraint firstAttribute="trailing" secondItem="Q6H-uh-SbJ" secondAttribute="trailing" id="1e3-NZ-kPF"/>
+                            <constraint firstItem="Q6H-uh-SbJ" firstAttribute="leading" secondItem="tmV-aZ-BMz" secondAttribute="leading" id="EJR-rb-Qmf"/>
+                            <constraint firstAttribute="centerX" secondItem="0IW-Jq-fJH" secondAttribute="centerX" id="XS6-hW-VTW"/>
+                            <constraint firstItem="0IW-Jq-fJH" firstAttribute="top" secondItem="Q6H-uh-SbJ" secondAttribute="bottom" constant="8" id="bT9-mx-f4W"/>
+                            <constraint firstItem="Vov-UX-aOy" firstAttribute="top" secondItem="0IW-Jq-fJH" secondAttribute="bottom" constant="20" id="oV3-BN-8in"/>
+                            <constraint firstItem="Q6H-uh-SbJ" firstAttribute="top" secondItem="g49-Ik-QMX" secondAttribute="bottom" id="rIC-zL-bqd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Concours" id="kes-Rd-h2X">
@@ -1566,6 +1721,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="designButton" destination="0IW-Jq-fJH" id="Qnc-91-T0U"/>
                         <outlet property="menuButton" destination="ASX-wF-jKb" id="i8c-1C-rEI"/>
                     </connections>
                 </viewController>
@@ -2012,13 +2168,13 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qhm-6w-zzA">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jdt-Ge-CUw">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -2051,10 +2207,24 @@
                         <color key="backgroundColor" red="0.90980392694473267" green="0.90980392694473267" blue="0.90980392694473267" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexBackgroundColor" red="0.9098039269" green="0.9098039269" blue="0.9098039269" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="rank" id="bxC-7n-Kjl">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="friend" textLabel="ceR-S5-ZRt" detailTextLabel="Neu-Xc-WJD" style="IBUITableViewCellStyleValue1" id="bxC-7n-Kjl">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bxC-7n-Kjl" id="kEb-Jb-spi">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ceR-S5-ZRt">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Neu-Xc-WJD">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -2889,6 +3059,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="add" width="100" height="100"/>
         <image name="awardPointHD" width="166" height="166"/>
         <image name="bio" width="512" height="512"/>
         <image name="blur" width="1242" height="2146"/>
@@ -2896,6 +3067,7 @@
         <image name="che" width="512" height="512"/>
         <image name="chrono" width="44" height="44"/>
         <image name="circle" width="250" height="250"/>
+        <image name="concours" width="640" height="891"/>
         <image name="contest" width="66" height="66"/>
         <image name="duo" width="66" height="66"/>
         <image name="help" width="66" height="66"/>
@@ -2904,6 +3076,7 @@
         <image name="logout" width="66" height="66"/>
         <image name="markedBar" width="22" height="22"/>
         <image name="menu" width="22" height="22"/>
+        <image name="newsfeed" width="640" height="884"/>
         <image name="next" width="20" height="20"/>
         <image name="phy" width="512" height="512"/>
         <image name="previous" width="20" height="20"/>
@@ -2911,6 +3084,8 @@
         <image name="score" width="22" height="22"/>
         <image name="separator" width="1000" height="1"/>
         <image name="settings" width="66" height="66"/>
+        <image name="share" width="100" height="100"/>
+        <image name="shuffle" width="100" height="100"/>
         <image name="solo" width="66" height="66"/>
         <image name="target" width="775" height="775"/>
         <image name="training" width="66" height="66"/>
