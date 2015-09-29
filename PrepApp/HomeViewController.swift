@@ -17,17 +17,17 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     var bioNumberToDo: Int = 0
     var phyNumberToDo: Int = 0
     var cheNumberToDo: Int = 0
-//    var bioPerf: [Double] = []
-//    var phyPerf: [Double] = []
-//    var chePerf: [Double] = []
-//    var questionsAnswered: [Double] = []
-//    var weeksBeforeExam : [String] = []
+    var bioPerf: [Double] = []
+    var phyPerf: [Double] = []
+    var chePerf: [Double] = []
+    var questionsAnswered: [Double] = []
+    var weeksBeforeExam : [String] = []
     
-    var bioPerf: [Double] = [60, 66, 70, 75, 72, 70, 73, 80, 82, 84, 86]
-    var phyPerf: [Double] = [70, 68, 65, 57, 43, 62, 66, 64, 66, 70, 72]
-    var chePerf: [Double] = [40, 43, 45, 48, 48, 51, 55, 62, 73, 80, 92]
-    var questionsAnswered: [Double] = [25, 34, 22, 3, 10, 50, 63, 57, 69, 80, 98]
-    var weeksBeforeExam : [String] = ["10", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0"]
+//    var bioPerf: [Double] = [60, 66, 70, 75, 72, 70, 73, 80, 82, 84, 86]
+//    var phyPerf: [Double] = [70, 68, 65, 57, 43, 62, 66, 64, 66, 70, 72]
+//    var chePerf: [Double] = [40, 43, 45, 48, 48, 51, 55, 62, 73, 80, 92]
+//    var questionsAnswered: [Double] = [25, 34, 22, 3, 10, 50, 63, 57, 69, 80, 98]
+//    var weeksBeforeExam : [String] = ["10", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0"]
 
     var hideTimer = NSTimer()
     var animationTimer = NSTimer()
@@ -201,7 +201,9 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     func retrieveData() {
         User.currentUser!.updateLevel(User.currentUser!.level)
         User.currentUser!.updateAwardPoints(User.currentUser!.awardPoints)
-        FactoryHistory.getHistory().syncHistory()
+        FactoryHistory.getHistory().syncHistory { (result) -> Void in
+            println("history synced = \(result)")
+        }
         var (percent,answers,todo) = FactoryHistory.getScoring().getScore(1)
         self.bio = Double(percent)
         self.bioNumber = answers
@@ -215,12 +217,12 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.cheNumber = answers
         self.cheNumberToDo = todo
         
-//        self.bioPerf = FactoryHistory.getScoring().getPerf(1)
-//        self.phyPerf = FactoryHistory.getScoring().getPerf(2)
-//        self.chePerf = FactoryHistory.getScoring().getPerf(3)
-//        self.questionsAnswered = FactoryHistory.getScoring().getQuestionsAnswered()
-//        self.weeksBeforeExam = FactoryHistory.getScoring().getWeeksBeforeExam()
-//        self.checkNumberOfData()
+        self.bioPerf = FactoryHistory.getScoring().getPerf(1)
+        self.phyPerf = FactoryHistory.getScoring().getPerf(2)
+        self.chePerf = FactoryHistory.getScoring().getPerf(3)
+        self.questionsAnswered = FactoryHistory.getScoring().getQuestionsAnswered()
+        self.weeksBeforeExam = FactoryHistory.getScoring().getWeeksBeforeExam()
+        self.checkNumberOfData()
     }
     
     func checkNumberOfData() {

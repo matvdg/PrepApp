@@ -51,7 +51,7 @@ class User {
 			(data, response, error) in
 			dispatch_async(dispatch_get_main_queue()) {
 				if error != nil {
-					callback("Échec de la connexion. Vérifier la connexion Internet et réessayer.")
+					callback("Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
 				} else {
 					var statusCode = (response as! NSHTTPURLResponse).statusCode
 					if statusCode == 200 {
@@ -59,7 +59,7 @@ class User {
 						User.currentUser!.saveUser()
 						callback("Mot de passe changé avec succès.")
 					} else {
-						callback("Erreur de connexion, veuillez réessayer ultérieurement.")
+						callback("Erreur de connexion, veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez..")
 					}
 				}
 			}

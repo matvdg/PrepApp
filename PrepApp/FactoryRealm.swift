@@ -38,4 +38,18 @@ class FactoryRealm {
         return realmDuo
     }
     
+    class func clearUserDB() {
+        self.realmHistory.write {
+            self.realmHistory.deleteAll()
+        }
+        
+        self.realmFriends.write {
+            self.realmFriends.deleteAll()
+        }
+        
+        self.realmDuo.write {
+            self.realmDuo.deleteAll()
+        }
+    }
+    
 }

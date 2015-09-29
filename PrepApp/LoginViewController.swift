@@ -81,15 +81,25 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 				User.instantiateUser(data!, pass: self.pass.text)
 				//we store the current user infoss to avoid further login until he logs out
 				User.currentUser!.saveUser()
-				self.performSegueWithIdentifier("loginDidSucceded", sender: self)
+                FactoryHistory.getHistory().retrieveHistory({ (result) -> Void in
+                    if result {
+                        self.performSegueWithIdentifier("loginDidSucceded", sender: self)
+                    } else {
+                        // create alert controller
+                        let myAlert = UIAlertController(title: "Erreur !", message: "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
+                        myAlert.view.tintColor = colorGreenAppButtons
+                        // add an "OK" button
+                        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                        // show the alert
+                        self.presentViewController(myAlert, animated: true, completion: nil)
+
+                    }
+                })
+				
 			}
 		}
 
 	}
-    
-    func login() {
-        self.performSegueWithIdentifier("loginDidSucceded", sender: self)
-    }
     
 	@IBOutlet weak var designButton: UIButton!
 	@IBOutlet weak var mail: UITextField!

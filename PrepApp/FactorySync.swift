@@ -65,6 +65,7 @@ class FactorySync {
     static let levelUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/level/")
     static let awardPointsUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/awardPoints/")
     static let historyUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/history/")
+    static let retrieveHistoryUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/retrieve/history/")
     
     static let path: String = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
     
