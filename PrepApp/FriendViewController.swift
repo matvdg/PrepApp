@@ -10,18 +10,22 @@ import UIKit
 
 class FriendViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    //properties
     var friends = [Friend]()
     var pendingChallenge = [Challenge]()
     let realm = FactoryRealm.getRealmFriends()
     var selectedFriend = Friend()
     var selectedPendingChallenge = Challenge()
+    var textField =  UITextField()
 
+    //@IBOutlet
 	@IBOutlet var menuButton: UIBarButtonItem!
     @IBOutlet weak var designShuffle: UIButton!
     @IBOutlet weak var designAdd: UIButton!
     @IBOutlet weak var designShare: UIButton!
     @IBOutlet weak var friendsTable: UITableView!
     
+    //@IBAction
     @IBAction func shareCode(sender: AnyObject) {
         // create alert controller
         let myAlert = UIAlertController(title: "\(String(User.currentUser!.id).sha1())", message: "Partagez votre code à vos amis en leur envoyant un message !", preferredStyle: UIAlertControllerStyle.Alert)
@@ -36,18 +40,6 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         self.presentViewController(myAlert, animated: true, completion: nil)
     }
     
-    var textField =  UITextField()
-    
-    func addTextField(textField: UITextField!){
-        // add the text field and make the result global
-        textField.placeholder = "Collez le code ici"
-        self.textField = textField
-    }
-    
-    func codeEntered(alert: UIAlertAction!){
-        self.add(self.textField.text)
-    }
-    
     @IBAction func addFriend(sender: AnyObject) {
         // create alert controller
         let myAlert = UIAlertController(title: "Ajouter un ami", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
@@ -60,9 +52,18 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         //add prompt
         myAlert.addTextFieldWithConfigurationHandler(self.addTextField)
     }
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
+    
+    @IBAction func shuffleFriend(sender: AnyObject) {
+        FactoryDuo.getFriendManager().getShuffle { (data) -> Void in
+            if let response = data {
+                println(response)
+            }
+        }
+    }
+    
+    //app methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
         self.loadData()
         self.friendsTable.backgroundColor = colorGreyBackground
         self.designShare.layer.cornerRadius = 6
@@ -72,15 +73,54 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
-		if self.revealViewController() != nil {
-			self.menuButton.target = self.revealViewController()
-			self.menuButton.action = "revealToggle:"
-			self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-		}
-	}
+        if self.revealViewController() != nil {
+            self.menuButton.target = self.revealViewController()
+            self.menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+    }
+
+    func logout() {
+        println("logging out")
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     
+    func update() {
+        // create alert controller
+        let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        myAlert.view.tintColor = colorGreenAppButtons
+        // add an "later" button
+        myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
+        // add an "update" button
+        myAlert.addAction(UIAlertAction(title: "Mettre à jour maintenant", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }))
+        
+        // show the alert
+        self.presentViewController(myAlert, animated: true, completion: nil)
+    }
+    
+    
+    //methods
     private func loadData() {
-        self.friends = FactoryDuo.getFriendManager().getFriends()
+        FactoryDuo.getFriendManager().saveFriends { (result) -> Void in
+            if result {
+                self.friends = FactoryDuo.getFriendManager().getFriends()
+                println("friendsList synced")
+                self.templating()
+                self.friendsTable.reloadData()
+            } else {
+                self.friends = FactoryDuo.getFriendManager().getFriends()
+                println("offline friendsList")
+                self.templating()
+                self.friendsTable.reloadData()
+            }
+        }
+        
+        
+    }
+    
+    func templating(){
         if self.friends.isEmpty {
             var templateFriend = Friend()
             templateFriend.id = -1
@@ -96,13 +136,22 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
             templateDuo.nickname = "Pas de défi en attente pour le moment"
             self.pendingChallenge.append(templateDuo)
         }
-        
+
+    }
+    
+    func addTextField(textField: UITextField!){
+        // add the text field and make the result global
+        textField.placeholder = "Collez le code ici"
+        self.textField = textField
+    }
+    
+    func codeEntered(alert: UIAlertAction!){
+        self.add(self.textField.text)
     }
     
     private func add(code: String) {
         FactoryDuo.getFriendManager().saveFriend(code, callback: { (result, message) -> Void in
             if result {
-                println(self.friends)
                 if self.friends[0].id == -1 {
                     println("removing template")
                     self.friends.removeAtIndex(0)
@@ -111,7 +160,6 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 var counter = self.friends.count
                 self.friends = FactoryDuo.getFriendManager().getFriends()
                 if counter == self.friends.count {
-                    
                     // create alert controller
                     let myAlert = UIAlertController(title: "Oups !", message: "L'ami a déjà été ajouté... Entrez un autre code.", preferredStyle: UIAlertControllerStyle.Alert)
                     myAlert.view.tintColor = colorGreenAppButtons
@@ -120,13 +168,13 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                     // show the alert
                     self.presentViewController(myAlert, animated: true, completion: nil)
                 } else {
-                    println("ajout d'amis")
                     // create alert controller
-                    let myAlert = UIAlertController(title: "Ami ajouté !", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                    let myAlert = UIAlertController(title: "Ami ajouté", message: message, preferredStyle: UIAlertControllerStyle.Alert)
                     myAlert.view.tintColor = colorGreenAppButtons
                     // add OK button
                     myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                     // show the alert
+                    self.presentViewController(myAlert, animated: true, completion: nil)
                     let newIndexPath = NSIndexPath(forItem: 0, inSection: 1)
                     self.friendsTable.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Left)
                 }
@@ -158,25 +206,6 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
 
     }
     
-    func logout() {
-        println("logging out")
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    func update() {
-        // create alert controller
-        let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreenAppButtons
-        // add an "later" button
-        myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
-        // add an "update" button
-        myAlert.addAction(UIAlertAction(title: "Mettre à jour maintenant", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }))
-        
-        // show the alert
-        self.presentViewController(myAlert, animated: true, completion: nil)
-    }
     
     // MARK: - Table view data source
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

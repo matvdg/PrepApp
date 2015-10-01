@@ -33,6 +33,9 @@ class ProfileTableViewController: UITableViewController {
         }
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
+        self.title = "Réglages"
+        
+        
     }
 
     // MARK: - Table view data source

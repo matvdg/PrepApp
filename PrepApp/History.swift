@@ -167,13 +167,13 @@ class History {
         }
         let json = NSJSONSerialization.dataWithJSONObject(post, options: NSJSONWritingOptions(0), error: nil)
         let history = NSString(data: json!, encoding: NSUTF8StringEncoding)
-        self.postHistory(history!, callback: { (result) -> Void in
+        self.updateHistory(history!, callback: { (result) -> Void in
             callback(result)
         })
     }
     
-    private func postHistory(history: NSString, callback: (Bool) -> Void){
-        let request = NSMutableURLRequest(URL: FactorySync.historyUrl!)
+    private func updateHistory(history: NSString, callback: (Bool) -> Void){
+        let request = NSMutableURLRequest(URL: FactorySync.updateHistoryUrl!)
         request.HTTPMethod = "POST"
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&history=\(history)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)

@@ -95,12 +95,18 @@ class LeaderboardTableViewController: UITableViewController, UITableViewDataSour
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
         cell.tintColor = colorGreenAppButtons
         cell.backgroundColor = colorGreyBackground
-        cell.detailTextLabel!.text = friend.awardPoint.toStringPoints()
+        cell.detailTextLabel!.text = friend.awardPoints.toStringPoints()
         cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 16)
         cell.detailTextLabel!.textColor = colorGreenAppButtons
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.detailTextLabel!.adjustsFontSizeToFitWidth = true
         cell.tintColor = colorGreenAppButtons
+        
+        if friend.id == User.currentUser!.id {
+            cell.backgroundColor = colorGreenLogo
+            cell.detailTextLabel!.textColor = UIColor.whiteColor()
+            cell.textLabel?.textColor = UIColor.whiteColor()            
+        }
 
         return cell
     }

@@ -261,7 +261,7 @@ class Scoring {
                         newFriend.firstName = friend["firstName"] as! String
                         newFriend.lastName = friend["lastName"] as! String
                         newFriend.nickname = friend["nickname"] as! String
-                        newFriend.awardPoint = friend["awardPoints"] as! Int
+                        newFriend.awardPoints = friend["awardPoints"] as! Int
                         result.append(newFriend)
                     } else {
                         callback(nil)

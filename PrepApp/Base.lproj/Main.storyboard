@@ -1567,6 +1567,9 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="shuffleFriend:" destination="LtT-CV-61z" eventType="touchUpInside" id="fzc-GX-A5e"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WbU-f4-UbY">
                                 <rect key="frame" x="395" y="72" width="30" height="30"/>
@@ -1585,7 +1588,9 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="jkn-gm-ZUH">
                                 <rect key="frame" x="0.0" y="125" width="600" height="475"/>
                                 <color key="backgroundColor" red="0.93609845638275146" green="0.93607044219970703" blue="0.93608629703521729" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.93609845638275146" green="0.93607044219970703" blue="0.93608629703521729" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexTrackingBackgroundColor" red="0.10588235408067703" green="0.5058823823928833" blue="0.36862745881080627" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="friend" textLabel="mzi-8i-pfI" style="IBUITableViewCellStyleDefault" id="aWv-PX-hvF">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -1751,11 +1756,13 @@
         <scene sceneID="MJN-lH-soz">
             <objects>
                 <tableViewController title="ProfileVC" id="k8K-G2-NLV" customClass="ProfileTableViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="eIl-z1-SEl">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="eIl-z1-SEl">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93609845638275146" green="0.93607044219970703" blue="0.93608629703521729" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexBackgroundColor" red="0.9360984564" green="0.93607044220000002" blue="0.93608629700000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexTrackingBackgroundColor" red="0.93609845638275146" green="0.93607044219970703" blue="0.93608629703521729" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="setting" id="jDE-zy-KXZ" customClass="UITableViewCellSetting" customModule="PrepApp" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -1824,7 +1831,7 @@
                                     <constraint firstAttribute="height" constant="100" id="rYy-lc-UHF"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xaW-Gr-7Xx" userLabel="imgTopic">
@@ -1896,6 +1903,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.9098039269" green="0.9098039269" blue="0.9098039269" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexBackgroundColor" red="0.9098039269" green="0.9098039269" blue="0.9098039269" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" showsReorderControl="YES" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="question" textLabel="qhm-6w-zzA" detailTextLabel="jdt-Ge-CUw" style="IBUITableViewCellStyleSubtitle" id="uaQ-pX-rwP">
@@ -1947,10 +1956,12 @@
         <scene sceneID="Ojt-qA-ypb">
             <objects>
                 <tableViewController title="LeaderboardVC" id="uPZ-bT-ehG" customClass="LeaderboardTableViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9ah-Jk-HYc">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9ah-Jk-HYc">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.90980392694473267" green="0.90980392694473267" blue="0.90980392694473267" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexBackgroundColor" red="0.9098039269" green="0.9098039269" blue="0.9098039269" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="friend" textLabel="ceR-S5-ZRt" detailTextLabel="Neu-Xc-WJD" style="IBUITableViewCellStyleValue1" id="bxC-7n-Kjl">
@@ -2022,18 +2033,18 @@
                                     <action selector="send:" destination="n3b-Gr-NOZ" eventType="touchUpInside" id="Eiw-tC-Rx8"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="kcU-Xr-7QP">
-                                <rect key="frame" x="16" y="72" width="568" height="60"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.49999999999999994" translatesAutoresizingMaskIntoConstraints="NO" id="kcU-Xr-7QP">
+                                <rect key="frame" x="16" y="64" width="568" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="NFQ-HY-pYI"/>
                                 </constraints>
-                                <string key="text">Des suggestions ? Des remarques ? Faites-nous part de vos commentaires en contactant directement les créateurs de Prep'App ! Vous pourrez éventuellement être contactés par email. Choisissez un sujet :</string>
+                                <string key="text">Des suggestions ? Des remarques ? Faites-nous part de vos commentaires en contactant directement les créateurs de Prep'App ! Vous pourrez éventuellement être contactés.</string>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="17"/>
                                 <color key="textColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="VFC-co-lCN">
-                                <rect key="frame" x="16" y="260" width="568" height="228"/>
+                                <rect key="frame" x="16" y="252" width="568" height="236"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="14"/>
@@ -2043,7 +2054,7 @@
                                 </connections>
                             </textView>
                             <pickerView contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="5PE-3y-D0T">
-                                <rect key="frame" x="0.0" y="109" width="600" height="162"/>
+                                <rect key="frame" x="0.0" y="101" width="600" height="162"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="06E-8G-lAI"/>
                                 </constraints>
@@ -2061,7 +2072,7 @@
                             <constraint firstItem="kcU-Xr-7QP" firstAttribute="trailing" secondItem="K7F-6f-k0p" secondAttribute="trailingMargin" id="Dey-Z6-bgN"/>
                             <constraint firstItem="5PE-3y-D0T" firstAttribute="top" secondItem="kcU-Xr-7QP" secondAttribute="bottom" constant="8" id="HCH-ac-DdG"/>
                             <constraint firstItem="5PE-3y-D0T" firstAttribute="leading" secondItem="K7F-6f-k0p" secondAttribute="leadingMargin" constant="-16" id="Jzp-8n-9O7"/>
-                            <constraint firstItem="kcU-Xr-7QP" firstAttribute="top" secondItem="ZAQ-L6-Qo8" secondAttribute="bottom" constant="8" id="bWl-O0-qsa"/>
+                            <constraint firstItem="kcU-Xr-7QP" firstAttribute="top" secondItem="ZAQ-L6-Qo8" secondAttribute="bottom" id="bWl-O0-qsa"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5PE-3y-D0T" secondAttribute="trailing" constant="-16" id="o6s-d3-kpl"/>
                             <constraint firstItem="VFC-co-lCN" firstAttribute="top" secondItem="5PE-3y-D0T" secondAttribute="bottom" constant="20" id="olN-mX-nxe"/>
                             <constraint firstItem="kcU-Xr-7QP" firstAttribute="leading" secondItem="K7F-6f-k0p" secondAttribute="leadingMargin" id="pYd-Mt-Bpf"/>
@@ -2122,6 +2133,8 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="4De-NM-cvq" userLabel="stats">
                                 <rect key="frame" x="16" y="212" width="568" height="324"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="detailButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="stat" textLabel="CGB-cq-id7" detailTextLabel="Ewl-BZ-Opn" style="IBUITableViewCellStyleValue1" id="lpx-lG-2si">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -2546,6 +2559,8 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Up1-qP-QcP" userLabel="stats">
                                 <rect key="frame" x="16" y="224" width="568" height="308"/>
                                 <color key="backgroundColor" red="0.90980392694473267" green="0.90980392694473267" blue="0.90980392694473267" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="0.93609845638275146" green="0.93607044219970703" blue="0.93608629703521729" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="detailButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="stat" textLabel="Rju-J4-ax6" detailTextLabel="F26-1t-VAP" style="IBUITableViewCellStyleValue1" id="Gct-y8-qNC">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -2566,6 +2581,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>

@@ -56,8 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 //we protect the app as Touch ID is enabled
             }
         }
-
-        
 		// Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
 		// If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 	}
@@ -72,10 +70,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 FactorySync.getConfigManager().saveConfig({ (result) -> Void in
                     if result {
                         println("config saved")
+                        FactoryHistory.getHistory().syncHistory { (result) -> Void in
+                            println("history synced = \(result)")
+                        }
                     } else {
                         println("error loading config, working with local config")
                     }
-                        
                 })
                 println("localVersion = \(FactorySync.getConfigManager().loadVersion()) dbVersion = \(versionDB)")
                 if FactorySync.getConfigManager().loadVersion() != versionDB { //prompting a sync

@@ -76,7 +76,7 @@ class HelpViewController: UIViewController {
         
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
-                self.roundCircle.layer.cornerRadius = 50
+        self.roundCircle.layer.cornerRadius = 50
         self.roundCircle.backgroundColor = UIColor.clearColor()
         self.roundCircle.layer.borderColor = colorGreenLogo.CGColor!
         self.roundCircle.layer.borderWidth = 3.0
