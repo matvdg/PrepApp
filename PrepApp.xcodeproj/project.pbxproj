@@ -26,9 +26,6 @@
 		F605AF0E1B04146C00E90596 /* SoloViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605AF0D1B04146C00E90596 /* SoloViewController.swift */; };
 		F605AF101B0414F300E90596 /* FriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605AF0F1B0414F300E90596 /* FriendViewController.swift */; };
 		F605AF121B04151500E90596 /* ContestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605AF111B04151500E90596 /* ContestViewController.swift */; };
-		F605AF141B04153200E90596 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605AF131B04153200E90596 /* SettingsViewController.swift */; };
-		F605AF161B04153C00E90596 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605AF151B04153C00E90596 /* HelpViewController.swift */; };
-		F605AF181B04154800E90596 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605AF171B04154800E90596 /* ProfileViewController.swift */; };
 		F60739E21BB216BE004DEC32 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60739E11BB216BE004DEC32 /* CommentViewController.swift */; };
 		F60739E41BB216CB004DEC32 /* PreviewQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60739E31BB216CB004DEC32 /* PreviewQuestionViewController.swift */; };
 		F60739E61BB2EAE6004DEC32 /* FriendManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60739E51BB2EAE6004DEC32 /* FriendManager.swift */; };
@@ -67,12 +64,14 @@
 		F6AAE6EE1AF433E100195E11 /* PrepAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AAE6ED1AF433E100195E11 /* PrepAppTests.swift */; };
 		F6AC7B4D1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AC7B4C1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift */; };
 		F6C02C421B760B960021ABE1 /* ChoiceQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C02C411B760B960021ABE1 /* ChoiceQuestionViewController.swift */; };
-		F6C02C461B762A810021ABE1 /* RenderQuestionsClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C02C451B762A810021ABE1 /* RenderQuestionsClasses.swift */; };
+		F6C02C461B762A810021ABE1 /* UITableViewCellAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C02C451B762A810021ABE1 /* UITableViewCellAnswer.swift */; };
 		F6C267FC1BB56BDC00CA462A /* PendingChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C267FB1BB56BDC00CA462A /* PendingChallenge.swift */; };
 		F6C3095C1B0365B100B8FAC9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C309581B0365B100B8FAC9 /* HomeViewController.swift */; };
 		F6C3095E1B037ACF00B8FAC9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6C3095D1B037ACF00B8FAC9 /* Images.xcassets */; };
+		F6CB05D01BBC927200289CEA /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CB05CF1BBC927200289CEA /* ProfileTableViewController.swift */; };
+		F6CB05D21BBC951700289CEA /* UITableViewCellSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CB05D11BBC951700289CEA /* UITableViewCellSetting.swift */; };
 		F6ECC1101AF6DFE8008F18E3 /* SyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ECC10F1AF6DFE8008F18E3 /* SyncViewController.swift */; };
-		F6F22A971B70EC5E00A3049B /* DetailHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F22A961B70EC5E00A3049B /* DetailHelpViewController.swift */; };
+		F6F22A971B70EC5E00A3049B /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F22A961B70EC5E00A3049B /* HelpViewController.swift */; };
 		F6FBFAB81AFA1F5E0020B074 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FBFAB71AFA1F5E0020B074 /* User.swift */; };
 		F6FBFABF1AFA33CD0020B074 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FBFABE1AFA33CD0020B074 /* LoginViewController.swift */; };
 		F6FBFAC31AFA98D40020B074 /* Lib.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FBFAC21AFA98D40020B074 /* Lib.swift */; };
@@ -123,10 +122,10 @@
 		952588BC1B974BDF00F68B3F /* QuestionSoloViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionSoloViewController.swift; sourceTree = "<group>"; };
 		953686E61BB0179100CD6615 /* QuestionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionManager.swift; sourceTree = "<group>"; };
 		954441E31B9CB49F0035B7ED /* ScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreViewController.swift; sourceTree = "<group>"; };
-		9555BBC81BA836EF00BED5A2 /* StatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
-		9555BBCA1BA836FB00BED5A2 /* FeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
-		9555BBCC1BA8371600BED5A2 /* LeaderboardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardTableViewController.swift; sourceTree = "<group>"; };
-		9555BBCE1BA8372500BED5A2 /* MarkedQuestionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkedQuestionsTableViewController.swift; sourceTree = "<group>"; };
+		9555BBC81BA836EF00BED5A2 /* StatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StatsViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		9555BBCA1BA836FB00BED5A2 /* FeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FeedbackViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		9555BBCC1BA8371600BED5A2 /* LeaderboardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = LeaderboardTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		9555BBCE1BA8372500BED5A2 /* MarkedQuestionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MarkedQuestionsTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		95C5C48C1B9503F6001DA9B5 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		95D765001B9F34AD002C31CC /* FactoryHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryHistory.swift; sourceTree = "<group>"; };
 		95D765021B9F358E002C31CC /* Scoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scoring.swift; sourceTree = "<group>"; };
@@ -134,12 +133,9 @@
 		F60082D21B854F9E00F7BCBB /* ConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		F60406131B8DE14F006F7F4E /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "ios-charts-master/Charts/Charts.xcodeproj"; sourceTree = "<group>"; };
 		F604061D1B8E6150006F7F4E /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		F605AF0D1B04146C00E90596 /* SoloViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoloViewController.swift; sourceTree = "<group>"; };
-		F605AF0F1B0414F300E90596 /* FriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendViewController.swift; sourceTree = "<group>"; };
-		F605AF111B04151500E90596 /* ContestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContestViewController.swift; sourceTree = "<group>"; };
-		F605AF131B04153200E90596 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		F605AF151B04153C00E90596 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
-		F605AF171B04154800E90596 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		F605AF0D1B04146C00E90596 /* SoloViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SoloViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		F605AF0F1B0414F300E90596 /* FriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FriendViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		F605AF111B04151500E90596 /* ContestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ContestViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F60739E11BB216BE004DEC32 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		F60739E31BB216CB004DEC32 /* PreviewQuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewQuestionViewController.swift; sourceTree = "<group>"; };
 		F60739E51BB2EAE6004DEC32 /* FriendManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendManager.swift; sourceTree = "<group>"; };
@@ -160,6 +156,7 @@
 		F6322A1E1B615E360074549E /* Chapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
 		F6322A201B615E3E0074549E /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		F6322A221B615E460074549E /* Subject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
+		F632F6601BBBFFDA00B5EE27 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		F63B5AE81B77C116002C0A79 /* SoundSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundSystem.swift; sourceTree = "<group>"; };
 		F63B5AEB1B77D390002C0A79 /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
 		F64630A01B5E662F006A5F71 /* ChapterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChapterManager.swift; sourceTree = "<group>"; };
@@ -171,7 +168,7 @@
 		F663E3171B7A620800F23294 /* QuestionHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionHistory.swift; sourceTree = "<group>"; };
 		F663E31B1B7A6BD000F23294 /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = History.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F66771801B61A31900042145 /* FactoryRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryRealm.swift; sourceTree = "<group>"; };
-		F68320D91B03C6F1006B974E /* TrainingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingViewController.swift; sourceTree = "<group>"; };
+		F68320D91B03C6F1006B974E /* TrainingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TrainingViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F6987A6C1B16321B002989C6 /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		F6AAE6D01AF433E100195E11 /* PrepApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrepApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6AAE6D41AF433E100195E11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -183,14 +180,15 @@
 		F6AAE6ED1AF433E100195E11 /* PrepAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepAppTests.swift; sourceTree = "<group>"; };
 		F6AC7B4C1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceQuestionViewControllerDelegate.swift; sourceTree = "<group>"; };
 		F6C02C411B760B960021ABE1 /* ChoiceQuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ChoiceQuestionViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		F6C02C451B762A810021ABE1 /* RenderQuestionsClasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderQuestionsClasses.swift; sourceTree = "<group>"; };
+		F6C02C451B762A810021ABE1 /* UITableViewCellAnswer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellAnswer.swift; sourceTree = "<group>"; };
 		F6C267FB1BB56BDC00CA462A /* PendingChallenge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingChallenge.swift; sourceTree = "<group>"; };
-		F6C309581B0365B100B8FAC9 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		F6C309581B0365B100B8FAC9 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HomeViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F6C3095D1B037ACF00B8FAC9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F6CB05CF1BBC927200289CEA /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ProfileTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		F6CB05D11BBC951700289CEA /* UITableViewCellSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellSetting.swift; sourceTree = "<group>"; };
 		F6ECC10F1AF6DFE8008F18E3 /* SyncViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncViewController.swift; sourceTree = "<group>"; };
-		F6F22A961B70EC5E00A3049B /* DetailHelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailHelpViewController.swift; sourceTree = "<group>"; };
+		F6F22A961B70EC5E00A3049B /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HelpViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F6FBB4B71B160CE300A18600 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
-		F6FBB4B81B160CE300A18600 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		F6FBFAB71AFA1F5E0020B074 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F6FBFABC1AFA29460020B074 /* PrepApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrepApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		F6FBFABE1AFA33CD0020B074 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -217,20 +215,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9555BBD01BA8373000BED5A2 /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-				F605AF171B04154800E90596 /* ProfileViewController.swift */,
-				9555BBC81BA836EF00BED5A2 /* StatsViewController.swift */,
-				9555BBCA1BA836FB00BED5A2 /* FeedbackViewController.swift */,
-				9555BBCC1BA8371600BED5A2 /* LeaderboardTableViewController.swift */,
-				9555BBCE1BA8372500BED5A2 /* MarkedQuestionsTableViewController.swift */,
-				F60739E11BB216BE004DEC32 /* CommentViewController.swift */,
-				F60739E31BB216CB004DEC32 /* PreviewQuestionViewController.swift */,
-			);
-			name = Profile;
-			sourceTree = "<group>";
-		};
 		F60406141B8DE14F006F7F4E /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,14 +275,19 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		F6322A101B61574F0074549E /* Other */ = {
+		F6322A101B61574F0074549E /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				F605AF131B04153200E90596 /* SettingsViewController.swift */,
-				F605AF151B04153C00E90596 /* HelpViewController.swift */,
-				F6F22A961B70EC5E00A3049B /* DetailHelpViewController.swift */,
+				9555BBC81BA836EF00BED5A2 /* StatsViewController.swift */,
+				9555BBCA1BA836FB00BED5A2 /* FeedbackViewController.swift */,
+				9555BBCC1BA8371600BED5A2 /* LeaderboardTableViewController.swift */,
+				9555BBCE1BA8372500BED5A2 /* MarkedQuestionsTableViewController.swift */,
+				F60739E11BB216BE004DEC32 /* CommentViewController.swift */,
+				F60739E31BB216CB004DEC32 /* PreviewQuestionViewController.swift */,
+				F6F22A961B70EC5E00A3049B /* HelpViewController.swift */,
+				F6CB05CF1BBC927200289CEA /* ProfileTableViewController.swift */,
 			);
-			name = Other;
+			name = Profile;
 			sourceTree = "<group>";
 		};
 		F6322A111B61577F0074549E /* Training */ = {
@@ -372,10 +361,11 @@
 		F663E3191B7A6BA600F23294 /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				F6C02C451B762A810021ABE1 /* RenderQuestionsClasses.swift */,
 				F604061D1B8E6150006F7F4E /* Colors.swift */,
 				F6FBFAC21AFA98D40020B074 /* Lib.swift */,
 				F63B5AE81B77C116002C0A79 /* SoundSystem.swift */,
+				F6C02C451B762A810021ABE1 /* UITableViewCellAnswer.swift */,
+				F6CB05D11BBC951700289CEA /* UITableViewCellSetting.swift */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -462,8 +452,7 @@
 				F6322A131B6157990074549E /* Solo */,
 				F6322A121B61578B0074549E /* Duo */,
 				F6322A141B6157A70074549E /* Contest */,
-				9555BBD01BA8373000BED5A2 /* Profile */,
-				F6322A101B61574F0074549E /* Other */,
+				F6322A101B61574F0074549E /* Profile */,
 				F6322A0F1B61572C0074549E /* View */,
 			);
 			name = ViewControllers;
@@ -635,18 +624,18 @@
 				95C5C48D1B9503F6001DA9B5 /* Answer.swift in Sources */,
 				F60739E21BB216BE004DEC32 /* CommentViewController.swift in Sources */,
 				F6ECC1101AF6DFE8008F18E3 /* SyncViewController.swift in Sources */,
-				F6F22A971B70EC5E00A3049B /* DetailHelpViewController.swift in Sources */,
+				F6F22A971B70EC5E00A3049B /* HelpViewController.swift in Sources */,
 				9555BBCD1BA8371600BED5A2 /* LeaderboardTableViewController.swift in Sources */,
 				F60739E91BB348AB004DEC32 /* Friend.swift in Sources */,
-				F6C02C461B762A810021ABE1 /* RenderQuestionsClasses.swift in Sources */,
+				F6C02C461B762A810021ABE1 /* UITableViewCellAnswer.swift in Sources */,
 				F6C3095C1B0365B100B8FAC9 /* HomeViewController.swift in Sources */,
 				F6AAE6D61AF433E100195E11 /* AppDelegate.swift in Sources */,
 				F60739EB1BB3E6E9004DEC32 /* FactoryDuo.swift in Sources */,
 				9555BBCF1BA8372500BED5A2 /* MarkedQuestionsTableViewController.swift in Sources */,
 				F6322A231B615E460074549E /* Subject.swift in Sources */,
 				95D765031B9F358E002C31CC /* Scoring.swift in Sources */,
+				F6CB05D01BBC927200289CEA /* ProfileTableViewController.swift in Sources */,
 				9555BBCB1BA836FB00BED5A2 /* FeedbackViewController.swift in Sources */,
-				F605AF181B04154800E90596 /* ProfileViewController.swift in Sources */,
 				F6322A161B6157F60074549E /* ChaptersTableViewController.swift in Sources */,
 				F6322A1C1B615DFA0074549E /* Question.swift in Sources */,
 				F663E3181B7A620800F23294 /* QuestionHistory.swift in Sources */,
@@ -658,12 +647,10 @@
 				952588BD1B974BDF00F68B3F /* QuestionSoloViewController.swift in Sources */,
 				F6987A6D1B16321B002989C6 /* ImageManager.swift in Sources */,
 				F6322A1A1B6158300074549E /* CorrectionViewController.swift in Sources */,
-				F605AF141B04153200E90596 /* SettingsViewController.swift in Sources */,
 				F605AF101B0414F300E90596 /* FriendViewController.swift in Sources */,
 				F6322A1F1B615E360074549E /* Chapter.swift in Sources */,
 				F6FBFAC31AFA98D40020B074 /* Lib.swift in Sources */,
 				952588BB1B9742E400F68B3F /* NewsfeedViewController.swift in Sources */,
-				F605AF161B04153C00E90596 /* HelpViewController.swift in Sources */,
 				F60739E61BB2EAE6004DEC32 /* FriendManager.swift in Sources */,
 				F6322A211B615E3E0074549E /* Image.swift in Sources */,
 				F6FBFABF1AFA33CD0020B074 /* LoginViewController.swift in Sources */,
@@ -675,6 +662,7 @@
 				F605AF121B04151500E90596 /* ContestViewController.swift in Sources */,
 				95D765011B9F34AD002C31CC /* FactoryHistory.swift in Sources */,
 				F64630A51B5E6959006A5F71 /* FactorySync.swift in Sources */,
+				F6CB05D21BBC951700289CEA /* UITableViewCellSetting.swift in Sources */,
 				F60082D31B854F9E00F7BCBB /* ConfigManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -716,7 +704,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				F6AAE6E11AF433E100195E11 /* Base */,
-				F6FBB4B81B160CE300A18600 /* fr */,
+				F632F6601BBBFFDA00B5EE27 /* fr */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";

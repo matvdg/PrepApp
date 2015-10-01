@@ -10,6 +10,8 @@ import UIKit
 
 class StatsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    @IBOutlet weak var menuButton: UIBarButtonItem!
+    
     var statsTopics = ["Niveau", "Assiduité", "Questions réussies", "Echéance", "AwardPoints"]
     var statsData: [String] = []
     var statsDetails: [String] = []
@@ -38,6 +40,12 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.title = "Statistiques"
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
+        
+        if self.revealViewController() != nil {
+            self.menuButton.target = self.revealViewController()
+            self.menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
     }
     
     func logout() {

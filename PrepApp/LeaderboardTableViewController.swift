@@ -10,11 +10,21 @@ import UIKit
 
 class LeaderboardTableViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate  {
 
+    @IBOutlet weak var menuButton: UIBarButtonItem!
     
     var friends = [Friend]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadLeaderboard()
+        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
+        self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
+        if self.revealViewController() != nil {
+            self.menuButton.target = self.revealViewController()
+            self.menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+
         self.title = "Classement"
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)

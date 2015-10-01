@@ -8,9 +8,9 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     enum subject: Int {
         case biology = 1, physics, chemistry
     }
-    var bio: Double = 0
-    var phy: Double = 0
-    var che: Double = 0
+    var bioPercent: Double = 0
+    var phyPercent: Double = 0
+    var chePercent: Double = 0
     var bioNumber: Int = 0
     var phyNumber: Int = 0
     var cheNumber: Int = 0
@@ -69,14 +69,14 @@ class HomeViewController: UIViewController, ChartViewDelegate {
                 self.stats.hidden = true
             } else {
                 self.currentStatsPanelDisplayed = 1
-                self.stats.text = "\(Int(self.bio))%    -    \(self.bioNumber) \(self.singularOrPlural(1, type: 0))    Niveau suivant : \(self.bioNumberToDo) \(self.singularOrPlural(1, type: 1))"
+                self.stats.text = "\(Int(self.bioPercent))%    -    \(self.bioNumber) \(self.singularOrPlural(1, type: 0))    Niveau suivant : \(self.bioNumberToDo) \(self.singularOrPlural(1, type: 1))"
                 self.stats.backgroundColor = colorBio
                 self.stats.hidden = false
             }
         } else {
             self.statsPanelDisplayed = true
             self.currentStatsPanelDisplayed = 1
-            self.stats.text = "\(Int(self.bio))%    -    \(self.bioNumber) \(self.singularOrPlural(1, type: 0))    Niveau suivant : \(self.bioNumberToDo) \(self.singularOrPlural(1, type: 1))"
+            self.stats.text = "\(Int(self.bioPercent))%    -    \(self.bioNumber) \(self.singularOrPlural(1, type: 0))    Niveau suivant : \(self.bioNumberToDo) \(self.singularOrPlural(1, type: 1))"
             self.stats.backgroundColor = colorBio
             self.stats.hidden = false
         }
@@ -90,14 +90,14 @@ class HomeViewController: UIViewController, ChartViewDelegate {
                 self.stats.hidden = true
             } else {
                 self.currentStatsPanelDisplayed = 2
-                self.stats.text = "\(Int(self.phy))%    -    \(self.phyNumber) \(self.singularOrPlural(2, type: 0))    Niveau suivant : \(self.phyNumberToDo) \(self.singularOrPlural(2, type: 1))"
+                self.stats.text = "\(Int(self.phyPercent))%    -    \(self.phyNumber) \(self.singularOrPlural(2, type: 0))    Niveau suivant : \(self.phyNumberToDo) \(self.singularOrPlural(2, type: 1))"
                 self.stats.backgroundColor = colorPhy
                 self.stats.hidden = false
             }
         } else {
             self.statsPanelDisplayed = true
             self.currentStatsPanelDisplayed = 2
-            self.stats.text = "\(Int(self.phy))%    -    \(self.phyNumber) \(self.singularOrPlural(2, type: 0))    Niveau suivant : \(self.phyNumberToDo) \(self.singularOrPlural(2, type: 1))"
+            self.stats.text = "\(Int(self.phyPercent))%    -    \(self.phyNumber) \(self.singularOrPlural(2, type: 0))    Niveau suivant : \(self.phyNumberToDo) \(self.singularOrPlural(2, type: 1))"
             self.stats.backgroundColor = colorPhy
             self.stats.hidden = false
         }
@@ -111,14 +111,14 @@ class HomeViewController: UIViewController, ChartViewDelegate {
                 self.stats.hidden = true
             } else {
                 self.currentStatsPanelDisplayed = 3
-                self.stats.text = "\(Int(self.che))%    -    \(self.cheNumber) \(self.singularOrPlural(3, type: 0))    Niveau suivant : \(self.cheNumberToDo) \(self.singularOrPlural(3, type: 1))"
+                self.stats.text = "\(Int(self.chePercent))%    -    \(self.cheNumber) \(self.singularOrPlural(3, type: 0))    Niveau suivant : \(self.cheNumberToDo) \(self.singularOrPlural(3, type: 1))"
                 self.stats.backgroundColor = colorChe
                 self.stats.hidden = false
             }
         } else {
             self.statsPanelDisplayed = true
             self.currentStatsPanelDisplayed = 3
-            self.stats.text = "\(Int(self.che))%    -    \(self.cheNumber) \(self.singularOrPlural(3, type: 0))    Niveau suivant : \(self.cheNumberToDo) \(self.singularOrPlural(3, type: 1))"
+            self.stats.text = "\(Int(self.chePercent))%    -    \(self.cheNumber) \(self.singularOrPlural(3, type: 0))    Niveau suivant : \(self.cheNumberToDo) \(self.singularOrPlural(3, type: 1))"
             self.stats.backgroundColor = colorChe
             self.stats.hidden = false
         }
@@ -186,8 +186,8 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
         self.view.addGestureRecognizer(swipeLeft)
 		if self.revealViewController() != nil {
-			menuButton.target = self.revealViewController()
-			menuButton.action = "revealToggle:"
+			self.menuButton.target = self.revealViewController()
+			self.menuButton.action = "revealToggle:"
 			self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
     }
@@ -205,15 +205,15 @@ class HomeViewController: UIViewController, ChartViewDelegate {
             println("history synced = \(result)")
         }
         var (percent,answers,todo) = FactoryHistory.getScoring().getScore(1)
-        self.bio = Double(percent)
+        self.bioPercent = Double(percent)
         self.bioNumber = answers
         self.bioNumberToDo = todo
         (percent,answers,todo) = FactoryHistory.getScoring().getScore(2)
-        self.phy = Double(percent)
+        self.phyPercent = Double(percent)
         self.phyNumber = answers
         self.phyNumberToDo = todo
         (percent,answers,todo) = FactoryHistory.getScoring().getScore(3)
-        self.che = Double(percent)
+        self.chePercent = Double(percent)
         self.cheNumber = answers
         self.cheNumberToDo = todo
         
@@ -560,14 +560,14 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         var yVals: [ChartDataEntry] = []
         switch subject {
         case 1 :
-            yVals.append(BarChartDataEntry(value: self.bio, xIndex: 1))
-            yVals.append(BarChartDataEntry(value: 100-self.bio, xIndex: 2))
+            yVals.append(BarChartDataEntry(value: self.bioPercent, xIndex: 1))
+            yVals.append(BarChartDataEntry(value: 100-self.bioPercent, xIndex: 2))
         case 2 :
-            yVals.append(BarChartDataEntry(value: self.phy, xIndex: 1))
-            yVals.append(BarChartDataEntry(value: 100-self.phy, xIndex: 2))
+            yVals.append(BarChartDataEntry(value: self.phyPercent, xIndex: 1))
+            yVals.append(BarChartDataEntry(value: 100-self.phyPercent, xIndex: 2))
         case 3 :
-            yVals.append(BarChartDataEntry(value: self.che, xIndex: 1))
-            yVals.append(BarChartDataEntry(value: 100-self.che, xIndex: 2))
+            yVals.append(BarChartDataEntry(value: self.chePercent, xIndex: 1))
+            yVals.append(BarChartDataEntry(value: 100-self.chePercent, xIndex: 2))
         default :
             yVals.append(BarChartDataEntry(value: 50, xIndex: 1))
         }
@@ -755,7 +755,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.phyPieChart.animate(yAxisDuration: timeInterval, easingOption: animation)
         self.chePieChart.animate(yAxisDuration: timeInterval, easingOption: animation)
         //after animation, one level up if necessary
-        while (self.bio == 100 && self.phy == 100 && self.che == 100) {
+        while (self.bioPercent == 100 && self.phyPercent == 100 && self.chePercent == 100) {
             //everything at 100%, one level up!
             var win = ["Le travail est la clef du succès !","Félicitations ! Vous avez gagné un niveau !","Le succès naît de la persévérance.","L'obstination est le chemin de la réussite !","Un travail constant vient à bout de tout.","Le mérite résulte de la persévérance.","La persévérance est la mère des succès.","La persévérance fait surmonter bien des obstacles."]
             win.shuffle()

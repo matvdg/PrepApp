@@ -5,8 +5,8 @@
 /* Class = "UINavigationItem"; title = "Entraînement"; ObjectID = "4Vj-K9-aaB"; */
 "4Vj-K9-aaB.title" = "Entraînement";
 
-/* Class = "UILabel"; text = "Profil"; ObjectID = "AUT-7Z-alE"; */
-"AUT-7Z-alE.text" = "Profil";
+/* Class = "UILabel"; text = "Statistiques"; ObjectID = "AUT-7Z-alE"; */
+"AUT-7Z-alE.text" = "Statistiques";
 
 /* Class = "UINavigationItem"; title = "Aide"; ObjectID = "BXc-9l-4z5"; */
 "BXc-9l-4z5.title" = "Aide";
@@ -83,8 +83,8 @@
 /* Class = "UINavigationController"; title = "Solo"; ObjectID = "Z5P-zY-itP"; */
 "Z5P-zY-itP.title" = "Solo";
 
-/* Class = "UILabel"; text = "Préférences"; ObjectID = "ctW-xK-1Rf"; */
-"ctW-xK-1Rf.text" = "Préférences";
+/* Class = "UILabel"; text = "Questions marquées"; ObjectID = "ctW-xK-1Rf"; */
+"ctW-xK-1Rf.text" = "Questions marquées";
 
 /* Class = "UILabel"; text = "Aide"; ObjectID = "czF-00-8jz"; */
 "czF-00-8jz.text" = "Aide";

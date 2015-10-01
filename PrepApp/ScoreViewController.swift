@@ -172,8 +172,8 @@ class ScoreViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     
     private func loadData() {
-        self.awardPointsBonus = ((self.score - 10) > 1) ? (self.score - 10) : 0
-        self.awardPoints = self.awardPointsBonus + self.numberOfQuestions + 5*self.succeeded
+        self.awardPointsBonus = (((self.score - 10) > 1) ? (self.score - 10) : 0) * 2
+        self.awardPoints = self.awardPointsBonus + self.numberOfQuestions + 5 * self.succeeded
         //"Questions réussies", "AwardPoints réussites", "AwardPoints assiduité",  "AwardPoints bonus", "Total AwardPoints"
         self.statsData.append("\(self.succeeded) / \(self.numberOfQuestions)")
         self.statsDetails.append("\(self.succeeded) \(self.grammarQuestionString(self.succeeded)) \(self.grammarSucceededString(self.succeeded)), \(self.numberOfQuestions-self.succeeded) \(self.grammarQuestionString(self.numberOfQuestions-self.succeeded)) \(self.grammarFailedString(self.numberOfQuestions-self.succeeded)) sur un total de \(self.numberOfQuestions) \(self.grammarQuestionString(self.numberOfQuestions)), soit une note de \(self.score) sur 20.")
@@ -182,7 +182,7 @@ class ScoreViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.statsData.append(self.numberOfQuestions.toStringPoints())
         self.statsDetails.append("L'assiduité est récompensée ! 1 point par question faite = \(self.numberOfQuestions.toStringPoints())")
         self.statsData.append(self.awardPointsBonus.toStringPoints())
-        self.statsDetails.append("Tous les points au dessus de la note 10/20 vous rapportent un AwardPoint en bonus. Vous gagnez \(self.awardPointsBonus.toStringPoints()).")
+        self.statsDetails.append("Tous les points au dessus de la note 10/20 vous rapportent deux AwardPoints en bonus. Vous gagnez \(self.awardPointsBonus.toStringPoints()).")
         self.statsData.append(self.awardPoints.toStringPoints())
         self.statsDetails.append("AwardPoints réussites (\((self.succeeded*5).toStringPoints())) + AwardPoints assiduité (\(self.awardPointsBonus.toStringPoints())) + AwardPoints bonus (\(self.awardPointsBonus.toStringPoints())) = total AwardPoints (\(self.awardPoints.toStringPoints()))")
         //save scoring

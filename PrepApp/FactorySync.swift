@@ -27,8 +27,8 @@ class FactorySync {
     private static let realm = FactoryRealm.getRealm()
     
     /*APIs*/
-    private static let domain = NSURL(string: "http://prep-app.com")
-    //private static let domain = NSURL(string: "http://192.168.1.30/PrepApp")
+    //private static let domain = NSURL(string: "http://prep-app.com")
+    private static let domain = NSURL(string: "http://192.168.1.30/PrepApp")
     private static let apiUrl = NSURL(string: "\(FactorySync.domain!)/api")
     
     //UPLOADS (images)
@@ -45,8 +45,9 @@ class FactorySync {
     static let imageUrl = NSURL(string: "\(FactorySync.apiUrl!)/uploads/")
 
     //DUO
-    static let friendUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/friend/")
-    static let shuffleDuoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/shuffle/")
+    static let friendUrl = NSURL(string: "\(FactorySync.apiUrl!)/friend/find/")
+    static let shuffleDuoUrl = NSURL(string: "\(FactorySync.apiUrl!)/friend/shuffle/")
+    static let updateFriendsUrl = NSURL(string: "\(FactorySync.apiUrl!)/friend/update/")
     static let duoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/")
     
     //CONTEST

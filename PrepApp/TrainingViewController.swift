@@ -54,8 +54,8 @@ class TrainingViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         if self.revealViewController() != nil {
-			menuButton.target = self.revealViewController()
-			menuButton.action = "revealToggle:"
+			self.menuButton.target = self.revealViewController()
+			self.menuButton.action = "revealToggle:"
 			self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
 		}
         self.bioButton.backgroundColor = colorBio

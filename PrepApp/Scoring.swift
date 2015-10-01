@@ -21,6 +21,7 @@ class Scoring {
         var succeeded = 0
         var percent = 0
         var todo = 0
+        var done = 0
         
         //fetching the appropriate questions
         for questionHistory in questionsHistory {
@@ -38,15 +39,15 @@ class Scoring {
         
         switch subject {
         case 1 : //biology
-            (percent, todo) = self.computePercentLevel(6, succeeded: succeeded)
+            (percent, done, todo) = self.computePercentLevel(6, succeeded: succeeded)
         case 2 : //physics
-            (percent, todo) = self.computePercentLevel(2, succeeded: succeeded)
+            (percent, done, todo) = self.computePercentLevel(2, succeeded: succeeded)
         case 3 : //chemistry
-            (percent, todo) = self.computePercentLevel(1, succeeded: succeeded)
+            (percent, done, todo) = self.computePercentLevel(1, succeeded: succeeded)
         default :
             println("error")
         }
-        return (percent, succeeded, todo)
+        return (percent, done, todo)
     }
     
     func getSucceeded() -> Int {
@@ -273,23 +274,26 @@ class Scoring {
         }
     }
     
-    private func computePercentLevel(ratio: Int, succeeded: Int) -> (Int,Int) {
+    private func computePercentLevel(ratio: Int, succeeded: Int) -> (Int, Int, Int) {
         var currentLevel = User.currentUser!.level
         var units: Int = succeeded / ratio
         var percent = 0
         var todo = 0
+        var done = 0
         var unitsNeededForNextLevel = computeUnitsNeededForNextLevel(currentLevel)
+        var nextStep = (unitsNeededForNextLevel * ratio)
+        var unitsNeededForPreviousLevel = computeUnitsNeededForNextLevel(currentLevel-1)
+        var previousStep = (unitsNeededForPreviousLevel * ratio)
+        done = succeeded - previousStep
+
         if units < unitsNeededForNextLevel { //we haven't reached yet the level
-            var nextStep = (unitsNeededForNextLevel * ratio)
             todo = nextStep - succeeded
-            var unitsNeededForPreviousLevel = computeUnitsNeededForNextLevel(currentLevel-1)
-            var previousStep = (unitsNeededForPreviousLevel * ratio)
-            var totalToSucceedForThisLevel = nextStep - previousStep
-            percent = (totalToSucceedForThisLevel - todo) * 100 / totalToSucceedForThisLevel
+            percent = done * 100 / (done + todo)
         } else { //we are above the required level
+            todo = nextStep - succeeded
             percent = 100
             todo = 0
         }
-        return (percent, todo)
+        return (percent, done, todo)
     }
 }

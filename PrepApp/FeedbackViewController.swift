@@ -12,6 +12,7 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     var topics = ["Une suggestion/idée", "Un bug/remarque", "Une nouvelle fonctionnalité", "Un autre commentaire"]
     
+    @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var topicsPicker: UIPickerView!
     @IBOutlet weak var designButton: UIButton!
     @IBOutlet weak var feedback: UITextView!
@@ -28,6 +29,14 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
         self.designButton.layer.cornerRadius = 6
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
+        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
+        self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
+        if self.revealViewController() != nil {
+            self.menuButton.target = self.revealViewController()
+            self.menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+
     }
     
     func logout() {

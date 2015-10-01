@@ -6,9 +6,14 @@ class MenuController: UITableViewController {
     let sreenSize : CGRect = UIScreen.mainScreen().bounds
 	
     override func viewDidLoad() {
-        self.revealViewController().rearViewRevealWidth = 200
+        self.revealViewController().rearViewRevealWidth = 220
+        var name = "\(User.currentUser!.firstName) \(User.currentUser!.lastName)"
+        self.name.text = name
+        
+        
     }
 
+    @IBOutlet weak var name: UILabel!
 	@IBAction func logout(sender: AnyObject) {
         
         // create alert controller

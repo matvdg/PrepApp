@@ -202,13 +202,13 @@ class History {
                 for questionHistory in history {
                     if let question = questionHistory as? NSDictionary {
                         var historyQuestion = QuestionHistory()
-                        historyQuestion.id = (question["idQuestion"] as! String).toInt()!
+                        historyQuestion.id = question["idQuestion"] as! Int
                         historyQuestion.training = question["training"] as! Bool
                         historyQuestion.success = question["success"] as! Bool
                         historyQuestion.firstSuccess = question["firstSuccess"] as! Bool
                         historyQuestion.marked =  question["marked"] as! Bool
                         historyQuestion.doubleAssiduity = question["doubleAssiduity"] as! Bool
-                        historyQuestion.weeksBeforeExam = (question["weeksBeforeExam"] as! String).toInt()!
+                        historyQuestion.weeksBeforeExam = question["weeksBeforeExam"] as! Int
                         self.realmHistory.write({
                             self.realmHistory.add(historyQuestion)
                         })
@@ -266,7 +266,4 @@ class History {
         task.resume()
     }
 
-    
-    
-    
 }

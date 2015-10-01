@@ -10,6 +10,7 @@ import UIKit
 
 class MarkedQuestionsTableViewController: UITableViewController {
     
+    @IBOutlet weak var menuButton: UIBarButtonItem!
     var questions = [Question]()
     var isTrainingQuestions = [Bool]()
     var selectedQuestion: Question?
@@ -17,6 +18,13 @@ class MarkedQuestionsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if self.revealViewController() != nil {
+            self.menuButton.target = self.revealViewController()
+            self.menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+
         self.questions = FactoryHistory.getHistory().getMarkedQuestions().0
         self.isTrainingQuestions = FactoryHistory.getHistory().getMarkedQuestions().1
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
