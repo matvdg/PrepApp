@@ -154,12 +154,12 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         FactoryDuo.getFriendManager().saveFriend(code, callback: { (result, message) -> Void in
             if result {
                 if self.friends[0].id == -1 {
-                    println("removing template")
                     self.friends.removeAtIndex(0)
                     self.friendsTable.deleteRowsAtIndexPaths([NSIndexPath(forItem: 0, inSection: 1)], withRowAnimation: UITableViewRowAnimation.Fade)
                 }
                 var counter = self.friends.count
                 self.friends = FactoryDuo.getFriendManager().getFriends()
+                //println(self.friends)
                 if counter == self.friends.count {
                     // create alert controller
                     let myAlert = UIAlertController(title: "Oups !", message: "L'ami a déjà été ajouté... Entrez un autre code.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -176,11 +176,9 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                     myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                     // show the alert
                     self.presentViewController(myAlert, animated: true, completion: nil)
-                    let newIndexPath = NSIndexPath(forItem: 0, inSection: 1)
+                    let newIndexPath = NSIndexPath(forRow: self.friends.count-1, inSection: 1)
                     self.friendsTable.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Left)
                 }
-                
-                
             } else {
                 // create alert controller
                 let myAlert = UIAlertController(title: "Erreur", message: message, preferredStyle: UIAlertControllerStyle.Alert)
@@ -191,7 +189,6 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 self.presentViewController(myAlert, animated: true, completion: nil)
             }
         })
-        
     }
     
     private func share() {
@@ -220,14 +217,6 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
             return self.friends.count
         }
         
-    }
-    
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "Défis en attente"
-        } else {
-            return "Amis"
-        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -268,6 +257,10 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
             let friend = self.friends[indexPath.row]
             if friend.id == -1 {
                 cell.accessoryType = UITableViewCellAccessoryType.None
+                cell.detailTextLabel!.text = ""
+            } else {
+                cell.detailTextLabel!.text = friend.awardPoints.toStringPoints()
+                cell.accessoryView = UIImageView(image: UIImage(named: "challenge"))
             }
             if FactorySync.getConfigManager().loadNicknamePreference() {
                 cell.textLabel!.text = friend.nickname
@@ -343,6 +336,24 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
             
         }
         
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        var headerView = UIView(frame: CGRectMake(0, 0, tableView.bounds.size.width, 30))
+        headerView.backgroundColor = colorGreen
+        
+        var headerLabel = UILabel(frame: CGRectMake(15, 0, tableView.bounds.size.width, 20))
+        headerLabel.backgroundColor = UIColor.clearColor()
+        headerLabel.shadowOffset = CGSizeMake(0,2)
+        headerLabel.textColor = UIColor.whiteColor()
+        headerLabel.font = UIFont(name: "Segoe UI", size: 16)
+        if section == 0 {
+            headerLabel.text = "Défis en attente"
+        } else {
+            headerLabel.text = "Amis"
+        }
+        headerView.addSubview(headerLabel)
+        return headerView
     }
     
 
