@@ -295,11 +295,27 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
             } else {
                 var friendToRemove = self.friends[indexPath.row]
                 self.friends.removeAtIndex(indexPath.row)
-                if friendToRemove.id != -1 {
-                    FactoryDuo.getFriendManager().deleteFriend(friendToRemove)
-                }
+                FactoryDuo.getFriendManager().deleteFriend(friendToRemove)
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
             }
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+        }
+    }
+    
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        if indexPath.section == 0 {
+            var challenge = self.pendingChallenge[indexPath.row]
+            if challenge.id == -1 {
+                return UITableViewCellEditingStyle.None
+            } else {
+                return UITableViewCellEditingStyle.Delete
+            }
+        } else {
+            var friend = self.friends[indexPath.row]
+            if friend.id == -1 {
+                return UITableViewCellEditingStyle.None
+            } else {
+                return UITableViewCellEditingStyle.Delete
+            }
         }
     }
     
