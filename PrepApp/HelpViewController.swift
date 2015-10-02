@@ -54,6 +54,7 @@ class HelpViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view!.backgroundColor = colorGreyBackground
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         
@@ -75,7 +76,7 @@ class HelpViewController: UIViewController {
         self.displayHelp()
         
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
+        self.navigationController!.navigationBar.tintColor = colorGreen
         self.roundCircle.layer.cornerRadius = 50
         self.roundCircle.backgroundColor = UIColor.clearColor()
         self.roundCircle.layer.borderColor = colorGreenLogo.CGColor!
@@ -124,7 +125,7 @@ class HelpViewController: UIViewController {
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreenAppButtons
+        myAlert.view.tintColor = colorGreen
         // add an "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
         // add an "update" button

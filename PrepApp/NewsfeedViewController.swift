@@ -12,8 +12,9 @@ class NewsfeedViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view!.backgroundColor = colorGreyBackground
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
+        self.navigationController!.navigationBar.tintColor = colorGreen
         var swipeRight = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipeRight.direction = UISwipeGestureRecognizerDirection.Right
         self.view.addGestureRecognizer(swipeRight)

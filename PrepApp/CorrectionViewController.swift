@@ -33,7 +33,7 @@ class CorrectionViewController: UIViewController, UIWebViewDelegate {
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreenAppButtons
+        myAlert.view.tintColor = colorGreen
         // add an "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
         // add an "update" button
@@ -47,6 +47,7 @@ class CorrectionViewController: UIViewController, UIWebViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view!.backgroundColor = colorGreyBackground
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         self.correction.opaque = false

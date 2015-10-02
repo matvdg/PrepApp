@@ -62,6 +62,7 @@ class ChoiceQuestionViewController: UIViewController {
     //app method
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view!.backgroundColor = colorGreyBackground
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         self.designButtons()
@@ -77,7 +78,7 @@ class ChoiceQuestionViewController: UIViewController {
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreenAppButtons
+        myAlert.view.tintColor = colorGreen
         // add an "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
         // add an "update" button
@@ -91,34 +92,34 @@ class ChoiceQuestionViewController: UIViewController {
     
     private func designButtons() {
         all.backgroundColor = UIColor.whiteColor()
-        all.setTitleColor(colorGreenAppButtons, forState: .Normal)
+        all.setTitleColor(colorGreen, forState: .Normal)
         failed.backgroundColor = UIColor.whiteColor()
-        failed.setTitleColor(colorGreenAppButtons, forState: .Normal)
+        failed.setTitleColor(colorGreen, forState: .Normal)
         succeeded.backgroundColor = UIColor.whiteColor()
-        succeeded.setTitleColor(colorGreenAppButtons, forState: .Normal)
+        succeeded.setTitleColor(colorGreen, forState: .Normal)
         new.backgroundColor = UIColor.whiteColor()
-        new.setTitleColor(colorGreenAppButtons, forState: .Normal)
+        new.setTitleColor(colorGreen, forState: .Normal)
         marked.backgroundColor = UIColor.whiteColor()
-        marked.setTitleColor(colorGreenAppButtons, forState: .Normal)
+        marked.setTitleColor(colorGreen, forState: .Normal)
         
         switch(self.choiceFilter) {
             case 0 : //All
-                all.backgroundColor = colorGreenAppButtons
+                all.backgroundColor = colorGreen
                 all.setTitleColor(UIColor.whiteColor(), forState: .Normal)
             case 1 : //Failed
-                failed.backgroundColor = colorGreenAppButtons
+                failed.backgroundColor = colorGreen
                 failed.setTitleColor(UIColor.whiteColor(), forState: .Normal)
             case 2 : //Succeeded
-                succeeded.backgroundColor = colorGreenAppButtons
+                succeeded.backgroundColor = colorGreen
                 succeeded.setTitleColor(UIColor.whiteColor(), forState: .Normal)
             case 3 : //New
-                new.backgroundColor = colorGreenAppButtons
+                new.backgroundColor = colorGreen
                 new.setTitleColor(UIColor.whiteColor(), forState: .Normal)
             case 4 : //Marked
-                marked.backgroundColor = colorGreenAppButtons
+                marked.backgroundColor = colorGreen
                 marked.setTitleColor(UIColor.whiteColor(), forState: .Normal)
             default :
-                all.backgroundColor = colorGreenAppButtons
+                all.backgroundColor = colorGreen
                 all.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         }
     }

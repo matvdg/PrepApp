@@ -14,6 +14,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view!.backgroundColor = colorGreyBackground
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "login", name: "success", object: nil)
         if (User.instantiateUserStored()){
             self.mail.text = User.currentUser!.email
@@ -39,10 +40,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         if User.authenticated {
             self.performSegueWithIdentifier("loginDidSucceded", sender: self)
         } else {
-//            self.mail.text = "matvdg@icloud.com"
-//            self.pass.text = "Draconis31*"
-            self.mail.text = ""
-            self.pass.text = ""
+            self.mail.text = "matvdg@icloud.com"
+            self.pass.text = "Draconis31*"
+//            self.mail.text = ""
+//            self.pass.text = ""
 
         }
 	}
@@ -72,7 +73,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 			if data == nil {
 				// create alert controller
 				let myAlert = UIAlertController(title: error, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreenAppButtons
+                myAlert.view.tintColor = colorGreen
 				// add an "OK" button
 				myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
 				// show the alert
@@ -87,7 +88,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     } else {
                         // create alert controller
                         let myAlert = UIAlertController(title: "Erreur !", message: "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
-                        myAlert.view.tintColor = colorGreenAppButtons
+                        myAlert.view.tintColor = colorGreen
                         // add an "OK" button
                         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                         // show the alert

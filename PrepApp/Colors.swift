@@ -10,7 +10,7 @@ import UIKit
 
 let colorGreenLogo = UIColor(red: 79/255, green: 167/255, blue: 137/255, alpha: 1)
 let colorGreyBackground = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
-let colorGreenAppButtons = UIColor(red: 22/255, green: 160/255, blue: 133/255, alpha: 1)
+let colorGreen = UIColor(red: 22/255, green: 160/255, blue: 133/255, alpha: 1)
 let colorBio = UIColor(red: 153/255, green: 227/255, blue: 134/255, alpha: 1)
 let colorPhy = UIColor(red: 243/255, green: 122/255, blue: 111/255, alpha: 1)
 let colorChe = UIColor(red: 137/255, green: 191/255, blue: 224/255, alpha: 1)

@@ -16,5 +16,4 @@ class Challenge : Object {
     dynamic var lastName: String = ""
     dynamic var nickname: String = ""
     dynamic var date: NSDate = NSDate()
-
 }

@@ -31,6 +31,7 @@
 		F60739E61BB2EAE6004DEC32 /* FriendManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60739E51BB2EAE6004DEC32 /* FriendManager.swift */; };
 		F60739E91BB348AB004DEC32 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60739E81BB348AB004DEC32 /* Friend.swift */; };
 		F60739EB1BB3E6E9004DEC32 /* FactoryDuo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60739EA1BB3E6E9004DEC32 /* FactoryDuo.swift */; };
+		F60CA2321BBEBC1200C83DDE /* DuoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60CA2311BBEBC1200C83DDE /* DuoManager.swift */; };
 		F61A1CDB1B003F7500777584 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F61A1CDA1B003F7500777584 /* SWRevealViewController.m */; };
 		F61A1CDF1B0041CD00777584 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61A1CDE1B0041CD00777584 /* MenuController.swift */; };
 		F62D408A1AF442890051DE83 /* stix.otf in Resources */ = {isa = PBXBuildFile; fileRef = F62D40891AF442890051DE83 /* stix.otf */; };
@@ -45,7 +46,7 @@
 		F6322A1F1B615E360074549E /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6322A1E1B615E360074549E /* Chapter.swift */; };
 		F6322A211B615E3E0074549E /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6322A201B615E3E0074549E /* Image.swift */; };
 		F6322A231B615E460074549E /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6322A221B615E460074549E /* Subject.swift */; };
-		F63B5AE91B77C116002C0A79 /* SoundSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63B5AE81B77C116002C0A79 /* SoundSystem.swift */; };
+		F63B5AE91B77C116002C0A79 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63B5AE81B77C116002C0A79 /* Sound.swift */; };
 		F63B5AEC1B77D390002C0A79 /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = F63B5AEB1B77D390002C0A79 /* sounds */; };
 		F64630A11B5E662F006A5F71 /* ChapterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64630A01B5E662F006A5F71 /* ChapterManager.swift */; };
 		F64630A31B5E663C006A5F71 /* SubjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64630A21B5E663C006A5F71 /* SubjectManager.swift */; };
@@ -141,6 +142,7 @@
 		F60739E51BB2EAE6004DEC32 /* FriendManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendManager.swift; sourceTree = "<group>"; };
 		F60739E81BB348AB004DEC32 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		F60739EA1BB3E6E9004DEC32 /* FactoryDuo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryDuo.swift; sourceTree = "<group>"; };
+		F60CA2311BBEBC1200C83DDE /* DuoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DuoManager.swift; sourceTree = "<group>"; };
 		F61A1CD91B003F7500777584 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		F61A1CDA1B003F7500777584 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		F61A1CDE1B0041CD00777584 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
@@ -157,7 +159,7 @@
 		F6322A201B615E3E0074549E /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		F6322A221B615E460074549E /* Subject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
 		F632F6601BBBFFDA00B5EE27 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		F63B5AE81B77C116002C0A79 /* SoundSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundSystem.swift; sourceTree = "<group>"; };
+		F63B5AE81B77C116002C0A79 /* Sound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		F63B5AEB1B77D390002C0A79 /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
 		F64630A01B5E662F006A5F71 /* ChapterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChapterManager.swift; sourceTree = "<group>"; };
 		F64630A21B5E663C006A5F71 /* SubjectManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubjectManager.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				F60739E51BB2EAE6004DEC32 /* FriendManager.swift */,
+				F60CA2311BBEBC1200C83DDE /* DuoManager.swift */,
 				F60739EA1BB3E6E9004DEC32 /* FactoryDuo.swift */,
 			);
 			name = Duo;
@@ -358,16 +361,16 @@
 			name = Sync;
 			sourceTree = "<group>";
 		};
-		F663E3191B7A6BA600F23294 /* Other */ = {
+		F663E3191B7A6BA600F23294 /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				F604061D1B8E6150006F7F4E /* Colors.swift */,
 				F6FBFAC21AFA98D40020B074 /* Lib.swift */,
-				F63B5AE81B77C116002C0A79 /* SoundSystem.swift */,
+				F63B5AE81B77C116002C0A79 /* Sound.swift */,
 				F6C02C451B762A810021ABE1 /* UITableViewCellAnswer.swift */,
 				F6CB05D11BBC951700289CEA /* UITableViewCellSetting.swift */,
 			);
-			name = Other;
+			name = Common;
 			sourceTree = "<group>";
 		};
 		F663E31A1B7A6BB800F23294 /* User History */ = {
@@ -464,7 +467,7 @@
 				F6322A1D1B615DFF0074549E /* Realm Entities */,
 				F64630A81B5FD5C9006A5F71 /* Sync */,
 				F663E31A1B7A6BB800F23294 /* User History */,
-				F663E3191B7A6BA600F23294 /* Other */,
+				F663E3191B7A6BA600F23294 /* Common */,
 				F60739E71BB2EB3D004DEC32 /* Duo */,
 			);
 			name = Models;
@@ -615,7 +618,7 @@
 				F6FBFAB81AFA1F5E0020B074 /* User.swift in Sources */,
 				F61A1CDF1B0041CD00777584 /* MenuController.swift in Sources */,
 				F66771811B61A31900042145 /* FactoryRealm.swift in Sources */,
-				F63B5AE91B77C116002C0A79 /* SoundSystem.swift in Sources */,
+				F63B5AE91B77C116002C0A79 /* Sound.swift in Sources */,
 				F605AF0E1B04146C00E90596 /* SoloViewController.swift in Sources */,
 				9555BBC91BA836EF00BED5A2 /* StatsViewController.swift in Sources */,
 				F6AC7B4D1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift in Sources */,
@@ -655,6 +658,7 @@
 				F6322A211B615E3E0074549E /* Image.swift in Sources */,
 				F6FBFABF1AFA33CD0020B074 /* LoginViewController.swift in Sources */,
 				F64630A11B5E662F006A5F71 /* ChapterManager.swift in Sources */,
+				F60CA2321BBEBC1200C83DDE /* DuoManager.swift in Sources */,
 				F64630A31B5E663C006A5F71 /* SubjectManager.swift in Sources */,
 				F60082D11B84F9C600F7BCBB /* UserPreferences.swift in Sources */,
 				F61A1CDB1B003F7500777584 /* SWRevealViewController.m in Sources */,

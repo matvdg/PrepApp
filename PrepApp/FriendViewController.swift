@@ -29,7 +29,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     @IBAction func shareCode(sender: AnyObject) {
         // create alert controller
         let myAlert = UIAlertController(title: "\(String(User.currentUser!.id).sha1())", message: "Partagez votre code à vos amis en leur envoyant un message !", preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreenAppButtons
+        myAlert.view.tintColor = colorGreen
                 // add an buttons
         myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
         myAlert.addAction(UIAlertAction(title: "Partager", style: .Default, handler: { (action) -> Void in
@@ -43,7 +43,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     @IBAction func addFriend(sender: AnyObject) {
         // create alert controller
         let myAlert = UIAlertController(title: "Ajouter un ami", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreenAppButtons
+        myAlert.view.tintColor = colorGreen
         // add buttons
         myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
         myAlert.addAction(UIAlertAction(title: "Ajouter", style: .Default, handler: self.codeEntered))
@@ -64,13 +64,14 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     //app methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view!.backgroundColor = colorGreyBackground
         self.loadData()
         self.friendsTable.backgroundColor = colorGreyBackground
         self.designShare.layer.cornerRadius = 6
         self.designAdd.layer.cornerRadius = 6
         self.designShuffle.layer.cornerRadius = 6
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
+        self.navigationController!.navigationBar.tintColor = colorGreen
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         if self.revealViewController() != nil {
@@ -88,7 +89,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreenAppButtons
+        myAlert.view.tintColor = colorGreen
         // add an "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
         // add an "update" button
@@ -162,7 +163,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 if counter == self.friends.count {
                     // create alert controller
                     let myAlert = UIAlertController(title: "Oups !", message: "L'ami a déjà été ajouté... Entrez un autre code.", preferredStyle: UIAlertControllerStyle.Alert)
-                    myAlert.view.tintColor = colorGreenAppButtons
+                    myAlert.view.tintColor = colorGreen
                     // add OK button
                     myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                     // show the alert
@@ -170,7 +171,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 } else {
                     // create alert controller
                     let myAlert = UIAlertController(title: "Ami ajouté", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                    myAlert.view.tintColor = colorGreenAppButtons
+                    myAlert.view.tintColor = colorGreen
                     // add OK button
                     myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                     // show the alert
@@ -183,7 +184,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
             } else {
                 // create alert controller
                 let myAlert = UIAlertController(title: "Erreur", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreenAppButtons
+                myAlert.view.tintColor = colorGreen
                 // add OK button
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
@@ -259,7 +260,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 cell.detailTextLabel!.text = dateInString
             }
             cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
-            cell.tintColor = colorGreenAppButtons
+            cell.tintColor = colorGreen
             return cell
 
         } else {
@@ -278,7 +279,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
             cell.textLabel!.adjustsFontSizeToFitWidth = false
             cell.textLabel!.adjustsFontSizeToFitWidth = true
             cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
-            cell.tintColor = colorGreenAppButtons
+            cell.tintColor = colorGreen
             return cell
 
         }
@@ -297,18 +298,19 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 self.friends.removeAtIndex(indexPath.row)
                 FactoryDuo.getFriendManager().deleteFriend(friendToRemove)
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+                if self.friends.isEmpty {
+                    //create template
+                    self.templating()
+                    let newIndexPath = NSIndexPath(forItem: 0, inSection: 1)
+                    self.friendsTable.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Left)
+                }
             }
         }
     }
     
     func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         if indexPath.section == 0 {
-            var challenge = self.pendingChallenge[indexPath.row]
-            if challenge.id == -1 {
-                return UITableViewCellEditingStyle.None
-            } else {
-                return UITableViewCellEditingStyle.Delete
-            }
+            return UITableViewCellEditingStyle.None
         } else {
             var friend = self.friends[indexPath.row]
             if friend.id == -1 {

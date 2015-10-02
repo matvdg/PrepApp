@@ -27,8 +27,8 @@ class FactorySync {
     private static let realm = FactoryRealm.getRealm()
     
     /*APIs*/
-    //private static let domain = NSURL(string: "http://prep-app.com")
-    private static let domain = NSURL(string: "http://192.168.1.30/PrepApp")
+    private static let domain = NSURL(string: "http://prep-app.com")
+    //private static let domain = NSURL(string: "http://192.168.1.30/PrepApp")
     private static let apiUrl = NSURL(string: "\(FactorySync.domain!)/api")
     
     //UPLOADS (images)

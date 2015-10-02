@@ -16,9 +16,10 @@ class LeaderboardTableViewController: UITableViewController, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view!.backgroundColor = colorGreyBackground
         self.loadLeaderboard()
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
+        self.navigationController!.navigationBar.tintColor = colorGreen
         if self.revealViewController() != nil {
             self.menuButton.target = self.revealViewController()
             self.menuButton.action = "revealToggle:"
@@ -37,7 +38,7 @@ class LeaderboardTableViewController: UITableViewController, UITableViewDataSour
                 self.tableView.reloadData()
             } else {
                 let myAlert = UIAlertController(title: "Erreur", message: "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez." , preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreenAppButtons
+                myAlert.view.tintColor = colorGreen
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 myAlert.addAction(UIAlertAction(title: "Réessayer", style: .Default, handler: { (action) -> Void in
                     self.loadLeaderboard()
@@ -57,7 +58,7 @@ class LeaderboardTableViewController: UITableViewController, UITableViewDataSour
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreenAppButtons
+        myAlert.view.tintColor = colorGreen
         // add an "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
         // add an "update" button
@@ -93,14 +94,14 @@ class LeaderboardTableViewController: UITableViewController, UITableViewDataSour
         cell.textLabel!.adjustsFontSizeToFitWidth = false
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
-        cell.tintColor = colorGreenAppButtons
+        cell.tintColor = colorGreen
         cell.backgroundColor = colorGreyBackground
         cell.detailTextLabel!.text = friend.awardPoints.toStringPoints()
         cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 16)
-        cell.detailTextLabel!.textColor = colorGreenAppButtons
+        cell.detailTextLabel!.textColor = colorGreen
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.detailTextLabel!.adjustsFontSizeToFitWidth = true
-        cell.tintColor = colorGreenAppButtons
+        cell.tintColor = colorGreen
         
         if friend.id == User.currentUser!.id {
             cell.backgroundColor = colorGreenLogo

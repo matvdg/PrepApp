@@ -18,7 +18,7 @@ class MenuController: UITableViewController {
         
         // create alert controller
         let myAlert = UIAlertController(title: "Déconnexion", message: "Voulez-vous vraiment vous déconnecter ?", preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreenAppButtons
+        myAlert.view.tintColor = colorGreen
         // add an "OK" button
         myAlert.addAction(UIAlertAction(title: "OUI", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             self.syncNclearHistory()
@@ -46,7 +46,7 @@ class MenuController: UITableViewController {
                         FactoryRealm.clearUserDB()
                     } else {
                         let myAlert = UIAlertController(title: "Erreur de connexion", message: "Prep'App n'a pas pu sauvegarder vos données sur le cloud, cette opération est nécessaire avant la déconnexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
-                        myAlert.view.tintColor = colorGreenAppButtons
+                        myAlert.view.tintColor = colorGreen
                         // add an "OK" button
                         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                         // show the alert
@@ -55,7 +55,7 @@ class MenuController: UITableViewController {
                 })
             } else {
                 let myAlert = UIAlertController(title: "Erreur de connexion", message: "Prep'App n'a pas pu sauvegarder vos données sur le cloud, cette opération est nécessaire avant la déconnexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreenAppButtons
+                myAlert.view.tintColor = colorGreen
                 // add an "OK" button
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert

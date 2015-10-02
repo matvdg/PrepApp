@@ -27,6 +27,7 @@ class CommentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view!.backgroundColor = colorGreyBackground
         if let nav = self.navigationController {
             self.dismissButton.hidden = true
             self.titleLabel.hidden = true
@@ -47,7 +48,7 @@ class CommentViewController: UIViewController {
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreenAppButtons
+        myAlert.view.tintColor = colorGreen
         // add an "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
         // add an "update" button
@@ -67,7 +68,7 @@ class CommentViewController: UIViewController {
         if self.comment.text == "Taper votre commentaire ici :" || self.comment.text == "" {
             // create alert controller
             let myAlert = UIAlertController(title: "Erreur", message: "Votre message est vide !", preferredStyle: UIAlertControllerStyle.Alert)
-            myAlert.view.tintColor = colorGreenAppButtons
+            myAlert.view.tintColor = colorGreen
             // add an "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert
@@ -76,7 +77,7 @@ class CommentViewController: UIViewController {
             User.currentUser!.sendComment(self.selectedId, comment: self.comment.text, callback: { (title, message, result) -> Void in
                 // create alert controller
                 let myAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreenAppButtons
+                myAlert.view.tintColor = colorGreen
                 // add an "OK" button
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
@@ -89,7 +90,7 @@ class CommentViewController: UIViewController {
     func textViewDidBeginEditing(textView: UITextView) {
         if textView.textColor == UIColor.lightGrayColor() {
             textView.text = nil
-            textView.textColor = colorGreenAppButtons
+            textView.textColor = colorGreen
         }
     }
     

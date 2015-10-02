@@ -133,6 +133,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     //app methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view!.backgroundColor = colorGreyBackground
         self.showNotification()
         self.bioPieChart.noDataText = ""
         self.bioPieChart.noDataTextDescription = ""
@@ -473,12 +474,12 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     
         self.perfChart.autoScaleMinMaxEnabled = true
         self.perfChart.rightAxis.drawGridLinesEnabled = false
-        self.perfChart.rightAxis.axisLineColor = colorGreenAppButtons
+        self.perfChart.rightAxis.axisLineColor = colorGreen
         self.perfChart.rightAxis.startAtZeroEnabled = true
         self.perfChart.rightAxis.axisLineWidth = 4
         self.perfChart.rightAxis.labelFont = UIFont(name: "Segoe UI", size: 12)!
         self.perfChart.rightAxis.labelCount = 10
-        self.perfChart.rightAxis.labelTextColor = colorGreenAppButtons
+        self.perfChart.rightAxis.labelTextColor = colorGreen
         var formatter = NSNumberFormatter()
         formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
         formatter.minimumIntegerDigits = 1
@@ -490,12 +491,12 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         
         self.perfChart.leftAxis.drawGridLinesEnabled = false
         self.perfChart.leftAxis.customAxisMax = 100
-        self.perfChart.leftAxis.axisLineColor = colorGreenAppButtons
+        self.perfChart.leftAxis.axisLineColor = colorGreen
         self.perfChart.leftAxis.startAtZeroEnabled = true
         self.perfChart.leftAxis.axisLineWidth = 4
         self.perfChart.leftAxis.labelCount = 10
         self.perfChart.leftAxis.labelFont = UIFont(name: "Segoe UI", size: 10)!
-        self.perfChart.leftAxis.labelTextColor = colorGreenAppButtons
+        self.perfChart.leftAxis.labelTextColor = colorGreen
 
         formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
         formatter.minimumIntegerDigits = 3
@@ -509,7 +510,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         
         self.perfChart.xAxis.labelPosition = ChartXAxis.XAxisLabelPosition.Bottom
         self.perfChart.xAxis.drawGridLinesEnabled = false
-        self.perfChart.xAxis.axisLineColor = colorGreenAppButtons
+        self.perfChart.xAxis.axisLineColor = colorGreen
         self.perfChart.xAxis.axisLineWidth = 4
         
         //data
@@ -531,8 +532,8 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.legendLeftAxis.text = "Questions réussies (%)"
         self.legendRightAxis.text = "Nombre de questions répondues"
         self.legendXAxis.text = "Semaines avant le concours"
-        self.legendLeftAxis.textColor = colorGreenAppButtons
-        self.legendRightAxis.textColor = colorGreenAppButtons
+        self.legendLeftAxis.textColor = colorGreen
+        self.legendRightAxis.textColor = colorGreen
         self.legendXAxis.textColor = UIColor.blackColor()
         self.legendLeftAxis.font = UIFont(name: "Segoe UI", size: 15)
         self.legendRightAxis.font = UIFont(name: "Segoe UI", size: 15)
@@ -598,7 +599,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
             self.noDataLabel.font = UIFont(name: "Segoe UI", size: 20)
             self.noDataLabel.numberOfLines = 4
             self.noDataLabel.textAlignment = NSTextAlignment.Center
-            self.noDataLabel.textColor = colorGreenAppButtons
+            self.noDataLabel.textColor = colorGreen
             self.noDataLabel.layer.zPosition = 8
             self.view.addSubview(self.noDataLabel)
         } else {
@@ -735,7 +736,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreenAppButtons
+        myAlert.view.tintColor = colorGreen
         // add an "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
         // add an "update" button

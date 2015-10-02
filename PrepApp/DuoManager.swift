@@ -1,5 +1,5 @@
 //
-//  FriendManager.swift
+//  DuoManager.swift
 //  PrepApp
 //
 //  Created by Mathieu Vandeginste on 23/09/15.
@@ -9,9 +9,11 @@
 import UIKit
 
 
-class FriendManager {
+class DuoManager {
     
-    let realm = FactoryRealm.getRealmFriends()
+    
+    let realm = FactoryRealm.getRealmDuo()
+    
     
     //API
     private func findFriend(code: String, callback: (NSDictionary?, String) -> Void) {
@@ -62,7 +64,7 @@ class FriendManager {
         }
         task.resume()
     }
-
+    
     func getShuffle(callback: (NSDictionary?) -> Void) {
         
         let request = NSMutableURLRequest(URL: FactorySync.shuffleFriendUrl!)
@@ -145,7 +147,7 @@ class FriendManager {
         }
         task.resume()
     }
-
+    
     func syncFriendsList(callback: (Bool) -> Void) {
         let friendList = self.realm.objects(Friend)
         var post: [Int] = []
@@ -185,7 +187,7 @@ class FriendManager {
         }
         task.resume()
     }
-
+    
     
     //REALM
     func saveFriend(code: String, callback: (Bool, String) -> Void) {
@@ -230,7 +232,7 @@ class FriendManager {
                     }
                 }
                 callback(true)
-
+                
             } else {
                 callback(false)
             }
@@ -259,5 +261,9 @@ class FriendManager {
         }
         return result
     }
+    
+    
+    
+    
     
 }

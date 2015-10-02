@@ -53,6 +53,7 @@ class QuestionSoloViewController: UIViewController,
     
     //app methods
     override func viewDidLoad() {
+        self.view!.backgroundColor = colorGreyBackground
         self.markButton.image = nil
         self.chrono.text = "20"
         self.chrono.textAlignment = NSTextAlignment.Center
@@ -113,7 +114,7 @@ class QuestionSoloViewController: UIViewController,
             self.questions[self.currentNumber].calculator ? Sound.playTrack("calc") : Sound.playTrack("nocalc")
             // create alert controller
             let myAlert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-            myAlert.view.tintColor = colorGreenAppButtons
+            myAlert.view.tintColor = colorGreen
             // add an "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert
@@ -132,7 +133,7 @@ class QuestionSoloViewController: UIViewController,
             title = "Question déjà marquée !"
             message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\" dans \"Profil\""
             let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
-            myAlert.view.tintColor = colorGreenAppButtons
+            myAlert.view.tintColor = colorGreen
             myAlert.addAction(UIAlertAction(title: "Supprimer le marquage", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 var historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
@@ -140,7 +141,7 @@ class QuestionSoloViewController: UIViewController,
                 FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
                 Sound.playTrack("calc")
                 let myAlert = UIAlertController(title: "Marquage supprimé", message: nil , preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreenAppButtons
+                myAlert.view.tintColor = colorGreen
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
@@ -159,7 +160,7 @@ class QuestionSoloViewController: UIViewController,
                 title = "Question marquée"
                 message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\" dans \"Profil\""
                 let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreenAppButtons
+                myAlert.view.tintColor = colorGreen
                 var historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
                 historyQuestion.marked = true
@@ -171,7 +172,7 @@ class QuestionSoloViewController: UIViewController,
                     FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
                     Sound.playTrack("calc")
                     let myAlert = UIAlertController(title: "Marquage supprimé", message: nil , preferredStyle: UIAlertControllerStyle.Alert)
-                    myAlert.view.tintColor = colorGreenAppButtons
+                    myAlert.view.tintColor = colorGreen
                     myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                     // show the alert
                     self.presentViewController(myAlert, animated: true, completion: nil)
@@ -189,7 +190,7 @@ class QuestionSoloViewController: UIViewController,
                 title = "Oups !"
                 message = "Vous devez d'abord répondre à la question pour pouvoir la marquer"
                 let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreenAppButtons
+                myAlert.view.tintColor = colorGreen
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
@@ -203,7 +204,7 @@ class QuestionSoloViewController: UIViewController,
             self.allAnswers[self.currentNumber] = self.selectedAnswers
             if self.checkUnanswered() {
                 let myAlert = UIAlertController(title: "Attention, vous n'avez pas répondu à toutes les questions !", message: "Voulez-vous tout de même terminer le défi solo ?", preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreenAppButtons
+                myAlert.view.tintColor = colorGreen
                 // add an "OK" button
                 myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                     //challenge finished! switch to results mode
@@ -217,7 +218,7 @@ class QuestionSoloViewController: UIViewController,
                 
             } else {
                 let myAlert = UIAlertController(title: "Voulez-vous vraiment terminer le défi solo ?", message: "Vous ne pourrez plus modifier vos réponses.", preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreenAppButtons
+                myAlert.view.tintColor = colorGreen
                 // add an "OK" button
                 myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                     //challenge finished! switch to results mode
@@ -232,7 +233,7 @@ class QuestionSoloViewController: UIViewController,
 
         } else {
             let myAlert = UIAlertController(title: "Voulez-vous vraiment quitter le défi solo ?", message: "Vous ne pourrez plus revoir vos réponses, mais vous pourrez retrouver les questions et leur correction dans entraînement", preferredStyle: UIAlertControllerStyle.Alert)
-            myAlert.view.tintColor = colorGreenAppButtons
+            myAlert.view.tintColor = colorGreen
             // add an "OK" button
             myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 self.dismissViewControllerAnimated(true, completion: nil)
@@ -584,7 +585,7 @@ class QuestionSoloViewController: UIViewController,
         self.submitButton.hidden = false
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
-        self.submitButton.backgroundColor = colorGreenAppButtons
+        self.submitButton.backgroundColor = colorGreen
         self.submitButton.removeFromSuperview()
         self.infos.removeFromSuperview()
         self.wording.removeFromSuperview()
@@ -632,7 +633,7 @@ class QuestionSoloViewController: UIViewController,
             self.submitButton.layer.cornerRadius = 6
             self.submitButton.titleLabel?.font = UIFont(name: "Segoe UI", size: 15)
             self.submitButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-            self.submitButton.backgroundColor = colorGreenAppButtons
+            self.submitButton.backgroundColor = colorGreen
             // displaying results & correction if available
             self.showAnswers()
             //resizing the scroll view in order to fit all the elements
@@ -753,7 +754,7 @@ class QuestionSoloViewController: UIViewController,
             self.submitButton.frame.size.height = self.submitButton.frame.size.height + 1
             self.submitButton.frame.origin.x = self.submitButton.frame.origin.x - 0.5
             self.submitButton.frame.origin.y = self.submitButton.frame.origin.y - 0.5
-            self.submitButton.backgroundColor = colorGreenAppButtons
+            self.submitButton.backgroundColor = colorGreen
             if self.submitButton.frame.size.width > 110 {
                 self.senseAnimationCorrection = false
             }
@@ -763,7 +764,7 @@ class QuestionSoloViewController: UIViewController,
             self.submitButton.frame.size.height = self.submitButton.frame.size.height - 1
             self.submitButton.frame.origin.x = self.submitButton.frame.origin.x + 0.5
             self.submitButton.frame.origin.y = self.submitButton.frame.origin.y + 0.5
-            self.submitButton.backgroundColor = colorGreenAppButtons
+            self.submitButton.backgroundColor = colorGreen
             if self.submitButton.frame.size.width < 100 {
                 self.senseAnimationCorrection = true
             }
@@ -776,7 +777,7 @@ class QuestionSoloViewController: UIViewController,
         self.animatingCorrectionTimer.invalidate()
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
-        self.submitButton.backgroundColor = colorGreenAppButtons
+        self.submitButton.backgroundColor = colorGreen
     }
     
     func showCorrection() {
@@ -784,7 +785,7 @@ class QuestionSoloViewController: UIViewController,
         self.animatingCorrectionTimer.invalidate()
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
-        self.submitButton.backgroundColor = colorGreenAppButtons
+        self.submitButton.backgroundColor = colorGreen
         
         Sound.playPage()
         self.performSegueWithIdentifier("showCorrection", sender: self)
@@ -821,7 +822,7 @@ class QuestionSoloViewController: UIViewController,
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreenAppButtons
+        myAlert.view.tintColor = colorGreen
         // add an "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
         // add an "update" button
@@ -849,7 +850,7 @@ class QuestionSoloViewController: UIViewController,
             //challenge finished! switch to results mode
             self.allAnswers[self.currentNumber] = self.selectedAnswers
             let myAlert = UIAlertController(title: "Temps écoulé", message: "Le défi solo est à présent terminé.", preferredStyle: UIAlertControllerStyle.Alert)
-            myAlert.view.tintColor = colorGreenAppButtons
+            myAlert.view.tintColor = colorGreen
             // add an "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 //challenge finished! switch to results mode
@@ -877,7 +878,7 @@ class QuestionSoloViewController: UIViewController,
         self.markButton.image = UIImage(named: "markedBar")
         self.timeChallengeTimer.invalidate()
         let myAlert = UIAlertController(title: "Défi solo terminé", message: "Vous pouvez à présent voir les réponses et les corrections si disponibles et éventuellement mettre certaines questions de côté en les marquant" , preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreenAppButtons
+        myAlert.view.tintColor = colorGreen
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             self.loadQuestion()
             self.performSegueWithIdentifier("showScore", sender: self)

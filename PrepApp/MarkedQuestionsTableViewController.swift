@@ -18,33 +18,42 @@ class MarkedQuestionsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view!.backgroundColor = colorGreyBackground
         if self.revealViewController() != nil {
             self.menuButton.target = self.revealViewController()
             self.menuButton.action = "revealToggle:"
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
-
-        self.questions = FactoryHistory.getHistory().getMarkedQuestions().0
-        self.isTrainingQuestions = FactoryHistory.getHistory().getMarkedQuestions().1
-        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
-        if self.questions.isEmpty {
-            var templateQuestion = Question()
-            var templateChapter = Chapter()
-            var templateSubject = Subject()
-            templateSubject.id = -1
-            templateChapter.subject = templateSubject
-            templateChapter.name = "Aucune question marquée"
-            templateQuestion.wording = "Marquez des questions et revenez ici !"
-            templateQuestion.type = -1
-            templateQuestion.chapter = templateChapter
-            self.questions.append(templateQuestion)
-            self.isTrainingQuestions.append(false)
-        }
         self.title = "Questions marquées"
+        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
+        self.navigationController!.navigationBar.tintColor = colorGreen
+        
+        self.loadData()
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
+    }
+    
+    private func loadData() {
+        self.questions = FactoryHistory.getHistory().getMarkedQuestions().0
+        self.isTrainingQuestions = FactoryHistory.getHistory().getMarkedQuestions().1
+        if self.questions.isEmpty {
+            self.displayTemplate()
+        }
+    }
+    
+    private func displayTemplate() {
+        var templateQuestion = Question()
+        var templateChapter = Chapter()
+        var templateSubject = Subject()
+        templateSubject.id = -1
+        templateChapter.subject = templateSubject
+        templateChapter.name = "Aucune question marquée"
+        templateQuestion.wording = "Marquez des questions et revenez ici !"
+        templateQuestion.type = -1
+        templateQuestion.chapter = templateChapter
+        self.questions.append(templateQuestion)
+        self.isTrainingQuestions.append(false)
     }
     
     func logout() {
@@ -55,7 +64,7 @@ class MarkedQuestionsTableViewController: UITableViewController {
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreenAppButtons
+        myAlert.view.tintColor = colorGreen
         // add an "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
         // add an "update" button
@@ -118,11 +127,11 @@ class MarkedQuestionsTableViewController: UITableViewController {
         cell.backgroundColor = colorGreyBackground
         cell.detailTextLabel!.text = question.wording.html2String
         cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 12)
-        cell.detailTextLabel!.textColor = colorGreenAppButtons
+        cell.detailTextLabel!.textColor = colorGreen
         cell.textLabel!.adjustsFontSizeToFitWidth = false
         cell.detailTextLabel!.adjustsFontSizeToFitWidth = false
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
-        cell.tintColor = colorGreenAppButtons
+        cell.tintColor = colorGreen
         if question.type == -1 {
             cell.accessoryType = UITableViewCellAccessoryType.None
         }
@@ -140,6 +149,13 @@ class MarkedQuestionsTableViewController: UITableViewController {
             self.questions.removeAtIndex(indexPath.row)
             self.isTrainingQuestions.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            
+            if self.questions.isEmpty {
+                //create template
+                self.displayTemplate()
+                let newIndexPath = NSIndexPath(forItem: 0, inSection: 0)
+                self.tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Left)
+            }
         }
     }
     
@@ -163,6 +179,14 @@ class MarkedQuestionsTableViewController: UITableViewController {
         }
     }
 
+    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        var question = self.questions[indexPath.row]
+        if question.type == -1 {
+            return UITableViewCellEditingStyle.None
+        } else {
+            return UITableViewCellEditingStyle.Delete
+        }
+    }
     
     // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation

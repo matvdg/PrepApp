@@ -9,9 +9,14 @@
 class FactoryDuo {
     
     static let friendManager = FriendManager()
+    static let duoManager = DuoManager()
     
     class func getFriendManager() -> FriendManager {
-        return friendManager
+        return self.friendManager
+    }
+    
+    class func getDuoManager() -> DuoManager {
+        return self.duoManager
     }
     
     

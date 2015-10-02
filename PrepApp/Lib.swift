@@ -9,7 +9,6 @@
 import UIKit
 import QuartzCore
 
-// Usage: insert view.fadeTransition right before changing content
 
 extension Array {
     mutating func shuffle() {
@@ -42,8 +41,6 @@ extension Array {
         return max
     }
 }
-
-
 
 extension Int {
     func levelPrepApp() -> String {

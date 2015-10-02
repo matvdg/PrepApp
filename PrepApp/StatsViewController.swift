@@ -25,6 +25,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view!.backgroundColor = colorGreyBackground
         self.loadData()
         self.statsTable.backgroundColor = colorGreyBackground
         self.renderLevel()
@@ -36,7 +37,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         self.email.text = "\(User.currentUser!.email)"
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreenAppButtons
+        self.navigationController!.navigationBar.tintColor = colorGreen
         self.title = "Statistiques"
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
@@ -56,7 +57,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreenAppButtons
+        myAlert.view.tintColor = colorGreen
         // add an "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
         // add an "update" button
@@ -146,11 +147,11 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.backgroundColor = colorGreyBackground
         cell.detailTextLabel!.text = statsData[indexPath.row]
         cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 16)
-        cell.detailTextLabel!.textColor = colorGreenAppButtons
+        cell.detailTextLabel!.textColor = colorGreen
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.detailTextLabel!.adjustsFontSizeToFitWidth = true
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
-        cell.tintColor = colorGreenAppButtons
+        cell.tintColor = colorGreen
         return cell
     }
     
@@ -161,7 +162,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
         let myAlert = UIAlertController(title: self.statsTopics[indexPath.row], message: self.statsDetails[indexPath.row] , preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreenAppButtons
+        myAlert.view.tintColor = colorGreen
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         // show the alert
         self.presentViewController(myAlert, animated: true, completion: nil)

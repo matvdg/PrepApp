@@ -1,5 +1,5 @@
 //
-//  SoundSystem.swift
+//  Sound.swift
 //  PrepApp
 //
 //  Created by Mathieu Vandeginste on 09/08/15.

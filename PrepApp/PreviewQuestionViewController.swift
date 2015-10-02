@@ -34,6 +34,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
     
     //app methods
     override func viewDidLoad() {
+        self.view!.backgroundColor = colorGreyBackground
         self.designButton.layer.cornerRadius = 6
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
@@ -129,7 +130,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
         self.submitButton.hidden = false
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
-        self.submitButton.backgroundColor = colorGreenAppButtons
+        self.submitButton.backgroundColor = colorGreen
         self.submitButton.removeFromSuperview()
         self.infos.removeFromSuperview()
         self.wording.removeFromSuperview()
@@ -204,7 +205,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
             self.submitButton.layer.cornerRadius = 6
             self.submitButton.titleLabel?.font = UIFont(name: "Segoe UI", size: 15)
             self.submitButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-            self.submitButton.backgroundColor = colorGreenAppButtons
+            self.submitButton.backgroundColor = colorGreen
             self.submitButton.setTitle("Correction", forState: UIControlState.Normal)
             self.scrollView.addSubview(self.submitButton)
             self.submitButton.addTarget(self, action: "showCorrection", forControlEvents: UIControlEvents.TouchUpInside)
@@ -215,7 +216,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
         //show the correction sheet
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
-        self.submitButton.backgroundColor = colorGreenAppButtons
+        self.submitButton.backgroundColor = colorGreen
         
         Sound.playPage()
         self.performSegueWithIdentifier("showCorrection", sender: self)
@@ -229,7 +230,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreenAppButtons
+        myAlert.view.tintColor = colorGreen
         // add an "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
         // add an "update" button
