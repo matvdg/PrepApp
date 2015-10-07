@@ -71,6 +71,8 @@ class SoloViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         let value = UIInterfaceOrientation.Portrait.rawValue
         UIDevice.currentDevice().setValue(value, forKey: "orientation")
+        //syncHistory
+        FactoryHistory.getHistory().sync()
     }
     
     override func shouldAutorotate() -> Bool {
@@ -79,6 +81,8 @@ class SoloViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //sync
+        FactoryHistory.getHistory().sync()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refresh", name: "portrait", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refresh", name: "landscape", object: nil)
 
@@ -97,6 +101,7 @@ class SoloViewController: UIViewController {
         self.buttonChallenge.layer.cornerRadius = 6
         self.renderButtons()
     }
+    
 
     func logout() {
         println("logging out")

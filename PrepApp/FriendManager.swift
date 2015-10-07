@@ -12,7 +12,7 @@ import UIKit
 class FriendManager {
     
     let realm = FactoryRealm.getRealmFriends()
-    
+    //"")
     //API
     private func findFriend(code: String, callback: (NSDictionary?, String) -> Void) {
         
@@ -46,6 +46,7 @@ class FriendManager {
                                     var last = result["lastName"] as! String
                                     name = "\(first) \(last)"
                                 }
+                                println(result)
                                 callback(result as NSDictionary, "\(name) a été ajouté à votre liste d'amis !")
                             }
                         } else {
@@ -63,7 +64,7 @@ class FriendManager {
         task.resume()
     }
 
-    func getShuffle(callback: (NSDictionary?) -> Void) {
+    private func getShuffle(callback: (NSDictionary?, String?) -> Void) {
         
         let request = NSMutableURLRequest(URL: FactorySync.shuffleFriendUrl!)
         request.HTTPMethod = "POST"
@@ -75,7 +76,7 @@ class FriendManager {
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
                     println("error : no connexion in getFriend")
-                    callback(nil)
+                    callback(nil,"Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez." )
                 } else {
                     
                     var err: NSError?
@@ -86,22 +87,39 @@ class FriendManager {
                         if let result = jsonResult {
                             if err != nil {
                                 println("error : parsing JSON in getFriend")
-                                callback(nil)
+                                callback(nil, "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
                             } else {
-                                callback(result as NSDictionary)
+                                callback(result as NSDictionary, nil)
                             }
                         } else {
                             println("error : NSArray nil in getFriend")
-                            callback(nil)                        }
+                            callback(nil, "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
+                        }
                     } else {
                         println("header status = \(statusCode) in getFriend")
-                        callback(nil)
+                        callback(nil, "Il n'y a plus de défi disponible, veuillez réessayer ultérieurement")
                     }
                 }
             }
             
         }
         task.resume()
+    }
+    
+    func shuffleDuo(callback: (Friend?, String?) -> Void) {
+        self.getShuffle { (data, error) -> Void in
+            if let friend = data {
+                let shuffledFriend = Friend()
+                shuffledFriend.id = friend["id"] as! Int
+                shuffledFriend.firstName = friend["firstName"] as! String
+                shuffledFriend.lastName = friend["lastName"] as! String
+                shuffledFriend.nickname = friend["nickname"] as! String
+                shuffledFriend.awardPoints = friend["awardPoints"] as! Int
+                callback(shuffledFriend, nil)
+            } else {
+                callback(nil, error)
+            }
+        }
     }
     
     private func retrieveFriends(callback: (NSArray?) -> Void) {

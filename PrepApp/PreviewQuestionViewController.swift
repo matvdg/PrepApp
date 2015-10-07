@@ -34,6 +34,8 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
     
     //app methods
     override func viewDidLoad() {
+        //sync
+        FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
         self.designButton.layer.cornerRadius = 6
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)

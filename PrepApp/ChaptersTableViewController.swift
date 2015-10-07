@@ -43,6 +43,11 @@ class ChaptersTableViewController: UITableViewController, UITableViewDataSource 
         self.navigationController?.navigationBar.translucent = true
 
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        //syncHistory
+        FactoryHistory.getHistory().sync()
+    }
 
     // MARK: - Table view data source
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

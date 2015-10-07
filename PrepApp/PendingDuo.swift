@@ -1,5 +1,5 @@
 //
-//  PendingChallenge.swift
+//  PendingDuo
 //  PrepApp
 //
 //  Created by Mathieu Vandeginste on 25/09/15.
@@ -8,12 +8,16 @@
 
 import RealmSwift
 
-// Pending Challenge model
-class Challenge : Object {
+// Pending Duo model
+class PendingDuo : Object {
     dynamic var id: Int = 0
     dynamic var senderId: Int = 0
     dynamic var firstName: String = ""
     dynamic var lastName: String = ""
     dynamic var nickname: String = ""
     dynamic var date: NSDate = NSDate()
+    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
 }

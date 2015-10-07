@@ -23,7 +23,8 @@ class ProfileTableViewController: UITableViewController {
         self.view!.backgroundColor = colorGreyBackground
         super.viewDidLoad()
         self.loadSettings()
-        
+        //sync
+        FactoryHistory.getHistory().sync()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         
@@ -280,7 +281,7 @@ class ProfileTableViewController: UITableViewController {
         if cell.switcher!.on {
             UserPreferences.sounds = true
             UserPreferences.saveUserPreferences()
-            Sound.playTrack("calc")
+            Sound.playTrack("notif")
         } else {
             UserPreferences.sounds = false
             UserPreferences.saveUserPreferences()

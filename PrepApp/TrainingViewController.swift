@@ -89,6 +89,9 @@ class TrainingViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         self.navigationController?.navigationBar.barTintColor = nil
         self.navigationController?.navigationBar.translucent = true
+        //syncHistory
+        FactoryHistory.getHistory().sync()
+        
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation

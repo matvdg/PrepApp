@@ -53,6 +53,8 @@ class QuestionSoloViewController: UIViewController,
     
     //app methods
     override func viewDidLoad() {
+        //sync
+        FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
         self.markButton.image = nil
         self.chrono.text = "20"
@@ -111,7 +113,7 @@ class QuestionSoloViewController: UIViewController,
     @IBAction func calcPopUp(sender: AnyObject) {
         if self.mode == 0 {
             var message = self.questions[self.currentNumber].calculator ? "Calculatrice autorisée" : "Calculatrice interdite"
-            self.questions[self.currentNumber].calculator ? Sound.playTrack("calc") : Sound.playTrack("nocalc")
+            self.questions[self.currentNumber].calculator ? Sound.playTrack("notif") : Sound.playTrack("nocalc")
             // create alert controller
             let myAlert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
@@ -139,7 +141,7 @@ class QuestionSoloViewController: UIViewController,
                 historyQuestion.id = self.currentQuestion!.id
                 historyQuestion.marked = false
                 FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
-                Sound.playTrack("calc")
+                Sound.playTrack("notif")
                 let myAlert = UIAlertController(title: "Marquage supprimé", message: nil , preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
@@ -156,7 +158,7 @@ class QuestionSoloViewController: UIViewController,
             
         } else {
             if FactoryHistory.getHistory().isQuestionDone(self.currentQuestion!.id) {
-                Sound.playTrack("calc")
+                Sound.playTrack("notif")
                 title = "Question marquée"
                 message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\" dans \"Profil\""
                 let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
@@ -170,7 +172,7 @@ class QuestionSoloViewController: UIViewController,
                     historyQuestion.id = self.currentQuestion!.id
                     historyQuestion.marked = false
                     FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
-                    Sound.playTrack("calc")
+                    Sound.playTrack("notif")
                     let myAlert = UIAlertController(title: "Marquage supprimé", message: nil , preferredStyle: UIAlertControllerStyle.Alert)
                     myAlert.view.tintColor = colorGreen
                     myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
@@ -518,7 +520,7 @@ class QuestionSoloViewController: UIViewController,
         
         println("Question n°\(self.currentQuestion!.id), bonne(s) réponse(s) = \(self.goodAnswers.answersPrepApp())")
         if self.mode == 0 {
-            self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "calc") : UIImage(named: "nocalc"))
+            self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "notif") : UIImage(named: "nocalc"))
         }
         self.didLoadWording = false
         self.didLoadAnswers = false

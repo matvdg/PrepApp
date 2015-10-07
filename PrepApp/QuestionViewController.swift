@@ -52,6 +52,8 @@ UIAdaptivePresentationControllerDelegate  {
     
     //app methods
     override func viewDidLoad() {
+        //sync
+        FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
@@ -102,7 +104,7 @@ UIAdaptivePresentationControllerDelegate  {
     
     @IBAction func calcPopUp(sender: AnyObject) {
         var message = self.questions[self.currentNumber].calculator ? "Calculatrice autorisée" : "Calculatrice interdite"
-        self.questions[self.currentNumber].calculator ? Sound.playTrack("calc") : Sound.playTrack("nocalc")
+        self.questions[self.currentNumber].calculator ? Sound.playTrack("notif") : Sound.playTrack("nocalc")
         // create alert controller
         let myAlert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
@@ -128,7 +130,7 @@ UIAdaptivePresentationControllerDelegate  {
                 historyQuestion.id = self.currentQuestion!.id
                 historyQuestion.marked = false
                 FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
-                Sound.playTrack("calc")
+                Sound.playTrack("notif")
                 let myAlert = UIAlertController(title: "Marquage supprimé", message: nil , preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
@@ -145,7 +147,7 @@ UIAdaptivePresentationControllerDelegate  {
             
         } else {
             if FactoryHistory.getHistory().isQuestionDone(self.currentQuestion!.id) {
-                Sound.playTrack("calc")
+                Sound.playTrack("notif")
                 title = "Question marquée"
                 message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\" dans \"Profil\""
                 let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
@@ -159,7 +161,7 @@ UIAdaptivePresentationControllerDelegate  {
                     historyQuestion.id = self.currentQuestion!.id
                     historyQuestion.marked = false
                     FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
-                    Sound.playTrack("calc")
+                    Sound.playTrack("notif")
                     let myAlert = UIAlertController(title: "Marquage supprimé", message: nil , preferredStyle: UIAlertControllerStyle.Alert)
                     myAlert.view.tintColor = colorGreen
                     myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
@@ -343,7 +345,7 @@ UIAdaptivePresentationControllerDelegate  {
             numberAnswer++
         }
         println("Question n°\(self.currentQuestion!.id), bonne(s) réponse(s) = \(self.goodAnswers.answersPrepApp())")
-        self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "calc") : UIImage(named: "nocalc"))
+        self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "notif") : UIImage(named: "nocalc"))
         self.didLoadWording = false
         self.didLoadAnswers = false
         self.didLoadInfos = false
@@ -580,6 +582,7 @@ UIAdaptivePresentationControllerDelegate  {
     
     func animateAwardPoint(awardPoints: Int) {
         User.currentUser!.awardPoints += awardPoints
+        User.currentUser!.saveUser()
         User.currentUser!.updateAwardPoints(User.currentUser!.awardPoints)
         self.awardPointImage.alpha = 1
         self.awardPoint.alpha = 1

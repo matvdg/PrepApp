@@ -70,9 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 FactorySync.getConfigManager().saveConfig({ (result) -> Void in
                     if result {
                         println("config saved")
-                        FactoryHistory.getHistory().syncHistory { (result) -> Void in
-                            println("history synced = \(result)")
-                        }
+                        FactoryHistory.getHistory().sync()
                     } else {
                         println("error loading config, working with local config")
                     }
@@ -107,6 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
+    
     
 }
 

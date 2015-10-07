@@ -66,7 +66,7 @@
 		F6AC7B4D1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AC7B4C1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift */; };
 		F6C02C421B760B960021ABE1 /* ChoiceQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C02C411B760B960021ABE1 /* ChoiceQuestionViewController.swift */; };
 		F6C02C461B762A810021ABE1 /* UITableViewCellAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C02C451B762A810021ABE1 /* UITableViewCellAnswer.swift */; };
-		F6C267FC1BB56BDC00CA462A /* PendingChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C267FB1BB56BDC00CA462A /* PendingChallenge.swift */; };
+		F6C267FC1BB56BDC00CA462A /* PendingDuo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C267FB1BB56BDC00CA462A /* PendingDuo.swift */; };
 		F6C3095C1B0365B100B8FAC9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C309581B0365B100B8FAC9 /* HomeViewController.swift */; };
 		F6C3095E1B037ACF00B8FAC9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6C3095D1B037ACF00B8FAC9 /* Images.xcassets */; };
 		F6CB05D01BBC927200289CEA /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CB05CF1BBC927200289CEA /* ProfileTableViewController.swift */; };
@@ -183,7 +183,7 @@
 		F6AC7B4C1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceQuestionViewControllerDelegate.swift; sourceTree = "<group>"; };
 		F6C02C411B760B960021ABE1 /* ChoiceQuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ChoiceQuestionViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F6C02C451B762A810021ABE1 /* UITableViewCellAnswer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellAnswer.swift; sourceTree = "<group>"; };
-		F6C267FB1BB56BDC00CA462A /* PendingChallenge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingChallenge.swift; sourceTree = "<group>"; };
+		F6C267FB1BB56BDC00CA462A /* PendingDuo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingDuo.swift; sourceTree = "<group>"; };
 		F6C309581B0365B100B8FAC9 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HomeViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F6C3095D1B037ACF00B8FAC9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F6CB05CF1BBC927200289CEA /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ProfileTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -342,7 +342,7 @@
 				95C5C48C1B9503F6001DA9B5 /* Answer.swift */,
 				F6322A201B615E3E0074549E /* Image.swift */,
 				F60739E81BB348AB004DEC32 /* Friend.swift */,
-				F6C267FB1BB56BDC00CA462A /* PendingChallenge.swift */,
+				F6C267FB1BB56BDC00CA462A /* PendingDuo.swift */,
 				F66771801B61A31900042145 /* FactoryRealm.swift */,
 			);
 			name = "Realm Entities";
@@ -520,6 +520,7 @@
 		F6AAE6C81AF433E100195E11 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = PrepApp;
 				TargetAttributes = {
@@ -644,7 +645,7 @@
 				F663E3181B7A620800F23294 /* QuestionHistory.swift in Sources */,
 				F663E31C1B7A6BD000F23294 /* History.swift in Sources */,
 				F6322A181B6158230074549E /* QuestionViewController.swift in Sources */,
-				F6C267FC1BB56BDC00CA462A /* PendingChallenge.swift in Sources */,
+				F6C267FC1BB56BDC00CA462A /* PendingDuo.swift in Sources */,
 				F6C02C421B760B960021ABE1 /* ChoiceQuestionViewController.swift in Sources */,
 				954441E41B9CB49F0035B7ED /* ScoreViewController.swift in Sources */,
 				952588BD1B974BDF00F68B3F /* QuestionSoloViewController.swift in Sources */,

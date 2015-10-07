@@ -50,6 +50,7 @@ class FactoryRealm {
         self.realmDuo.write {
             self.realmDuo.deleteAll()
         }
+        println("userDB cleaned")
     }
     
 }

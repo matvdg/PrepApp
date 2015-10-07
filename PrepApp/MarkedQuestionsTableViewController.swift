@@ -18,6 +18,8 @@ class MarkedQuestionsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //sync
+        FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
         if self.revealViewController() != nil {
             self.menuButton.target = self.revealViewController()
@@ -143,7 +145,7 @@ class MarkedQuestionsTableViewController: UITableViewController {
         if editingStyle == .Delete {
             // Delete the row from the data source
             var question = QuestionHistory()
-            Sound.playTrack("calc")
+            Sound.playTrack("notif")
             question.id = self.questions[indexPath.row].id
             FactoryHistory.getHistory().updateQuestionMark(question)
             self.questions.removeAtIndex(indexPath.row)

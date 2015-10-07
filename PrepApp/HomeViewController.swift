@@ -133,6 +133,9 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     //app methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        //sync
+        FactoryHistory.getHistory().sync()
+        //rendering
         self.view!.backgroundColor = colorGreyBackground
         self.showNotification()
         self.bioPieChart.noDataText = ""
@@ -197,14 +200,11 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.renderPieCharts()
     }
     
-    
     //methods
-    func retrieveData() {
-        User.currentUser!.updateLevel(User.currentUser!.level)
-        User.currentUser!.updateAwardPoints(User.currentUser!.awardPoints)
-        FactoryHistory.getHistory().syncHistory { (result) -> Void in
-            println("history synced = \(result)")
-        }
+    
+
+    private func retrieveData() {
+        
         var (percent,answers,todo) = FactoryHistory.getScoring().getScore(1)
         self.bioPercent = Double(percent)
         self.bioNumber = answers
@@ -767,6 +767,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
             self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("showNotification"), userInfo: nil, repeats: true)
             self.hideTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: Selector("hideNotificationLevel"), userInfo: nil, repeats: false)
             User.currentUser!.level = User.currentUser!.level + 1
+            User.currentUser!.saveUser()
             User.currentUser!.updateLevel(User.currentUser!.level)
             //retrieving new data
             self.retrieveData()

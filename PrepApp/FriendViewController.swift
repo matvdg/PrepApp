@@ -12,10 +12,8 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     
     //properties
     var friends = [Friend]()
-    var pendingChallenge = [Challenge]()
+    var pendingDuos = [PendingDuo]()
     let realm = FactoryRealm.getRealmFriends()
-    var selectedFriend = Friend()
-    var selectedPendingChallenge = Challenge()
     var textField =  UITextField()
 
     //@IBOutlet
@@ -54,9 +52,33 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     @IBAction func shuffleFriend(sender: AnyObject) {
-        FactoryDuo.getFriendManager().getShuffle { (data) -> Void in
-            if let response = data {
-                println(response)
+        FactoryDuo.getFriendManager().shuffleDuo { (friend, error) -> Void in
+            if let shuffledFriend = friend {
+                var textTodisplay = " "
+                if FactorySync.getConfigManager().loadNicknamePreference() {
+                    textTodisplay += "\(shuffledFriend.nickname)"
+                } else {
+                    textTodisplay += "\(shuffledFriend.firstName) \(shuffledFriend.lastName)"
+                }
+                // create alert controller
+                let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous êtes sur le point de lancer un défi à \(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de 20 minutes. ", preferredStyle: UIAlertControllerStyle.Alert)
+                myAlert.view.tintColor = colorGreen
+                // add an buttons
+                myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
+                myAlert.addAction(UIAlertAction(title: "GO !", style: .Default, handler: { (action) -> Void in
+                    self.challenge(shuffledFriend.id)
+                }))
+                // show the alert
+                self.presentViewController(myAlert, animated: true, completion: nil)
+
+            } else {
+                // create alert controller
+                let myAlert = UIAlertController(title: "Oups !", message: error, preferredStyle: UIAlertControllerStyle.Alert)
+                myAlert.view.tintColor = colorGreen
+                // add an buttons
+                myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                // show the alert
+                self.presentViewController(myAlert, animated: true, completion: nil)
             }
         }
     }
@@ -64,6 +86,8 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     //app methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        //sync
+        FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
         self.loadData()
         self.friendsTable.backgroundColor = colorGreyBackground
@@ -104,20 +128,33 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     
     //methods
     private func loadData() {
+        
+        //loading pendingDuos
+        FactoryDuo.getDuoManager().savePendingDuos({ (result) -> Void in
+            if result {
+                self.pendingDuos = FactoryDuo.getDuoManager().getPendingDuos()
+                println("pendingDuos synced")
+            } else {
+                println("offline pendingDuos")
+            }
+            self.pendingDuos = FactoryDuo.getDuoManager().getPendingDuos()
+            self.templating()
+            self.friendsTable.reloadData()
+        })
+
+        
+        //loading friends
         FactoryDuo.getFriendManager().saveFriends { (result) -> Void in
             if result {
-                self.friends = FactoryDuo.getFriendManager().getFriends()
                 println("friendsList synced")
-                self.templating()
-                self.friendsTable.reloadData()
             } else {
-                self.friends = FactoryDuo.getFriendManager().getFriends()
                 println("offline friendsList")
-                self.templating()
-                self.friendsTable.reloadData()
+                
             }
+            self.friends = FactoryDuo.getFriendManager().getFriends()
+            self.templating()
+            self.friendsTable.reloadData()
         }
-        
         
     }
     
@@ -130,12 +167,12 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
             self.friends.append(templateFriend)
             
         }
-        if self.pendingChallenge.isEmpty {
-            var templateDuo = Challenge()
+        if self.pendingDuos.isEmpty {
+            var templateDuo = PendingDuo()
             templateDuo.id = -1
             templateDuo.firstName = "Pas de défi en attente pour le moment"
             templateDuo.nickname = "Pas de défi en attente pour le moment"
-            self.pendingChallenge.append(templateDuo)
+            self.pendingDuos.append(templateDuo)
         }
 
     }
@@ -204,6 +241,24 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
 
     }
     
+    private func challenge(friend: Int) {
+        println("requesting duo")
+        FactoryDuo.getDuoManager().requestDuo(friend, callback: { (result, error) -> Void in
+            if error != nil {
+                let myAlert = UIAlertController(title: "Oups !", message: error, preferredStyle: UIAlertControllerStyle.Alert)
+                myAlert.view.tintColor = colorGreen
+                // add an buttons
+                myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                // show the alert
+                self.presentViewController(myAlert, animated: true, completion: nil)
+                
+            } else {
+                println("Launching challenge number \(result!)")
+                //self.performSegueWithIdentifier("showDuo", sender: self)
+            }
+        })
+    }
+    
     
     // MARK: - Table view data source
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -212,7 +267,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return self.pendingChallenge.count
+            return self.pendingDuos.count
         } else {
             return self.friends.count
         }
@@ -222,17 +277,17 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("pendingChallenge", forIndexPath: indexPath) as! UITableViewCell
-            let pendingChallenge = self.pendingChallenge[indexPath.row]
+            let pendingDuo = self.pendingDuos[indexPath.row]
             
             var text = ""
-            if pendingChallenge.id != -1 {
+            if pendingDuo.id != -1 {
                 text = "Défi de "
             }
             
             if FactorySync.getConfigManager().loadNicknamePreference() {
-                text += pendingChallenge.nickname
+                text += pendingDuo.nickname
             } else {
-                text += "\(pendingChallenge.firstName) \(pendingChallenge.lastName)"
+                text += "\(pendingDuo.firstName) \(pendingDuo.lastName)"
             }
             cell.textLabel!.text = text
             cell.textLabel?.textColor = UIColor.blackColor()
@@ -241,12 +296,13 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
             cell.textLabel!.adjustsFontSizeToFitWidth = true
             var formatter = NSDateFormatter()
             formatter.dateFormat = "dd/MM/yyyy"
-            var dateInString = formatter.stringFromDate(pendingChallenge.date)
-            if pendingChallenge.id == -1 {
+            var dateInString = formatter.stringFromDate(pendingDuo.date)
+            if pendingDuo.id == -1 {
                 cell.accessoryType = UITableViewCellAccessoryType.None
                 cell.detailTextLabel!.text = ""
             } else {
                 cell.detailTextLabel!.text = dateInString
+                cell.accessoryView = UIImageView(image: UIImage(named: "challenge"))
             }
             cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
             cell.tintColor = colorGreen
@@ -282,10 +338,10 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            Sound.playTrack("calc")
+            Sound.playTrack("notif")
             if indexPath.section == 0 {
-                var duoToRemove = self.pendingChallenge[indexPath.row]
-                self.pendingChallenge.removeAtIndex(indexPath.row)
+                var duoToRemove = self.pendingDuos[indexPath.row]
+                self.pendingDuos.removeAtIndex(indexPath.row)
             } else {
                 var friendToRemove = self.friends[indexPath.row]
                 self.friends.removeAtIndex(indexPath.row)
@@ -297,6 +353,8 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                     let newIndexPath = NSIndexPath(forItem: 0, inSection: 1)
                     self.friendsTable.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Left)
                 }
+                self.friendsTable.reloadData()
+                
             }
         }
     }
@@ -322,20 +380,31 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 {
-            let pendingChallenge = self.pendingChallenge[indexPath.row]
-            self.selectedPendingChallenge = self.pendingChallenge[indexPath.row]
-            if pendingChallenge.id != -1 {
+            let pendingDuos = self.pendingDuos[indexPath.row]
+            if pendingDuos.id != -1 {
                 //self.performSegueWithIdentifier("showDuo", sender: self)
             }
         } else {
             let friend = self.friends[indexPath.row]
-            self.selectedFriend = self.friends[indexPath.row]
             if friend.id != -1 {
-                //self.performSegueWithIdentifier("showDuo", sender: self)
+                var textTodisplay = " "
+                if FactorySync.getConfigManager().loadNicknamePreference() {
+                    textTodisplay += "\(friend.nickname)"
+                } else {
+                    textTodisplay += "\(friend.firstName) \(friend.lastName)"
+                }
+                // create alert controller
+                let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous êtes sur le point de lancer un défi à \(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de 20 minutes. ", preferredStyle: UIAlertControllerStyle.Alert)
+                myAlert.view.tintColor = colorGreen
+                // add an buttons
+                myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
+                myAlert.addAction(UIAlertAction(title: "GO !", style: .Default, handler: { (action) -> Void in
+                    self.challenge(friend.id)
+                }))
+                // show the alert
+                self.presentViewController(myAlert, animated: true, completion: nil)
             }
-            
         }
-        
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

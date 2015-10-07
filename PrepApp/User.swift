@@ -103,8 +103,6 @@ class User {
                 if error == nil {
                     var statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        User.currentUser!.level = newLevel
-                        User.currentUser!.saveUser()
                         println("level synced")
                     }
                 }
@@ -125,8 +123,6 @@ class User {
                     var err: NSError?
                     var statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        User.currentUser?.awardPoints = newAwardPoints
-                        User.currentUser!.saveUser()
                         println("awardPoints synced")
                     }
                 }

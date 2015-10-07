@@ -26,7 +26,7 @@
 		</data>
 		<key>Headers/RLMObject.h</key>
 		<data>
-		dkVm8DFLUYKC+rI/4cs4wKaQ5Wo=
+		xQpbMaT4Ip2NdsdtE55pTjFkC0Q=
 		</data>
 		<key>Headers/RLMObjectBase.h</key>
 		<data>
@@ -74,7 +74,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		fBuRTIJyQ+xm1LcL5qXT5G5INEA=
+		QbwVJvkhAs1qnu00Wxm7+eCXfXM=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -82,7 +82,7 @@
 		</data>
 		<key>PrivateHeaders/RLMAccessor.h</key>
 		<data>
-		P4l587ckKjh+kO8+Ujd8deDdEQc=
+		Gv4fNiaAW8WfT/N/FVSuJHiLFKg=
 		</data>
 		<key>PrivateHeaders/RLMArray_Private.h</key>
 		<data>
@@ -122,7 +122,7 @@
 		</data>
 		<key>PrivateHeaders/RLMRealm_Private.h</key>
 		<data>
-		W3p6JpSDjW14aLtkLeSw3/wNG28=
+		I2Lc64bSMnojlp9fVNXNpHKp0Lo=
 		</data>
 		<key>PrivateHeaders/RLMResults_Private.h</key>
 		<data>
@@ -161,7 +161,7 @@
 		</data>
 		<key>Headers/RLMObject.h</key>
 		<data>
-		dkVm8DFLUYKC+rI/4cs4wKaQ5Wo=
+		xQpbMaT4Ip2NdsdtE55pTjFkC0Q=
 		</data>
 		<key>Headers/RLMObjectBase.h</key>
 		<data>
@@ -213,7 +213,7 @@
 		</data>
 		<key>PrivateHeaders/RLMAccessor.h</key>
 		<data>
-		P4l587ckKjh+kO8+Ujd8deDdEQc=
+		Gv4fNiaAW8WfT/N/FVSuJHiLFKg=
 		</data>
 		<key>PrivateHeaders/RLMArray_Private.h</key>
 		<data>
@@ -253,7 +253,7 @@
 		</data>
 		<key>PrivateHeaders/RLMRealm_Private.h</key>
 		<data>
-		W3p6JpSDjW14aLtkLeSw3/wNG28=
+		I2Lc64bSMnojlp9fVNXNpHKp0Lo=
 		</data>
 		<key>PrivateHeaders/RLMResults_Private.h</key>
 		<data>

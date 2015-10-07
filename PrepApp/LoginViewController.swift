@@ -40,12 +40,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         if User.authenticated {
             self.performSegueWithIdentifier("loginDidSucceded", sender: self)
         } else {
-            self.mail.text = "matvdg@icloud.com"
-            self.pass.text = "Draconis31*"
-//            self.mail.text = ""
-//            self.pass.text = ""
-
+            if FactorySync.debugMode {
+                self.mail.text = "marc.herrero@icloud.com"
+                self.pass.text = "Malaisie41"
+            } else {
+                self.mail.text = ""
+                self.pass.text = ""
+            }
         }
+        let value = UIInterfaceOrientation.Portrait.rawValue
+        UIDevice.currentDevice().setValue(value, forKey: "orientation")
 	}
 	
 	func textFieldShouldReturn(textField: UITextField) -> Bool {

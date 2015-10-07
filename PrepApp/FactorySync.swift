@@ -14,6 +14,7 @@ class FactorySync {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*DEV (LOCAL) OR PROD (ONLINE) */
     static var production: Bool = true
+    static var debugMode: Bool = true
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     static var errorNetwork: Bool = false
     static var offlineMode: Bool = false
@@ -27,8 +28,8 @@ class FactorySync {
     private static let realm = FactoryRealm.getRealm()
     
     /*APIs*/
-    private static let domain = NSURL(string: "http://prep-app.com")
-    //private static let domain = NSURL(string: "http://192.168.1.30/PrepApp")
+    //private static let domain = NSURL(string: "http://prep-app.com")
+    private static let domain = NSURL(string: "http://192.168.1.30/PrepApp")
     private static let apiUrl = NSURL(string: "\(FactorySync.domain!)/api")
     
     //UPLOADS (images)
@@ -51,7 +52,10 @@ class FactorySync {
     static let retrieveFriendsUrl = NSURL(string: "\(FactorySync.apiUrl!)/friend/retrieve/")
     
     //DUO
-    
+    static let pendingDuoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/pending/")
+    static let requestDuoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/request/")
+    static let retrieveResultsDuoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/results/")
+    static let sendResultsDuoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/results/send")
     
     //CONTEST
     static let contestUrl = NSURL(string: "\(FactorySync.apiUrl!)/contest/")

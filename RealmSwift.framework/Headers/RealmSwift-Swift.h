@@ -140,6 +140,9 @@ SWIFT_CLASS("_TtC10RealmSwift6Object")
 - (SWIFT_NULLABILITY(nonnull) instancetype)initWithValue:(id __nonnull)value OBJC_DESIGNATED_INITIALIZER;
 
 /// Indicates if an object can no longer be accessed.
+///
+/// An object can no longer be accessed if the object has been deleted from the containing
+/// `realm` or if <code>invalidate</code> is called on the containing <code>realm</code>.
 @property (nonatomic, readonly, getter=isInvalidated) BOOL invalidated;
 
 /// Returns a human-readable description of this object.

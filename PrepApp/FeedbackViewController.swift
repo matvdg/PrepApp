@@ -23,6 +23,8 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //sync
+        FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
         self.title = "Envoyer un feedback"
         self.feedback.text = "Taper votre feedback ici :"

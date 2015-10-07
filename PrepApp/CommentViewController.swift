@@ -27,6 +27,8 @@ class CommentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //sync
+        FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
         if let nav = self.navigationController {
             self.dismissButton.hidden = true

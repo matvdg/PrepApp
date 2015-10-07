@@ -11,93 +11,47 @@ import UIKit
 
 class DuoManager {
     
-    
     let realm = FactoryRealm.getRealmDuo()
     
+    /*//DUO
+    static let retrieveResultsDuoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/results/")
+    static let sendResultsDuoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/results/send")*/
     
     //API
-    private func findFriend(code: String, callback: (NSDictionary?, String) -> Void) {
-        
-        let request = NSMutableURLRequest(URL: FactorySync.findFriendUrl!)
+    func requestDuo(idFriend: Int, callback: (Int?, String?) -> Void) {
+        let request = NSMutableURLRequest(URL: FactorySync.requestDuoUrl!)
         request.HTTPMethod = "POST"
-        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&id=\(code)"
+        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&idFriend=\(idFriend)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
             (data, response, error) in
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    callback(nil, "Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
+                    callback(nil, "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
                 } else {
                     
                     var err: NSError?
                     var statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSDictionary
+                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &err) as? NSInteger
                         
                         if let result = jsonResult {
                             if err != nil {
-                                println("error : parsing JSON in getFriend")
-                                callback(nil, "Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
+                                println(err)
+                                callback(nil, "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
                             } else {
-                                var name = ""
-                                if FactorySync.getConfigManager().loadNicknamePreference() {
-                                    name = result["nickname"] as! String
-                                } else {
-                                    var first = result["firstName"] as! String
-                                    var last = result["lastName"] as! String
-                                    name = "\(first) \(last)"
-                                }
-                                callback(result as NSDictionary, "\(name) a été ajouté à votre liste d'amis !")
+                                callback(result as Int, nil)
                             }
                         } else {
-                            println("error : NSArray nil in getFriend")
-                            callback(nil, "Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
+                            println("error casting json")
+                            callback(nil, "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
                         }
-                    } else {
-                        println("header status = \(statusCode) in getFriend")
-                        callback(nil, "Le code entré est invalide !")
-                    }
-                }
-            }
-            
-        }
-        task.resume()
-    }
-    
-    func getShuffle(callback: (NSDictionary?) -> Void) {
-        
-        let request = NSMutableURLRequest(URL: FactorySync.shuffleFriendUrl!)
-        request.HTTPMethod = "POST"
-        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
-        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
-            (data, response, error) in
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                if error != nil {
-                    println("error : no connexion in getFriend")
-                    callback(nil)
-                } else {
-                    
-                    var err: NSError?
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
-                    if statusCode == 200 {
-                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSDictionary
+
                         
-                        if let result = jsonResult {
-                            if err != nil {
-                                println("error : parsing JSON in getFriend")
-                                callback(nil)
-                            } else {
-                                callback(result as NSDictionary)
-                            }
-                        } else {
-                            println("error : NSArray nil in getFriend")
-                            callback(nil)                        }
                     } else {
-                        println("header status = \(statusCode) in getFriend")
-                        callback(nil)
+                        println("header status = \(statusCode) in requestDuo")
+                        callback(nil, "Il n'y a pas de défi disponible avec cet ami, veuillez réessayer ultérieurement ou essayer avec d'autres amis.")
                     }
                 }
             }
@@ -106,8 +60,8 @@ class DuoManager {
         task.resume()
     }
     
-    private func retrieveFriends(callback: (NSArray?) -> Void) {
-        let request = NSMutableURLRequest(URL: FactorySync.retrieveFriendsUrl!)
+    private func getPendingDuos(callback: (NSArray?) -> Void) {
+        let request = NSMutableURLRequest(URL: FactorySync.pendingDuoUrl!)
         request.HTTPMethod = "POST"
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
@@ -127,18 +81,18 @@ class DuoManager {
                         
                         if let result = jsonResult {
                             if err != nil {
-                                println("error : parsing JSON in getFriend")
+                                println("error : parsing JSON in getPendingDuos")
                                 println(err)
                                 callback(nil)
                             } else {
                                 callback(result)
                             }
                         } else {
-                            println("error : NSArray nil in getFriend")
+                            println("error : NSArray nil in getPendingDuos")
                             callback(nil)
                         }
                     } else {
-                        println("header status = \(statusCode) in getFriend")
+                        println("header status = \(statusCode) in getPendingDuos")
                         callback(nil)
                     }
                 }
@@ -148,83 +102,24 @@ class DuoManager {
         task.resume()
     }
     
-    func syncFriendsList(callback: (Bool) -> Void) {
-        let friendList = self.realm.objects(Friend)
-        var post: [Int] = []
-        for friend in friendList {
-            post.append(friend.id)
-        }
-        let json = NSJSONSerialization.dataWithJSONObject(post, options: NSJSONWritingOptions(0), error: nil)
-        let friendsList = NSString(data: json!, encoding: NSUTF8StringEncoding)
-        self.updateFriends(friendsList!, callback: { (result) -> Void in
-            callback(result)
-        })
-    }
-    
-    private func updateFriends(friendsList: NSString, callback: (Bool) -> Void){
-        let request = NSMutableURLRequest(URL: FactorySync.updateFriendsUrl!)
-        request.HTTPMethod = "POST"
-        println(friendsList)
-        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&friends=\(friendsList)"
-        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
-            (data, response, error) in
-            dispatch_async(dispatch_get_main_queue()) {
-                if error == nil {
-                    var err: NSError?
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
-                    if statusCode == 200 {
-                        callback(true)
-                    } else {
-                        println(statusCode)
-                        callback(false)
-                    }
-                } else {
-                    println(error)
-                    callback(false)
-                }
-            }
-        }
-        task.resume()
-    }
-    
-    
     //REALM
-    func saveFriend(code: String, callback: (Bool, String) -> Void) {
-        self.findFriend(code, callback: { (data, message) -> Void in
-            if let friend = data {
-                var newFriend = Friend()
-                newFriend.id = friend["id"] as! Int
-                newFriend.firstName = friend["firstName"] as! String
-                newFriend.lastName = friend["lastName"] as! String
-                newFriend.nickname = friend["nickname"] as! String
-                newFriend.awardPoints = friend["awardPoints"] as! Int
-                self.realm.write({
-                    self.realm.add(newFriend, update: true)
-                })
-                callback(true, message)
-            } else {
-                callback(false, message)
-            }
-        })
-    }
-    
-    func saveFriends(callback: (Bool) -> Void) {
-        self.retrieveFriends({ (data) -> Void in
-            if let friendList = data {
+    func savePendingDuos(callback: (Bool) -> Void) {
+        self.getPendingDuos({ (data) -> Void in
+            if let pendingDuos = data {
                 self.realm.write({ () -> Void in
                     self.realm.deleteAll()
                 })
-                for data in friendList {
-                    if let friend = data as? NSDictionary {
-                        var newFriend = Friend()
-                        newFriend.id = friend["id"] as! Int
-                        newFriend.firstName = friend["firstName"] as! String
-                        newFriend.lastName = friend["lastName"] as! String
-                        newFriend.nickname = friend["nickname"] as! String
-                        newFriend.awardPoints = friend["awardPoints"] as! Int
+                for data in pendingDuos {
+                    if let pendingDuoData = data as? NSDictionary {
+                        var pendingDuo = PendingDuo()
+                        pendingDuo.id = pendingDuoData["id"] as! Int
+                        pendingDuo.senderId = pendingDuoData["senderId"] as! Int
+                        pendingDuo.firstName = pendingDuoData["firstName"] as! String
+                        pendingDuo.lastName = pendingDuoData["lastName"] as! String
+                        pendingDuo.nickname = pendingDuoData["nickname"] as! String
+                        pendingDuo.date = NSDate(timeIntervalSince1970: NSTimeInterval(pendingDuoData["date"] as! Int))
                         self.realm.write({
-                            self.realm.add(newFriend, update: true)
+                            self.realm.add(pendingDuo, update: true)
                         })
                         
                     } else {
@@ -239,31 +134,13 @@ class DuoManager {
         })
     }
     
-    func deleteFriend(friendToRemove: Friend) {
-        self.realm.write({
-            self.realm.delete(friendToRemove)
-            println("friend removed")
-        })
-        self.syncFriendsList { (result) -> Void in
-            if result {
-                println("friendsList synced")
-            } else {
-                println("error syncing friendsList")
-            }
-        }
-    }
-    
-    func getFriends() -> [Friend] {
-        let friends = self.realm.objects(Friend)
-        var result = [Friend]()
-        for friend in friends {
-            result.append(friend)
+    func getPendingDuos() -> [PendingDuo] {
+        let pendingDuos = self.realm.objects(PendingDuo)
+        var result = [PendingDuo]()
+        for pendingDuo in pendingDuos {
+            result.append(pendingDuo)
         }
         return result
     }
-    
-    
-    
-    
-    
+
 }

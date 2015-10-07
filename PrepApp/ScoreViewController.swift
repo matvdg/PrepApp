@@ -36,6 +36,8 @@ class ScoreViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //sync
+        FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
         self.loadData()
         self.dismissButton.layer.cornerRadius = 6
@@ -188,6 +190,7 @@ class ScoreViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.statsDetails.append("AwardPoints réussites (\((self.succeeded*5).toStringPoints())) + AwardPoints assiduité (\(self.awardPointsBonus.toStringPoints())) + AwardPoints bonus (\(self.awardPointsBonus.toStringPoints())) = total AwardPoints (\(self.awardPoints.toStringPoints()))")
         //save scoring
         User.currentUser!.awardPoints += self.awardPoints
+        User.currentUser!.saveUser()
         User.currentUser!.updateAwardPoints(User.currentUser!.awardPoints)
 
     }

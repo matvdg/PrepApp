@@ -13,9 +13,10 @@ class History {
     
     private let realmHistory = FactoryRealm.getRealmHistory()
     private let realm = FactoryRealm.getRealm()
+    var syncHistoryNeeded = false
     
     func addQuestionToHistory(question: QuestionHistory) {
-        
+        self.syncHistoryNeeded = true
         var questionsHistory = self.realmHistory.objects(QuestionHistory)
         var updated = false
         
@@ -50,6 +51,7 @@ class History {
     }
     
     func updateQuestionMark(question: QuestionHistory) {
+        self.syncHistoryNeeded = true
         let questionsHistory = self.realmHistory.objects(QuestionHistory)
         var updated = false
         for questionHistory in questionsHistory {
@@ -264,6 +266,22 @@ class History {
             
         }
         task.resume()
+    }
+    
+    func sync() {
+        //syncing if necessary
+        if FactoryHistory.getHistory().syncHistoryNeeded {
+            FactoryHistory.getHistory().syncHistory { (result) -> Void in
+                println("history synced = \(result)")
+                if result {
+                    User.currentUser!.updateLevel(User.currentUser!.level)
+                    User.currentUser!.updateAwardPoints(User.currentUser!.awardPoints)
+                    FactoryHistory.getHistory().syncHistoryNeeded = false
+                }
+            }
+        } else {
+            println("nothing new in History/Level/AP, no need to sync")
+        }
     }
 
 }

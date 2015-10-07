@@ -15,6 +15,8 @@ class ContestViewController: UIViewController {
     @IBOutlet weak var designButton: UIButton!
     
 	override func viewDidLoad() {
+        //sync
+        FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
         super.viewDidLoad()
         self.designButton.layer.cornerRadius = 6
