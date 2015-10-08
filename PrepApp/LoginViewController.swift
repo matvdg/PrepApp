@@ -86,6 +86,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 				User.instantiateUser(data!, pass: self.pass.text)
 				//we store the current user infoss to avoid further login until he logs out
 				User.currentUser!.saveUser()
+                FactoryRealm.clearUserDB()
                 FactoryHistory.getHistory().retrieveHistory({ (result) -> Void in
                     if result {
                         self.performSegueWithIdentifier("loginDidSucceded", sender: self)

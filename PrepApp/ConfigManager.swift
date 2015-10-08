@@ -167,7 +167,7 @@ class ConfigManager {
     }
     
     func getLastVersion(callback: (Int?) -> Void) {
-        let request = NSMutableURLRequest(URL: FactorySync.configUrl!)
+        let request = NSMutableURLRequest(URL: FactorySync.versionUrl!)
         request.HTTPMethod = "POST"
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
@@ -175,28 +175,23 @@ class ConfigManager {
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
             if error != nil {
                 callback(nil)
-                println("no connexion")
+                println("no connexion in getLastVersion")
             } else {
                 var err: NSError?
                 var statusCode = (response as! NSHTTPURLResponse).statusCode
                 if statusCode == 200 {
-                    var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSDictionary
+                    var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &err) as? NSString
                     
-                    if let result = jsonResult {
+                    if let result = jsonResult as? String {
                         if err != nil {
                             callback(nil)
                             println("error parsing json in getLastVersion")
                         } else {
-                            if let version = result["version"] as? String {
-                                callback(version.toInt()!)
-                            } else {
-                                callback(nil)
-                                println("error no version key in getLastVersion")
-                            }
+                            callback(result.toInt()!)
                         }
                     } else {
                         callback(nil)
-                        println("error casting json into NSDictionary in getLastVersion")
+                        println("error casting json into NSString in getLastVersion")
                     }
                 } else {
                     callback(nil)

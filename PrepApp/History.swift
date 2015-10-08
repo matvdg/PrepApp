@@ -13,7 +13,7 @@ class History {
     
     private let realmHistory = FactoryRealm.getRealmHistory()
     private let realm = FactoryRealm.getRealm()
-    var syncHistoryNeeded = false
+    var syncHistoryNeeded = true
     
     func addQuestionToHistory(question: QuestionHistory) {
         self.syncHistoryNeeded = true
@@ -169,6 +169,7 @@ class History {
         }
         let json = NSJSONSerialization.dataWithJSONObject(post, options: NSJSONWritingOptions(0), error: nil)
         let history = NSString(data: json!, encoding: NSUTF8StringEncoding)
+        println(history)
         self.updateHistory(history!, callback: { (result) -> Void in
             callback(result)
         })
