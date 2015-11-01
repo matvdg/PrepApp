@@ -104,7 +104,7 @@ class SoloViewController: UIViewController {
     
 
     func logout() {
-        println("logging out")
+        print("logging out")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -124,7 +124,7 @@ class SoloViewController: UIViewController {
     }
     
     func refresh() {
-        println("refreshing")
+        print("refreshing")
         self.buttonChePhy?.removeFromSuperview()
         self.buttonPhy?.removeFromSuperview()
         self.buttonChe?.removeFromSuperview()
@@ -204,49 +204,49 @@ class SoloViewController: UIViewController {
     func selectBio(){
         self.label.text = "Défi Biologie"
         self.choice = .biology
-        println("Biologie")
+        print("Biologie")
         self.trigram.image = UIImage(named: "tribio")
     }
     
     func selectPhy(){
         self.label.text = "Défi Physique"
         self.choice = .physics
-        println("Physique")
+        print("Physique")
         self.trigram.image = UIImage(named: "triphy")
     }
     
     func selectChe(){
         self.label.text = "Défi Chimie"
         self.choice = .chemistry
-        println("Chimie")
+        print("Chimie")
         self.trigram.image = UIImage(named: "trichi")
     }
     
     func selectBioChe(){
         self.label.text = "Défi Biologie/Chimie"
         self.choice = .bioChe
-        println("Biologie/Chimie")
+        print("Biologie/Chimie")
         self.trigram.image = UIImage(named: "tribiochi")
     }
     
     func selectChePhy(){
         self.label.text = "Défi Chimie/Physique"
         self.choice = .chePhy
-        println("Chimie/Physique")
+        print("Chimie/Physique")
         self.trigram.image = UIImage(named: "trichiphy")
     }
     
     func selectBioPhy(){
         self.label.text = "Défi Biologie/Physique"
         self.choice = .bioPhy
-        println("Biologie/Physique")
+        print("Biologie/Physique")
         self.trigram.image = UIImage(named: "tribiophy")
     }
     
     func selectAll(){
         self.label.text = "Défi Biologie/Chimie/Physique"
         self.choice = .all
-        println("Biologie/Chimie/Physique")
+        print("Biologie/Chimie/Physique")
         self.trigram.image = UIImage(named: "triall")
     }
     
@@ -256,7 +256,7 @@ class SoloViewController: UIViewController {
         
         var tempQuestions = [Question]()
         //fetching solo questions NEVER DONE
-        var questionsRealm = realm.objects(Question).filter("type = 1")
+        let questionsRealm = realm.objects(Question).filter("type = 1")
         for question in questionsRealm {
             if FactoryHistory.getHistory().isQuestionNew(question.id){
                 tempQuestions.append(question)
@@ -378,7 +378,7 @@ class SoloViewController: UIViewController {
             }
             
         default:
-            println("default")
+            print("default")
         }
         
         return result
@@ -387,7 +387,7 @@ class SoloViewController: UIViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
-        var QSVC = segue.destinationViewController as! QuestionSoloViewController
+        let QSVC = segue.destinationViewController as! QuestionSoloViewController
         // Pass the selected object to the new view controller.
         QSVC.choice = self.choice.rawValue
     }

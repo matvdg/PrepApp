@@ -17,7 +17,7 @@ class Scoring {
     func getScore(subject: Int) -> (Int,Int,Int) {
         
         let questionsHistory = self.realmHistory.objects(QuestionHistory)
-        var questionsToCompute = List<QuestionHistory>()
+        let questionsToCompute = List<QuestionHistory>()
         var succeeded = 0
         var percent = 0
         var todo = 0
@@ -45,7 +45,7 @@ class Scoring {
         case 3 : //chemistry
             (percent, done, todo) = self.computePercentLevel(1, succeeded: succeeded)
         default :
-            println("error")
+            print("error")
         }
         return (percent, done, todo)
     }
@@ -98,7 +98,7 @@ class Scoring {
         for questionHistory in questionsHistory {
             let question = self.realm.objects(Question).filter("id = \(questionHistory.id)")[0]
             if question.chapter!.subject!.id == subject {
-                if let entry = questionsToCompute[questionHistory.weeksBeforeExam] {
+                if let _ = questionsToCompute[questionHistory.weeksBeforeExam] {
                     questionsToCompute[questionHistory.weeksBeforeExam]!.append(questionHistory)
                 } else {
                     questionsToCompute[questionHistory.weeksBeforeExam] = [questionHistory]
@@ -144,7 +144,7 @@ class Scoring {
         
         //fetching the appropriate questions
         for questionHistory in questionsHistory {
-            if let entry = questionsToCompute[questionHistory.weeksBeforeExam] {
+            if let _ = questionsToCompute[questionHistory.weeksBeforeExam] {
                 questionsToCompute[questionHistory.weeksBeforeExam]!.append(questionHistory)
             } else {
                 questionsToCompute[questionHistory.weeksBeforeExam] = [questionHistory]
@@ -152,7 +152,7 @@ class Scoring {
         }
         
         for (week,questions) in questionsToCompute {
-            for question in questions {
+            for _ in questions {
                 questionsAnswered++
                 
                 if week > maxWeek {
@@ -186,7 +186,7 @@ class Scoring {
         
         //fetching the appropriate questions
         for questionHistory in questionsHistory {
-            if find(weeks,questionHistory.weeksBeforeExam) == nil {
+            if weeks.indexOf(questionHistory.weeksBeforeExam) == nil {
                 weeks.append(questionHistory.weeksBeforeExam)
             }
         }
@@ -195,7 +195,7 @@ class Scoring {
             for week in weeks {
                 if week > maxWeek {
                     maxWeek = week
-                    index = find(weeks, week)!
+                    index = weeks.indexOf(week)!
                 }
             }
             result.append(String(maxWeek))
@@ -226,17 +226,12 @@ class Scoring {
                     callback(nil)
                     
                 } else {
-                    var err: NSError?
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSArray
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSArray
                         
                         if let result = jsonResult {
-                            if err != nil {
-                                callback(nil)
-                            } else {
-                                callback(result)
-                            }
+                            callback(result)
                         } else {
                             callback(nil)
                         }
@@ -256,7 +251,7 @@ class Scoring {
                 var result = [Friend]()
                 for element in leaderboard {
                     if let friend = element as? NSDictionary {
-                        var newFriend = Friend()
+                        let newFriend = Friend()
                         newFriend.id = friend["id"] as! Int
                         newFriend.firstName = friend["firstName"] as! String
                         newFriend.lastName = friend["lastName"] as! String
@@ -275,15 +270,15 @@ class Scoring {
     }
     
     private func computePercentLevel(ratio: Int, succeeded: Int) -> (Int, Int, Int) {
-        var currentLevel = User.currentUser!.level
-        var units: Int = succeeded / ratio
+        let currentLevel = User.currentUser!.level
+        let units: Int = succeeded / ratio
         var percent = 0
         var todo = 0
         var done = 0
-        var unitsNeededForNextLevel = computeUnitsNeededForNextLevel(currentLevel)
-        var nextStep = (unitsNeededForNextLevel * ratio)
-        var unitsNeededForPreviousLevel = computeUnitsNeededForNextLevel(currentLevel-1)
-        var previousStep = (unitsNeededForPreviousLevel * ratio)
+        let unitsNeededForNextLevel = computeUnitsNeededForNextLevel(currentLevel)
+        let nextStep = (unitsNeededForNextLevel * ratio)
+        let unitsNeededForPreviousLevel = computeUnitsNeededForNextLevel(currentLevel-1)
+        let previousStep = (unitsNeededForPreviousLevel * ratio)
         done = succeeded - previousStep
 
         if units < unitsNeededForNextLevel { //we haven't reached yet the level

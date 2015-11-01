@@ -27,7 +27,7 @@ class ImageManager {
 			// dictionary
 			for (id, size) in data {
 				let upload = Image()
-				upload.id = (id as! String).toInt()!
+				upload.id = Int((id as! String))!
 				upload.size = (size as! Int)
 				onlineUploads.append(upload)
 			}
@@ -46,30 +46,21 @@ class ImageManager {
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    println("error : no connexion in getUploads")
+                    print("error : no connexion in getUploads")
                     FactorySync.errorNetwork = true
                 } else {
-                    
-                    var err: NSError?
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSDictionary
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
                         
                         if let result = jsonResult {
-                            if err != nil {
-                                println("error : parsing JSON in getUploads")
-                                FactorySync.errorNetwork = true
-                            } else {
-                                callback(result as NSDictionary)
-                            }
+                            callback(result as NSDictionary)
                         } else {
-                            println("error : NSArray nil in getUploads")
+                            print("error : NSArray nil in getUploads")
                             FactorySync.errorNetwork = true
                         }
-                        
-                        
                     } else {
-                        println("header status = \(statusCode)  in getUploads")
+                        print("header status = \(statusCode)  in getUploads")
                         FactorySync.errorNetwork = true
                     }
                 }
@@ -77,10 +68,6 @@ class ImageManager {
             
         }
         task.resume()
-        
-        
-        
-        
     }
 	
 	private func compare(onlineUploads: [Image]){
@@ -121,7 +108,7 @@ class ImageManager {
         self.numberOfImagesToDownload = objectsToAdd.count
         if self.numberOfImagesToDownload == 0 {
             self.hasFinishedSync = true
-            println("Nothing new to download (images)")
+            print("Nothing new to download (images)")
         }
         self.fetchImages(objectsToAdd)
 
@@ -142,52 +129,57 @@ class ImageManager {
     
     private func saveFile(url: NSURL, imageName: String, objectToAdd: Image){
         
-        let realmImages = Realm(path: "\(FactorySync.path)/images.realm")
-        let timeout: NSTimeInterval = 30
-        let urlRequest = NSURLRequest(URL: url, cachePolicy:
-        NSURLRequestCachePolicy.UseProtocolCachePolicy,timeoutInterval: timeout)
-        NSURLConnection.sendAsynchronousRequest(urlRequest, queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
+        let request = NSMutableURLRequest(URL: url)
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
+            (data, response, error) in
             
-            if error != nil {
-                if FactorySync.errorNetwork == false {
-                    FactorySync.errorNetwork = true
-                    println(error)
+            dispatch_async(dispatch_get_main_queue()) {
+                if error != nil {
+                    if FactorySync.errorNetwork == false {
+                        FactorySync.errorNetwork = true
+                        print(error)
+                    }
+                    
+                } else {
+                    if !FactorySync.errorNetwork {
+                        //println("size downloaded = \(self.sizeDownloaded/1000)KB/\(self.sizeToDownload/1000)KB")
+                        
+                        let imagesPath = FactorySync.path + "/images"
+                        do {
+                            try NSFileManager.defaultManager().createDirectoryAtPath(imagesPath, withIntermediateDirectories: false, attributes: nil)
+                        } catch _ {
+                        }
+                        let imagePath = imagesPath + imageName
+                        if let _ = UIImage(data: data!) {
+                            
+                            NSFileManager.defaultManager().createFileAtPath(imagePath, contents: data, attributes: nil)
+                            self.numberOfImagesDownloaded++
+                            //println("image \(self.numberOfImagesDownloaded)/\(self.numberOfImagesToDownload) downloaded")
+                            //image saved in directory, we updrade Realm DB
+                            try! self.realm.write {
+                                self.realm.add(objectToAdd)
+                            }
+                        }
+                    } else {
+                        print("FactorySync stopped sync due to error in ImageManager")
+                    }
                 }
                 
-            } else {
-                if !FactorySync.errorNetwork {
+                if self.numberOfImagesDownloaded == self.numberOfImagesToDownload && self.numberOfImagesToDownload != 0 {
                     //println("size downloaded = \(self.sizeDownloaded/1000)KB/\(self.sizeToDownload/1000)KB")
-                    
-                    let imagesPath = FactorySync.path + "/images"
-                    NSFileManager.defaultManager().createDirectoryAtPath(imagesPath, withIntermediateDirectories: false, attributes: nil, error: nil)
-                    let imagePath = imagesPath + imageName
-                    if let fetchedImage = UIImage(data: data) {
-                        
-                        NSFileManager.defaultManager().createFileAtPath(imagePath, contents: data, attributes: nil)
-                        self.numberOfImagesDownloaded++
-                        //println("image \(self.numberOfImagesDownloaded)/\(self.numberOfImagesToDownload) downloaded")
-                        //image saved in directory, we updrade Realm DB
-                        self.realm.write {
-                            self.realm.add(objectToAdd)
-                        }
-                    }
-                } else {
-                    println("FactorySync stopped sync due to error in ImageManager")
+                    self.hasFinishedSync = true
+                    print("images downloaded")
                 }
             }
             
-            if self.numberOfImagesDownloaded == self.numberOfImagesToDownload && self.numberOfImagesToDownload != 0 {
-                //println("size downloaded = \(self.sizeDownloaded/1000)KB/\(self.sizeToDownload/1000)KB")
-                self.hasFinishedSync = true
-                println("images downloaded")
-            }
         }
+        task.resume()
     }
 
 	private func deleteImages(idsToRemove: [Int]){
         for idToRemove in idsToRemove {
-            var objectToRemove = realm.objects(Image).filter("id=\(idToRemove)")
-            self.realm.write {
+            let objectToRemove = realm.objects(Image).filter("id=\(idToRemove)")
+            try! self.realm.write {
                 self.realm.delete(objectToRemove)
             }
             self.removeFile("/\(idToRemove).png")
@@ -196,11 +188,14 @@ class ImageManager {
 	}
 	
 	private func removeFile(imageName: String){
-		let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+		let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] 
 		let imagesPath = path + "/images"
 		let imagePath = imagesPath + imageName
-		println(imagePath)
-		NSFileManager.defaultManager().removeItemAtPath(imagePath, error: nil)
+		print("image removed = \(imagePath)")
+		do {
+            try NSFileManager.defaultManager().removeItemAtPath(imagePath)
+        } catch _ {
+        }
 		
 	}
     

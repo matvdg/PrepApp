@@ -7,7 +7,7 @@ class MenuController: UITableViewController {
 	
     override func viewDidLoad() {
         self.revealViewController().rearViewRevealWidth = 220
-        var name = "\(User.currentUser!.firstName) \(User.currentUser!.lastName)"
+        let name = "\(User.currentUser!.firstName) \(User.currentUser!.lastName)"
         self.name.text = name
         
         

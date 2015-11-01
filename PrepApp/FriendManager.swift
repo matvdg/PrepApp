@@ -27,34 +27,27 @@ class FriendManager {
                 if error != nil {
                     callback(nil, "Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
                 } else {
-                    
-                    var err: NSError?
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSDictionary
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
                         
                         if let result = jsonResult {
-                            if err != nil {
-                                println("error : parsing JSON in getFriend")
-                                callback(nil, "Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
+                            var name = ""
+                            if FactorySync.getConfigManager().loadNicknamePreference() {
+                                name = result["nickname"] as! String
                             } else {
-                                var name = ""
-                                if FactorySync.getConfigManager().loadNicknamePreference() {
-                                    name = result["nickname"] as! String
-                                } else {
-                                    var first = result["firstName"] as! String
-                                    var last = result["lastName"] as! String
-                                    name = "\(first) \(last)"
-                                }
-                                println(result)
-                                callback(result as NSDictionary, "\(name) a été ajouté à votre liste d'amis !")
+                                let first = result["firstName"] as! String
+                                let last = result["lastName"] as! String
+                                name = "\(first) \(last)"
                             }
+                            print(result)
+                            callback(result as NSDictionary, "\(name) a été ajouté à votre liste d'amis !")
                         } else {
-                            println("error : NSArray nil in getFriend")
+                            print("error : NSArray nil in getFriend")
                             callback(nil, "Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
                         }
                     } else {
-                        println("header status = \(statusCode) in getFriend")
+                        print("header status = \(statusCode) in getFriend")
                         callback(nil, "Le code entré est invalide !")
                     }
                 }
@@ -75,28 +68,21 @@ class FriendManager {
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    println("error : no connexion in getFriend")
+                    print("error : no connexion in getFriend")
                     callback(nil,"Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez." )
                 } else {
-                    
-                    var err: NSError?
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSDictionary
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
                         
                         if let result = jsonResult {
-                            if err != nil {
-                                println("error : parsing JSON in getFriend")
-                                callback(nil, "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
-                            } else {
-                                callback(result as NSDictionary, nil)
-                            }
+                            callback(result as NSDictionary, nil)
                         } else {
-                            println("error : NSArray nil in getFriend")
+                            print("error : NSArray nil in getFriend")
                             callback(nil, "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
                         }
                     } else {
-                        println("header status = \(statusCode) in getFriend")
+                        print("header status = \(statusCode) in getFriend")
                         callback(nil, "Il n'y a plus de défi disponible, veuillez réessayer ultérieurement")
                     }
                 }
@@ -132,29 +118,21 @@ class FriendManager {
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    println(error)
+                    print(error)
                     callback(nil)
                 } else {
-                    
-                    var err: NSError?
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSArray
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSArray
                         
                         if let result = jsonResult {
-                            if err != nil {
-                                println("error : parsing JSON in getFriend")
-                                println(err)
-                                callback(nil)
-                            } else {
-                                callback(result)
-                            }
+                            callback(result)
                         } else {
-                            println("error : NSArray nil in getFriend")
+                            print("error : NSArray nil in getFriend")
                             callback(nil)
                         }
                     } else {
-                        println("header status = \(statusCode) in getFriend")
+                        print("header status = \(statusCode) in getFriend")
                         callback(nil)
                     }
                 }
@@ -170,7 +148,7 @@ class FriendManager {
         for friend in friendList {
             post.append(friend.id)
         }
-        let json = NSJSONSerialization.dataWithJSONObject(post, options: NSJSONWritingOptions(0), error: nil)
+        let json = try? NSJSONSerialization.dataWithJSONObject(post, options: NSJSONWritingOptions(rawValue: 0))
         let friendsList = NSString(data: json!, encoding: NSUTF8StringEncoding)
         self.updateFriends(friendsList!, callback: { (result) -> Void in
             callback(result)
@@ -187,16 +165,15 @@ class FriendManager {
             (data, response, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil {
-                    var err: NSError?
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
                         callback(true)
                     } else {
-                        println(statusCode)
+                        print(statusCode)
                         callback(false)
                     }
                 } else {
-                    println(error)
+                    print(error)
                     callback(false)
                 }
             }
@@ -209,13 +186,13 @@ class FriendManager {
     func saveFriend(code: String, callback: (Bool, String) -> Void) {
         self.findFriend(code, callback: { (data, message) -> Void in
             if let friend = data {
-                var newFriend = Friend()
+                let newFriend = Friend()
                 newFriend.id = friend["id"] as! Int
                 newFriend.firstName = friend["firstName"] as! String
                 newFriend.lastName = friend["lastName"] as! String
                 newFriend.nickname = friend["nickname"] as! String
                 newFriend.awardPoints = friend["awardPoints"] as! Int
-                self.realm.write({
+                try! self.realm.write({
                     self.realm.add(newFriend, update: true)
                 })
                 callback(true, message)
@@ -228,18 +205,18 @@ class FriendManager {
     func saveFriends(callback: (Bool) -> Void) {
         self.retrieveFriends({ (data) -> Void in
             if let friendList = data {
-                self.realm.write({ () -> Void in
+                try! self.realm.write({ () -> Void in
                     self.realm.deleteAll()
                 })
                 for data in friendList {
                     if let friend = data as? NSDictionary {
-                        var newFriend = Friend()
+                        let newFriend = Friend()
                         newFriend.id = friend["id"] as! Int
                         newFriend.firstName = friend["firstName"] as! String
                         newFriend.lastName = friend["lastName"] as! String
                         newFriend.nickname = friend["nickname"] as! String
                         newFriend.awardPoints = friend["awardPoints"] as! Int
-                        self.realm.write({
+                        try! self.realm.write({
                             self.realm.add(newFriend, update: true)
                         })
                         
@@ -256,15 +233,15 @@ class FriendManager {
     }
     
     func deleteFriend(friendToRemove: Friend) {
-        self.realm.write({
+        try! self.realm.write({
             self.realm.delete(friendToRemove)
-            println("friend removed")
+            print("friend removed")
         })
         self.syncFriendsList { (result) -> Void in
             if result {
-                println("friendsList synced")
+                print("friendsList synced")
             } else {
-                println("error syncing friendsList")
+                print("error syncing friendsList")
             }
         }
     }

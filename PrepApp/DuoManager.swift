@@ -30,27 +30,20 @@ class DuoManager {
                 if error != nil {
                     callback(nil, "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
                 } else {
-                    
-                    var err: NSError?
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &err) as? NSInteger
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as? NSInteger
                         
                         if let result = jsonResult {
-                            if err != nil {
-                                println(err)
-                                callback(nil, "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
-                            } else {
-                                callback(result as Int, nil)
-                            }
+                            callback(result as Int, nil)
                         } else {
-                            println("error casting json")
+                            print("error casting json")
                             callback(nil, "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
                         }
 
                         
                     } else {
-                        println("header status = \(statusCode) in requestDuo")
+                        print("header status = \(statusCode) in requestDuo")
                         callback(nil, "Il n'y a pas de défi disponible avec cet ami, veuillez réessayer ultérieurement ou essayer avec d'autres amis.")
                     }
                 }
@@ -70,29 +63,22 @@ class DuoManager {
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    println(error)
+                    print(error)
                     callback(nil)
                 } else {
                     
-                    var err: NSError?
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSArray
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSArray
                         
                         if let result = jsonResult {
-                            if err != nil {
-                                println("error : parsing JSON in getPendingDuos")
-                                println(err)
-                                callback(nil)
-                            } else {
-                                callback(result)
-                            }
+                            callback(result)
                         } else {
-                            println("error : NSArray nil in getPendingDuos")
+                            print("error : NSArray nil in getPendingDuos")
                             callback(nil)
                         }
                     } else {
-                        println("header status = \(statusCode) in getPendingDuos")
+                        print("header status = \(statusCode) in getPendingDuos")
                         callback(nil)
                     }
                 }
@@ -106,19 +92,19 @@ class DuoManager {
     func savePendingDuos(callback: (Bool) -> Void) {
         self.getPendingDuos({ (data) -> Void in
             if let pendingDuos = data {
-                self.realm.write({ () -> Void in
+                try! self.realm.write({ () -> Void in
                     self.realm.deleteAll()
                 })
                 for data in pendingDuos {
                     if let pendingDuoData = data as? NSDictionary {
-                        var pendingDuo = PendingDuo()
+                        let pendingDuo = PendingDuo()
                         pendingDuo.id = pendingDuoData["id"] as! Int
                         pendingDuo.senderId = pendingDuoData["senderId"] as! Int
                         pendingDuo.firstName = pendingDuoData["firstName"] as! String
                         pendingDuo.lastName = pendingDuoData["lastName"] as! String
                         pendingDuo.nickname = pendingDuoData["nickname"] as! String
                         pendingDuo.date = NSDate(timeIntervalSince1970: NSTimeInterval(pendingDuoData["date"] as! Int))
-                        self.realm.write({
+                        try! self.realm.write({
                             self.realm.add(pendingDuo, update: true)
                         })
                         

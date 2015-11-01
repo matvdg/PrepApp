@@ -43,7 +43,7 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
     }
     
     func logout() {
-        println("logging out")
+        print("logging out")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -62,7 +62,7 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
         self.presentViewController(myAlert, animated: true, completion: nil)
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }
 
@@ -83,11 +83,6 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
                 myAlert.view.tintColor = colorGreen
                 // add an "OK" button
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
-                    if result {
-                        self.dismissViewControllerAnimated(true, completion: nil)
-                    }
-                })
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
             }
@@ -105,7 +100,7 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
         return self.topics.count
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return self.topics[row]
     }
     

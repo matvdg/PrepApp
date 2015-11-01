@@ -40,7 +40,7 @@ UIAdaptivePresentationControllerDelegate  {
     var senseAnimationCorrection: Bool = true
     var waitBeforeNextQuestion: Bool = false
     var choiceFilter = 0 // 0=ALL 1=FAILED 2=SUCCEEDED 3=NEW 4=MARKED
-    let baseUrl = NSURL(fileURLWithPath: FactorySync.path, isDirectory: true)!
+    let baseUrl = NSURL(fileURLWithPath: FactorySync.path, isDirectory: true)
     
     //graphics properties
     var submitButton = UIButton()
@@ -60,11 +60,11 @@ UIAdaptivePresentationControllerDelegate  {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshQuestion", name: "portrait", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshQuestion", name: "landscape", object: nil)
         //handling swipe gestures
-        var swipeRight = UISwipeGestureRecognizer(target: self, action: "swiped:")
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipeRight.direction = UISwipeGestureRecognizerDirection.Right
         self.view.addGestureRecognizer(swipeRight)
         
-        var swipeLeft = UISwipeGestureRecognizer(target: self, action: "swiped:")
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
         self.view.addGestureRecognizer(swipeLeft)
 
@@ -103,7 +103,7 @@ UIAdaptivePresentationControllerDelegate  {
     }
     
     @IBAction func calcPopUp(sender: AnyObject) {
-        var message = self.questions[self.currentNumber].calculator ? "Calculatrice autorisée" : "Calculatrice interdite"
+        let message = self.questions[self.currentNumber].calculator ? "Calculatrice autorisée" : "Calculatrice interdite"
         self.questions[self.currentNumber].calculator ? Sound.playTrack("notif") : Sound.playTrack("nocalc")
         // create alert controller
         let myAlert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
@@ -126,7 +126,7 @@ UIAdaptivePresentationControllerDelegate  {
             let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
             myAlert.addAction(UIAlertAction(title: "Supprimer le marquage", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                var historyQuestion = QuestionHistory()
+                let historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
                 historyQuestion.marked = false
                 FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
@@ -152,12 +152,12 @@ UIAdaptivePresentationControllerDelegate  {
                 message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\" dans \"Profil\""
                 let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
-                var historyQuestion = QuestionHistory()
+                let historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
                 historyQuestion.marked = true
                 FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
                 myAlert.addAction(UIAlertAction(title: "Supprimer le marquage", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                    var historyQuestion = QuestionHistory()
+                    let historyQuestion = QuestionHistory()
                     historyQuestion.id = self.currentQuestion!.id
                     historyQuestion.marked = false
                     FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
@@ -194,7 +194,7 @@ UIAdaptivePresentationControllerDelegate  {
         let storyboard : UIStoryboard = UIStoryboard(
             name: "Main",
             bundle: nil)
-        var choiceQuestion: ChoiceQuestionViewController = storyboard.instantiateViewControllerWithIdentifier("ChoiceQuestionViewController") as! ChoiceQuestionViewController
+        let choiceQuestion: ChoiceQuestionViewController = storyboard.instantiateViewControllerWithIdentifier("ChoiceQuestionViewController") as! ChoiceQuestionViewController
         choiceQuestion.modalPresentationStyle = .Popover
         choiceQuestion.preferredContentSize = CGSizeMake(200, 150)
         choiceQuestion.delegate = self
@@ -203,7 +203,7 @@ UIAdaptivePresentationControllerDelegate  {
         let popoverChoiceQuestionViewController = choiceQuestion.popoverPresentationController
         popoverChoiceQuestionViewController?.permittedArrowDirections = UIPopoverArrowDirection.Up
         popoverChoiceQuestionViewController?.delegate = self
-        popoverChoiceQuestionViewController?.barButtonItem = sender as! UIBarButtonItem
+        popoverChoiceQuestionViewController?.barButtonItem = sender as? UIBarButtonItem
         presentViewController(
             choiceQuestion,
             animated: true,
@@ -318,7 +318,7 @@ UIAdaptivePresentationControllerDelegate  {
                 }
             }
         default:
-            println("default")
+            print("default")
         }
         if self.questions.count == 1 {
             self.nextButton.enabled = false
@@ -344,7 +344,7 @@ UIAdaptivePresentationControllerDelegate  {
             }
             numberAnswer++
         }
-        println("Question n°\(self.currentQuestion!.id), bonne(s) réponse(s) = \(self.goodAnswers.answersPrepApp())")
+        print("Question n°\(self.currentQuestion!.id), bonne(s) réponse(s) = \(self.goodAnswers.answersPrepApp())")
         self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "notif") : UIImage(named: "nocalc"))
         self.didLoadWording = false
         self.didLoadAnswers = false
@@ -358,7 +358,7 @@ UIAdaptivePresentationControllerDelegate  {
         self.wording =  UIWebView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 1))
         self.wording.delegate = self
         self.wording.loadHTMLString( self.currentQuestion!.wording, baseURL: self.baseUrl)
-        var y: CGFloat = UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation) ? 132 : 152
+        let y: CGFloat = UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation) ? 132 : 152
         let scrollFrame = CGRect(x: 0, y: y, width: self.view.bounds.width, height: self.view.bounds.height-y)
         self.scrollView = UIScrollView(frame: scrollFrame)
         self.scrollView.backgroundColor = colorGreyBackground
@@ -425,7 +425,7 @@ UIAdaptivePresentationControllerDelegate  {
     
     private func loadSubmit(){
         var tableHeight: CGFloat = 0
-        for (id,height) in self.sizeAnswerCells {
+        for (_,height) in self.sizeAnswerCells {
             tableHeight += height
         }
         //resizing the answers table (the cells have already been resized independently
@@ -447,7 +447,7 @@ UIAdaptivePresentationControllerDelegate  {
         self.submitButton.backgroundColor = colorGreen
         
         //resizing the scroll view in order to fit all the elements
-        var scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 100)
+        let scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 100)
         self.scrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
         self.scrollView.contentSize =  scrollSize
         //adding infos, button and action
@@ -474,7 +474,7 @@ UIAdaptivePresentationControllerDelegate  {
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
         } else {
-            var historyQuestion = QuestionHistory()
+            let historyQuestion = QuestionHistory()
             self.answers.userInteractionEnabled = false
             historyQuestion.id = self.currentQuestion!.id
             historyQuestion.training = true
@@ -596,7 +596,7 @@ UIAdaptivePresentationControllerDelegate  {
             self.awardPoint.alpha = 0
             self.awardPointImage.alpha = 0
         })
-        var animation = CABasicAnimation(keyPath: "transform.scale")
+        let animation = CABasicAnimation(keyPath: "transform.scale")
         animation.toValue = NSNumber(float: 10)
         animation.duration = 1
         animation.repeatCount = 0
@@ -639,7 +639,7 @@ UIAdaptivePresentationControllerDelegate  {
                 }
                 
             default:
-                println("other")
+                print("other")
                 break
             }
             
@@ -647,7 +647,7 @@ UIAdaptivePresentationControllerDelegate  {
     }
     
     func logout() {
-        println("logging out")
+        print("logging out")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -686,7 +686,7 @@ UIAdaptivePresentationControllerDelegate  {
     }
     
     //ChoiceQuestionViewControllerDelegate method
-    func applyChoice(var choice: Int){
+    func applyChoice(choice: Int){
         self.choiceFilter = choice
         self.refreshView()
         Sound.playTrack("next")
@@ -729,7 +729,7 @@ UIAdaptivePresentationControllerDelegate  {
             }
         }
         //retrieving checkmarks if already done
-        if find(self.selectedAnswers,answerNumber) != nil {
+        if self.selectedAnswers.indexOf(answerNumber) != nil {
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
         }
 
@@ -752,8 +752,7 @@ UIAdaptivePresentationControllerDelegate  {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         Sound.playTrack("select")
-        var selectedRow = indexPath.row
-        var cell: UITableViewCellAnswer = tableView.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
+        let cell: UITableViewCellAnswer = tableView.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
         if (cell.accessoryType != UITableViewCellAccessoryType.Checkmark) {
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
             self.selectedAnswers.append(indexPath.row)
@@ -761,7 +760,7 @@ UIAdaptivePresentationControllerDelegate  {
         else
         {
             cell.accessoryType = UITableViewCellAccessoryType.None
-            var index = find(self.selectedAnswers, indexPath.row)
+            let index = self.selectedAnswers.indexOf(indexPath.row)
             self.selectedAnswers.removeAtIndex(index!)
         }
         //println(self.selectedAnswers)
@@ -771,7 +770,7 @@ UIAdaptivePresentationControllerDelegate  {
     func webViewDidFinishLoad(webView: UIWebView) {
         if (self.sizeAnswerCells.count != self.numberOfAnswers) {
             //Asks the view to calculate and return the size that best fits its subviews.
-            var fittingSize = webView.sizeThatFits(CGSizeZero)
+            let fittingSize = webView.sizeThatFits(CGSizeZero)
             self.wording.opaque = false
             self.wording.scrollView.scrollEnabled = false
             webView.frame = CGRectMake(0, 0, self.view.bounds.width, fittingSize.height)

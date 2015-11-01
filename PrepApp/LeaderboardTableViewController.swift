@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LeaderboardTableViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate  {
+class LeaderboardTableViewController: UITableViewController  {
 
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
@@ -53,7 +53,7 @@ class LeaderboardTableViewController: UITableViewController, UITableViewDataSour
 
     }
     func logout() {
-        println("logging out")
+        print("logging out")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -82,7 +82,7 @@ class LeaderboardTableViewController: UITableViewController, UITableViewDataSour
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("friend", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("friend", forIndexPath: indexPath) 
         let friend = self.friends[indexPath.row]
         var textTodisplay = "#\(indexPath.row+1) "
         if FactorySync.getConfigManager().loadNicknamePreference() {

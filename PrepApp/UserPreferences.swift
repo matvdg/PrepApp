@@ -20,9 +20,9 @@ class UserPreferences {
         if !User.authenticated {
             if (User.instantiateUserStored()){
                 if (UserPreferences.touchId) {
-                    var authenticationObject = LAContext()
-                    var authenticationError: NSError?
-                    authenticationObject.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &authenticationError)
+                    let authenticationObject = LAContext()
+                    let authenticationError = NSErrorPointer()
+                    authenticationObject.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: authenticationError)
                     
                     if authenticationError != nil {
                         //TouchID not available in this device
@@ -33,11 +33,11 @@ class UserPreferences {
                     } else {
                         //TouchID available
                         authenticationObject.localizedFallbackTitle = ""
-                        authenticationObject.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Posez votre doigt pour vous authentifier avec Touch ID", reply: { (complete:Bool, error: NSError!) -> Void in
+                        authenticationObject.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Posez votre doigt pour vous authentifier avec Touch ID", reply: { (complete:Bool, error: NSError?) -> Void in
                             if error != nil {
                                 // There's an error. User likely pressed cancel.
-                                println(error.localizedDescription)
-                                println("authentication failed")
+                                print(error!.localizedDescription)
+                                print("authentication failed")
                                 NSNotificationCenter.defaultCenter().postNotificationName("failed", object: nil)
                                 NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
                                 NSUserDefaults.standardUserDefaults().synchronize()
@@ -45,12 +45,12 @@ class UserPreferences {
                                 
                                 if complete {
                                     // There's no error, the authentication completed successfully
-                                    println("authentication successful")
+                                    print("authentication successful")
                                     User.authenticated = true
                                     NSNotificationCenter.defaultCenter().postNotificationName("success", object: nil)
                                 } else {
                                     // There's an error, the authentication didn't complete successfully
-                                    println("authentication failed")
+                                    print("authentication failed")
                                     NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
                                     NSUserDefaults.standardUserDefaults().synchronize()
                                     NSNotificationCenter.defaultCenter().postNotificationName("failed", object: nil)
@@ -67,7 +67,7 @@ class UserPreferences {
     static func saveUserPreferences() {
         //we backup the userPreferences in a boolean array for persistence storage
         
-        var savedUserPreferences = [self.touchId, self.sounds, self.welcome]
+        let savedUserPreferences = [self.touchId, self.sounds, self.welcome]
         NSUserDefaults.standardUserDefaults().setObject(savedUserPreferences, forKey: "userPreferences")
         NSUserDefaults.standardUserDefaults().synchronize()
         //println("preferences saved")
@@ -76,9 +76,9 @@ class UserPreferences {
     static func loadUserPreferences() {
         var data : [Bool] = []
         //we instantiate the user retrieved in the local Persistence Storage
-        if var userPreferences : AnyObject = NSUserDefaults.standardUserDefaults().objectForKey("userPreferences") {
-            for (var i=0; i < userPreferences.count; i++) {
-                data.append(userPreferences[i] as! Bool)
+        if let userPreferences = NSUserDefaults.standardUserDefaults().objectForKey("userPreferences") as? [Bool] {
+            for element in userPreferences {
+                data.append(element)
             }
             self.touchId = data[0]
             self.sounds = data[1]

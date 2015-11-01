@@ -30,7 +30,7 @@ class CommentViewController: UIViewController {
         //sync
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
-        if let nav = self.navigationController {
+        if let _ = self.navigationController {
             self.dismissButton.hidden = true
             self.titleLabel.hidden = true
         }
@@ -43,7 +43,7 @@ class CommentViewController: UIViewController {
     }
     
     func logout() {
-        println("logging out")
+        print("logging out")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -62,7 +62,7 @@ class CommentViewController: UIViewController {
         self.presentViewController(myAlert, animated: true, completion: nil)
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }
     

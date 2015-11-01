@@ -17,7 +17,7 @@ class History {
     
     func addQuestionToHistory(question: QuestionHistory) {
         self.syncHistoryNeeded = true
-        var questionsHistory = self.realmHistory.objects(QuestionHistory)
+        let questionsHistory = self.realmHistory.objects(QuestionHistory)
         var updated = false
         
         for questionHistory in questionsHistory {
@@ -25,13 +25,13 @@ class History {
             if question.id == questionHistory.id {
                 if !questionHistory.training {
                     question.doubleAssiduity = true
-                    println("double assiduity")
+                    print("double assiduity")
                 }
-                self.realmHistory.write {
+                try! self.realmHistory.write {
                     questionHistory.success = question.success
                     questionHistory.training = question.training
                     questionHistory.doubleAssiduity = question.doubleAssiduity
-                    println("updated")
+                    print("updated")
                 }
                 updated = true
                 break
@@ -39,12 +39,12 @@ class History {
             
         }
         if updated == false { //firstTime in DB
-            self.realmHistory.write {
+            try! self.realmHistory.write {
                 question.firstSuccess = question.success
                 question.weeksBeforeExam = FactorySync.getConfigManager().loadWeeksBeforeExam()
                 self.realmHistory.add(question)
             }
-            println("added")
+            print("added")
         }
 
 
@@ -53,15 +53,12 @@ class History {
     func updateQuestionMark(question: QuestionHistory) {
         self.syncHistoryNeeded = true
         let questionsHistory = self.realmHistory.objects(QuestionHistory)
-        var updated = false
         for questionHistory in questionsHistory {
             
             if question.id == questionHistory.id {
-                self.realmHistory.write {
+                try! self.realmHistory.write {
                     questionHistory.marked = question.marked
                 }
-                //println("updated")
-                updated = true
                 break
             }
         }
@@ -156,7 +153,7 @@ class History {
         
         var post: [NSMutableDictionary] = []
         for question in questionsHistory {
-            var questionHistory = NSMutableDictionary()
+            let questionHistory = NSMutableDictionary()
             questionHistory["idQuestion"] = question.id
             questionHistory["training"] = question.training
             questionHistory["success"] = question.success
@@ -167,9 +164,9 @@ class History {
             
             post.append(questionHistory)
         }
-        let json = NSJSONSerialization.dataWithJSONObject(post, options: NSJSONWritingOptions(0), error: nil)
+        let json = try? NSJSONSerialization.dataWithJSONObject(post, options: NSJSONWritingOptions(rawValue: 0))
         let history = NSString(data: json!, encoding: NSUTF8StringEncoding)
-        println(history)
+        //print("History = \(history!)")
         self.updateHistory(history!, callback: { (result) -> Void in
             callback(result)
         })
@@ -184,8 +181,7 @@ class History {
             (data, response, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil {
-                    var err: NSError?
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
                         callback(true)
                     } else {
@@ -204,7 +200,7 @@ class History {
             if let history = data {
                 for questionHistory in history {
                     if let question = questionHistory as? NSDictionary {
-                        var historyQuestion = QuestionHistory()
+                        let historyQuestion = QuestionHistory()
                         historyQuestion.id = question["idQuestion"] as! Int
                         historyQuestion.training = question["training"] as! Bool
                         historyQuestion.success = question["success"] as! Bool
@@ -212,7 +208,7 @@ class History {
                         historyQuestion.marked =  question["marked"] as! Bool
                         historyQuestion.doubleAssiduity = question["doubleAssiduity"] as! Bool
                         historyQuestion.weeksBeforeExam = question["weeksBeforeExam"] as! Int
-                        self.realmHistory.write({
+                        try! self.realmHistory.write({
                             self.realmHistory.add(historyQuestion)
                         })
                     } else {
@@ -238,28 +234,28 @@ class History {
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    println("error : no connexion in getHistory")
+                    print("error : no connexion in getHistory")
                     callback(nil)
                 } else {
-                    
-                    var err: NSError?
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSArray
-                        
-                        if let result = jsonResult {
-                            if err != nil {
-                                println("error: parsing JSON in getHistory")
-                                callback(nil)
+                        do {
+                            //print(postString)
+                            let jsonResult = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
+                            if let array = jsonResult as? NSArray {
+                                //print(array)
+                                callback(array as NSArray)
                             } else {
-                                callback(result as NSArray)
+                                print("error : couldn't cast into NSArray in getHistory")
                             }
-                        } else {
-                            println("error : NSArray nil in getHistory")
-                            callback(nil)
+                        } catch let error as NSError {
+                            print(error.localizedDescription)
+                            print("error : couldn't serialize JSON in getHistory")
                         }
+                        
+                        
                     } else {
-                        println("header status = \(statusCode) in getHistory")
+                        print("header status = \(statusCode) in getHistory")
                         callback(nil)
                     }
                 }
@@ -273,7 +269,7 @@ class History {
         //syncing if necessary
         if FactoryHistory.getHistory().syncHistoryNeeded {
             FactoryHistory.getHistory().syncHistory { (result) -> Void in
-                println("history synced = \(result)")
+                print("history synced = \(result)")
                 if result {
                     User.currentUser!.updateLevel(User.currentUser!.level)
                     User.currentUser!.updateAwardPoints(User.currentUser!.awardPoints)
@@ -281,7 +277,7 @@ class History {
                 }
             }
         } else {
-            println("nothing new in History/Level/AP, no need to sync")
+            print("nothing new in History/Level/AP, no need to sync")
         }
     }
 

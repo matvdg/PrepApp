@@ -12,11 +12,11 @@ import RealmSwift
 
 class FactoryRealm {
     
-    static let realm = Realm()
-    static let realmHistory = Realm(path: "\(FactorySync.path)/history.realm")
-    static let realmImages = Realm(path: "\(FactorySync.path)/images.realm")
-    static let realmFriends = Realm(path: "\(FactorySync.path)/friends.realm")
-    static let realmDuo = Realm(path: "\(FactorySync.path)/duo.realm")
+    static let realm = try! Realm()
+    static let realmHistory = try! Realm(path: "\(FactorySync.path)/history.realm")
+    static let realmImages = try! Realm(path: "\(FactorySync.path)/images.realm")
+    static let realmFriends = try! Realm(path: "\(FactorySync.path)/friends.realm")
+    static let realmDuo = try! Realm(path: "\(FactorySync.path)/duo.realm")
     
     class func getRealm() -> Realm {
         return realm
@@ -39,18 +39,23 @@ class FactoryRealm {
     }
     
     class func clearUserDB() {
-        self.realmHistory.write {
-            self.realmHistory.deleteAll()
+        do {
+            try self.realmHistory.write {
+                self.realmHistory.deleteAll()
+            }
+            
+            try self.realmFriends.write {
+                self.realmFriends.deleteAll()
+            }
+            
+            try self.realmDuo.write {
+                self.realmDuo.deleteAll()
+            }
+ 
+        } catch {
+            print("error in Realm")
         }
-        
-        self.realmFriends.write {
-            self.realmFriends.deleteAll()
-        }
-        
-        self.realmDuo.write {
-            self.realmDuo.deleteAll()
-        }
-        println("userDB cleaned")
+                print("userDB cleaned")
     }
     
 }

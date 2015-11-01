@@ -79,7 +79,7 @@ class ProfileTableViewController: UITableViewController {
                 cell.switcher.addTarget(self, action: "soundSwitch", forControlEvents: UIControlEvents.TouchUpInside)
 
             default:
-                println("error")
+                print("error")
         }
         return cell
     }
@@ -100,7 +100,7 @@ class ProfileTableViewController: UITableViewController {
     
     //Methods
     func logout() {
-        println("logging out")
+        print("logging out")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -124,17 +124,17 @@ class ProfileTableViewController: UITableViewController {
         UserPreferences.loadUserPreferences()
         
         //Touch ID
-        var authenticationObject = LAContext()
-        var authenticationError: NSError?
-        authenticationObject.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &authenticationError)
+        let authenticationObject = LAContext()
+        let authenticationError = NSErrorPointer()
+        authenticationObject.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: authenticationError)
         if authenticationError != nil {
             //println("TouchID not available in this device")
-            self.settings.removeAtIndex(find(self.settings,"Touch ID")!)
+            self.settings.removeAtIndex(self.settings.indexOf("Touch ID")!)
         }
         
         //Nickname
         if !FactorySync.getConfigManager().loadNicknamePreference() {
-            self.settings.removeAtIndex(find(self.settings,"Modifier votre pseudo")!)
+            self.settings.removeAtIndex(self.settings.indexOf("Modifier votre pseudo")!)
         }
     }
     
@@ -160,7 +160,7 @@ class ProfileTableViewController: UITableViewController {
     
     func sendNickname(alert: UIAlertAction!) {
         if self.nickname.text != "" {
-            User.currentUser!.changeNickname(self.nickname.text, callback: { (message) -> Void in
+            User.currentUser!.changeNickname(self.nickname.text!, callback: { (message) -> Void in
                 // create alert controller
                 let myAlert = UIAlertController(title: message!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
@@ -215,9 +215,9 @@ class ProfileTableViewController: UITableViewController {
     }
     
     private func sendPassword(alert: UIAlertAction!) {
-        if (self.password.text.hasGoodLength() && self.password.text.hasTwoNumber() && self.password.text.hasUppercase()){
+        if (self.password.text!.hasGoodLength() && self.password.text!.hasTwoNumber() && self.password.text!.hasUppercase()){
             if self.password.text == self.confirmationPassword.text {
-                User.currentUser?.changePassword(self.password.text.sha1(), callback: { (message) -> Void in
+                User.currentUser?.changePassword(self.password.text!.sha1(), callback: { (message) -> Void in
                     // create alert controller
                     let myAlert = UIAlertController(title: message!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
                     myAlert.view.tintColor = colorGreen
@@ -249,7 +249,7 @@ class ProfileTableViewController: UITableViewController {
     
     //Touch ID Methods
     func touchIDSwitch() {
-        let cell = self.tableView!.cellForRowAtIndexPath(NSIndexPath(forRow: find(self.settings,"Touch ID")!, inSection: 0)) as! UITableViewCellSetting
+        let cell = self.tableView!.cellForRowAtIndexPath(NSIndexPath(forRow: self.settings.indexOf("Touch ID")!, inSection: 0)) as! UITableViewCellSetting
         if cell.switcher!.on {
             UserPreferences.touchId = true
             UserPreferences.saveUserPreferences()
@@ -277,7 +277,7 @@ class ProfileTableViewController: UITableViewController {
     
     //Sounds Methods
     func soundSwitch() {
-        let cell = self.tableView!.cellForRowAtIndexPath(NSIndexPath(forRow: find(self.settings,"Bruitages")!, inSection: 0)) as! UITableViewCellSetting
+        let cell = self.tableView!.cellForRowAtIndexPath(NSIndexPath(forRow: self.settings.indexOf("Bruitages")!, inSection: 0)) as! UITableViewCellSetting
         if cell.switcher!.on {
             UserPreferences.sounds = true
             UserPreferences.saveUserPreferences()

@@ -13,8 +13,8 @@ class FactorySync {
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*DEV (LOCAL) OR PROD (ONLINE) */
-    static var production: Bool = true //no sync to server
-    static var debugMode: Bool = false //autoConnect
+    static var production: Bool = false //no sync to server
+    static var debugMode: Bool = true //autoConnect
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     static var errorNetwork: Bool = false
     static var offlineMode: Bool = false
@@ -77,7 +77,7 @@ class FactorySync {
     static let updateHistoryUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/history/")
     static let retrieveHistoryUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/retrieve/history/")
     
-    static let path: String = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+    static let path: String = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] 
     
     
     class func getImageManager() -> ImageManager {
@@ -102,9 +102,9 @@ class FactorySync {
     
     //Called in SyncViewController.swift
     class func sync() {
-        println("syncing")
-        FactorySync.getImageManager().hasFinishedSync == false
-        FactorySync.getQuestionManager().hasFinishedSync == false
+        print("syncing")
+        //FactorySync.getImageManager().hasFinishedSync == false
+        //FactorySync.getQuestionManager().hasFinishedSync == false
         FactorySync.getSubjectManager().saveSubjects()
         // we fetch subjects then chapters then questions then images in order to avoid Realm bad mapping (ORM)
     }

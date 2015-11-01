@@ -67,7 +67,7 @@ class TrainingViewController: UIViewController {
     }
     
     func logout() {
-        println("logging out")
+        print("logging out")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -97,7 +97,7 @@ class TrainingViewController: UIViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
-        var chaptersVC = segue.destinationViewController as! ChaptersTableViewController
+        let chaptersVC = segue.destinationViewController as! ChaptersTableViewController
         // Pass the selected object to the new view controller.
         chaptersVC.subject = self.subject
     }

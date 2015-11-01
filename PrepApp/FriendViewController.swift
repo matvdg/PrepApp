@@ -106,7 +106,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
     func logout() {
-        println("logging out")
+        print("logging out")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -133,9 +133,9 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         FactoryDuo.getDuoManager().savePendingDuos({ (result) -> Void in
             if result {
                 self.pendingDuos = FactoryDuo.getDuoManager().getPendingDuos()
-                println("pendingDuos synced")
+                print("pendingDuos synced")
             } else {
-                println("offline pendingDuos")
+                print("offline pendingDuos")
             }
             self.pendingDuos = FactoryDuo.getDuoManager().getPendingDuos()
             self.templating()
@@ -146,9 +146,9 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         //loading friends
         FactoryDuo.getFriendManager().saveFriends { (result) -> Void in
             if result {
-                println("friendsList synced")
+                print("friendsList synced")
             } else {
-                println("offline friendsList")
+                print("offline friendsList")
                 
             }
             self.friends = FactoryDuo.getFriendManager().getFriends()
@@ -160,7 +160,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     
     func templating(){
         if self.friends.isEmpty {
-            var templateFriend = Friend()
+            let templateFriend = Friend()
             templateFriend.id = -1
             templateFriend.firstName = "Pas d'amis pour le moment"
             templateFriend.nickname = "Pas d'amis pour le moment"
@@ -168,7 +168,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
             
         }
         if self.pendingDuos.isEmpty {
-            var templateDuo = PendingDuo()
+            let templateDuo = PendingDuo()
             templateDuo.id = -1
             templateDuo.firstName = "Pas de défi en attente pour le moment"
             templateDuo.nickname = "Pas de défi en attente pour le moment"
@@ -184,7 +184,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func codeEntered(alert: UIAlertAction!){
-        self.add(self.textField.text)
+        self.add(self.textField.text!)
     }
     
     private func add(code: String) {
@@ -194,7 +194,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                     self.friends.removeAtIndex(0)
                     self.friendsTable.deleteRowsAtIndexPaths([NSIndexPath(forItem: 0, inSection: 1)], withRowAnimation: UITableViewRowAnimation.Fade)
                 }
-                var counter = self.friends.count
+                let counter = self.friends.count
                 self.friends = FactoryDuo.getFriendManager().getFriends()
                 //println(self.friends)
                 if counter == self.friends.count {
@@ -242,7 +242,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     private func challenge(friend: Int) {
-        println("requesting duo")
+        print("requesting duo")
         FactoryDuo.getDuoManager().requestDuo(friend, callback: { (result, error) -> Void in
             if error != nil {
                 let myAlert = UIAlertController(title: "Oups !", message: error, preferredStyle: UIAlertControllerStyle.Alert)
@@ -253,7 +253,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 self.presentViewController(myAlert, animated: true, completion: nil)
                 
             } else {
-                println("Launching challenge number \(result!)")
+                print("Launching challenge number \(result!)")
                 //self.performSegueWithIdentifier("showDuo", sender: self)
             }
         })
@@ -276,7 +276,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("pendingChallenge", forIndexPath: indexPath) as! UITableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("pendingChallenge", forIndexPath: indexPath) 
             let pendingDuo = self.pendingDuos[indexPath.row]
             
             var text = ""
@@ -294,9 +294,9 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
             cell.backgroundColor = colorGreyBackground
             cell.textLabel!.adjustsFontSizeToFitWidth = false
             cell.textLabel!.adjustsFontSizeToFitWidth = true
-            var formatter = NSDateFormatter()
+            let formatter = NSDateFormatter()
             formatter.dateFormat = "dd/MM/yyyy"
-            var dateInString = formatter.stringFromDate(pendingDuo.date)
+            let dateInString = formatter.stringFromDate(pendingDuo.date)
             if pendingDuo.id == -1 {
                 cell.accessoryType = UITableViewCellAccessoryType.None
                 cell.detailTextLabel!.text = ""
@@ -309,7 +309,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
             return cell
 
         } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("friend", forIndexPath: indexPath) as! UITableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("friend", forIndexPath: indexPath) 
             let friend = self.friends[indexPath.row]
             if friend.id == -1 {
                 cell.accessoryType = UITableViewCellAccessoryType.None
@@ -339,11 +339,8 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         if editingStyle == .Delete {
             // Delete the row from the data source
             Sound.playTrack("notif")
-            if indexPath.section == 0 {
-                var duoToRemove = self.pendingDuos[indexPath.row]
-                self.pendingDuos.removeAtIndex(indexPath.row)
-            } else {
-                var friendToRemove = self.friends[indexPath.row]
+            if indexPath.section == 1 {
+                let friendToRemove = self.friends[indexPath.row]
                 self.friends.removeAtIndex(indexPath.row)
                 FactoryDuo.getFriendManager().deleteFriend(friendToRemove)
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
@@ -363,7 +360,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         if indexPath.section == 0 {
             return UITableViewCellEditingStyle.None
         } else {
-            var friend = self.friends[indexPath.row]
+            let friend = self.friends[indexPath.row]
             if friend.id == -1 {
                 return UITableViewCellEditingStyle.None
             } else {
@@ -408,10 +405,10 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var headerView = UIView(frame: CGRectMake(0, 0, tableView.bounds.size.width, 30))
+        let headerView = UIView(frame: CGRectMake(0, 0, tableView.bounds.size.width, 30))
         headerView.backgroundColor = colorGreen
         
-        var headerLabel = UILabel(frame: CGRectMake(15, 0, tableView.bounds.size.width, 20))
+        let headerLabel = UILabel(frame: CGRectMake(15, 0, tableView.bounds.size.width, 20))
         headerLabel.backgroundColor = UIColor.clearColor()
         headerLabel.shadowOffset = CGSizeMake(0,2)
         headerLabel.textColor = UIColor.whiteColor()

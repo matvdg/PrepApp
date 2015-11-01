@@ -23,7 +23,7 @@ class ChapterManager {
             // dictionary
             for (id, version) in data {
                 let chapter = Chapter()
-                chapter.id = (id as! String).toInt()!
+                chapter.id = Int((id as! String))!
                 chapter.version = (version as! Int)
                 onlineChapters.append(chapter)
             }
@@ -42,30 +42,23 @@ class ChapterManager {
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    println("error : no connexion in getChapters")
+                    print("error : no connexion in getChapters")
                     FactorySync.errorNetwork = true
                 } else {
-                    
-                    var err: NSError?
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSDictionary
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
                         
                         if let result = jsonResult {
-                            if err != nil {
-                                println("error : parsing JSON in getChapters")
-                                FactorySync.errorNetwork = true
-                            } else {
-                                callback(result as NSDictionary)
-                            }
+                            callback(result as NSDictionary)
                         } else {
-                            println("error : NSArray nil in getChapters")
+                            print("error : NSArray nil in getChapters")
                             FactorySync.errorNetwork = true
                         }
                         
                         
                     } else {
-                        println("header status = \(statusCode) in getChapters")
+                        print("header status = \(statusCode) in getChapters")
                         FactorySync.errorNetwork = true
                     }
                 }
@@ -130,7 +123,7 @@ class ChapterManager {
         self.saveChapters(idsToAdd)
         self.counter += idsToAdd.count
         if self.counter == 0 {
-            println("chapters: nothing new to sync")
+            print("chapters: nothing new to sync")
             FactorySync.getQuestionManager().saveQuestions()
         }
     }
@@ -138,8 +131,8 @@ class ChapterManager {
     private func deleteChapters(idsToRemove: [Int]){
         for idToRemove in idsToRemove {
             if FactorySync.errorNetwork == false {
-                var objectToRemove = realm.objects(Chapter).filter("id=\(idToRemove)")
-                self.realm.write {
+                let objectToRemove = realm.objects(Chapter).filter("id=\(idToRemove)")
+                try! self.realm.write {
                     self.realm.delete(objectToRemove)
                 }
             }
@@ -153,7 +146,7 @@ class ChapterManager {
                     let chapters = self.realm.objects(Chapter)
                     for chapter in chapters {
                         if chapter.id == idToUpdate {
-                            self.realm.write {
+                            try! self.realm.write {
                                 chapter.name = chapterData["name"] as! String
                                 let id = chapterData["idSubject"] as! Int
                                 chapter.number = chapterData["number"] as! Int
@@ -172,7 +165,7 @@ class ChapterManager {
         for idToAdd in idsToAdd {
             if FactorySync.errorNetwork == false {
                 self.getChapter(idToAdd, callback: { (chapterData) -> Void in
-                    var newChapter = Chapter()
+                    let newChapter = Chapter()
                     newChapter.id =  chapterData["id"] as! Int
                     newChapter.name = chapterData["name"] as! String
                     newChapter.number = chapterData["number"] as! Int
@@ -180,7 +173,7 @@ class ChapterManager {
                     let id = chapterData["idSubject"] as! Int
                     let subject = self.realm.objects(Subject).filter("id=\(id)")[0]
                     newChapter.subject = subject
-                    self.realm.write {
+                    try! self.realm.write {
                         self.realm.add(newChapter)
                     }
                 })
@@ -199,33 +192,26 @@ class ChapterManager {
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    println("error : no connexion in getChapter")
+                    print("error : no connexion in getChapter")
                     FactorySync.errorNetwork = true
                 } else {
-                    
-                    var err: NSError?
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSDictionary
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
                         
                         if let result = jsonResult {
-                            if err != nil {
-                                println("error: parsing JSON in getChapter")
-                                FactorySync.errorNetwork = true
-                            } else {
-                                callback(result as NSDictionary)
-                                self.counter--
-                                if self.counter == 0 {
-                                    println("chapters downloaded")
-                                    FactorySync.getQuestionManager().saveQuestions()
-                                }
+                            callback(result as NSDictionary)
+                            self.counter--
+                            if self.counter == 0 {
+                                print("chapters downloaded")
+                                FactorySync.getQuestionManager().saveQuestions()
                             }
                         } else {
-                            println("error : NSArray nil in getChapter")
+                            print("error : NSArray nil in getChapter")
                             FactorySync.errorNetwork = true
                         }
                     } else {
-                        println("header status = \(statusCode) in getChapter")
+                        print("header status = \(statusCode) in getChapter")
                         FactorySync.errorNetwork = true
                     }
                 }

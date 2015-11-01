@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import RealmSwift   
+import RealmSwift
 
 class QuestionManager {
     
@@ -25,7 +25,7 @@ class QuestionManager {
             // dictionary
             for (id, version) in data {
                 let question = Question()
-                question.id = (id as! String).toInt()!
+                question.id = Int(id as! String)!
                 question.version = (version as! Int)
                 onlineQuestions.append(question)
             }
@@ -45,30 +45,23 @@ class QuestionManager {
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    println("error : no connexion in getQuestions")
+                    print("error : no connexion in getQuestions")
                     FactorySync.errorNetwork = true
                 } else {
-                    
-                    var err: NSError?
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSDictionary
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
                         
                         if let result = jsonResult {
-                            if err != nil {
-                                println("error : parsing JSON in getQuestions")
-                                FactorySync.errorNetwork = true
-                            } else {
-                                callback(result as NSDictionary)
-                            }
+                            callback(result as NSDictionary)
                         } else {
-                            println("error : NSArray nil in getQuestions")
+                            print("error : NSArray nil in getQuestions")
                             FactorySync.errorNetwork = true
                         }
                         
                         
                     } else {
-                        println("header status = \(statusCode) in getQuestions")
+                        print("header status = \(statusCode) in getQuestions")
                         FactorySync.errorNetwork = true
                     }
                 }
@@ -116,15 +109,15 @@ class QuestionManager {
         if self.questionsToSave == 0 {
             self.hasFinishedSync = true
             FactorySync.getImageManager().sync()
-            println("questions: nothing new to sync")
+            print("questions: nothing new to sync")
         }
         self.saveQuestions(idsToAdd)
     }
     
     private func deleteQuestions(idsToRemove: [Int]){
         for idToRemove in idsToRemove {
-            var objectToRemove = realm.objects(Question).filter("id=\(idToRemove)")
-            self.realm.write {
+            let objectToRemove = realm.objects(Question).filter("id=\(idToRemove)")
+            try! self.realm.write {
                 self.realm.delete(objectToRemove)
             }
         }
@@ -151,28 +144,21 @@ class QuestionManager {
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    println("error : no connexion in getQuestion")
+                    print("error : no connexion in getQuestion")
                     FactorySync.errorNetwork = true
                 } else {
-                    
-                    var err: NSError?
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSDictionary
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
                         
                         if let result = jsonResult {
-                            if err != nil {
-                                println("error : parsing JSON in getQuestion")
-                                FactorySync.errorNetwork = true
-                            } else {
-                                callback(result as NSDictionary)
-                            }
+                            callback(result as NSDictionary)
                         } else {
-                            println("error : NSArray nil in getQuestion")
+                            print("error : NSArray nil in getQuestion")
                             FactorySync.errorNetwork = true
                         }
                     } else {
-                        println("header status = \(statusCode) in getQuestion")
+                        print("header status = \(statusCode) in getQuestion")
                         FactorySync.errorNetwork = true
                     }
                 }
@@ -183,30 +169,45 @@ class QuestionManager {
     }
     
     private func saveQuestion(data: NSDictionary) {
-        let realm = Realm()
-        var newQuestion: Question = Question()
-        newQuestion.id =  data["id"] as! Int
-        let id = data["idChapter"] as! Int
-        let chapter = self.realm.objects(Chapter).filter("id=\(id)")[0]
-        var images = self.extractImagesPaths(data["images"] as! NSDictionary)
-        newQuestion.chapter = chapter
-        newQuestion.wording = self.parseNplaceImage(data["wording"] as! String, images: images)
-        newQuestion.answers = self.extractAnswers(data["answers"] as! NSDictionary, images: images)
-        newQuestion.calculator = data["calculator"] as! Bool
-        newQuestion.info = self.formatInfo(data["info"] as! String)
-        newQuestion.type = data["type"] as! Int
-        newQuestion.idDuo = data["idGroupDuo"] as! Int
-        newQuestion.idConcours = data["idConcours"] as! Int
-        newQuestion.correction = self.parseNplaceImage(data["correction"] as! String, images: images)
-        newQuestion.version = data["version"] as! Int
+        let realm = try! Realm()
+        let id =  data["id"] as! Int
+        let chapter = self.realm.objects(Chapter).filter("id=\(data["idChapter"] as! Int)")[0]
+        let images = self.extractImagesPaths(data["images"] as! NSDictionary)
+        let wording = self.parseNplaceImage(data["wording"] as! String, images: images)
+        let answersList = self.extractAnswers(data["answers"] as! NSDictionary, images: images)
+        var answers = [Answer]()
+        for answer in answersList {
+            answers.append(answer)
+        }
+        let calculator = data["calculator"] as! Bool
+        let info = self.formatInfo(data["info"] as! String)
+        let type = data["type"] as! Int
+        let idDuo = data["idGroupDuo"] as! Int
+        let idConcours = data["idConcours"] as! Int
+        let correction = self.parseNplaceImage(data["correction"] as! String, images: images)
+        let version = data["version"] as! Int
         
-        realm.write {
+        let newQuestion: Question = Question(value: [
+            "id" : id,
+            "chapter" : chapter,
+            "wording" : wording,
+            "answers" : answers,
+            "calculator" : calculator,
+            "info" : info,
+            "type" : type,
+            "idDuo" : idDuo,
+            "idConcours" : idConcours,
+            "correction" : correction,
+            "version" : version
+            ])
+        
+        try! realm.write {
             realm.add(newQuestion)
         }
         self.questionsSaved++
         if self.questionsSaved == self.questionsToSave && self.questionsToSave != 0 {
             self.hasFinishedSync = true
-            println("questions loaded into Realm DB")
+            print("questions loaded into Realm DB")
             FactorySync.getImageManager().sync()
         }
     }
@@ -214,7 +215,7 @@ class QuestionManager {
     private func extractImagesPaths(data: NSDictionary) -> String {
         var images = ""
         var empty = true
-        for (key,value) in data {
+        for (_,value) in data {
             empty = false
             images += (value as! String)
             images += ","
@@ -234,19 +235,19 @@ class QuestionManager {
             counter = imagesArray.count
             
             for index in 1...counter {
-                input = input.stringByReplacingOccurrencesOfString("{\(index)}", withString: "<img width=\"300\" src=\"images/\(imagesArray[index-1])\"/>", options: nil, range: nil)
-                input = input.stringByReplacingOccurrencesOfString("#f9f9f9", withString: "transparent", options: nil, range: nil)
+                input = input.stringByReplacingOccurrencesOfString("{\(index)}", withString: "<img width=\"300\" src=\"images/\(imagesArray[index-1])\"/>", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                input = input.stringByReplacingOccurrencesOfString("#f9f9f9", withString: "transparent", options: NSStringCompareOptions.LiteralSearch, range: nil)
             }
         }
         return input
     }
     
     private func extractAnswers(data: NSDictionary, images: String) -> List<Answer> {
-        var answers = List<Answer>()
-        var sortedAnswers = List<Answer>()
-        for (key,value) in data {
-            var answerToExtract = value as! NSDictionary
-            var answer = Answer()
+        let answers = List<Answer>()
+        let sortedAnswers = List<Answer>()
+        for (_,value) in data {
+            let answerToExtract = value as! NSDictionary
+            let answer = Answer()
             answer.id = (answerToExtract["id"] as! Int)
             answer.content = parseNplaceImage((answerToExtract["content"] as! String), images: images)
             answer.correct = (answerToExtract["correct"] as! Bool)
@@ -271,7 +272,7 @@ class QuestionManager {
     
     private func formatInfo(var input: String) -> String {
         //println("formatting infos")
-        input = input.stringByReplacingOccurrencesOfString("<p>", withString: "<p style=\"font-style: italic; font-size: 12px; text-align: center;\">", options: nil, range: nil)
+        input = input.stringByReplacingOccurrencesOfString("<p>", withString: "<p style=\"font-style: italic; font-size: 12px; text-align: center;\">", options: NSStringCompareOptions.LiteralSearch, range: nil)
         return input
     }
     

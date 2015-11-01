@@ -69,13 +69,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let versionDB: Int = version { //checking if sync is needed
                 FactorySync.getConfigManager().saveConfig({ (result) -> Void in
                     if result {
-                        println("config saved")
+                        print("config saved")
                         FactoryHistory.getHistory().sync()
                     } else {
-                        println("error loading config, working with local config")
+                        print("error loading config, working with local config")
                     }
                 })
-                println("localVersion = \(FactorySync.getConfigManager().loadVersion()) dbVersion = \(versionDB)")
+                print("AppDelegate localVersion = \(FactorySync.getConfigManager().loadVersion()) dbVersion = \(versionDB)")
                 if FactorySync.getConfigManager().loadVersion() != versionDB { //prompting a sync
                     NSNotificationCenter.defaultCenter().postNotificationName("update", object: nil)
                 }

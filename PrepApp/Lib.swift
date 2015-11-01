@@ -9,15 +9,30 @@
 import UIKit
 import QuartzCore
 
+extension CollectionType {
+    /// Return a copy of `self` with its elements shuffled
+    func shuffle() -> [Generator.Element] {
+        var list = Array(self)
+        list.shuffleInPlace()
+        return list
+    }
+}
 
-extension Array {
-    mutating func shuffle() {
+extension MutableCollectionType where Index == Int {
+    /// Shuffle the elements of `self` in-place.
+    mutating func shuffleInPlace() {
+        // empty and single-element collections don't shuffle
         if count < 2 { return }
-        for i in 0..<(count - 1) {
+        
+        for i in 0..<count - 1 {
             let j = Int(arc4random_uniform(UInt32(count - i))) + i
+            guard i != j else { continue }
             swap(&self[i], &self[j])
         }
     }
+}
+
+extension Array {
     
     func answersPrepApp() -> String {
         var string = ""
@@ -170,8 +185,8 @@ extension String {
 		let data = self.dataUsingEncoding(NSUTF8StringEncoding)!
 		var digest = [UInt8](count:Int(CC_SHA1_DIGEST_LENGTH), repeatedValue: 0)
 		CC_SHA1(data.bytes, CC_LONG(data.length), &digest)
-		let hexBytes = map(digest) { String(format: "%02hhx", $0) }
-		return "".join(hexBytes)
+		let hexBytes = digest.map { String(format: "%02hhx", $0) }
+		return hexBytes.joinWithSeparator("")
 	}
 	
 	func toBool() -> Bool? {
@@ -187,8 +202,8 @@ extension String {
 	
 	func hasUppercase() -> Bool {
 		var result = false
-		for chr in self {
-			var str = String(chr)
+		for chr in self.characters {
+			let str = String(chr)
 			if str.lowercaseString != str {
 				result = true
 			}
@@ -198,9 +213,9 @@ extension String {
 	
 	func hasTwoNumber() -> Bool {
 		var result: Int = 0
-		for chr in self {
-			var str = String(chr)
-			if let figure: Int = str.toInt() {
+		for chr in self.characters {
+			let str = String(chr)
+			if let _: Int = Int(str) {
 				result++
 			}
 		}
@@ -212,7 +227,7 @@ extension String {
 	}
 	
 	func hasGoodLength()-> Bool {
-		if count(self) >= 8 {
+		if self.characters.count >= 8 {
 			return true
 		} else {
 			return false
@@ -220,7 +235,7 @@ extension String {
 	}
     
     var html2String:String {
-            return NSAttributedString(data: dataUsingEncoding(NSUTF8StringEncoding)!, options: [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType,NSCharacterEncodingDocumentAttribute:NSUTF8StringEncoding], documentAttributes: nil, error: nil)!.string
+            return (try! NSAttributedString(data: dataUsingEncoding(NSUTF8StringEncoding)!, options: [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType,NSCharacterEncodingDocumentAttribute:NSUTF8StringEncoding], documentAttributes: nil)).string
     }   
     
 }

@@ -22,7 +22,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
     var didLoadInfos = false
     var sizeAnswerCells: [Int:CGFloat] = [:]
     var numberOfAnswers = 0
-    let baseUrl = NSURL(fileURLWithPath: FactorySync.path, isDirectory: true)!
+    let baseUrl = NSURL(fileURLWithPath: FactorySync.path, isDirectory: true)
     
     //graphics properties
     var submitButton = UIButton()
@@ -96,7 +96,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
             }
             numberAnswer++
         }
-        println("Question n°\(self.currentQuestion!.id), bonne(s) réponse(s) = \(self.goodAnswers.answersPrepApp())")
+        print("Question n°\(self.currentQuestion!.id), bonne(s) réponse(s) = \(self.goodAnswers.answersPrepApp())")
         self.didLoadWording = false
         self.didLoadAnswers = false
         self.didLoadInfos = false
@@ -108,7 +108,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
         self.wording =  UIWebView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 1))
         self.wording.delegate = self
         self.wording.loadHTMLString( self.currentQuestion!.wording, baseURL: self.baseUrl)
-        var y: CGFloat = UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation) ? 86 : 108
+        let y: CGFloat = UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation) ? 86 : 108
         let scrollFrame = CGRect(x: 0, y: y, width: self.view.bounds.width, height: self.view.bounds.height-y)
         self.scrollView = UIScrollView(frame: scrollFrame)
         self.scrollView.backgroundColor = colorGreyBackground
@@ -173,7 +173,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
     
     private func loadCorrection(){
         var tableHeight: CGFloat = 0
-        for (id,height) in self.sizeAnswerCells {
+        for (_,height) in self.sizeAnswerCells {
             tableHeight += height
         }
         //resizing the answers table (the cells have already been resized independently
@@ -187,7 +187,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
         self.infos.loadHTMLString(self.currentQuestion!.info, baseURL: self.baseUrl)
         
         //resizing the scroll view in order to fit all the elements
-        var scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 100)
+        let scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 100)
         self.scrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
         self.scrollView.contentSize =  scrollSize
         
@@ -225,7 +225,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
     }
     
     func logout() {
-        println("logging out")
+        print("logging out")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -302,7 +302,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
     func webViewDidFinishLoad(webView: UIWebView) {
         if (self.sizeAnswerCells.count != self.numberOfAnswers) {
             //Asks the view to calculate and return the size that best fits its subviews.
-            var fittingSize = webView.sizeThatFits(CGSizeZero)
+            let fittingSize = webView.sizeThatFits(CGSizeZero)
             self.wording.opaque = false
             self.wording.scrollView.scrollEnabled = false
             webView.frame = CGRectMake(0, 0, self.view.bounds.width, fittingSize.height)

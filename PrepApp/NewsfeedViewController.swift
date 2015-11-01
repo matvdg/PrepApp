@@ -17,7 +17,7 @@ class NewsfeedViewController: UIViewController {
         self.view!.backgroundColor = colorGreyBackground
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.navigationController!.navigationBar.tintColor = colorGreen
-        var swipeRight = UISwipeGestureRecognizer(target: self, action: "swiped:")
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipeRight.direction = UISwipeGestureRecognizerDirection.Right
         self.view.addGestureRecognizer(swipeRight)
     }
@@ -33,7 +33,7 @@ class NewsfeedViewController: UIViewController {
                 self.navigationController?.popToRootViewControllerAnimated(true)
                 
             default:
-                println("other")
+                print("other")
                 break
                 
             }

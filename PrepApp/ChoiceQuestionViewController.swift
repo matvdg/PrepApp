@@ -71,7 +71,7 @@ class ChoiceQuestionViewController: UIViewController {
     
     //methods
     func logout() {
-        println("logging out")
+        print("logging out")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

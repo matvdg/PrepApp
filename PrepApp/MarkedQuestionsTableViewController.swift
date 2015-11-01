@@ -45,9 +45,9 @@ class MarkedQuestionsTableViewController: UITableViewController {
     }
     
     private func displayTemplate() {
-        var templateQuestion = Question()
-        var templateChapter = Chapter()
-        var templateSubject = Subject()
+        let templateQuestion = Question()
+        let templateChapter = Chapter()
+        let templateSubject = Subject()
         templateSubject.id = -1
         templateChapter.subject = templateSubject
         templateChapter.name = "Aucune question marquée"
@@ -59,7 +59,7 @@ class MarkedQuestionsTableViewController: UITableViewController {
     }
     
     func logout() {
-        println("logging out")
+        print("logging out")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -118,11 +118,11 @@ class MarkedQuestionsTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("question", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("question", forIndexPath: indexPath) 
         let question = self.questions[indexPath.row]
         let isTrainingQuestion = self.isTrainingQuestions[indexPath.row]
         let type = isTrainingQuestion ? 0 : question.type
-        var image = self.getImageBySubject(question.chapter!.subject!.id)
+        let image = self.getImageBySubject(question.chapter!.subject!.id)
         cell.imageView!.image = image
         cell.textLabel?.textColor = UIColor.blackColor()
         cell.textLabel!.text = "\(self.getModeByType(type))\(question.chapter!.name)"
@@ -144,7 +144,7 @@ class MarkedQuestionsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            var question = QuestionHistory()
+            let question = QuestionHistory()
             Sound.playTrack("notif")
             question.id = self.questions[indexPath.row].id
             FactoryHistory.getHistory().updateQuestionMark(question)
@@ -182,7 +182,7 @@ class MarkedQuestionsTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        var question = self.questions[indexPath.row]
+        let question = self.questions[indexPath.row]
         if question.type == -1 {
             return UITableViewCellEditingStyle.None
         } else {

@@ -1,5 +1,5 @@
 //
-//  Post.swift
+//  User.swift
 //  PrepAppKine
 //
 //  Created by Mathieu Vandeginste on 22/02/15.
@@ -53,7 +53,7 @@ class User {
 				if error != nil {
 					callback("Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
 				} else {
-					var statusCode = (response as! NSHTTPURLResponse).statusCode
+					let statusCode = (response as! NSHTTPURLResponse).statusCode
 					if statusCode == 200 {
 						User.currentUser!.encryptedPassword = newPass
 						User.currentUser!.saveUser()
@@ -78,7 +78,7 @@ class User {
                 if error != nil {
                     callback("Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
                 } else {
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
                         User.currentUser!.nickname = newNickname
                         User.currentUser!.saveUser()
@@ -101,9 +101,9 @@ class User {
             (data, response, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil {
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        println("level synced")
+                        print("level synced")
                     }
                 }
             }
@@ -120,10 +120,9 @@ class User {
             (data, response, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil {
-                    var err: NSError?
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        println("awardPoints synced")
+                        print("awardPoints synced")
                     }
                 }
             }
@@ -141,7 +140,7 @@ class User {
             (data, response, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil {
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
                         callback("Envoyé !","Commentaire envoyé avec succès.", true)
                     } else {
@@ -164,15 +163,14 @@ class User {
             (data, response, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil {
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
                         callback("Envoyé !","Feedback envoyé avec succès.", true)
                     } else {
-                        println(response)
+                        print(response)
                         callback("Échec de la connexion.","Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", false)
                     }
                 } else {
-                    println("error1")
                     callback("Échec de la connexion.","Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", false)
                 }
             }
@@ -182,7 +180,7 @@ class User {
 
 	func saveUser() {
 		//we backup the user in a string array for persistence storage
-		var savedUser = [
+		let savedUser = [
             String(self.id),
             self.firstName,
             self.lastName,
@@ -210,17 +208,12 @@ class User {
                     // no connexion
 					callback(nil, "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
 				} else {
-					var err: NSError?
-					var statusCode = (response as! NSHTTPURLResponse).statusCode
+					let statusCode = (response as! NSHTTPURLResponse).statusCode
 					if statusCode == 200 {
-						var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSDictionary
+						let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
 						
 						if let result = jsonResult {
-							if err != nil {
-								callback(nil, "Erreur lors de la récupération, veuillez réessayer.")
-							} else {
-								callback(result as NSDictionary, nil)
-							}
+                            callback(result as NSDictionary, nil)
 						} else {
                             //NSDictionary optional to nil
 							callback(nil, "Erreur lors de la récupération, veuillez réessayer.")
@@ -256,19 +249,19 @@ class User {
 		var data : [String] = []
         UserPreferences.loadUserPreferences()
 		//we instantiate the user retrieved in the local Persistence Storage
-		if var storedUser : AnyObject = NSUserDefaults.standardUserDefaults().objectForKey("user") {
-			for (var i=0; i < storedUser.count; i++) {
-				data.append(storedUser[i] as! String)
+		if let storedUser = NSUserDefaults.standardUserDefaults().objectForKey("user") as? [String] {
+			for element in storedUser {
+				data.append(element)
 			}
             
             User.currentUser = User(
-                id: (data[0] as String).toInt()!,
+                id: Int((data[0] as String))!,
                 firstName: data[1] as String,
                 lastName: data[2] as String,
                 email: data[3] as String,
                 encryptedPassword: data[4] as String,
-                level: (data[5] as String).toInt()!,
-                awardPoints: (data[6] as String).toInt()!,
+                level: Int((data[5] as String))!,
+                awardPoints: Int((data[6] as String))!,
                 nickname: data[7] as String
             )
 			return true

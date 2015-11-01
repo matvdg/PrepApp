@@ -66,13 +66,13 @@ class SyncViewController: UIViewController {
                     FactorySync.getConfigManager().saveConfig({ (result) -> Void in
                         if result {
                             FactoryHistory.getHistory().sync()
-                            print("localVersion = \(FactorySync.getConfigManager().loadVersion()) dbVersion = \(versionDB), ")
+                            print("localVersion = \(FactorySync.getConfigManager().loadVersion()) dbVersion = \(versionDB), ", terminator: "")
                             if FactorySync.getConfigManager().loadVersion() != versionDB { //syncing...
                                 FactorySync.sync()
                                 self.timer = NSTimer.scheduledTimerWithTimeInterval(0.030, target: self, selector: Selector("result"), userInfo: nil, repeats: true)
                                 self.version = versionDB
                             } else { //no sync needed
-                                println("no need to sync")
+                                print("no need to sync")
                                 self.performSegueWithIdentifier("syncDidFinish", sender: self)
                             }
                         } else {
@@ -111,7 +111,7 @@ class SyncViewController: UIViewController {
                         
                     } else { //run the app in offline mode
                         FactorySync.offlineMode = true
-                        println("offline mode")
+                        print("offline mode")
                         self.performSegueWithIdentifier("syncDidFinish", sender: self)
                     }
                 }

@@ -95,7 +95,7 @@ class ScoreViewController: UIViewController, UITableViewDataSource, UITableViewD
             self.titleBar.backgroundColor = colorGreenLogo
             
         default:
-            println("default")
+            print("default")
         }
         
     }
@@ -141,7 +141,7 @@ class ScoreViewController: UIViewController, UITableViewDataSource, UITableViewD
         UIView.animateWithDuration(1, animations: { () -> Void in
             self.awardPointImage.alpha = 0
         })
-        var animation = CABasicAnimation(keyPath: "transform.scale")
+        let animation = CABasicAnimation(keyPath: "transform.scale")
         animation.toValue = NSNumber(float: 10)
         animation.duration = 1
         animation.repeatCount = 0
@@ -204,8 +204,8 @@ class ScoreViewController: UIViewController, UITableViewDataSource, UITableViewD
     // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("stat", forIndexPath: indexPath) as! UITableViewCell
-        var image = self.statsPics[indexPath.row]
+        let cell = tableView.dequeueReusableCellWithIdentifier("stat", forIndexPath: indexPath) 
+        let image = self.statsPics[indexPath.row]
         cell.imageView!.image = UIImage(named: image)
         cell.textLabel?.textColor = UIColor.blackColor()
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 18)

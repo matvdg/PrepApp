@@ -23,13 +23,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 		self.designButton.layer.cornerRadius = 6
     }
 
-	override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		self.view.endEditing(true)
 	}
 	
 	override func viewDidAppear(animated: Bool) {
 		//if user already logged in persistent data, load it
-        println(FactorySync.path)
+        print(FactorySync.path)
         if (User.instantiateUserStored()){
             if (UserPreferences.touchId) {
                 UserPreferences.touchID()
@@ -41,8 +41,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             self.performSegueWithIdentifier("loginDidSucceded", sender: self)
         } else {
             if FactorySync.debugMode {
-                self.mail.text = "marc.herrero@icloud.com"
-                self.pass.text = "Malaisie41"
+                self.mail.text = "matvdg@icloud.com"
+                self.pass.text = "Draconis31*"
             } else {
                 self.mail.text = ""
                 self.pass.text = ""
@@ -53,9 +53,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 	}
 	
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
-		var nextTag: NSInteger = textField.tag + 1
+		let nextTag: NSInteger = textField.tag + 1
 		// Try to find next responder
-		var nextResponder: UIResponder? = textField.superview?.viewWithTag(nextTag)
+		let nextResponder: UIResponder? = textField.superview?.viewWithTag(nextTag)
 		
 	  if ((nextResponder) != nil) {
 		// Found next responder, so set it.
@@ -71,7 +71,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 	
 	func connect() {
 		//online mode
-		User.login(mail.text, pass: pass.text){
+		User.login(mail.text!, pass: pass.text!){
 			(data, error) -> Void in
 			
 			if data == nil {
@@ -83,7 +83,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 				// show the alert
 				self.presentViewController(myAlert, animated: true, completion: nil)
 			} else {
-				User.instantiateUser(data!, pass: self.pass.text)
+				User.instantiateUser(data!, pass: self.pass.text!)
 				//we store the current user infoss to avoid further login until he logs out
 				User.currentUser!.saveUser()
                 FactoryRealm.clearUserDB()

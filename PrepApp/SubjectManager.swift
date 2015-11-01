@@ -22,7 +22,7 @@ class SubjectManager {
             // dictionary
             for (id, version) in data {
                 let subject = Subject()
-                subject.id = (id as! String).toInt()!
+                subject.id = Int((id as! String))!
                 subject.version = (version as! Int)
                 onlineSubjects.append(subject)
             }
@@ -41,30 +41,23 @@ class SubjectManager {
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    println("error : no connexion in getSubjects")
+                    print("error : no connexion in getSubjects")
                     FactorySync.errorNetwork = true
                 } else {
-                    
-                    var err: NSError?
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSDictionary
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
                         
                         if let result = jsonResult {
-                            if err != nil {
-                                println("error : parsing JSON in getSubjects")
-                                FactorySync.errorNetwork = true
-                            } else {
-                                callback(result as NSDictionary)
-                            }
+                            callback(result as NSDictionary)
                         } else {
-                            println("error : NSArray nil in getSubjects")
+                            print("error : NSArray nil in getSubjects")
                             FactorySync.errorNetwork = true
                         }
                         
                         
                     } else {
-                        println("header status = \(statusCode) in getSubjects")
+                        print("header status = \(statusCode) in getSubjects")
                         FactorySync.errorNetwork = true
                     }
                 }
@@ -126,7 +119,7 @@ class SubjectManager {
         self.saveSubjects(idsToAdd)
         self.counter += idsToAdd.count
         if self.counter == 0 {
-            println("subjects: nothing new to sync")
+            print("subjects: nothing new to sync")
             FactorySync.getChapterManager().saveChapters()
         }
         
@@ -135,8 +128,8 @@ class SubjectManager {
     private func deleteSubjects(idsToRemove: [Int]){
         for idToRemove in idsToRemove {
             if FactorySync.errorNetwork == false {
-                var objectToRemove = realm.objects(Subject).filter("id=\(idToRemove)")
-                self.realm.write {
+                let objectToRemove = realm.objects(Subject).filter("id=\(idToRemove)")
+                try! self.realm.write {
                     self.realm.delete(objectToRemove)
                 }
             }
@@ -150,7 +143,7 @@ class SubjectManager {
                     let subjects = self.realm.objects(Subject)
                     for subject in subjects {
                         if subject.id == idToUpdate {
-                            self.realm.write {
+                            try! self.realm.write {
                                 subject.name = subjectData["name"] as! String
                                 subject.ratio = subjectData["ratio"] as! Int
                                 subject.timePerQuestion = subjectData["timePerQuestion"] as! Int
@@ -167,14 +160,15 @@ class SubjectManager {
         for idToAdd in idsToAdd {
             if FactorySync.errorNetwork == false {
                 self.getSubject(idToAdd, callback: { (subjectData) -> Void in
-                    var newSubject = Subject()
+                    let newSubject = Subject()
                     newSubject.id =  subjectData["id"] as! Int
                     newSubject.name = subjectData["name"] as! String
                     newSubject.version = subjectData["version"] as! Int
                     newSubject.ratio = subjectData["ratio"] as! Int
                     newSubject.timePerQuestion = subjectData["timePerQuestion"] as! Int
-                    self.realm.write {
+                    try! self.realm.write {
                         self.realm.add(newSubject)
+                        print(newSubject)
                     }
                 })
             }
@@ -192,33 +186,29 @@ class SubjectManager {
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    println("error : no connexion in getSubject")
+                    print("error : no connexion in getSubject")
                     FactorySync.errorNetwork = true
                 } else {
                     
-                    var err: NSError?
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSDictionary
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
+                        
                         
                         if let result = jsonResult {
-                            if err != nil {
-                                println("error : parsing JSON in getSubject")
-                                FactorySync.errorNetwork = true
-                            } else {
-                                callback(result as NSDictionary)
-                                self.counter--
-                                if self.counter == 0 {
-                                    println("subjects downloaded")
-                                    FactorySync.getChapterManager().saveChapters()
-                                }
+                            callback(result as NSDictionary)
+                            self.counter--
+                            if self.counter == 0 {
+                                print("subjects downloaded")
+                                FactorySync.getChapterManager().saveChapters()
                             }
+                            
                         } else {
-                            println("error : NSArray nil in getSubject")
+                            print("error : NSArray nil in getSubject")
                             FactorySync.errorNetwork = true
                         }
                     } else {
-                        println("header status = \(statusCode) in getSubject")
+                        print("header status = \(statusCode) in getSubject")
                         FactorySync.errorNetwork = true
                     }
                 }

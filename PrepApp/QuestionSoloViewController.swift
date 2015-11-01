@@ -41,7 +41,7 @@ class QuestionSoloViewController: UIViewController,
     var timeLeft = NSTimeInterval(20*60)
     var senseAnimationCorrection: Bool = true
     var waitBeforeNextQuestion: Bool = false
-    let baseUrl = NSURL(fileURLWithPath: FactorySync.path, isDirectory: true)!
+    let baseUrl = NSURL(fileURLWithPath: FactorySync.path, isDirectory: true)
     
     //graphics properties
     var submitButton = UIButton()
@@ -67,11 +67,11 @@ class QuestionSoloViewController: UIViewController,
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshQuestion", name: "portrait", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshQuestion", name: "landscape", object: nil)
         //handling swipe gestures
-        var swipeRight = UISwipeGestureRecognizer(target: self, action: "swiped:")
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipeRight.direction = UISwipeGestureRecognizerDirection.Right
         self.view.addGestureRecognizer(swipeRight)
         
-        var swipeLeft = UISwipeGestureRecognizer(target: self, action: "swiped:")
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
         self.view.addGestureRecognizer(swipeLeft)
         
@@ -112,7 +112,7 @@ class QuestionSoloViewController: UIViewController,
     
     @IBAction func calcPopUp(sender: AnyObject) {
         if self.mode == 0 {
-            var message = self.questions[self.currentNumber].calculator ? "Calculatrice autorisée" : "Calculatrice interdite"
+            let message = self.questions[self.currentNumber].calculator ? "Calculatrice autorisée" : "Calculatrice interdite"
             self.questions[self.currentNumber].calculator ? Sound.playTrack("notif") : Sound.playTrack("nocalc")
             // create alert controller
             let myAlert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
@@ -137,7 +137,7 @@ class QuestionSoloViewController: UIViewController,
             let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
             myAlert.addAction(UIAlertAction(title: "Supprimer le marquage", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                var historyQuestion = QuestionHistory()
+                let historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
                 historyQuestion.marked = false
                 FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
@@ -163,12 +163,12 @@ class QuestionSoloViewController: UIViewController,
                 message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\" dans \"Profil\""
                 let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
-                var historyQuestion = QuestionHistory()
+                let historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
                 historyQuestion.marked = true
                 FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
                 myAlert.addAction(UIAlertAction(title: "Supprimer le marquage", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                    var historyQuestion = QuestionHistory()
+                    let historyQuestion = QuestionHistory()
                     historyQuestion.id = self.currentQuestion!.id
                     historyQuestion.marked = false
                     FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
@@ -307,7 +307,7 @@ class QuestionSoloViewController: UIViewController,
         
         var tempQuestions = [Question]()
         //fetching solo questions NEVER DONE
-        var questionsRealm = realm.objects(Question).filter("type = 1")
+        let questionsRealm = realm.objects(Question).filter("type = 1")
         for question in questionsRealm {
             if FactoryHistory.getHistory().isQuestionNew(question.id){
                 tempQuestions.append(question)
@@ -433,7 +433,7 @@ class QuestionSoloViewController: UIViewController,
             self.questions.shuffle()
             
         default:
-            println("default")
+            print("default")
         }
         
         if self.questions.count == 1 {
@@ -489,7 +489,7 @@ class QuestionSoloViewController: UIViewController,
             self.titleBar.backgroundColor = colorGreenLogo
 
         default:
-            println("default")
+            print("default")
         }
         
         self.endChallengeButton.layer.cornerRadius = 6
@@ -518,7 +518,7 @@ class QuestionSoloViewController: UIViewController,
             self.selectedAnswers = savedAnswers
         }
         
-        println("Question n°\(self.currentQuestion!.id), bonne(s) réponse(s) = \(self.goodAnswers.answersPrepApp())")
+        print("Question n°\(self.currentQuestion!.id), bonne(s) réponse(s) = \(self.goodAnswers.answersPrepApp())")
         if self.mode == 0 {
             self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "notif") : UIImage(named: "nocalc"))
         }
@@ -561,7 +561,7 @@ class QuestionSoloViewController: UIViewController,
         self.wording =  UIWebView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 1))
         self.wording.delegate = self
         self.wording.loadHTMLString( self.currentQuestion!.wording, baseURL: self.baseUrl)
-        var y: CGFloat = UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation) ? 132 : 152
+        let y: CGFloat = UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation) ? 132 : 152
         let scrollFrame = CGRect(x: 0, y: y, width: self.view.bounds.width, height: self.view.bounds.height-y)
         self.scrollView = UIScrollView(frame: scrollFrame)
         self.scrollView.backgroundColor = colorGreyBackground
@@ -614,7 +614,7 @@ class QuestionSoloViewController: UIViewController,
     
     private func loadInfos(){
         var tableHeight: CGFloat = 0
-        for (id,height) in self.sizeAnswerCells {
+        for (_,height) in self.sizeAnswerCells {
             tableHeight += height
         }
         //resizing the answers table (the cells have already been resized independently
@@ -639,13 +639,13 @@ class QuestionSoloViewController: UIViewController,
             // displaying results & correction if available
             self.showAnswers()
             //resizing the scroll view in order to fit all the elements
-            var scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 100)
+            let scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 100)
             self.scrollView.contentSize =  scrollSize
             //adding button
             self.scrollView.addSubview(self.submitButton)
         } else {
             //resizing the scroll view in order to fit all the elements
-            var scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 50)
+            let scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 50)
             self.scrollView.contentSize =  scrollSize
         }
     }
@@ -718,7 +718,7 @@ class QuestionSoloViewController: UIViewController,
         
         for i in 0..<self.questions.count {
             
-            var historyQuestion = QuestionHistory()
+            let historyQuestion = QuestionHistory()
             historyQuestion.id = self.questions[i].id
             historyQuestion.training = false
             if let answers = self.allAnswers[i] {
@@ -809,7 +809,7 @@ class QuestionSoloViewController: UIViewController,
                 }
                 
             default:
-                println("other")
+                print("other")
                 break
             }
             
@@ -817,7 +817,7 @@ class QuestionSoloViewController: UIViewController,
     }
     
     func logout() {
-        println("logging out")
+        print("logging out")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -870,7 +870,7 @@ class QuestionSoloViewController: UIViewController,
         let (succeeded,score) = self.computeScore()
         self.score = score
         self.succeeded = succeeded
-        println("challenge mode ended, results mode")
+        print("challenge mode ended, results mode")
         self.mode = 1
         self.chrono.hidden = true
         self.chronoImage.hidden = true
@@ -918,7 +918,7 @@ class QuestionSoloViewController: UIViewController,
     
     private func checkUnanswered() -> Bool {
         var result = false
-        for (question, answers) in self.allAnswers {
+        for (_, answers) in self.allAnswers {
             if answers.isEmpty {
                 result = true
                 break
@@ -959,7 +959,7 @@ class QuestionSoloViewController: UIViewController,
             }
         }
         //retrieving checkmarks if already done
-        if find(self.selectedAnswers,answerNumber) != nil {
+        if self.selectedAnswers.indexOf(answerNumber) != nil {
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
         }
         return cell
@@ -982,8 +982,8 @@ class QuestionSoloViewController: UIViewController,
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         Sound.playTrack("select")
-        var selectedRow = indexPath.row
-        var cell: UITableViewCellAnswer = tableView.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
+        _ = indexPath.row
+        let cell: UITableViewCellAnswer = tableView.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
         if (cell.accessoryType != UITableViewCellAccessoryType.Checkmark) {
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
             self.selectedAnswers.append(indexPath.row)
@@ -991,7 +991,7 @@ class QuestionSoloViewController: UIViewController,
         else
         {
             cell.accessoryType = UITableViewCellAccessoryType.None
-            var index = find(self.selectedAnswers, indexPath.row)
+            let index = self.selectedAnswers.indexOf(indexPath.row)
             self.selectedAnswers.removeAtIndex(index!)
         }
         //println(self.selectedAnswers)
@@ -1001,7 +1001,7 @@ class QuestionSoloViewController: UIViewController,
     func webViewDidFinishLoad(webView: UIWebView) {
         if (self.sizeAnswerCells.count != self.numberOfAnswers) {
             //Asks the view to calculate and return the size that best fits its subviews.
-            var fittingSize = webView.sizeThatFits(CGSizeZero)
+            let fittingSize = webView.sizeThatFits(CGSizeZero)
             self.wording.opaque = false
             self.wording.scrollView.scrollEnabled = false
             webView.frame = CGRectMake(0, 0, self.view.bounds.width, fittingSize.height)

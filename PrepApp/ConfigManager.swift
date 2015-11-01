@@ -14,11 +14,11 @@ class ConfigManager {
     func saveConfig(callback: (Bool) -> Void) {
         self.getConfig({ (config) -> Void in
             if let config: NSDictionary = config {
-                var date = NSDate(timeIntervalSince1970: NSTimeInterval((config["dateExam"] as! String).toInt()!))
+                let date = NSDate(timeIntervalSince1970: NSTimeInterval(Int((config["dateExam"] as! String))!))
                 //println(date)
-                var weeksBeforeExam = (config["weeksBeforeExam"] as! String).toInt()!
+                let weeksBeforeExam = Int((config["weeksBeforeExam"] as! String))!
                 //println(weeksBeforeExam)
-                var nicknameAllowed = (config["nickname"] as! String).toBool()!
+                let nicknameAllowed = (config["nickname"] as! String).toBool()!
                 //println(nicknameAllowed)
                 
                 //we backup the config for persistence storage
@@ -38,17 +38,16 @@ class ConfigManager {
         //we backup the DatabaseVersion for persistence storage
         NSUserDefaults.standardUserDefaults().setObject(version, forKey: "version")
         NSUserDefaults.standardUserDefaults().synchronize()
-        println("version saved")
+        print("version saved")
     }
     
     func loadDate() -> String {
-        var result: NSDate?
         //we retrieve the date from the local Persistence Storage
         if let date : AnyObject = NSUserDefaults.standardUserDefaults().objectForKey("date") {
             if let result = date as? NSDate {
-                var formatter = NSDateFormatter()
+                let formatter = NSDateFormatter()
                 formatter.dateFormat = "dd/MM/yyyy"
-                var dateInString = formatter.stringFromDate(result)
+                let dateInString = formatter.stringFromDate(result)
                 return dateInString
             } else {
                 return "Error: date in the wrong format"
@@ -95,7 +94,7 @@ class ConfigManager {
         //we backup the currentDay for persistence storage
         NSUserDefaults.standardUserDefaults().setObject(currentDay, forKey: "currentDay")
         NSUserDefaults.standardUserDefaults().synchronize()
-        println("currentDay saved")
+        print("currentDay saved")
     }
 
     ///return true if nickname allowed
@@ -131,30 +130,24 @@ class ConfigManager {
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    println("error : no connexion in getConfig")
+                    print("error : no connexion in getConfig")
                     callback(nil)
                 } else {
                     
-                    var err: NSError?
-                    var statusCode = (response as! NSHTTPURLResponse).statusCode
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSDictionary
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
                         
                         if let result = jsonResult {
-                            if err != nil {
-                                println("error : parsing JSON in getConfig")
-                                callback(nil)
-                            } else {
-                                callback(result)
-                            }
+                            callback(result)
                         } else {
-                            println("error : NSDictionary nil in getConfig")
+                            print("error : NSDictionary nil in getConfig")
                             callback(nil)
                         }
                         
                         
                     } else {
-                        println("header status = \(statusCode)  in getConfig")
+                        print("header status = \(statusCode)  in getConfig")
                         callback(nil)
                     }
                     
@@ -162,8 +155,6 @@ class ConfigManager {
             }
         }
         task.resume()
-        
-        
     }
     
     func getLastVersion(callback: (Int?) -> Void) {
@@ -171,34 +162,35 @@ class ConfigManager {
         request.HTTPMethod = "POST"
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
-
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
-            if error != nil {
-                callback(nil)
-                println("no connexion in getLastVersion")
-            } else {
-                var err: NSError?
-                var statusCode = (response as! NSHTTPURLResponse).statusCode
-                if statusCode == 200 {
-                    var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &err) as? NSString
-                    
-                    if let result = jsonResult as? String {
-                        if err != nil {
-                            callback(nil)
-                            println("error parsing json in getLastVersion")
-                        } else {
-                            callback(result.toInt()!)
-                        }
-                    } else {
-                        callback(nil)
-                        println("error casting json into NSString in getLastVersion")
-                    }
-                } else {
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
+            (data, response, error) in
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                if error != nil {
+                    print("error : no connexion in getLastVersion")
                     callback(nil)
-                    println("header status = \(statusCode) in getLastVersion")
+                } else {
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
+                    if statusCode == 200 {
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as? NSString
+                        
+                        if let result = jsonResult as? String {
+                            callback(Int(result)!)
+                        } else {
+                            print("error : NSDictionary nil in getLastVersion")
+                            callback(nil)
+                        }
+                        
+                        
+                    } else {
+                        print("header status = \(statusCode)  in getLastVersion")
+                        callback(nil)
+                    }
+                    
                 }
             }
         }
+        task.resume()
     }
-
+    
 }

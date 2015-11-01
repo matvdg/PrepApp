@@ -52,7 +52,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func logout() {
-        println("logging out")
+        print("logging out")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -141,8 +141,8 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("stat", forIndexPath: indexPath) as! UITableViewCell
-        var image = self.statsPics[indexPath.row]
+        let cell = tableView.dequeueReusableCellWithIdentifier("stat", forIndexPath: indexPath) 
+        let image = self.statsPics[indexPath.row]
         cell.imageView!.image = UIImage(named: image)
         cell.textLabel?.textColor = UIColor.blackColor()
         cell.textLabel!.text = self.statsTopics[indexPath.row]

@@ -171,8 +171,8 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         let date = NSDate()
         let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components(.CalendarUnitDay, fromDate: date)
-        var currentDay = components.day
+        let components = calendar.components(.Day, fromDate: date)
+        let currentDay = components.day
         if  FactorySync.getConfigManager().loadCurrentDay() != currentDay {
             FactorySync.getConfigManager().saveCurrentDay(currentDay)
             self.notificationMessage.text = self.loadNotificationMessage()
@@ -186,7 +186,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "hideGraph", name: "portrait", object: nil)
 
         //handling swipe gestures
-        var swipeLeft = UISwipeGestureRecognizer(target: self, action: "swiped:")
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
         self.view.addGestureRecognizer(swipeLeft)
 		if self.revealViewController() != nil {
@@ -262,7 +262,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         } else {
             let date = NSDate()
             let calendar = NSCalendar.currentCalendar()
-            let components = calendar.components(.CalendarUnitHour, fromDate: date)
+            let components = calendar.components(.Hour, fromDate: date)
             let hour = components.hour
             if hour > 18 {
                 return "Bonsoir \(User.currentUser!.firstName) !"
@@ -285,7 +285,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
             case 1 : //todo
                 number = bioNumberToDo
             default :
-                println("error")
+                print("error")
             }
         
         case 2 : //physics
@@ -295,7 +295,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
             case 1 : //todo
                 number = phyNumberToDo
             default :
-                println("error")
+                print("error")
             }
         case 3 : //chemistry
             switch type {
@@ -304,10 +304,10 @@ class HomeViewController: UIViewController, ChartViewDelegate {
             case 1 : //todo
                 number = cheNumberToDo
             default :
-                println("error")
+                print("error")
             }
         default:
-            println("error")
+            print("error")
         }
         
         switch type {
@@ -338,7 +338,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
                 self.performSegueWithIdentifier("showNews", sender: self)
             
             default:
-                println("other")
+                print("other")
                 break
                 
             }
@@ -366,7 +366,6 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         //centerText
         //self.bioPieChart.centerTextColor = UIColor.blueColor()
         self.bioPieChart.centerText = ""
-        self.bioPieChart.centerTextFont = UIFont(name: "Segoe UI", size: 17)!
         //description
         self.bioPieChart.descriptionFont = UIFont(name: "Segoe UI", size: 17)!
         self.bioPieChart.descriptionText = ""
@@ -395,7 +394,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.phyPieChart.data = self.getPieChartData(self.type.rawValue)
         //centerText
         self.phyPieChart.centerText = ""
-        self.phyPieChart.centerTextFont = UIFont(name: "Segoe UI", size: 17)!
+        //self.phyPieChart.centerTextFont = UIFont(name: "Segoe UI", size: 17)!
         //description
         self.phyPieChart.descriptionFont = UIFont(name: "Segoe UI", size: 17)!
         self.phyPieChart.descriptionText = ""
@@ -423,7 +422,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.chePieChart.data = self.getPieChartData(self.type.rawValue)
         //centerText
         self.chePieChart.centerText = ""
-        self.chePieChart.centerTextFont = UIFont(name: "Segoe UI", size: 17)!
+        //self.chePieChart.centerTextFont = UIFont(name: "Segoe UI", size: 17)!
         //description
         self.chePieChart.descriptionFont = UIFont(name: "Segoe UI", size: 17)!
         self.chePieChart.descriptionText = ""
@@ -465,7 +464,6 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.perfChart.drawOrder = [CombinedChartDrawOrder.Bar.rawValue, CombinedChartDrawOrder.Line.rawValue]
         self.perfChart.backgroundColor = colorGreyBackground
         self.perfChart.drawMarkers = true
-        self.perfChart.highlightEnabled = false
         self.perfChart.highlightPerDragEnabled = false
         self.perfChart.scaleYEnabled = false
         self.perfChart.drawHighlightArrowEnabled = false
@@ -480,7 +478,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.perfChart.rightAxis.labelFont = UIFont(name: "Segoe UI", size: 12)!
         self.perfChart.rightAxis.labelCount = 10
         self.perfChart.rightAxis.labelTextColor = colorGreen
-        var formatter = NSNumberFormatter()
+        let formatter = NSNumberFormatter()
         formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
         formatter.minimumIntegerDigits = 1
         formatter.maximumIntegerDigits = 3
@@ -572,7 +570,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         default :
             yVals.append(BarChartDataEntry(value: 50, xIndex: 1))
         }
-        var dataSet : PieChartDataSet = PieChartDataSet(yVals: yVals)
+        let dataSet : PieChartDataSet = PieChartDataSet(yVals: yVals)
         dataSet.sliceSpace = 0.0
         var colors: [UIColor] = [colorBio,colorPhy,colorChe]
         
@@ -588,7 +586,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         }
         dataSet.colors = colors
         dataSet.valueTextColor = UIColor.clearColor()
-        var data: PieChartData = PieChartData(xVals: ["",""], dataSet: dataSet)
+        let data: PieChartData = PieChartData(xVals: ["",""], dataSet: dataSet)
         return data
     }
     
@@ -670,7 +668,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
             //global
             let lineChartData = LineChartData(xVals: self.weeksBeforeExam, dataSets: [bioLineChartDataSet,phyLineChartDataSet,cheLineChartDataSet])
             let barChartData = BarChartData(xVals: self.weeksBeforeExam, dataSet: barDataSet)
-            var data = CombinedChartData(xVals: self.weeksBeforeExam)
+            let data = CombinedChartData(xVals: self.weeksBeforeExam)
             data.lineData = lineChartData
             data.barData = barChartData
             self.perfChart.data = data
@@ -729,7 +727,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
 
     func logout() {
         ///called when touchID failed, authenticated = false
-        println("logging out")
+        print("logging out")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

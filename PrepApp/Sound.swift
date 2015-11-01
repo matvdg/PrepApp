@@ -16,10 +16,10 @@ class Sound {
     class func playTrack(sound: String) {
         
         if UserPreferences.sounds {
-            var mediapath = "sounds/\(sound)"
+            let mediapath = "sounds/\(sound)"
             
             if let path = NSBundle.mainBundle().pathForResource(mediapath, ofType: "caf") {
-                player = AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: path), fileTypeHint: "caf", error: nil)
+                player = try? AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: path), fileTypeHint: "caf")
                 player!.volume = self.volume
                 player!.numberOfLoops = 0
                 player!.prepareToPlay()
@@ -33,10 +33,10 @@ class Sound {
         if UserPreferences.sounds {
             
             let random = Int(arc4random() % 9)
-            var mediapath = "sounds/page\(random)"
+            let mediapath = "sounds/page\(random)"
             
             if let path = NSBundle.mainBundle().pathForResource(mediapath, ofType: "caf") {
-                player = AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: path), fileTypeHint: "caf", error: nil)
+                player = try? AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: path), fileTypeHint: "caf")
                 player!.volume = self.volume
                 player!.numberOfLoops = 0
                 player!.prepareToPlay()
