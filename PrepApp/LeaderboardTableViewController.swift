@@ -16,6 +16,8 @@ class LeaderboardTableViewController: UITableViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        SwiftSpinner.show("Veuillez patienter...")
+        SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
         //sync
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
@@ -31,6 +33,10 @@ class LeaderboardTableViewController: UITableViewController  {
         self.title = "Classement"
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+       SwiftSpinner.hide()
     }
     
     func loadLeaderboard() {

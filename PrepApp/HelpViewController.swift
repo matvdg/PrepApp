@@ -46,7 +46,7 @@ class HelpViewController: UIViewController {
         
         
         //11- Mentions légales
-        "©Prep'App est une société par actions simplifiées au capital social de 10000€. Cette app a été développée en Swift à l'aide de ©Realm (base de donnée locale orientée objets) et du framework ios-charts. Mentions légales : ios-charts créé par Daniel Cohen Gindi, inspiré des travaux de Philipp Jahoda, un portage iOS de MPAndroidChart. Realm Objective-C & Realm Swift, ios-charts sont publiés sous licence Apache 2.0. Vous pouvez obtenir une copie de cette licence à http://www.apache.org/licenses/LICENSE-2.0"]
+        "©Prep'App est une société par actions simplifiées au capital social de 10000€. Cette app a été développée en Swift à l'aide de ©Realm (base de donnée locale orientée objets), du framework ios-charts, de SWRevealViewController et de SwiftSpinner.           \n\n \n\n Mentions légales de Realm : Realm Objective-C & Realm Swift are published under the Apache 2.0 license. The underlying core is available under the Realm Core Binary License while we work to open-source it under the Apache 2.0 license. This product is not being made available to any person located in Cuba, Iran, North Korea, Sudan, Syria or the Crimea region, or to any other person that is not eligible to receive the product under U.S. law.\n\n Mentions légales de ios-charts : Copyright 2015 Daniel Cohen Gindi & Philipp Jahoda. Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.\n\n Mentions légales SWRevealViewController : Copyright (c) 2013 Joan Lluch joan.lluch@sweetwilliamsl.com Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\nMentions légales SwiftSpinner : Copyright (c) 2015 Marin Todorov <touch-code-magazine@underplot.com> Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sellcopies of the Software, and to permit persons to whom the  Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."]
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var roundCircle: UILabel!
@@ -56,11 +56,14 @@ class HelpViewController: UIViewController {
     
     @IBAction func changePage(sender: AnyObject) {
         self.selectedHelp = self.pageControl.currentPage
+        Sound.playTrack("next")
         self.displayHelp()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        SwiftSpinner.show("Veuillez patienter...")
+        SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
@@ -97,6 +100,9 @@ class HelpViewController: UIViewController {
 
     }
     
+    override func viewDidAppear(animated: Bool) {
+        SwiftSpinner.hide()
+    }
     
     func logout() {
         print("logging out")
@@ -135,6 +141,7 @@ class HelpViewController: UIViewController {
             }
             
         }
+        Sound.playTrack("next")
         self.displayHelp()
     }
     

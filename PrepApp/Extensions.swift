@@ -1,5 +1,5 @@
 //
-//  Lib.swift
+//  Extensions.swift
 //  PrepApp
 //
 //  Created by Mathieu Vandeginste on 06/05/15.

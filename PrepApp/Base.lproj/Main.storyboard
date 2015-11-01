@@ -761,16 +761,16 @@
                                 </constraints>
                             </imageView>
                             <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y4y-U5-ty2" userLabel="Pie Chart View Chemistry" customClass="PieChartView" customModule="Charts">
-                                <rect key="frame" x="150" y="140" width="300" height="300"/>
+                                <rect key="frame" x="137.5" y="132.5" width="325" height="325"/>
                                 <subviews>
                                     <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKS-C0-uxG" userLabel="Pie Chart View Physics" customClass="PieChartView" customModule="Charts">
-                                        <rect key="frame" x="25" y="25" width="250" height="250"/>
+                                        <rect key="frame" x="25" y="25" width="275" height="275"/>
                                         <subviews>
                                             <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h4a-g1-aFZ" userLabel="Pie Chart View Biology" customClass="PieChartView" customModule="Charts">
-                                                <rect key="frame" x="25" y="25" width="200" height="200"/>
+                                                <rect key="frame" x="25" y="25" width="225" height="225"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Yt-xV-MI6">
-                                                        <rect key="frame" x="40" y="30" width="120" height="120"/>
+                                                        <rect key="frame" x="52.5" y="37.5" width="120" height="120"/>
                                                         <animations/>
                                                         <color key="backgroundColor" red="0.30980393290519714" green="0.65490198135375977" blue="0.5372549295425415" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -789,27 +789,27 @@
                                                 </subviews>
                                                 <animations/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="200" id="FSC-8h-7pL"/>
-                                                    <constraint firstAttribute="width" constant="200" id="SsR-eg-fhf"/>
+                                                    <constraint firstAttribute="height" constant="225" id="FSC-8h-7pL"/>
+                                                    <constraint firstAttribute="width" constant="225" id="SsR-eg-fhf"/>
                                                     <constraint firstAttribute="centerX" secondItem="9Yt-xV-MI6" secondAttribute="centerX" id="f4w-x7-X97"/>
-                                                    <constraint firstAttribute="centerY" secondItem="9Yt-xV-MI6" secondAttribute="centerY" constant="10" id="pHF-Vb-P9l"/>
+                                                    <constraint firstAttribute="centerY" secondItem="9Yt-xV-MI6" secondAttribute="centerY" constant="15" id="pHF-Vb-P9l"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="centerY" secondItem="h4a-g1-aFZ" secondAttribute="centerY" id="4gg-r4-qzW"/>
-                                            <constraint firstAttribute="height" constant="250" id="Dlb-l0-owN"/>
-                                            <constraint firstAttribute="width" constant="250" id="LKy-s8-M9c"/>
+                                            <constraint firstAttribute="height" constant="275" id="Dlb-l0-owN"/>
+                                            <constraint firstAttribute="width" constant="275" id="LKy-s8-M9c"/>
                                             <constraint firstAttribute="centerX" secondItem="h4a-g1-aFZ" secondAttribute="centerX" id="Lyr-os-zlx"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="AWX-eZ-Fxo"/>
+                                    <constraint firstAttribute="width" constant="325" id="AWX-eZ-Fxo"/>
                                     <constraint firstAttribute="centerX" secondItem="cKS-C0-uxG" secondAttribute="centerX" id="Bn9-LZ-EcA"/>
-                                    <constraint firstAttribute="height" constant="300" id="lqO-1E-CLA"/>
+                                    <constraint firstAttribute="height" constant="325" id="lqO-1E-CLA"/>
                                     <constraint firstAttribute="centerY" secondItem="cKS-C0-uxG" secondAttribute="centerY" id="uNX-9b-8jq"/>
                                 </constraints>
                             </view>
@@ -927,7 +927,7 @@
                             <constraint firstItem="C5Q-72-rXL" firstAttribute="centerY" secondItem="FxA-OF-tna" secondAttribute="centerY" id="QEl-a0-Bg9"/>
                             <constraint firstAttribute="centerY" secondItem="WEF-WD-hnQ" secondAttribute="centerY" constant="20" id="S4m-Z8-aJg"/>
                             <constraint firstItem="C5Q-72-rXL" firstAttribute="leading" secondItem="McV-LS-4gj" secondAttribute="trailing" constant="-26" id="X5y-Xf-FOe"/>
-                            <constraint firstAttribute="centerY" secondItem="y4y-U5-ty2" secondAttribute="centerY" constant="10" id="Xgg-7K-Urm"/>
+                            <constraint firstAttribute="centerY" secondItem="y4y-U5-ty2" secondAttribute="centerY" constant="5" id="Xgg-7K-Urm"/>
                             <constraint firstItem="Hyq-jX-Cjm" firstAttribute="top" secondItem="FxA-OF-tna" secondAttribute="bottom" constant="-11" id="Zpz-e2-Od9"/>
                             <constraint firstAttribute="trailing" secondItem="CfO-OI-T9T" secondAttribute="trailing" id="aSZ-kl-ybh"/>
                             <constraint firstItem="CfO-OI-T9T" firstAttribute="leading" secondItem="jbV-ds-2ZK" secondAttribute="leading" id="bdI-nN-nKU"/>
@@ -2013,13 +2013,14 @@
                                     <constraint firstAttribute="width" constant="50" id="y1y-dD-SmT"/>
                                 </constraints>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="7mT-xo-xpy">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7mT-xo-xpy">
                                 <rect key="frame" x="20" y="201" width="560" height="354"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES" address="YES"/>
                             </textView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="11" currentPage="1" translatesAutoresizingMaskIntoConstraints="NO" id="0DO-tr-Epc">
                                 <rect key="frame" x="199" y="556" width="202" height="37"/>
@@ -2041,6 +2042,7 @@
                             <constraint firstItem="7mT-xo-xpy" firstAttribute="leading" secondItem="5vf-9E-kd4" secondAttribute="leadingMargin" id="Be2-h5-4JR"/>
                             <constraint firstAttribute="bottomMargin" secondItem="0DO-tr-Epc" secondAttribute="bottom" constant="7" id="GAt-j9-AO4"/>
                             <constraint firstItem="HsN-Tk-yZp" firstAttribute="top" secondItem="7mT-xo-xpy" secondAttribute="bottom" constant="1" id="Oi1-8j-jcE"/>
+                            <constraint firstItem="0DO-tr-Epc" firstAttribute="top" secondItem="7mT-xo-xpy" secondAttribute="bottom" constant="1" id="RJq-Yb-me0"/>
                             <constraint firstItem="a1j-s0-adZ" firstAttribute="centerY" secondItem="jas-65-EGC" secondAttribute="centerY" id="T6R-ne-fp3"/>
                             <constraint firstItem="a1j-s0-adZ" firstAttribute="centerX" secondItem="jas-65-EGC" secondAttribute="centerX" id="e4g-bO-Rio"/>
                             <constraint firstItem="jas-65-EGC" firstAttribute="centerX" secondItem="5vf-9E-kd4" secondAttribute="centerX" id="jLA-Yv-ywM"/>
@@ -2049,6 +2051,11 @@
                             <constraint firstItem="jas-65-EGC" firstAttribute="top" secondItem="sC5-Ch-dnX" secondAttribute="bottom" constant="29" id="tkT-hU-5qx"/>
                             <constraint firstItem="7mT-xo-xpy" firstAttribute="top" secondItem="jas-65-EGC" secondAttribute="bottom" constant="8" id="zSI-sa-R2a"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Oi1-8j-jcE"/>
+                            </mask>
+                        </variation>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="f9n-oN-rg8">
@@ -2127,7 +2134,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="menuButton" destination="rXK-ff-543" id="ZuV-qT-Gnt"/>
-                        <segue destination="2Ya-qQ-PHm" kind="presentation" identifier="showPreviewQuestion" modalTransitionStyle="flipHorizontal" id="QdQ-Ba-xLi"/>
+                        <segue destination="2Ya-qQ-PHm" kind="presentation" identifier="showPreviewQuestion" id="QdQ-Ba-xLi"/>
                         <segue destination="spP-v5-DZw" kind="show" identifier="showComment" id="l9E-8Q-iM9"/>
                     </connections>
                 </tableViewController>
@@ -3229,9 +3236,9 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Mzc-wZ-R5Z"/>
+        <segue reference="KwL-6O-QQR"/>
+        <segue reference="78B-T2-OOj"/>
         <segue reference="FJi-Sh-npJ"/>
-        <segue reference="4dk-zf-p2A"/>
-        <segue reference="69X-be-dOV"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.086274509803921567" green="0.62745098039215685" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
 </document>

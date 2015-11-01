@@ -34,6 +34,7 @@
 		F61A1CDF1B0041CD00777584 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61A1CDE1B0041CD00777584 /* MenuController.swift */; };
 		F62C29FE1BE6B37F00DF5EF0 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62C29F91BE6B36400DF5EF0 /* Charts.framework */; };
 		F62C29FF1BE6B37F00DF5EF0 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F62C29F91BE6B36400DF5EF0 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F62C2A061BE6C3B400DF5EF0 /* SwiftSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62C2A051BE6C3B400DF5EF0 /* SwiftSpinner.swift */; };
 		F62D408F1AF442E60051DE83 /* segoe.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F62D408E1AF442E00051DE83 /* segoe.ttf */; };
 		F6322A161B6157F60074549E /* ChaptersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6322A151B6157F60074549E /* ChaptersTableViewController.swift */; };
 		F6322A181B6158230074549E /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6322A171B6158230074549E /* QuestionViewController.swift */; };
@@ -69,7 +70,7 @@
 		F6ECC1101AF6DFE8008F18E3 /* SyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ECC10F1AF6DFE8008F18E3 /* SyncViewController.swift */; };
 		F6FBFAB81AFA1F5E0020B074 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FBFAB71AFA1F5E0020B074 /* User.swift */; };
 		F6FBFABF1AFA33CD0020B074 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FBFABE1AFA33CD0020B074 /* LoginViewController.swift */; };
-		F6FBFAC31AFA98D40020B074 /* Lib.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FBFAC21AFA98D40020B074 /* Lib.swift */; };
+		F6FBFAC31AFA98D40020B074 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FBFAC21AFA98D40020B074 /* Extensions.swift */; };
 		F6FD5D201BE029F1004A3DB7 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6FD5D1F1BE029F1004A3DB7 /* Realm.framework */; };
 		F6FD5D211BE029F1004A3DB7 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F6FD5D1F1BE029F1004A3DB7 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F6FD5D231BE029F6004A3DB7 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6FD5D221BE029F6004A3DB7 /* RealmSwift.framework */; };
@@ -158,6 +159,7 @@
 		F61A1CDA1B003F7500777584 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		F61A1CDE1B0041CD00777584 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		F62C29F21BE6B36400DF5EF0 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "ios-charts-master/Charts/Charts.xcodeproj"; sourceTree = "<group>"; };
+		F62C2A051BE6C3B400DF5EF0 /* SwiftSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftSpinner.swift; sourceTree = "<group>"; };
 		F62D408E1AF442E00051DE83 /* segoe.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = segoe.ttf; path = fonts/segoe.ttf; sourceTree = "<group>"; };
 		F6322A151B6157F60074549E /* ChaptersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChaptersTableViewController.swift; sourceTree = "<group>"; };
 		F6322A171B6158230074549E /* QuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = QuestionViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -200,7 +202,7 @@
 		F6FBFAB71AFA1F5E0020B074 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F6FBFABC1AFA29460020B074 /* PrepApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrepApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		F6FBFABE1AFA33CD0020B074 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		F6FBFAC21AFA98D40020B074 /* Lib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lib.swift; sourceTree = "<group>"; };
+		F6FBFAC21AFA98D40020B074 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F6FD5D1F1BE029F1004A3DB7 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		F6FD5D221BE029F6004A3DB7 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -254,6 +256,18 @@
 				F62C29FD1BE6B36400DF5EF0 /* ChartsTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F62C2A021BE6C22D00DF5EF0 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				F63B5AE81B77C116002C0A79 /* Sound.swift */,
+				F604061D1B8E6150006F7F4E /* Colors.swift */,
+				F6C02C451B762A810021ABE1 /* UITableViewCellAnswer.swift */,
+				F6CB05D11BBC951700289CEA /* UITableViewCellSetting.swift */,
+				F62C2A051BE6C3B400DF5EF0 /* SwiftSpinner.swift */,
+			);
+			name = Common;
 			sourceTree = "<group>";
 		};
 		F62D40931AF443170051DE83 /* Fonts */ = {
@@ -369,16 +383,12 @@
 			name = Sync;
 			sourceTree = "<group>";
 		};
-		F663E3191B7A6BA600F23294 /* Common */ = {
+		F663E3191B7A6BA600F23294 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				F604061D1B8E6150006F7F4E /* Colors.swift */,
-				F6FBFAC21AFA98D40020B074 /* Lib.swift */,
-				F63B5AE81B77C116002C0A79 /* Sound.swift */,
-				F6C02C451B762A810021ABE1 /* UITableViewCellAnswer.swift */,
-				F6CB05D11BBC951700289CEA /* UITableViewCellSetting.swift */,
+				F6FBFAC21AFA98D40020B074 /* Extensions.swift */,
 			);
-			name = Common;
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		F663E31A1B7A6BB800F23294 /* User History */ = {
@@ -458,6 +468,7 @@
 		F6FBFAB61AFA1F490020B074 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				F62C2A021BE6C22D00DF5EF0 /* Common */,
 				F6322A0E1B6157150074549E /* Start */,
 				F6322A111B61577F0074549E /* Training */,
 				F6322A131B6157990074549E /* Solo */,
@@ -475,7 +486,7 @@
 				F6322A1D1B615DFF0074549E /* Realm Entities */,
 				F64630A81B5FD5C9006A5F71 /* Sync */,
 				F663E31A1B7A6BB800F23294 /* User History */,
-				F663E3191B7A6BA600F23294 /* Common */,
+				F663E3191B7A6BA600F23294 /* Extensions */,
 				F60739E71BB2EB3D004DEC32 /* Duo */,
 			);
 			name = Models;
@@ -671,7 +682,7 @@
 				F6322A1A1B6158300074549E /* CorrectionViewController.swift in Sources */,
 				F605AF101B0414F300E90596 /* FriendViewController.swift in Sources */,
 				F6322A1F1B615E360074549E /* Chapter.swift in Sources */,
-				F6FBFAC31AFA98D40020B074 /* Lib.swift in Sources */,
+				F6FBFAC31AFA98D40020B074 /* Extensions.swift in Sources */,
 				952588BB1B9742E400F68B3F /* NewsfeedViewController.swift in Sources */,
 				F60739E61BB2EAE6004DEC32 /* FriendManager.swift in Sources */,
 				F6322A211B615E3E0074549E /* Image.swift in Sources */,
@@ -684,6 +695,7 @@
 				F61A1CDB1B003F7500777584 /* SWRevealViewController.m in Sources */,
 				F604061E1B8E6150006F7F4E /* Colors.swift in Sources */,
 				F605AF121B04151500E90596 /* ContestViewController.swift in Sources */,
+				F62C2A061BE6C3B400DF5EF0 /* SwiftSpinner.swift in Sources */,
 				95D765011B9F34AD002C31CC /* FactoryHistory.swift in Sources */,
 				F64630A51B5E6959006A5F71 /* FactorySync.swift in Sources */,
 				F6CB05D21BBC951700289CEA /* UITableViewCellSetting.swift in Sources */,
