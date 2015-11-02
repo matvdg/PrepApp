@@ -88,8 +88,9 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     //app methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.pullToRefresh.attributedTitle = NSAttributedString(string: "Glisser vers le bas pour actualiser le classement.")
+        self.pullToRefresh.attributedTitle = NSAttributedString(string: "Glisser vers le bas pour actualiser.")
         self.pullToRefresh.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.pullToRefresh.tintColor = colorGreen
         self.friendsTable?.addSubview(pullToRefresh)
         SwiftSpinner.show("Mise à jour des défis...")
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
