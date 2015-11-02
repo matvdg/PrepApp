@@ -13,8 +13,8 @@ class FactorySync {
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*DEV (LOCAL) OR PROD (ONLINE) */
-    static var production: Bool = false //no sync to server
-    static var debugMode: Bool = true //autoConnect
+    static var production: Bool = true //no sync to server
+    static var debugMode: Bool = false //autoConnect
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     static var errorNetwork: Bool = false
     static var offlineMode: Bool = false
