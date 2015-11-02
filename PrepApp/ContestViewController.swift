@@ -10,16 +10,21 @@ import UIKit
 
 class ContestViewController: UIViewController {
 
+    @IBOutlet weak var noContestLabel: UILabel!
 	@IBOutlet var menuButton: UIBarButtonItem!
-	
-    @IBOutlet weak var designButton: UIButton!
+	var timer = NSTimer()
     
 	override func viewDidLoad() {
         //sync
+        self.noContestLabel.hidden = true
+        SwiftSpinner.show("Recherche de concours...")
+        SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("stopAnimation"), userInfo: nil, repeats: false)
+        
+        SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
         super.viewDidLoad()
-        self.designButton.layer.cornerRadius = 6
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.navigationController!.navigationBar.tintColor = colorGreen
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
@@ -30,6 +35,12 @@ class ContestViewController: UIViewController {
 			self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
 		}
 	}
+    
+    func stopAnimation(){
+        self.timer.invalidate()
+        SwiftSpinner.hide()
+        self.noContestLabel.hidden = false
+    }
     
     func logout() {
         print("logging out")

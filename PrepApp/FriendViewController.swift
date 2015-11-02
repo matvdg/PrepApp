@@ -86,6 +86,8 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     //app methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        SwiftSpinner.show("Mise à jour des défis...")
+        SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
         //sync
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
@@ -140,6 +142,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
             self.pendingDuos = FactoryDuo.getDuoManager().getPendingDuos()
             self.templating()
             self.friendsTable.reloadData()
+            SwiftSpinner.hide()
         })
 
         

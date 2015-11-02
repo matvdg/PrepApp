@@ -1878,28 +1878,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0IW-Jq-fJH">
-                                <rect key="frame" x="202" y="540" width="197" height="40"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pas de concours pour le moment... Veuillez revenir plus tard !" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3k9-KC-NhV">
+                                <rect key="frame" x="146.5" y="265" width="307" height="70"/>
                                 <animations/>
-                                <color key="backgroundColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Aff-RK-kbG"/>
-                                    <constraint firstAttribute="width" constant="197" id="Dlz-aF-GaJ"/>
+                                    <constraint firstAttribute="height" constant="70" id="1nK-Ma-tzF"/>
+                                    <constraint firstAttribute="width" constant="307" id="Hq9-oC-6Ub"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="20"/>
-                                <color key="tintColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Participer">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="17"/>
+                                <color key="textColor" red="0.086274512112140656" green="0.62745100259780884" blue="0.5215686559677124" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.92549020051956177" green="0.92549020051956177" blue="0.92549020051956177" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.1058823529" green="0.50588235290000005" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="0IW-Jq-fJH" secondAttribute="centerX" id="XS6-hW-VTW"/>
-                            <constraint firstItem="Vov-UX-aOy" firstAttribute="top" secondItem="0IW-Jq-fJH" secondAttribute="bottom" constant="20" id="oV3-BN-8in"/>
+                            <constraint firstItem="3k9-KC-NhV" firstAttribute="centerX" secondItem="tmV-aZ-BMz" secondAttribute="centerX" id="a2z-Do-4KE"/>
+                            <constraint firstItem="3k9-KC-NhV" firstAttribute="centerY" secondItem="tmV-aZ-BMz" secondAttribute="centerY" id="wQR-ev-05R"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Concours" id="kes-Rd-h2X">
@@ -1908,8 +1904,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="designButton" destination="0IW-Jq-fJH" id="Qnc-91-T0U"/>
                         <outlet property="menuButton" destination="ASX-wF-jKb" id="i8c-1C-rEI"/>
+                        <outlet property="noContestLabel" destination="3k9-KC-NhV" id="2IH-kt-zQP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ceb-TF-xsC" userLabel="First Responder" sceneMemberID="firstResponder"/>

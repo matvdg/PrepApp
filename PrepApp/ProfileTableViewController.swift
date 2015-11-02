@@ -152,10 +152,11 @@ class ProfileTableViewController: UITableViewController {
         // add buttons
         myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
         myAlert.addAction(UIAlertAction(title: "Modifier", style: UIAlertActionStyle.Default, handler: self.sendNickname))
-        // show the alert
-        self.presentViewController(myAlert, animated: true, completion: nil)
         //add prompt
         myAlert.addTextFieldWithConfigurationHandler(self.addNickname)
+        // show the alert
+        self.presentViewController(myAlert, animated: true, completion: nil)
+        
     }
     
     func sendNickname(alert: UIAlertAction!) {
@@ -207,11 +208,12 @@ class ProfileTableViewController: UITableViewController {
         // add buttons
         myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
         myAlert.addAction(UIAlertAction(title: "Modifier", style: .Default, handler: self.sendPassword))
-        // show the alert
-        self.presentViewController(myAlert, animated: true, completion: nil)
         //add prompts
         myAlert.addTextFieldWithConfigurationHandler(self.addPassword)
         myAlert.addTextFieldWithConfigurationHandler(self.addConfirmationPassword)
+        // show the alert
+        self.presentViewController(myAlert, animated: true, completion: nil)
+        
     }
     
     private func sendPassword(alert: UIAlertAction!) {
