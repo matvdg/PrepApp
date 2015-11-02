@@ -16,6 +16,10 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     let realm = FactoryRealm.getRealmFriends()
     var textField =  UITextField()
     var pullToRefresh =  UIRefreshControl()
+    var idDuo = 0
+    var lastName = ""
+    var firstName = ""
+    var nickname = ""
 
     //@IBOutlet
 	@IBOutlet var menuButton: UIBarButtonItem!
@@ -53,7 +57,10 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     @IBAction func shuffleFriend(sender: AnyObject) {
+        SwiftSpinner.show("Recherche d'un défi aléatoire...")
+        SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
         FactoryDuo.getFriendManager().shuffleDuo { (friend, error) -> Void in
+            SwiftSpinner.hide()
             if let shuffledFriend = friend {
                 var textTodisplay = " "
                 if FactorySync.getConfigManager().loadNicknamePreference() {
@@ -63,12 +70,12 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 }
                 print("id = \(shuffledFriend.id)")
                 // create alert controller
-                let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous êtes sur le point de lancer un défi à \(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de 20 minutes. ", preferredStyle: UIAlertControllerStyle.Alert)
+                let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous êtes sur le point de lancer un défi à\(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de 20 minutes. ", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
                 // add an buttons
                 myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
                 myAlert.addAction(UIAlertAction(title: "GO !", style: .Default, handler: { (action) -> Void in
-                    self.challenge(shuffledFriend.id)
+                    self.challenge(shuffledFriend)
                 }))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
@@ -205,7 +212,6 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 }
                 let counter = self.friends.count
                 self.friends = FactoryDuo.getFriendManager().getFriends()
-                //println(self.friends)
                 if counter == self.friends.count {
                     // create alert controller
                     let myAlert = UIAlertController(title: "Oups !", message: "L'ami a déjà été ajouté... Entrez un autre code.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -250,9 +256,9 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
 
     }
     
-    private func challenge(friend: Int) {
+    private func challenge(friend: Friend) {
         print("requesting duo")
-        FactoryDuo.getDuoManager().requestDuo(friend, callback: { (result, error) -> Void in
+        FactoryDuo.getDuoManager().requestDuo(friend.id, callback: { (result, error) -> Void in
             if error != nil {
                 let myAlert = UIAlertController(title: "Oups !", message: error, preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
@@ -262,8 +268,12 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 self.presentViewController(myAlert, animated: true, completion: nil)
                 
             } else {
+                self.idDuo = result!
+                self.lastName = friend.lastName
+                self.firstName = friend.firstName
+                self.nickname = friend.nickname
                 print("Launching challenge number \(result!)")
-                //self.performSegueWithIdentifier("showDuo", sender: self)
+                self.performSegueWithIdentifier("showDuo", sender: self)
             }
         })
     }
@@ -390,9 +400,29 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 {
-            let pendingDuos = self.pendingDuos[indexPath.row]
-            if pendingDuos.id != -1 {
-                //self.performSegueWithIdentifier("showDuo", sender: self)
+            let pendingDuo = self.pendingDuos[indexPath.row]
+            if pendingDuo.id != -1 {
+                var textTodisplay = " "
+                if FactorySync.getConfigManager().loadNicknamePreference() {
+                    textTodisplay += "\(pendingDuo.nickname)"
+                } else {
+                    textTodisplay += "\(pendingDuo.firstName) \(pendingDuo.lastName)"
+                }
+                // create alert controller
+                let myAlert = UIAlertController(title: "Répondre au défi ?", message: "Vous êtes sur le point de répondre au défi de\(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de 20 minutes. ", preferredStyle: UIAlertControllerStyle.Alert)
+                myAlert.view.tintColor = colorGreen
+                // add an buttons
+                myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
+                myAlert.addAction(UIAlertAction(title: "GO !", style: .Default, handler: { (action) -> Void in
+                    self.idDuo = pendingDuo.id
+                    self.lastName = pendingDuo.lastName
+                    self.firstName = pendingDuo.firstName
+                    self.nickname = pendingDuo.nickname
+                    print("Launching challenge number \(pendingDuo.id)")
+                    self.performSegueWithIdentifier("showDuo", sender: self)
+                }))
+                // show the alert
+                self.presentViewController(myAlert, animated: true, completion: nil)
             }
         } else {
             let friend = self.friends[indexPath.row]
@@ -404,12 +434,12 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                     textTodisplay += "\(friend.firstName) \(friend.lastName)"
                 }
                 // create alert controller
-                let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous êtes sur le point de lancer un défi à \(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de 20 minutes. ", preferredStyle: UIAlertControllerStyle.Alert)
+                let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous êtes sur le point de lancer un défi à votre ami(e)\(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de 20 minutes. ", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
                 // add an buttons
                 myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
                 myAlert.addAction(UIAlertAction(title: "GO !", style: .Default, handler: { (action) -> Void in
-                    self.challenge(friend.id)
+                    self.challenge(friend)
                 }))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
@@ -433,6 +463,17 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         }
         headerView.addSubview(headerLabel)
         return headerView
+    }
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        let QDVC = segue.destinationViewController as! QuestionDuoViewController
+        // Pass the selected object to the new view controller.
+        QDVC.idDuo = self.idDuo
+        QDVC.lastName = self.lastName
+        QDVC.firstName = self.firstName
+        QDVC.nickname = self.nickname
     }
     
 

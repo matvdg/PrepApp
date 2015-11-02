@@ -158,7 +158,6 @@ class FriendManager {
     private func updateFriends(friendsList: NSString, callback: (Bool) -> Void){
         let request = NSMutableURLRequest(URL: FactorySync.updateFriendsUrl!)
         request.HTTPMethod = "POST"
-        //println(friendsList)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&friends=\(friendsList)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {

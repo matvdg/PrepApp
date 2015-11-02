@@ -22,7 +22,7 @@ class CorrectionViewController: UIViewController, UIWebViewDelegate {
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
-        webView.backgroundColor = UIColor.whiteColor()
+        webView.backgroundColor = colorGreyBackground
     }
     
     func logout() {
@@ -55,6 +55,7 @@ class CorrectionViewController: UIViewController, UIWebViewDelegate {
         self.correction.opaque = false
         self.dismissButton.layer.cornerRadius = 6
         self.correction.delegate = self
+        self.correction.backgroundColor = colorGreyBackground
         
         self.correction.loadHTMLString(self.correctionHTML, baseURL: self.baseUrl)
     }

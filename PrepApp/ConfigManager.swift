@@ -15,18 +15,16 @@ class ConfigManager {
         self.getConfig({ (config) -> Void in
             if let config: NSDictionary = config {
                 let date = NSDate(timeIntervalSince1970: NSTimeInterval(Int((config["dateExam"] as! String))!))
-                //println(date)
                 let weeksBeforeExam = Int((config["weeksBeforeExam"] as! String))!
-                //println(weeksBeforeExam)
                 let nicknameAllowed = (config["nickname"] as! String).toBool()!
-                //println(nicknameAllowed)
+                let duration = Int((config["durationDefiduo"] as! String))!
                 
                 //we backup the config for persistence storage
                 NSUserDefaults.standardUserDefaults().setObject(date, forKey: "date")
                 NSUserDefaults.standardUserDefaults().setObject(weeksBeforeExam, forKey: "weeksBeforeExam")
                 NSUserDefaults.standardUserDefaults().setObject(nicknameAllowed, forKey: "nicknamePreference")
+                NSUserDefaults.standardUserDefaults().setObject(duration, forKey: "duration")
                 NSUserDefaults.standardUserDefaults().synchronize()
-                //println("config saved")
                 callback(true)
             } else {
                 callback(false)
@@ -39,6 +37,13 @@ class ConfigManager {
         NSUserDefaults.standardUserDefaults().setObject(version, forKey: "version")
         NSUserDefaults.standardUserDefaults().synchronize()
         print("version saved")
+    }
+    
+    func saveCurrentDay(currentDay: Int) {
+        //we backup the currentDay for persistence storage
+        NSUserDefaults.standardUserDefaults().setObject(currentDay, forKey: "currentDay")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        print("currentDay saved")
     }
     
     func loadDate() -> String {
@@ -74,6 +79,22 @@ class ConfigManager {
         return result
     }
     
+    func loadDuration() -> Int {
+        var result: Int
+        //we retrieve the duration from the local Persistence Storage
+        if let duration : AnyObject = NSUserDefaults.standardUserDefaults().objectForKey("duration") {
+            if let result = duration as? Int {
+                return result
+            } else {
+                result = -1
+            }
+            
+        } else {
+            result = -1
+        }
+        return result
+    }
+    
     func loadCurrentDay() -> Int {
         var result: Int
         //we retrieve the currentDay retrieved from the local Persistence Storage
@@ -89,15 +110,8 @@ class ConfigManager {
         }
         return result
     }
-    
-    func saveCurrentDay(currentDay: Int) {
-        //we backup the currentDay for persistence storage
-        NSUserDefaults.standardUserDefaults().setObject(currentDay, forKey: "currentDay")
-        NSUserDefaults.standardUserDefaults().synchronize()
-        print("currentDay saved")
-    }
 
-    ///return true if nickname allowed
+    ///return true if nickname allowed (Bool)
     func loadNicknamePreference() -> Bool {
         //we retrieve the nicknamePreference from the local Persistence Storage
         if let nicknamePreference : AnyObject = NSUserDefaults.standardUserDefaults().objectForKey("nicknamePreference") {
@@ -111,6 +125,7 @@ class ConfigManager {
         }
     }
     
+    ///return version number (Int)
     func loadVersion() -> Int {
         //we retrieve the version from the local Persistence Storage
         if let version : AnyObject = NSUserDefaults.standardUserDefaults().objectForKey("version") {

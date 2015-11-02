@@ -142,7 +142,6 @@ class ImageManager {
                     
                 } else {
                     if !FactorySync.errorNetwork {
-                        //println("size downloaded = \(self.sizeDownloaded/1000)KB/\(self.sizeToDownload/1000)KB")
                         
                         let imagesPath = FactorySync.path + "/images"
                         do {
@@ -154,7 +153,6 @@ class ImageManager {
                             
                             NSFileManager.defaultManager().createFileAtPath(imagePath, contents: data, attributes: nil)
                             self.numberOfImagesDownloaded++
-                            //println("image \(self.numberOfImagesDownloaded)/\(self.numberOfImagesToDownload) downloaded")
                             //image saved in directory, we updrade Realm DB
                             try! self.realm.write {
                                 self.realm.add(objectToAdd)
@@ -166,7 +164,6 @@ class ImageManager {
                 }
                 
                 if self.numberOfImagesDownloaded == self.numberOfImagesToDownload && self.numberOfImagesToDownload != 0 {
-                    //println("size downloaded = \(self.sizeDownloaded/1000)KB/\(self.sizeToDownload/1000)KB")
                     self.hasFinishedSync = true
                     print("images downloaded")
                 }

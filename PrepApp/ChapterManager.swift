@@ -84,7 +84,6 @@ class ChapterManager {
             }
             if willBeRemoved {
                 idsToRemove.append(offlineChapter.id)
-                //println("removing chapter")
             }
         }
         self.deleteChapters(idsToRemove)
@@ -100,7 +99,6 @@ class ChapterManager {
             }
             if willBeUpdated {
                 idsToUpdate.append(offlineChapter.id)
-                //println("updating chapter")
             }
         }
         self.updateChapters(idsToUpdate)
@@ -117,7 +115,6 @@ class ChapterManager {
             }
             if willBeAdded {
                 idsToAdd.append(onlineChapter.id)
-                //println("adding chapter")
             }
         }
         self.saveChapters(idsToAdd)

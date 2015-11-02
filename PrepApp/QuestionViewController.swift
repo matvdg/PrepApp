@@ -278,7 +278,6 @@ UIAdaptivePresentationControllerDelegate  {
         for question in questionsRealm {
             if FactoryHistory.getHistory().isQuestionDone(question.id){
                 tempQuestions.append(question)
-                //println("ajout solo")
             }
         }
         //fetching duo questions already DONE
@@ -286,7 +285,6 @@ UIAdaptivePresentationControllerDelegate  {
         for question in questionsRealm {
             if FactoryHistory.getHistory().isQuestionDone(question.id){
                 tempQuestions.append(question)
-                //println("ajout duo")
             }
         }
         //now applying the filter choosen by user
@@ -393,7 +391,6 @@ UIAdaptivePresentationControllerDelegate  {
     }
 
     private func refreshView(){
-        //println("refreshView")
         self.cleanView()
         self.numberOfAnswers = 0
         self.sizeAnswerCells.removeAll(keepCapacity: false)
@@ -434,7 +431,6 @@ UIAdaptivePresentationControllerDelegate  {
         
         //displaying the infos and button AFTER the wording and the answers table, and centering
         self.infos = UIWebView(frame: CGRectMake(0, self.wording.bounds.size.height + 10 + tableHeight , self.view.bounds.width, 40))
-        //println(self.currentQuestion!.info)
         self.infos.delegate = self
         self.infos.opaque = false
         self.infos.userInteractionEnabled = false
@@ -699,7 +695,6 @@ UIAdaptivePresentationControllerDelegate  {
     
     //UITableViewDataSource methods
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //println("il y a \(self.numberOfAnswers) cellules")
         return self.numberOfAnswers
     }
     
@@ -763,7 +758,6 @@ UIAdaptivePresentationControllerDelegate  {
             let index = self.selectedAnswers.indexOf(indexPath.row)
             self.selectedAnswers.removeAtIndex(index!)
         }
-        //println(self.selectedAnswers)
     }
     
     //UIWebViewDelegate method

@@ -271,7 +271,6 @@ class QuestionManager {
     }
     
     private func formatInfo(var input: String) -> String {
-        //println("formatting infos")
         input = input.stringByReplacingOccurrencesOfString("<p>", withString: "<p style=\"font-style: italic; font-size: 12px; text-align: center;\">", options: NSStringCompareOptions.LiteralSearch, range: nil)
         return input
     }

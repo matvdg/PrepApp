@@ -19,8 +19,12 @@ class QuestionDuoViewController: UIViewController,
     
     //properties
     var mode = 0 //0 = challenge 1 = results
-    var choice: Int = 0
     var score = 0
+    var idDuo = 0
+    var lastName = ""
+    var firstName = ""
+    var nickname = ""
+
     var soundAlreadyPlayed = false
     var succeeded = 0
     let realm = FactoryRealm.getRealm()
@@ -56,11 +60,14 @@ class QuestionDuoViewController: UIViewController,
         //sync
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
+        self.titleLabel.text = "Défi duo"
+        self.titleLabel.textColor = UIColor.whiteColor()
+        self.titleBar.backgroundColor = colorGreenLogo
+        self.endChallengeButton.layer.cornerRadius = 6
         self.markButton.image = nil
         self.chrono.text = "20"
         self.chrono.textAlignment = NSTextAlignment.Center
         self.markButton.enabled = false
-        self.designSoloChallengeTitleBar()
         self.timeChallengeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("countdown"), userInfo: nil, repeats: true)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
@@ -304,138 +311,14 @@ class QuestionDuoViewController: UIViewController,
         self.greyMask.layer.zPosition = 100
         self.view.addSubview(self.greyMask)
         
-        
-        var tempQuestions = [Question]()
-        //fetching solo questions NEVER DONE
-        let questionsRealm = realm.objects(Question).filter("type = 1")
+        //fetching duo questions NEVER DONE
+        let questionsRealm = realm.objects(Question).filter("idDuo = \(self.idDuo)")
         for question in questionsRealm {
-            if FactoryHistory.getHistory().isQuestionNew(question.id){
-                tempQuestions.append(question)
-                //println("ajout solo")
-            }
+            self.questions.append(question)
         }
+        self.questions.shuffle()
         
-        tempQuestions.shuffle()
-        
-        //now applying the trigram choice choosen by user 1 biology, 2 physics, 3 chemistry, 4 bioPhy, 5 bioChe, 6 chePhy, 7 all
-        var counter = 0
-        switch self.choice {
-            
-            
-        case 1: //biology
-            
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 1 && counter < 12 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            self.questions.shuffle()
-            
-        case 2: //physics
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 2 && counter < 6 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            self.questions.shuffle()
-            
-        case 3: //chemistry
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 3 && counter < 6 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            self.questions.shuffle()
-            
-        case 4: //bioPhy
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 1 && counter < 8 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 2 && counter < 11 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            
-            self.questions.shuffle()
-            
-        case 5: //bioChe
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 1 && counter < 8 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 3 && counter < 11 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            
-            self.questions.shuffle()
-            
-        case 6: //chePhy
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 2 && counter < 4 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 3 && counter < 6 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            
-            self.questions.shuffle()
-            
-        case 7: //all
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 1 && counter < 6 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 2 && counter < 8 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 3 && counter < 9 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            
-            self.questions.shuffle()
-            
-        default:
-            print("default")
-        }
-        
+        //checking pagination
         if self.questions.count == 1 {
             self.nextButton.enabled = false
             self.previousButton.enabled = false
@@ -443,61 +326,9 @@ class QuestionDuoViewController: UIViewController,
             self.nextButton.enabled = true
             self.previousButton.enabled = false
         }
-        
-        self.questions.shuffle()
-        
-        
-    }
-    
-    private func designSoloChallengeTitleBar() {
-        switch self.choice {
-            
-        case 1: //biology
-            self.titleLabel.text = "Défi solo Biologie"
-            self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorBio
-            
-        case 2: //physics
-            self.titleLabel.text = "Défi solo Physique"
-            self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorPhy
-            
-        case 3: //chemistry
-            self.titleLabel.text = "Défi solo Chimie"
-            self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorChe
-            
-            
-        case 4: //bioPhy
-            self.titleLabel.text = "Défi solo Biologie/Physique"
-            self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorBioPhy
-            
-        case 5: //bioChe
-            self.titleLabel.text = "Défi solo Biologie/Chimie"
-            self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorBioChe
-            
-        case 6: //chePhy
-            self.titleLabel.text = "Défi solo Chimie/Physique"
-            self.titleLabel.textColor = UIColor.whiteColor()
-            self.titleBar.backgroundColor = colorChePhy
-            
-        case 7: //all
-            self.titleLabel.text = "Défi solo Biologie/Physique/Chimie"
-            self.titleLabel.textColor = UIColor.whiteColor()
-            self.titleBar.backgroundColor = colorGreenLogo
-            
-        default:
-            print("default")
-        }
-        
-        self.endChallengeButton.layer.cornerRadius = 6
-        
     }
     
     private func loadQuestion() {
-        //println(self.allAnswers)
         self.greyMask.layer.zPosition = 100
         self.selectedAnswers.removeAll(keepCapacity: false)
         self.sizeAnswerCells.removeAll(keepCapacity: false)
@@ -622,7 +453,6 @@ class QuestionDuoViewController: UIViewController,
         
         //displaying the infos and button AFTER the wording and the answers table, and centering
         self.infos = UIWebView(frame: CGRectMake(0, self.wording.bounds.size.height + 10 + tableHeight , self.view.bounds.width, 40))
-        //println(self.currentQuestion!.info)
         self.infos.delegate = self
         self.infos.opaque = false
         self.infos.userInteractionEnabled = false
@@ -929,7 +759,6 @@ class QuestionDuoViewController: UIViewController,
     
     //UITableViewDataSource methods
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //println("il y a \(self.numberOfAnswers) cellules")
         return self.numberOfAnswers
     }
     
@@ -994,7 +823,6 @@ class QuestionDuoViewController: UIViewController,
             let index = self.selectedAnswers.indexOf(indexPath.row)
             self.selectedAnswers.removeAtIndex(index!)
         }
-        //println(self.selectedAnswers)
     }
     
     //UIWebViewDelegate method
@@ -1064,10 +892,8 @@ class QuestionDuoViewController: UIViewController,
             // Pass the selected object to the new view controller.
             scoreVC.score = self.score
             scoreVC.succeeded = self.succeeded
-            scoreVC.choice = self.choice
             scoreVC.numberOfQuestions = self.questions.count
         }
-        
     }
     
 }

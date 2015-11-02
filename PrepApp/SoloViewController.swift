@@ -48,7 +48,7 @@ class SoloViewController: UIViewController {
                 myAlert.view.tintColor = colorGreen
                 // add buttons
                 myAlert.addAction(UIAlertAction(title: "OUI", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                    self.performSegueWithIdentifier("showQuestionsSolo", sender: self)
+                    self.performSegueWithIdentifier("showSolo", sender: self)
                 }))
                 myAlert.addAction(UIAlertAction(title: "NON", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert

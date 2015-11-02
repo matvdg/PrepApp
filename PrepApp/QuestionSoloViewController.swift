@@ -311,7 +311,6 @@ class QuestionSoloViewController: UIViewController,
         for question in questionsRealm {
             if FactoryHistory.getHistory().isQuestionNew(question.id){
                 tempQuestions.append(question)
-                //println("ajout solo")
             }
         }
         
@@ -497,7 +496,6 @@ class QuestionSoloViewController: UIViewController,
     }
     
     private func loadQuestion() {
-        //println(self.allAnswers)
         self.greyMask.layer.zPosition = 100
         self.selectedAnswers.removeAll(keepCapacity: false)
         self.sizeAnswerCells.removeAll(keepCapacity: false)
@@ -622,7 +620,6 @@ class QuestionSoloViewController: UIViewController,
         
         //displaying the infos and button AFTER the wording and the answers table, and centering
         self.infos = UIWebView(frame: CGRectMake(0, self.wording.bounds.size.height + 10 + tableHeight , self.view.bounds.width, 40))
-        //println(self.currentQuestion!.info)
         self.infos.delegate = self
         self.infos.opaque = false
         self.infos.userInteractionEnabled = false
@@ -929,7 +926,6 @@ class QuestionSoloViewController: UIViewController,
     
     //UITableViewDataSource methods
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //println("il y a \(self.numberOfAnswers) cellules")
         return self.numberOfAnswers
     }
     
@@ -994,7 +990,6 @@ class QuestionSoloViewController: UIViewController,
             let index = self.selectedAnswers.indexOf(indexPath.row)
             self.selectedAnswers.removeAtIndex(index!)
         }
-        //println(self.selectedAnswers)
     }
     
     //UIWebViewDelegate method

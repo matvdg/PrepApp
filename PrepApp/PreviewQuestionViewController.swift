@@ -251,7 +251,6 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
     
     //UITableViewDataSource methods
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //println("il y a \(self.numberOfAnswers) cellules")
         return self.numberOfAnswers
     }
     

@@ -128,7 +128,6 @@ class SettingsTableViewController: UITableViewController {
         let authenticationError = NSErrorPointer()
         authenticationObject.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: authenticationError)
         if authenticationError != nil {
-            //println("TouchID not available in this device")
             self.settings.removeAtIndex(self.settings.indexOf("Touch ID")!)
         }
         
