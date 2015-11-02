@@ -1,5 +1,5 @@
 //
-//  ScoreViewController.swift
+//  ScoreSoloViewController.swift
 //  PrepApp
 //
 //  Created by Mikael Vandeginste on 06/09/2015.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ScoreViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
+class ScoreSoloViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     
     var choice = 0
     var score = 0

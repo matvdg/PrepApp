@@ -1,5 +1,5 @@
 //
-//  QuestionSoloViewController.swift
+//  QuestionDuoViewController.swift
 //  PrepApp
 //
 //  Created by Mathieu Vandeginste on 23/07/15.
@@ -9,12 +9,12 @@
 import UIKit
 import RealmSwift
 
-class QuestionSoloViewController: UIViewController,
+class QuestionDuoViewController: UIViewController,
     UITableViewDataSource,
     UITableViewDelegate,
     UIWebViewDelegate,
     UINavigationControllerDelegate
-
+    
 {
     
     //properties
@@ -232,7 +232,7 @@ class QuestionSoloViewController: UIViewController,
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
             }
-
+            
         } else {
             let myAlert = UIAlertController(title: "Voulez-vous vraiment quitter le défi solo ?", message: "Vous ne pourrez plus revoir vos réponses, mais vous pourrez retrouver les questions et leur correction dans entraînement", preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
@@ -244,7 +244,7 @@ class QuestionSoloViewController: UIViewController,
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
             
-
+            
         }
         
     }
@@ -461,13 +461,13 @@ class QuestionSoloViewController: UIViewController,
             self.titleLabel.text = "Défi solo Physique"
             self.titleLabel.textColor = UIColor.blackColor()
             self.titleBar.backgroundColor = colorPhy
-
+            
         case 3: //chemistry
             self.titleLabel.text = "Défi solo Chimie"
             self.titleLabel.textColor = UIColor.blackColor()
             self.titleBar.backgroundColor = colorChe
-
-
+            
+            
         case 4: //bioPhy
             self.titleLabel.text = "Défi solo Biologie/Physique"
             self.titleLabel.textColor = UIColor.blackColor()
@@ -477,17 +477,17 @@ class QuestionSoloViewController: UIViewController,
             self.titleLabel.text = "Défi solo Biologie/Chimie"
             self.titleLabel.textColor = UIColor.blackColor()
             self.titleBar.backgroundColor = colorBioChe
-
+            
         case 6: //chePhy
             self.titleLabel.text = "Défi solo Chimie/Physique"
             self.titleLabel.textColor = UIColor.whiteColor()
             self.titleBar.backgroundColor = colorChePhy
-
+            
         case 7: //all
             self.titleLabel.text = "Défi solo Biologie/Physique/Chimie"
             self.titleLabel.textColor = UIColor.whiteColor()
             self.titleBar.backgroundColor = colorGreenLogo
-
+            
         default:
             print("default")
         }
@@ -542,18 +542,18 @@ class QuestionSoloViewController: UIViewController,
             if self.mode == 0 {
                 self.markButton.image = UIImage(named: "phyBar")
             }
-
+            
             self.chapter.backgroundColor = colorPhy
         case 3 : //chemistry
             if self.mode == 0 {
                 self.markButton.image = UIImage(named: "cheBar")
             }
-
+            
             self.chapter.backgroundColor = colorChe
         default:
             self.markButton.image = nil
         }
-
+        
         
     }
     
@@ -1060,14 +1060,14 @@ class QuestionSoloViewController: UIViewController,
             commentVC.selectedId = self.currentQuestion!.id
         }
         
-        if let scoreVC = segue.destinationViewController as? ScoreSoloViewController {
+        if let scoreVC = segue.destinationViewController as? ScoreDuoViewController {
             // Pass the selected object to the new view controller.
             scoreVC.score = self.score
             scoreVC.succeeded = self.succeeded
             scoreVC.choice = self.choice
             scoreVC.numberOfQuestions = self.questions.count
         }
-
+        
     }
     
 }

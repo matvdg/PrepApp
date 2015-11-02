@@ -1912,10 +1912,10 @@
             </objects>
             <point key="canvasLocation" x="2939" y="-2622"/>
         </scene>
-        <!--ProfileVC-->
+        <!--SettingsVC-->
         <scene sceneID="MJN-lH-soz">
             <objects>
-                <tableViewController title="ProfileVC" id="k8K-G2-NLV" customClass="ProfileTableViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="SettingsVC" id="k8K-G2-NLV" customClass="SettingsTableViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="eIl-z1-SEl">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2682,7 +2682,7 @@
         <!--Score-->
         <scene sceneID="8V6-Kx-idg">
             <objects>
-                <viewController title="Score" id="obN-Bd-9Nx" customClass="ScoreViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Score" id="obN-Bd-9Nx" customClass="ScoreSoloViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DO0-q3-O2y"/>
                         <viewControllerLayoutGuide type="bottom" id="tWU-s1-4ar"/>

@@ -10,7 +10,7 @@
 		952588BB1B9742E400F68B3F /* NewsfeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952588BA1B9742E400F68B3F /* NewsfeedViewController.swift */; };
 		952588BD1B974BDF00F68B3F /* QuestionSoloViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952588BC1B974BDF00F68B3F /* QuestionSoloViewController.swift */; };
 		953686E71BB0179100CD6615 /* QuestionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953686E61BB0179100CD6615 /* QuestionManager.swift */; };
-		954441E41B9CB49F0035B7ED /* ScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954441E31B9CB49F0035B7ED /* ScoreViewController.swift */; };
+		954441E41B9CB49F0035B7ED /* ScoreSoloViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954441E31B9CB49F0035B7ED /* ScoreSoloViewController.swift */; };
 		9555BBC91BA836EF00BED5A2 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9555BBC81BA836EF00BED5A2 /* StatsViewController.swift */; };
 		9555BBCB1BA836FB00BED5A2 /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9555BBCA1BA836FB00BED5A2 /* FeedbackViewController.swift */; };
 		9555BBCD1BA8371600BED5A2 /* LeaderboardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9555BBCC1BA8371600BED5A2 /* LeaderboardTableViewController.swift */; };
@@ -35,6 +35,8 @@
 		F62C29FE1BE6B37F00DF5EF0 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62C29F91BE6B36400DF5EF0 /* Charts.framework */; };
 		F62C29FF1BE6B37F00DF5EF0 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F62C29F91BE6B36400DF5EF0 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F62C2A061BE6C3B400DF5EF0 /* SwiftSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62C2A051BE6C3B400DF5EF0 /* SwiftSpinner.swift */; };
+		F62C2A081BE6F58600DF5EF0 /* ScoreDuoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62C2A071BE6F58600DF5EF0 /* ScoreDuoViewController.swift */; };
+		F62C2A0A1BE6F59300DF5EF0 /* QuestionDuoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62C2A091BE6F59300DF5EF0 /* QuestionDuoViewController.swift */; };
 		F62D408F1AF442E60051DE83 /* segoe.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F62D408E1AF442E00051DE83 /* segoe.ttf */; };
 		F6322A161B6157F60074549E /* ChaptersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6322A151B6157F60074549E /* ChaptersTableViewController.swift */; };
 		F6322A181B6158230074549E /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6322A171B6158230074549E /* QuestionViewController.swift */; };
@@ -65,7 +67,7 @@
 		F6C267FC1BB56BDC00CA462A /* PendingDuo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C267FB1BB56BDC00CA462A /* PendingDuo.swift */; };
 		F6C3095C1B0365B100B8FAC9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C309581B0365B100B8FAC9 /* HomeViewController.swift */; };
 		F6C3095E1B037ACF00B8FAC9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6C3095D1B037ACF00B8FAC9 /* Images.xcassets */; };
-		F6CB05D01BBC927200289CEA /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CB05CF1BBC927200289CEA /* ProfileTableViewController.swift */; };
+		F6CB05D01BBC927200289CEA /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CB05CF1BBC927200289CEA /* SettingsTableViewController.swift */; };
 		F6CB05D21BBC951700289CEA /* UITableViewCellSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CB05D11BBC951700289CEA /* UITableViewCellSetting.swift */; };
 		F6ECC1101AF6DFE8008F18E3 /* SyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ECC10F1AF6DFE8008F18E3 /* SyncViewController.swift */; };
 		F6FBFAB81AFA1F5E0020B074 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FBFAB71AFA1F5E0020B074 /* User.swift */; };
@@ -135,7 +137,7 @@
 		952588BA1B9742E400F68B3F /* NewsfeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsfeedViewController.swift; sourceTree = "<group>"; };
 		952588BC1B974BDF00F68B3F /* QuestionSoloViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionSoloViewController.swift; sourceTree = "<group>"; };
 		953686E61BB0179100CD6615 /* QuestionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionManager.swift; sourceTree = "<group>"; };
-		954441E31B9CB49F0035B7ED /* ScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreViewController.swift; sourceTree = "<group>"; };
+		954441E31B9CB49F0035B7ED /* ScoreSoloViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreSoloViewController.swift; sourceTree = "<group>"; };
 		9555BBC81BA836EF00BED5A2 /* StatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StatsViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9555BBCA1BA836FB00BED5A2 /* FeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FeedbackViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9555BBCC1BA8371600BED5A2 /* LeaderboardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = LeaderboardTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -160,6 +162,8 @@
 		F61A1CDE1B0041CD00777584 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		F62C29F21BE6B36400DF5EF0 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "ios-charts-master/Charts/Charts.xcodeproj"; sourceTree = "<group>"; };
 		F62C2A051BE6C3B400DF5EF0 /* SwiftSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftSpinner.swift; sourceTree = "<group>"; };
+		F62C2A071BE6F58600DF5EF0 /* ScoreDuoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreDuoViewController.swift; sourceTree = "<group>"; };
+		F62C2A091BE6F59300DF5EF0 /* QuestionDuoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionDuoViewController.swift; sourceTree = "<group>"; };
 		F62D408E1AF442E00051DE83 /* segoe.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = segoe.ttf; path = fonts/segoe.ttf; sourceTree = "<group>"; };
 		F6322A151B6157F60074549E /* ChaptersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChaptersTableViewController.swift; sourceTree = "<group>"; };
 		F6322A171B6158230074549E /* QuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = QuestionViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -195,7 +199,7 @@
 		F6C267FB1BB56BDC00CA462A /* PendingDuo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingDuo.swift; sourceTree = "<group>"; };
 		F6C309581B0365B100B8FAC9 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HomeViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F6C3095D1B037ACF00B8FAC9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		F6CB05CF1BBC927200289CEA /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ProfileTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		F6CB05CF1BBC927200289CEA /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SettingsTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F6CB05D11BBC951700289CEA /* UITableViewCellSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellSetting.swift; sourceTree = "<group>"; };
 		F6ECC10F1AF6DFE8008F18E3 /* SyncViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncViewController.swift; sourceTree = "<group>"; };
 		F6FBB4B71B160CE300A18600 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
@@ -310,7 +314,7 @@
 				F60739E11BB216BE004DEC32 /* CommentViewController.swift */,
 				F60739E31BB216CB004DEC32 /* PreviewQuestionViewController.swift */,
 				F667EC4F1BE5371100F98DA5 /* HelpViewController.swift */,
-				F6CB05CF1BBC927200289CEA /* ProfileTableViewController.swift */,
+				F6CB05CF1BBC927200289CEA /* SettingsTableViewController.swift */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -332,6 +336,8 @@
 			isa = PBXGroup;
 			children = (
 				F605AF0F1B0414F300E90596 /* FriendViewController.swift */,
+				F62C2A091BE6F59300DF5EF0 /* QuestionDuoViewController.swift */,
+				F62C2A071BE6F58600DF5EF0 /* ScoreDuoViewController.swift */,
 			);
 			name = Duo;
 			sourceTree = "<group>";
@@ -341,7 +347,7 @@
 			children = (
 				F605AF0D1B04146C00E90596 /* SoloViewController.swift */,
 				952588BC1B974BDF00F68B3F /* QuestionSoloViewController.swift */,
-				954441E31B9CB49F0035B7ED /* ScoreViewController.swift */,
+				954441E31B9CB49F0035B7ED /* ScoreSoloViewController.swift */,
 			);
 			name = Solo;
 			sourceTree = "<group>";
@@ -655,6 +661,7 @@
 				F6AC7B4D1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift in Sources */,
 				953686E71BB0179100CD6615 /* QuestionManager.swift in Sources */,
 				F60739E41BB216CB004DEC32 /* PreviewQuestionViewController.swift in Sources */,
+				F62C2A081BE6F58600DF5EF0 /* ScoreDuoViewController.swift in Sources */,
 				95C5C48D1B9503F6001DA9B5 /* Answer.swift in Sources */,
 				F60739E21BB216BE004DEC32 /* CommentViewController.swift in Sources */,
 				F6ECC1101AF6DFE8008F18E3 /* SyncViewController.swift in Sources */,
@@ -667,7 +674,7 @@
 				9555BBCF1BA8372500BED5A2 /* MarkedQuestionsTableViewController.swift in Sources */,
 				F6322A231B615E460074549E /* Subject.swift in Sources */,
 				95D765031B9F358E002C31CC /* Scoring.swift in Sources */,
-				F6CB05D01BBC927200289CEA /* ProfileTableViewController.swift in Sources */,
+				F6CB05D01BBC927200289CEA /* SettingsTableViewController.swift in Sources */,
 				9555BBCB1BA836FB00BED5A2 /* FeedbackViewController.swift in Sources */,
 				F6322A161B6157F60074549E /* ChaptersTableViewController.swift in Sources */,
 				F6322A1C1B615DFA0074549E /* Question.swift in Sources */,
@@ -676,9 +683,10 @@
 				F6322A181B6158230074549E /* QuestionViewController.swift in Sources */,
 				F6C267FC1BB56BDC00CA462A /* PendingDuo.swift in Sources */,
 				F6C02C421B760B960021ABE1 /* ChoiceQuestionViewController.swift in Sources */,
-				954441E41B9CB49F0035B7ED /* ScoreViewController.swift in Sources */,
+				954441E41B9CB49F0035B7ED /* ScoreSoloViewController.swift in Sources */,
 				952588BD1B974BDF00F68B3F /* QuestionSoloViewController.swift in Sources */,
 				F6987A6D1B16321B002989C6 /* ImageManager.swift in Sources */,
+				F62C2A0A1BE6F59300DF5EF0 /* QuestionDuoViewController.swift in Sources */,
 				F6322A1A1B6158300074549E /* CorrectionViewController.swift in Sources */,
 				F605AF101B0414F300E90596 /* FriendViewController.swift in Sources */,
 				F6322A1F1B615E360074549E /* Chapter.swift in Sources */,

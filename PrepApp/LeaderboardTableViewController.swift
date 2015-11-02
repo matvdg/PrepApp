@@ -18,10 +18,10 @@ class LeaderboardTableViewController: UITableViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.pullToRefresh.tintColor = colorGreen
-        self.pullToRefresh.attributedTitle = NSAttributedString(string: "Glisser vers le bas pour actualiser le classement.")
+        self.pullToRefresh.attributedTitle = NSAttributedString(string: "▼ Glisser vers le bas pour actualiser le classement ▼")
         self.pullToRefresh.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView?.addSubview(pullToRefresh)
-        SwiftSpinner.show("Veuillez patienter...")
+        SwiftSpinner.show("Mise à jour du classement...")
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
         //sync
         FactoryHistory.getHistory().sync()
@@ -55,6 +55,11 @@ class LeaderboardTableViewController: UITableViewController  {
                 }
                 self.tableView.reloadData()
             } else {
+                // tell refresh control it can stop showing up now
+                if self.pullToRefresh.refreshing
+                {
+                    self.pullToRefresh.endRefreshing()
+                }
                 let myAlert = UIAlertController(title: "Erreur", message: "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez." , preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))

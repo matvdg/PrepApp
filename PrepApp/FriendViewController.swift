@@ -45,7 +45,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         myAlert.view.tintColor = colorGreen
         // add buttons
         myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
-        myAlert.addAction(UIAlertAction(title: "Ajouter", style: .Default, handler: self.codeEntered))
+        myAlert.addAction(UIAlertAction(title: "Ajouter", style: .Default, handler: self.add))
         //add prompt
         myAlert.addTextFieldWithConfigurationHandler(self.addTextField)
         // show the alert
@@ -88,7 +88,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     //app methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.pullToRefresh.attributedTitle = NSAttributedString(string: "Glisser vers le bas pour actualiser.")
+        self.pullToRefresh.attributedTitle = NSAttributedString(string: "▼ Glisser vers le bas pour actualiser ▼")
         self.pullToRefresh.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.pullToRefresh.tintColor = colorGreen
         self.friendsTable?.addSubview(pullToRefresh)
@@ -193,12 +193,11 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         self.textField = textField
     }
     
-    func codeEntered(alert: UIAlertAction!){
-        self.add(self.textField.text!)
-    }
-    
-    private func add(code: String) {
-        FactoryDuo.getFriendManager().saveFriend(code, callback: { (result, message) -> Void in
+    func add(alert: UIAlertAction!) {
+        SwiftSpinner.show("Veuillez patienter...")
+        SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+        FactoryDuo.getFriendManager().saveFriend(self.textField.text!, callback: { (result, message) -> Void in
+            SwiftSpinner.hide()
             if result {
                 if self.friends[0].id == -1 {
                     self.friends.removeAtIndex(0)

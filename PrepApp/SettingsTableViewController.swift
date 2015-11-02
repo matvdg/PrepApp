@@ -9,7 +9,7 @@
 import UIKit
 import LocalAuthentication
 
-class ProfileTableViewController: UITableViewController {
+class SettingsTableViewController: UITableViewController {
     
     var settings = ["Modifier votre pseudo", "Modifier votre mot de passe", "Bruitages", "Touch ID"]
     
@@ -161,6 +161,8 @@ class ProfileTableViewController: UITableViewController {
     
     func sendNickname(alert: UIAlertAction!) {
         if self.nickname.text != "" {
+            SwiftSpinner.show("Veuillez patienter...")
+            SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
             User.currentUser!.changeNickname(self.nickname.text!, callback: { (message) -> Void in
                 // create alert controller
                 let myAlert = UIAlertController(title: message!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
@@ -168,6 +170,7 @@ class ProfileTableViewController: UITableViewController {
                 // add an "OK" button
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
+                SwiftSpinner.hide()
                 self.presentViewController(myAlert, animated: true, completion: nil)
             })
             
@@ -219,6 +222,8 @@ class ProfileTableViewController: UITableViewController {
     private func sendPassword(alert: UIAlertAction!) {
         if (self.password.text!.hasGoodLength() && self.password.text!.hasTwoNumber() && self.password.text!.hasUppercase()){
             if self.password.text == self.confirmationPassword.text {
+                SwiftSpinner.show("Veuillez patienter...")
+                SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
                 User.currentUser?.changePassword(self.password.text!.sha1(), callback: { (message) -> Void in
                     // create alert controller
                     let myAlert = UIAlertController(title: message!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
@@ -226,6 +231,7 @@ class ProfileTableViewController: UITableViewController {
                     // add an "OK" button
                     myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                     // show the alert
+                    SwiftSpinner.hide()
                     self.presentViewController(myAlert, animated: true, completion: nil)
                 })
                 
