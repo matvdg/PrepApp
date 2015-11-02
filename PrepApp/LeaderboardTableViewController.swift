@@ -13,9 +13,13 @@ class LeaderboardTableViewController: UITableViewController  {
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     var friends = [Friend]()
+    var pullToRefresh =  UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.pullToRefresh.attributedTitle = NSAttributedString(string: "Glisser vers le bas pour actualiser le classement.")
+        self.pullToRefresh.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView?.addSubview(pullToRefresh)
         SwiftSpinner.show("Veuillez patienter...")
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
         //sync
@@ -43,6 +47,11 @@ class LeaderboardTableViewController: UITableViewController  {
         FactoryHistory.getScoring().loadLeaderboard { (data) -> Void in
             if let leaderboard = data {
                 self.friends = leaderboard
+                // tell refresh control it can stop showing up now
+                if self.pullToRefresh.refreshing
+                {
+                    self.pullToRefresh.endRefreshing()
+                }
                 self.tableView.reloadData()
             } else {
                 let myAlert = UIAlertController(title: "Erreur", message: "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez." , preferredStyle: UIAlertControllerStyle.Alert)
@@ -62,7 +71,6 @@ class LeaderboardTableViewController: UITableViewController  {
         print("logging out")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-    
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
@@ -76,6 +84,9 @@ class LeaderboardTableViewController: UITableViewController  {
         
         // show the alert
         self.presentViewController(myAlert, animated: true, completion: nil)
+    }
+    func refresh(sender:AnyObject) {
+        self.loadLeaderboard()
     }
 
     // MARK: - Table view data source

@@ -15,6 +15,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     var pendingDuos = [PendingDuo]()
     let realm = FactoryRealm.getRealmFriends()
     var textField =  UITextField()
+    var pullToRefresh =  UIRefreshControl()
 
     //@IBOutlet
 	@IBOutlet var menuButton: UIBarButtonItem!
@@ -45,10 +46,10 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         // add buttons
         myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
         myAlert.addAction(UIAlertAction(title: "Ajouter", style: .Default, handler: self.codeEntered))
-        // show the alert
-        self.presentViewController(myAlert, animated: true, completion: nil)
         //add prompt
         myAlert.addTextFieldWithConfigurationHandler(self.addTextField)
+        // show the alert
+        self.presentViewController(myAlert, animated: true, completion: nil)
     }
     
     @IBAction func shuffleFriend(sender: AnyObject) {
@@ -60,6 +61,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 } else {
                     textTodisplay += "\(shuffledFriend.firstName) \(shuffledFriend.lastName)"
                 }
+                print("id = \(shuffledFriend.id)")
                 // create alert controller
                 let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous êtes sur le point de lancer un défi à \(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de 20 minutes. ", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
@@ -86,6 +88,9 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     //app methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.pullToRefresh.attributedTitle = NSAttributedString(string: "Glisser vers le bas pour actualiser le classement.")
+        self.pullToRefresh.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.friendsTable?.addSubview(pullToRefresh)
         SwiftSpinner.show("Mise à jour des défis...")
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
         //sync
@@ -140,25 +145,26 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 print("offline pendingDuos")
             }
             self.pendingDuos = FactoryDuo.getDuoManager().getPendingDuos()
-            self.templating()
-            self.friendsTable.reloadData()
-            SwiftSpinner.hide()
-        })
+            //loading friends
+            FactoryDuo.getFriendManager().saveFriends { (result) -> Void in
+                if result {
+                    print("friendsList synced")
+                } else {
+                    print("offline friendsList")
+                    
+                }
+                self.friends = FactoryDuo.getFriendManager().getFriends()
+                self.templating()
+                self.friendsTable.reloadData()
+                // tell refresh control it can stop showing up now
+                if self.pullToRefresh.refreshing
+                {
+                    self.pullToRefresh.endRefreshing()
+                }
 
-        
-        //loading friends
-        FactoryDuo.getFriendManager().saveFriends { (result) -> Void in
-            if result {
-                print("friendsList synced")
-            } else {
-                print("offline friendsList")
-                
+                SwiftSpinner.hide()
             }
-            self.friends = FactoryDuo.getFriendManager().getFriends()
-            self.templating()
-            self.friendsTable.reloadData()
-        }
-        
+        })
     }
     
     func templating(){
@@ -262,6 +268,10 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         })
     }
     
+    func refresh(sender:AnyObject) {
+        self.loadData()
+    }
+
     
     // MARK: - Table view data source
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
