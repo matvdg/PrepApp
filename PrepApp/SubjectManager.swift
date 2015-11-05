@@ -165,8 +165,8 @@ class SubjectManager {
                     newSubject.name = subjectData["name"] as! String
                     newSubject.version = subjectData["version"] as! Int
                     //TODO: receive rario & time per Questions computed
-                    newSubject.ratio = subjectData["questionsPerExam"] as! Int
-                    newSubject.timePerQuestion = subjectData["examDuration"] as! Int
+                    newSubject.ratio = subjectData["ratio"] as! Int
+                    newSubject.timePerQuestion = subjectData["timePerQuestion"] as! Int
                     try! self.realm.write {
                         self.realm.add(newSubject)
                         print(newSubject)

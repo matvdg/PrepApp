@@ -17,7 +17,7 @@ class ConfigManager {
                 let date = NSDate(timeIntervalSince1970: NSTimeInterval(Int((config["dateExam"] as! String))!))
                 let weeksBeforeExam = Int((config["weeksBeforeExam"] as! String))!
                 let nicknameAllowed = (config["nickname"] as! String).toBool()!
-                let duration = Int((config["durationDefiduo"] as! String))!
+                let duration = Int((config["challengeDuration"] as! String))!
                 
                 //we backup the config for persistence storage
                 NSUserDefaults.standardUserDefaults().setObject(date, forKey: "date")
