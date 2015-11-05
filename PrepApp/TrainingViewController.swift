@@ -43,7 +43,7 @@ class TrainingViewController: UIViewController {
     }
 	
     @IBAction func chi(sender: AnyObject) {
-        if !realm.objects(Subject).filter("name='chimie'") {
+        if !realm.objects(Subject).filter("name='chimie'").isEmpty {
             self.subject = realm.objects(Subject).filter("name='chimie'")[0]
         }
         self.performSegueWithIdentifier("showChapters", sender: self)
