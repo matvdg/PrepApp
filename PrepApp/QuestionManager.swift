@@ -171,7 +171,11 @@ class QuestionManager {
     private func saveQuestion(data: NSDictionary) {
         let realm = try! Realm()
         let id =  data["id"] as! Int
-        let chapter = self.realm.objects(Chapter).filter("id=\(data["idChapter"] as! Int)")[0]
+        var chapter = Chapter()
+        if !self.realm.objects(Chapter).filter("id=\(data["idChapter"] as! Int)").isEmpty {
+            chapter = self.realm.objects(Chapter).filter("id=\(data["idChapter"] as! Int)")[0]
+        }
+        
         let images = self.extractImagesPaths(data["images"] as! NSDictionary)
         let wording = self.parseNplaceImage(data["wording"] as! String, images: images)
         let answersList = self.extractAnswers(data["answers"] as! NSDictionary, images: images)

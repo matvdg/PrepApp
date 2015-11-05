@@ -25,9 +25,11 @@ class Scoring {
         
         //fetching the appropriate questions
         for questionHistory in questionsHistory {
-            let question = self.realm.objects(Question).filter("id = \(questionHistory.id)")[0]
-            if question.chapter!.subject!.id == subject {
-                questionsToCompute.append(questionHistory)
+            if !self.realm.objects(Question).filter("id = \(questionHistory.id)").isEmpty {
+                let question = self.realm.objects(Question).filter("id = \(questionHistory.id)")[0]
+                if question.chapter!.subject!.id == subject {
+                    questionsToCompute.append(questionHistory)
+                }
             }
         }
         
@@ -96,12 +98,14 @@ class Scoring {
         
         //fetching the appropriate questions
         for questionHistory in questionsHistory {
-            let question = self.realm.objects(Question).filter("id = \(questionHistory.id)")[0]
-            if question.chapter!.subject!.id == subject {
-                if let _ = questionsToCompute[questionHistory.weeksBeforeExam] {
-                    questionsToCompute[questionHistory.weeksBeforeExam]!.append(questionHistory)
-                } else {
-                    questionsToCompute[questionHistory.weeksBeforeExam] = [questionHistory]
+            if !self.realm.objects(Question).filter("id = \(questionHistory.id)").isEmpty {
+                let question = self.realm.objects(Question).filter("id = \(questionHistory.id)")[0]
+                if question.chapter!.subject!.id == subject {
+                    if let _ = questionsToCompute[questionHistory.weeksBeforeExam] {
+                        questionsToCompute[questionHistory.weeksBeforeExam]!.append(questionHistory)
+                    } else {
+                        questionsToCompute[questionHistory.weeksBeforeExam] = [questionHistory]
+                    }
                 }
             }
         }

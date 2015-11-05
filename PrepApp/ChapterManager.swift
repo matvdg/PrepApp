@@ -147,8 +147,10 @@ class ChapterManager {
                                 chapter.name = chapterData["name"] as! String
                                 let id = chapterData["idSubject"] as! Int
                                 chapter.number = chapterData["number"] as! Int
-                                let subject = self.realm.objects(Subject).filter("id=\(id)")[0]
-                                chapter.subject = subject
+                                if !self.realm.objects(Subject).filter("id=\(id)").isEmpty {
+                                    let subject = self.realm.objects(Subject).filter("id=\(id)")[0]
+                                    chapter.subject = subject
+                                }
                                 chapter.version = chapterData["version"] as! Int
                             }
                         }
@@ -168,8 +170,10 @@ class ChapterManager {
                     newChapter.number = chapterData["number"] as! Int
                     newChapter.version = chapterData["version"] as! Int
                     let id = chapterData["idSubject"] as! Int
-                    let subject = self.realm.objects(Subject).filter("id=\(id)")[0]
-                    newChapter.subject = subject
+                    if !self.realm.objects(Subject).filter("id=\(id)").isEmpty {
+                        let subject = self.realm.objects(Subject).filter("id=\(id)")[0]
+                        newChapter.subject = subject
+                    }
                     try! self.realm.write {
                         self.realm.add(newChapter)
                     }

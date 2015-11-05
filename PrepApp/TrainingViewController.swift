@@ -23,7 +23,9 @@ class TrainingViewController: UIViewController {
 	@IBOutlet var menuButton: UIBarButtonItem!
 	
     @IBAction func bio(sender: AnyObject) {
-        self.subject = realm.objects(Subject).filter("name='biologie'")[0]
+        if !realm.objects(Subject).filter("name='biologie'").isEmpty {
+            self.subject = realm.objects(Subject).filter("name='biologie'")[0]
+        }
         self.performSegueWithIdentifier("showChapters", sender: self)
         if self.revealViewController() != nil {
             self.revealViewController().setFrontViewPosition(FrontViewPosition.Left, animated: true)
@@ -31,7 +33,9 @@ class TrainingViewController: UIViewController {
     }
 
     @IBAction func phy(sender: AnyObject) {
-        self.subject = realm.objects(Subject).filter("name='physique'")[0]
+        if !realm.objects(Subject).filter("name='physique'").isEmpty {
+            self.subject = realm.objects(Subject).filter("name='physique'")[0]
+        }
         self.performSegueWithIdentifier("showChapters", sender: self)
         if self.revealViewController() != nil {
             self.revealViewController().setFrontViewPosition(FrontViewPosition.Left, animated: true)
@@ -39,7 +43,9 @@ class TrainingViewController: UIViewController {
     }
 	
     @IBAction func chi(sender: AnyObject) {
-        self.subject = realm.objects(Subject).filter("name='chimie'")[0]
+        if !realm.objects(Subject).filter("name='chimie'") {
+            self.subject = realm.objects(Subject).filter("name='chimie'")[0]
+        }
         self.performSegueWithIdentifier("showChapters", sender: self)
         if self.revealViewController() != nil {
             self.revealViewController().setFrontViewPosition(FrontViewPosition.Left, animated: true)
