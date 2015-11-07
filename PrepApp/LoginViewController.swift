@@ -10,7 +10,6 @@ import UIKit
 import LocalAuthentication
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
-	
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,7 +72,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 		//online mode
 		User.login(mail.text!, pass: pass.text!){
 			(data, error) -> Void in
-			
+			SwiftSpinner.hide()
 			if data == nil {
 				// create alert controller
 				let myAlert = UIAlertController(title: error, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
@@ -98,19 +97,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                         // show the alert
                         self.presentViewController(myAlert, animated: true, completion: nil)
-
                     }
                 })
-				
 			}
 		}
-
 	}
     
 	@IBOutlet weak var designButton: UIButton!
 	@IBOutlet weak var mail: UITextField!
 	@IBOutlet weak var pass: UITextField!
+    
 	@IBAction func login(sender: AnyObject) {
+        SwiftSpinner.show("Connexion...")
+        SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
 		self.connect()
 	}
 	

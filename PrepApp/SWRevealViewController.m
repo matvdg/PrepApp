@@ -542,7 +542,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 
 #import <UIKit/UIGestureRecognizerSubclass.h>
 
-@interface SWRevealViewControllerPanGestureRecognizer : UIPanGestureRecognizer
+@interface SWRevealViewControllerPanGestureRecognizer : UIScreenEdgePanGestureRecognizer
 @end
 
 @implementation SWRevealViewControllerPanGestureRecognizer
@@ -585,7 +585,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 @interface SWRevealViewController()<UIGestureRecognizerDelegate>
 {
     SWRevealView *_contentView;
-    UIPanGestureRecognizer *_panGestureRecognizer;
+    UIScreenEdgePanGestureRecognizer *_panGestureRecognizer;
     UITapGestureRecognizer *_tapGestureRecognizer;
     FrontViewPosition _frontViewPosition;
     FrontViewPosition _rearViewPosition;
@@ -906,11 +906,12 @@ const int FrontViewPositionNone = 0xff;
 }
 
 
-- (UIPanGestureRecognizer*)panGestureRecognizer
+- (UIScreenEdgePanGestureRecognizer*)panGestureRecognizer
 {
     if ( _panGestureRecognizer == nil )
     {
         _panGestureRecognizer = [[SWRevealViewControllerPanGestureRecognizer alloc] initWithTarget:self action:@selector(_handleRevealGesture:)];
+        _panGestureRecognizer.edges = UIRectEdgeLeft;
         _panGestureRecognizer.delegate = self;
         [_contentView.frontView addGestureRecognizer:_panGestureRecognizer];
     }
@@ -1194,7 +1195,7 @@ const int FrontViewPositionNone = 0xff;
 }
 
 
-- (void)_handleRevealGesture:(UIPanGestureRecognizer *)recognizer
+- (void)_handleRevealGesture:(UIScreenEdgePanGestureRecognizer *)recognizer
 {
     switch ( recognizer.state )
     {
@@ -1221,7 +1222,7 @@ const int FrontViewPositionNone = 0xff;
 }
 
 
-- (void)_handleRevealGestureStateBeganWithRecognizer:(UIPanGestureRecognizer *)recognizer
+- (void)_handleRevealGestureStateBeganWithRecognizer:(UIScreenEdgePanGestureRecognizer *)recognizer
 {
     // we know that we will not get here unless the animationQueue is empty because the recognizer
     // delegate prevents it, however we do not want any forthcoming programatic actions to disturb
@@ -1239,7 +1240,7 @@ const int FrontViewPositionNone = 0xff;
 }
 
 
-- (void)_handleRevealGestureStateChangedWithRecognizer:(UIPanGestureRecognizer *)recognizer
+- (void)_handleRevealGestureStateChangedWithRecognizer:(UIScreenEdgePanGestureRecognizer *)recognizer
 {
     CGFloat translation = [recognizer translationInView:_contentView].x;
     
@@ -1265,7 +1266,7 @@ const int FrontViewPositionNone = 0xff;
 }
 
 
-- (void)_handleRevealGestureStateEndedWithRecognizer:(UIPanGestureRecognizer *)recognizer
+- (void)_handleRevealGestureStateEndedWithRecognizer:(UIScreenEdgePanGestureRecognizer *)recognizer
 {
     UIView *frontView = _contentView.frontView;
     
@@ -1342,7 +1343,7 @@ const int FrontViewPositionNone = 0xff;
 }
 
 
-- (void)_handleRevealGestureStateCancelledWithRecognizer:(UIPanGestureRecognizer *)recognizer
+- (void)_handleRevealGestureStateCancelledWithRecognizer:(UIScreenEdgePanGestureRecognizer *)recognizer
 {    
     [self _restoreUserInteraction];
     [self _notifyPanGestureEnded];
@@ -1880,57 +1881,3 @@ NSString * const SWSegueRightIdentifier = @"sw_right";
 }
 
 @end
-
-
-//#pragma mark - SWRevealViewControllerSegue Class
-//
-//@implementation SWRevealViewControllerSegue  // DEPRECATED
-//
-//- (void)perform
-//{
-//    if ( _performBlock )
-//        _performBlock( self, self.sourceViewController, self.destinationViewController );
-//}
-//
-//@end
-//
-//
-//#pragma mark Storyboard support
-//
-//@implementation SWRevealViewController(deprecated)
-//
-//- (void)prepareForSegue:(SWRevealViewControllerSegue *)segue sender:(id)sender   // TO REMOVE: DEPRECATED IMPLEMENTATION
-//{
-//    // This method is required for compatibility with SWRevealViewControllerSegue, now deprecated.
-//    // It can be simply removed when using SWRevealViewControllerSegueSetController and SWRevealViewControlerSeguePushController
-//    
-//    NSString *identifier = segue.identifier;
-//    if ( [segue isKindOfClass:[SWRevealViewControllerSegue class]] && sender == nil )
-//    {
-//        if ( [identifier isEqualToString:SWSegueRearIdentifier] )
-//        {
-//            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
-//            {
-//                [self _setRearViewController:dvc animated:NO];
-//            };
-//        }
-//        else if ( [identifier isEqualToString:SWSegueFrontIdentifier] )
-//        {
-//            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
-//            {
-//                [self _setFrontViewController:dvc animated:NO];
-//            };
-//        }
-//        else if ( [identifier isEqualToString:SWSegueRightIdentifier] )
-//        {
-//            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
-//            {
-//                [self _setRightViewController:dvc animated:NO];
-//            };
-//        }
-//    }
-//}
-//
-//@end
-
-

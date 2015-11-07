@@ -773,21 +773,21 @@
                                 </constraints>
                             </imageView>
                             <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y4y-U5-ty2" userLabel="Pie Chart View Chemistry" customClass="PieChartView" customModule="Charts">
-                                <rect key="frame" x="137.5" y="132.5" width="325" height="325"/>
+                                <rect key="frame" x="136" y="132" width="328" height="328"/>
                                 <subviews>
                                     <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKS-C0-uxG" userLabel="Pie Chart View Physics" customClass="PieChartView" customModule="Charts">
-                                        <rect key="frame" x="25" y="25" width="275" height="275"/>
+                                        <rect key="frame" x="25" y="25" width="278" height="278"/>
                                         <subviews>
                                             <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h4a-g1-aFZ" userLabel="Pie Chart View Biology" customClass="PieChartView" customModule="Charts">
-                                                <rect key="frame" x="25" y="25" width="225" height="225"/>
+                                                <rect key="frame" x="25.5" y="25.5" width="228" height="228"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Yt-xV-MI6">
-                                                        <rect key="frame" x="52.5" y="37.5" width="120" height="120"/>
+                                                        <rect key="frame" x="52.5" y="38" width="122" height="122"/>
                                                         <animations/>
                                                         <color key="backgroundColor" red="0.30980393290519714" green="0.65490198135375977" blue="0.5372549295425415" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="120" id="BKl-Gk-v2K"/>
-                                                            <constraint firstAttribute="height" constant="120" id="qnZ-9v-ebE"/>
+                                                            <constraint firstAttribute="width" constant="122" id="BKl-Gk-v2K"/>
+                                                            <constraint firstAttribute="height" constant="122" id="qnZ-9v-ebE"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="20"/>
                                                         <state key="normal" title="XVIII">
@@ -801,8 +801,8 @@
                                                 </subviews>
                                                 <animations/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="225" id="FSC-8h-7pL"/>
-                                                    <constraint firstAttribute="width" constant="225" id="SsR-eg-fhf"/>
+                                                    <constraint firstAttribute="height" constant="228" id="FSC-8h-7pL"/>
+                                                    <constraint firstAttribute="width" constant="228" id="SsR-eg-fhf"/>
                                                     <constraint firstAttribute="centerX" secondItem="9Yt-xV-MI6" secondAttribute="centerX" id="f4w-x7-X97"/>
                                                     <constraint firstAttribute="centerY" secondItem="9Yt-xV-MI6" secondAttribute="centerY" constant="15" id="pHF-Vb-P9l"/>
                                                 </constraints>
@@ -811,17 +811,17 @@
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="centerY" secondItem="h4a-g1-aFZ" secondAttribute="centerY" id="4gg-r4-qzW"/>
-                                            <constraint firstAttribute="height" constant="275" id="Dlb-l0-owN"/>
-                                            <constraint firstAttribute="width" constant="275" id="LKy-s8-M9c"/>
+                                            <constraint firstAttribute="height" constant="278" id="Dlb-l0-owN"/>
+                                            <constraint firstAttribute="width" constant="278" id="LKy-s8-M9c"/>
                                             <constraint firstAttribute="centerX" secondItem="h4a-g1-aFZ" secondAttribute="centerX" id="Lyr-os-zlx"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="325" id="AWX-eZ-Fxo"/>
+                                    <constraint firstAttribute="width" constant="328" id="AWX-eZ-Fxo"/>
                                     <constraint firstAttribute="centerX" secondItem="cKS-C0-uxG" secondAttribute="centerX" id="Bn9-LZ-EcA"/>
-                                    <constraint firstAttribute="height" constant="325" id="lqO-1E-CLA"/>
+                                    <constraint firstAttribute="height" constant="328" id="lqO-1E-CLA"/>
                                     <constraint firstAttribute="centerY" secondItem="cKS-C0-uxG" secondAttribute="centerY" id="uNX-9b-8jq"/>
                                 </constraints>
                             </view>
@@ -939,7 +939,7 @@
                             <constraint firstItem="C5Q-72-rXL" firstAttribute="centerY" secondItem="FxA-OF-tna" secondAttribute="centerY" id="QEl-a0-Bg9"/>
                             <constraint firstAttribute="centerY" secondItem="WEF-WD-hnQ" secondAttribute="centerY" constant="20" id="S4m-Z8-aJg"/>
                             <constraint firstItem="C5Q-72-rXL" firstAttribute="leading" secondItem="McV-LS-4gj" secondAttribute="trailing" constant="-26" id="X5y-Xf-FOe"/>
-                            <constraint firstAttribute="centerY" secondItem="y4y-U5-ty2" secondAttribute="centerY" constant="5" id="Xgg-7K-Urm"/>
+                            <constraint firstAttribute="centerY" secondItem="y4y-U5-ty2" secondAttribute="centerY" constant="4" id="Xgg-7K-Urm"/>
                             <constraint firstItem="Hyq-jX-Cjm" firstAttribute="top" secondItem="FxA-OF-tna" secondAttribute="bottom" constant="-11" id="Zpz-e2-Od9"/>
                             <constraint firstAttribute="trailing" secondItem="CfO-OI-T9T" secondAttribute="trailing" id="aSZ-kl-ybh"/>
                             <constraint firstItem="CfO-OI-T9T" firstAttribute="leading" secondItem="jbV-ds-2ZK" secondAttribute="leading" id="bdI-nN-nKU"/>

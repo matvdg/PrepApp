@@ -21,6 +21,9 @@ class MenuController: UITableViewController {
         myAlert.view.tintColor = colorGreen
         // add an "OK" button
         myAlert.addAction(UIAlertAction(title: "OUI", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            SwiftSpinner.show("Déconnexion...")
+            SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+
             self.syncNclearHistory()
         }))
         myAlert.addAction(UIAlertAction(title: "NON", style: UIAlertActionStyle.Default, handler: nil))
@@ -34,6 +37,7 @@ class MenuController: UITableViewController {
     
     func syncNclearHistory(){
         FactoryHistory.getHistory().syncHistory({ (result) -> Void in
+            SwiftSpinner.hide()
             if result {
                 FactoryDuo.getFriendManager().syncFriendsList({ (result) -> Void in
                     if result {
