@@ -100,10 +100,6 @@ class HelpViewController: UIViewController {
 
     }
     
-    override func viewDidAppear(animated: Bool) {
-        SwiftSpinner.hide()
-    }
-    
     func logout() {
         print("logging out")
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -156,6 +152,7 @@ class HelpViewController: UIViewController {
         self.helpText.setContentOffset(CGPointZero, animated: true)
         self.helpText.scrollRangeToVisible(NSRange(location: 0, length: 0))
         self.helpText.textAlignment = NSTextAlignment.Justified
+        SwiftSpinner.hide()
     }
 
 

@@ -40,10 +40,6 @@ class LeaderboardTableViewController: UITableViewController  {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
     }
     
-    override func viewDidAppear(animated: Bool) {
-       SwiftSpinner.hide()
-    }
-    
     func loadLeaderboard() {
         FactoryHistory.getScoring().loadLeaderboard { (data) -> Void in
             if let leaderboard = data {
@@ -54,7 +50,9 @@ class LeaderboardTableViewController: UITableViewController  {
                     self.pullToRefresh.endRefreshing()
                 }
                 self.tableView.reloadData()
+                SwiftSpinner.hide()
             } else {
+                SwiftSpinner.hide()
                 // tell refresh control it can stop showing up now
                 if self.pullToRefresh.refreshing
                 {
