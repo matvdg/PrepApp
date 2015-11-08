@@ -217,7 +217,15 @@ class DuoManager {
         let pendingDuos = self.realm.objects(PendingDuo)
         var result = [PendingDuo]()
         for pendingDuo in pendingDuos {
-            result.append(pendingDuo)
+            //fetching expiration
+            let offsetComponents = NSDateComponents()
+            offsetComponents.minute = 24*60 - FactorySync.getConfigManager().loadDuration()
+            let initDate = pendingDuo.date
+            let expirationDate = NSCalendar.currentCalendar().dateByAddingComponents(offsetComponents, toDate: initDate, options: NSCalendarOptions(rawValue: 0))!
+            let comparison = NSCalendar.currentCalendar().compareDate(NSDate(), toDate: expirationDate, toUnitGranularity: NSCalendarUnit.Second)
+            if comparison == NSComparisonResult.OrderedAscending {
+                result.append(pendingDuo)
+            }
         }
         return result
     }
