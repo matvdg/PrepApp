@@ -42,7 +42,7 @@ class QuestionDuoViewController: UIViewController,
     var timeChallengeTimer = NSTimer()
     var animatingCorrectionTimer = NSTimer()
     var stopAnimationCorrectionTimer = NSTimer()
-    var timeLeft = NSTimeInterval(20*60)
+    var timeLeft = NSTimeInterval(1)
     var senseAnimationCorrection: Bool = true
     var waitBeforeNextQuestion: Bool = false
     let baseUrl = NSURL(fileURLWithPath: FactorySync.path, isDirectory: true)
@@ -60,14 +60,22 @@ class QuestionDuoViewController: UIViewController,
         //sync
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
-        self.titleLabel.text = "Défi duo"
+        var textTodisplay = " "
+        if FactorySync.getConfigManager().loadNicknamePreference() {
+            textTodisplay += "\(self.nickname)"
+        } else {
+            textTodisplay += "\(self.firstName) \(self.lastName)"
+        }
+        self.titleLabel.text = "Défi duo VS\(textTodisplay)"
+        self.titleLabel.adjustsFontSizeToFitWidth = true
         self.titleLabel.textColor = UIColor.whiteColor()
         self.titleBar.backgroundColor = colorGreenLogo
         self.endChallengeButton.layer.cornerRadius = 6
         self.markButton.image = nil
-        self.chrono.text = "20"
+        self.chrono.text = ""
         self.chrono.textAlignment = NSTextAlignment.Center
         self.markButton.enabled = false
+        self.timeLeft = NSTimeInterval(60 * FactorySync.getConfigManager().loadDuration())
         self.timeChallengeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("countdown"), userInfo: nil, repeats: true)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
@@ -124,7 +132,7 @@ class QuestionDuoViewController: UIViewController,
             // create alert controller
             let myAlert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
-            // add an "OK" button
+            // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
@@ -212,9 +220,9 @@ class QuestionDuoViewController: UIViewController,
         if self.mode == 0 {
             self.allAnswers[self.currentNumber] = self.selectedAnswers
             if self.checkUnanswered() {
-                let myAlert = UIAlertController(title: "Attention, vous n'avez pas répondu à toutes les questions !", message: "Voulez-vous tout de même terminer le défi solo ?", preferredStyle: UIAlertControllerStyle.Alert)
+                let myAlert = UIAlertController(title: "Attention, vous n'avez pas répondu à toutes les questions !", message: "Voulez-vous tout de même terminer le défi duo ?", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
-                // add an "OK" button
+                // add "OK" button
                 myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                     //challenge finished! switch to results mode
                     
@@ -226,9 +234,9 @@ class QuestionDuoViewController: UIViewController,
                 self.presentViewController(myAlert, animated: true, completion: nil)
                 
             } else {
-                let myAlert = UIAlertController(title: "Voulez-vous vraiment terminer le défi solo ?", message: "Vous ne pourrez plus modifier vos réponses.", preferredStyle: UIAlertControllerStyle.Alert)
+                let myAlert = UIAlertController(title: "Voulez-vous vraiment terminer le défi duo ?", message: "Vous ne pourrez plus modifier vos réponses.", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
-                // add an "OK" button
+                // add "OK" button
                 myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                     //challenge finished! switch to results mode
                     
@@ -241,19 +249,39 @@ class QuestionDuoViewController: UIViewController,
             }
             
         } else {
-            let myAlert = UIAlertController(title: "Voulez-vous vraiment quitter le défi solo ?", message: "Vous ne pourrez plus revoir vos réponses, mais vous pourrez retrouver les questions et leur correction dans entraînement", preferredStyle: UIAlertControllerStyle.Alert)
+            let myAlert = UIAlertController(title: "Voulez-vous vraiment quitter le défi duo ?", message: "Vous ne pourrez plus revoir vos réponses, mais vous pourrez retrouver les questions et leur correction dans entraînement. Vous devez disposer d'une connexion internet pour envoyer vos résultats au serveur.", preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
-            // add an "OK" button
-            myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                self.dismissViewControllerAnimated(true, completion: nil)
+            // add "OK" button
+            myAlert.addAction(UIAlertAction(title: "Oui, envoyer mes résultats", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                SwiftSpinner.show("Envoi des résultats")
+                SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+                FactoryDuo.getDuoManager().sendResultsDuo(self.idDuo, success: self.succeeded, callback: { (answer, message) -> Void in
+                    SwiftSpinner.hide()
+                    if answer {
+                        let myAlert = UIAlertController(title: "Envoi des résultats", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                        myAlert.view.tintColor = colorGreen
+                        //add an "OK" button
+                        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                            self.dismissViewControllerAnimated(true, completion: nil)
+                        }))
+
+                        // show the alert
+                        self.presentViewController(myAlert, animated: true, completion: nil)
+                        
+                    } else {
+                        let myAlert = UIAlertController(title: "Oups !", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                        myAlert.view.tintColor = colorGreen
+                        //add an "try again" button
+                        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                        // show the alert
+                        self.presentViewController(myAlert, animated: true, completion: nil)
+                    }
+                })
             }))
             myAlert.addAction(UIAlertAction(title: "Non, annuler", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
-            
-            
         }
-        
     }
     
     //methods
@@ -311,7 +339,7 @@ class QuestionDuoViewController: UIViewController,
         self.greyMask.layer.zPosition = 100
         self.view.addSubview(self.greyMask)
         
-        //fetching duo questions NEVER DONE
+        //fetching duo questions
         let questionsRealm = realm.objects(Question).filter("idDuo = \(self.idDuo)")
         for question in questionsRealm {
             self.questions.append(question)
@@ -655,9 +683,9 @@ class QuestionDuoViewController: UIViewController,
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
-        // add an "later" button
+        // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
-        // add an "update" button
+        // add "update" button
         myAlert.addAction(UIAlertAction(title: "Mettre à jour maintenant", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             self.dismissViewControllerAnimated(true, completion: nil)
         }))
@@ -681,9 +709,9 @@ class QuestionDuoViewController: UIViewController,
         } else {
             //challenge finished! switch to results mode
             self.allAnswers[self.currentNumber] = self.selectedAnswers
-            let myAlert = UIAlertController(title: "Temps écoulé", message: "Le défi solo est à présent terminé.", preferredStyle: UIAlertControllerStyle.Alert)
+            let myAlert = UIAlertController(title: "Temps écoulé", message: "Le défi duo est à présent terminé.", preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
-            // add an "OK" button
+            // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 //challenge finished! switch to results mode
                 self.displayResultsMode()
@@ -709,7 +737,7 @@ class QuestionDuoViewController: UIViewController,
         self.markButton.enabled = true
         self.markButton.image = UIImage(named: "markedBar")
         self.timeChallengeTimer.invalidate()
-        let myAlert = UIAlertController(title: "Défi solo terminé", message: "Vous pouvez à présent voir les réponses et les corrections si disponibles et éventuellement mettre certaines questions de côté en les marquant" , preferredStyle: UIAlertControllerStyle.Alert)
+        let myAlert = UIAlertController(title: "Défi duo terminé", message: "Vous pouvez à présent voir les réponses et les corrections si disponibles et éventuellement mettre certaines questions de côté en les marquant" , preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             self.loadQuestion()
@@ -893,6 +921,9 @@ class QuestionDuoViewController: UIViewController,
             scoreVC.score = self.score
             scoreVC.succeeded = self.succeeded
             scoreVC.numberOfQuestions = self.questions.count
+            scoreVC.firstName = self.firstName
+            scoreVC.lastName = self.lastName
+            scoreVC.nickname = self.nickname
         }
     }
     

@@ -51,9 +51,9 @@ class CommentViewController: UIViewController {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
-        // add an "later" button
+        // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
-        // add an "update" button
+        // add "update" button
         myAlert.addAction(UIAlertAction(title: "Mettre à jour maintenant", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             self.dismissViewControllerAnimated(true, completion: nil)
         }))
@@ -71,7 +71,7 @@ class CommentViewController: UIViewController {
             // create alert controller
             let myAlert = UIAlertController(title: "Erreur", message: "Votre message est vide !", preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
-            // add an "OK" button
+            // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
@@ -80,7 +80,7 @@ class CommentViewController: UIViewController {
                 // create alert controller
                 let myAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
-                // add an "OK" button
+                // add "OK" button
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)

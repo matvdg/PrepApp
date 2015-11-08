@@ -20,6 +20,8 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     var lastName = ""
     var firstName = ""
     var nickname = ""
+    var resultsDuo: [ResultDuo]?
+    var refreshIsNeeded = false
 
     //@IBOutlet
 	@IBOutlet var menuButton: UIBarButtonItem!
@@ -33,7 +35,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         // create alert controller
         let myAlert = UIAlertController(title: "\(String(User.currentUser!.id).sha1())", message: "Partagez votre code à vos amis en leur envoyant un message !", preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
-                // add an buttons
+                // add buttons
         myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
         myAlert.addAction(UIAlertAction(title: "Partager", style: .Default, handler: { (action) -> Void in
             self.share()
@@ -68,11 +70,11 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 } else {
                     textTodisplay += "\(shuffledFriend.firstName) \(shuffledFriend.lastName)"
                 }
-                print("id = \(shuffledFriend.id)")
+                print("Shuffled friendId = \(shuffledFriend.id)")
                 // create alert controller
-                let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous êtes sur le point de lancer un défi à\(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de 20 minutes. ", preferredStyle: UIAlertControllerStyle.Alert)
+                let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous êtes sur le point de lancer un défi à\(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de \(FactorySync.getConfigManager().loadDuration()) minutes. ", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
-                // add an buttons
+                // add buttons
                 myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
                 myAlert.addAction(UIAlertAction(title: "GO !", style: .Default, handler: { (action) -> Void in
                     self.challenge(shuffledFriend)
@@ -84,7 +86,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 // create alert controller
                 let myAlert = UIAlertController(title: "Oups !", message: error, preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
-                // add an buttons
+                // add buttons
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
@@ -119,6 +121,14 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
     }
+    
+    override func viewDidAppear(animated: Bool) {
+//        if self.refreshIsNeeded {
+//            self.loadData()
+//        } else {
+//            self.refreshIsNeeded = true
+//        }
+    }
 
     func logout() {
         print("logging out")
@@ -129,9 +139,9 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
-        // add an "later" button
+        // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
-        // add an "update" button
+        // add "update" button
         myAlert.addAction(UIAlertAction(title: "Mettre à jour maintenant", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             self.dismissViewControllerAnimated(true, completion: nil)
         }))
@@ -169,10 +179,29 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 {
                     self.pullToRefresh.endRefreshing()
                 }
-
                 SwiftSpinner.hide()
             }
         })
+        ///TODO !!!! when removing test, don't forget to uncomment viewDidAppear !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //loading ResultsDuo popup notification
+        FactoryDuo.getDuoManager().loadResults { (data) -> Void in
+            if let resultsDuo = data {
+                self.resultsDuo = resultsDuo
+                self.performSegueWithIdentifier("showResultsDuo", sender: self)
+            } else {
+                print("no resultsDuo notification to display")
+            }
+        }
+        
+        //loading test ResultsDuo popup notification
+        FactoryDuo.getDuoManager().loadTestResults { (data) -> Void in
+            if let resultsDuo = data {
+                self.resultsDuo = resultsDuo
+                self.performSegueWithIdentifier("showResultsDuo", sender: self)
+            } else {
+                print("no resultsDuo notification to display")
+            }
+        }
     }
     
     func templating(){
@@ -262,7 +291,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
             if error != nil {
                 let myAlert = UIAlertController(title: "Oups !", message: error, preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
-                // add an buttons
+                // add "OK" button
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
@@ -409,9 +438,9 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                     textTodisplay += "\(pendingDuo.firstName) \(pendingDuo.lastName)"
                 }
                 // create alert controller
-                let myAlert = UIAlertController(title: "Répondre au défi ?", message: "Vous êtes sur le point de répondre au défi de\(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de 20 minutes. ", preferredStyle: UIAlertControllerStyle.Alert)
+                let myAlert = UIAlertController(title: "Répondre au défi ?", message: "Vous êtes sur le point de répondre au défi de\(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de \(FactorySync.getConfigManager().loadDuration()) minutes. ", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
-                // add an buttons
+                // add buttons
                 myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
                 myAlert.addAction(UIAlertAction(title: "GO !", style: .Default, handler: { (action) -> Void in
                     self.idDuo = pendingDuo.id
@@ -434,9 +463,9 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                     textTodisplay += "\(friend.firstName) \(friend.lastName)"
                 }
                 // create alert controller
-                let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous êtes sur le point de lancer un défi à votre ami(e)\(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de 20 minutes. ", preferredStyle: UIAlertControllerStyle.Alert)
+                let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous êtes sur le point de lancer un défi à votre ami(e)\(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de \(FactorySync.getConfigManager().loadDuration()) minutes. ", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
-                // add an buttons
+                // add buttons
                 myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
                 myAlert.addAction(UIAlertAction(title: "GO !", style: .Default, handler: { (action) -> Void in
                     self.challenge(friend)
@@ -467,15 +496,17 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        let QDVC = segue.destinationViewController as! QuestionDuoViewController
-        // Pass the selected object to the new view controller.
-        QDVC.idDuo = self.idDuo
-        QDVC.lastName = self.lastName
-        QDVC.firstName = self.firstName
-        QDVC.nickname = self.nickname
+        if let QDVC = segue.destinationViewController as? QuestionDuoViewController {
+            // Pass the selected object to the new view controller.
+            QDVC.idDuo = self.idDuo
+            QDVC.lastName = self.lastName
+            QDVC.firstName = self.firstName
+            QDVC.nickname = self.nickname
+        }
+        
+        if let ResultsDuoVC = segue.destinationViewController as? ResultsDuoViewController {
+            // Pass the selected object to the new view controller.
+            ResultsDuoVC.resultsDuo = self.resultsDuo
+        }
     }
-    
-
-
 }

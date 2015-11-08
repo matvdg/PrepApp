@@ -13,10 +13,6 @@ class DuoManager {
     
     let realm = FactoryRealm.getRealmDuo()
     
-    /*//DUO
-    static let retrieveResultsDuoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/results/")
-    static let sendResultsDuoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/results/send")*/
-    
     //API
     func requestDuo(idFriend: Int, callback: (Int?, String?) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.requestDuoUrl!)
@@ -53,6 +49,31 @@ class DuoManager {
         task.resume()
     }
     
+    func sendResultsDuo(idDuo: Int, success: Int, callback: (Bool, String) -> Void) {
+        let request = NSMutableURLRequest(URL: FactorySync.sendResultsDuoUrl!)
+        request.HTTPMethod = "POST"
+        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&idDuo=\(idDuo)&success=\(success)"
+        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
+            (data, response, error) in
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                if error != nil {
+                    callback(false, "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
+                } else {
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
+                    if statusCode == 200 {
+                        callback(true, "Résultats envoyés avec succès au serveur")
+                    } else {
+                        print("header status = \(statusCode) in requestDuo")
+                        callback(true, "Vous avez dépassé le délai de 24h. Vous ne pouvez pas envoyer vos résultats ni recevoir d'AwardPoints en bonus. Veuillez vérifier la date et l'heure de votre appareil pour éviter de rencontrer à nouveau ce problème.")
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
+
     private func getPendingDuos(callback: (NSArray?) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.pendingDuoUrl!)
         request.HTTPMethod = "POST"
@@ -87,6 +108,78 @@ class DuoManager {
         }
         task.resume()
     }
+    
+    private func retrieveResultsDuo(callback: (NSArray?) -> Void) {
+        let request = NSMutableURLRequest(URL: FactorySync.retrieveResultsDuoUrl!)
+        request.HTTPMethod = "POST"
+        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
+        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
+            (data, response, error) in
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                if error != nil {
+                    print("error : no connexion in retrieveResultsDuo")
+                    print(error)
+                    callback(nil)
+                } else {
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
+                    if statusCode == 200 {
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSArray
+                        
+                        if let result = jsonResult {
+                            callback(result)
+                        } else {
+                            print("error : NSArray nil in retrieveResultsDuo")
+                            callback(nil)
+                        }
+                    } else {
+                        print("header status = \(statusCode) in retrieveResultsDuo")
+                        callback(nil)
+                    }
+                }
+            }
+            
+        }
+        task.resume()
+    }
+    
+    func loadResults(callback: ([ResultDuo]?) -> Void )  {
+        self.retrieveResultsDuo { (data) -> Void in
+            var resultDuoArray = [ResultDuo]()
+            if let result = data {
+                for data in result {
+                    if let dico = data as? NSDictionary {
+                        for (key,value) in dico {
+                            if let idDuo = key as? String  {
+                                let resultDuo = ResultDuo(idDuo: Int(idDuo)!, resultDuo: ResultDuo.hydrateResultDuo(value as! NSArray))
+                                resultDuoArray.append(resultDuo)
+                            } else {
+                                callback(nil)
+                            }
+                        }
+                    } else {
+                        callback(nil)
+                    }
+                }
+                callback(resultDuoArray)
+            } else {
+                callback(nil)
+            }
+        }
+    }
+    
+    func loadTestResults(callback: ([ResultDuo]?) -> Void )  {
+        var resultDuoArray = [ResultDuo]()
+        let resultDuoA = ResultDuo(idDuo: 3, resultDuo: [Result(id: 40, firstName: "Jean", lastName: "Dupont", nickname: "jdupont", score: 3), Result(id: 39, firstName: "John", lastName: "Appleseed", nickname: "jappleseed", score: 6)])
+        let resultDuoB = ResultDuo(idDuo: 4, resultDuo: [Result(id: 40, firstName: "Jean", lastName: "Dupont", nickname: "jdupont", score: 2), Result(id: 39, firstName: "John", lastName: "Appleseed", nickname: "jappleseed", score: 3)])
+        let resultDuoC = ResultDuo(idDuo: 5, resultDuo: [Result(id: 40, firstName: "Jean", lastName: "Dupont", nickname: "jdupont", score: 4), Result(id: 39, firstName: "John", lastName: "Appleseed", nickname: "jappleseed", score: 4)])
+        resultDuoArray.append(resultDuoA)
+        resultDuoArray.append(resultDuoB)
+        resultDuoArray.append(resultDuoC)
+        callback(resultDuoArray)
+    }
+    
     
     //REALM
     func savePendingDuos(callback: (Bool) -> Void) {

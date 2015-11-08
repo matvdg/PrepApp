@@ -55,6 +55,8 @@
 		F663E31C1B7A6BD000F23294 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = F663E31B1B7A6BD000F23294 /* History.swift */; };
 		F66771811B61A31900042145 /* FactoryRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66771801B61A31900042145 /* FactoryRealm.swift */; };
 		F667EC501BE5371100F98DA5 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F667EC4F1BE5371100F98DA5 /* HelpViewController.swift */; };
+		F67436301BEEC36E003E798B /* ResultDuo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F674362F1BEEC36E003E798B /* ResultDuo.swift */; };
+		F67436321BEEDEAD003E798B /* ResultsDuoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67436311BEEDEAD003E798B /* ResultsDuoViewController.swift */; };
 		F68320DA1B03C6F1006B974E /* TrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68320D91B03C6F1006B974E /* TrainingViewController.swift */; };
 		F6987A6D1B16321B002989C6 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6987A6C1B16321B002989C6 /* ImageManager.swift */; };
 		F6AAE6D61AF433E100195E11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AAE6D51AF433E100195E11 /* AppDelegate.swift */; };
@@ -151,7 +153,7 @@
 		F605AF0D1B04146C00E90596 /* SoloViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SoloViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F605AF0F1B0414F300E90596 /* FriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FriendViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F605AF111B04151500E90596 /* ContestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ContestViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		F60739E11BB216BE004DEC32 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		F60739E11BB216BE004DEC32 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CommentViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F60739E31BB216CB004DEC32 /* PreviewQuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewQuestionViewController.swift; sourceTree = "<group>"; };
 		F60739E51BB2EAE6004DEC32 /* FriendManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendManager.swift; sourceTree = "<group>"; };
 		F60739E81BB348AB004DEC32 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
@@ -165,9 +167,9 @@
 		F62C2A071BE6F58600DF5EF0 /* ScoreDuoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreDuoViewController.swift; sourceTree = "<group>"; };
 		F62C2A091BE6F59300DF5EF0 /* QuestionDuoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionDuoViewController.swift; sourceTree = "<group>"; };
 		F62D408E1AF442E00051DE83 /* segoe.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = segoe.ttf; path = fonts/segoe.ttf; sourceTree = "<group>"; };
-		F6322A151B6157F60074549E /* ChaptersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChaptersTableViewController.swift; sourceTree = "<group>"; };
+		F6322A151B6157F60074549E /* ChaptersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ChaptersTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F6322A171B6158230074549E /* QuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = QuestionViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		F6322A191B6158300074549E /* CorrectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorrectionViewController.swift; sourceTree = "<group>"; };
+		F6322A191B6158300074549E /* CorrectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CorrectionViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F6322A1B1B615DFA0074549E /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		F6322A1E1B615E360074549E /* Chapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
 		F6322A201B615E3E0074549E /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
@@ -183,6 +185,8 @@
 		F663E31B1B7A6BD000F23294 /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = History.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F66771801B61A31900042145 /* FactoryRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryRealm.swift; sourceTree = "<group>"; };
 		F667EC4F1BE5371100F98DA5 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
+		F674362F1BEEC36E003E798B /* ResultDuo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultDuo.swift; sourceTree = "<group>"; };
+		F67436311BEEDEAD003E798B /* ResultsDuoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsDuoViewController.swift; sourceTree = "<group>"; };
 		F68320D91B03C6F1006B974E /* TrainingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TrainingViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F6987A6C1B16321B002989C6 /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		F6AAE6D01AF433E100195E11 /* PrepApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrepApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -237,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				F60739E51BB2EAE6004DEC32 /* FriendManager.swift */,
+				F674362F1BEEC36E003E798B /* ResultDuo.swift */,
 				F60CA2311BBEBC1200C83DDE /* DuoManager.swift */,
 				F60739EA1BB3E6E9004DEC32 /* FactoryDuo.swift */,
 			);
@@ -338,6 +343,7 @@
 				F605AF0F1B0414F300E90596 /* FriendViewController.swift */,
 				F62C2A091BE6F59300DF5EF0 /* QuestionDuoViewController.swift */,
 				F62C2A071BE6F58600DF5EF0 /* ScoreDuoViewController.swift */,
+				F67436311BEEDEAD003E798B /* ResultsDuoViewController.swift */,
 			);
 			name = Duo;
 			sourceTree = "<group>";
@@ -670,6 +676,8 @@
 				F6C02C461B762A810021ABE1 /* UITableViewCellAnswer.swift in Sources */,
 				F6C3095C1B0365B100B8FAC9 /* HomeViewController.swift in Sources */,
 				F6AAE6D61AF433E100195E11 /* AppDelegate.swift in Sources */,
+				F67436321BEEDEAD003E798B /* ResultsDuoViewController.swift in Sources */,
+				F67436301BEEC36E003E798B /* ResultDuo.swift in Sources */,
 				F60739EB1BB3E6E9004DEC32 /* FactoryDuo.swift in Sources */,
 				9555BBCF1BA8372500BED5A2 /* MarkedQuestionsTableViewController.swift in Sources */,
 				F6322A231B615E460074549E /* Subject.swift in Sources */,

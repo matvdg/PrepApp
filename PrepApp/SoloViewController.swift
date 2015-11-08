@@ -36,7 +36,7 @@ class SoloViewController: UIViewController {
             // create alert controller
             let myAlert = UIAlertController(title: "Veuillez toucher le trigramme pour choisir au moins une matière", message: "Vous pouvez également choisir des combinaisons de deux ou trois matières", preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
-            // add an "OK" button
+            // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
@@ -44,7 +44,7 @@ class SoloViewController: UIViewController {
         } else {
             if self.checkQuestions() {
                 // create alert controller
-                let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous devez disposer de 20 minutes. Un défi lancé ne peut être mis en pause et un défi abandonné fait perdre des points !", preferredStyle: UIAlertControllerStyle.Alert)
+                let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous devez disposer de \(FactorySync.getConfigManager().loadDuration()) minutes. Un défi lancé ne peut être mis en pause et un défi abandonné fait perdre des points !", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
                 // add buttons
                 myAlert.addAction(UIAlertAction(title: "OUI", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
@@ -57,7 +57,7 @@ class SoloViewController: UIViewController {
                 // create alert controller
                 let myAlert = UIAlertController(title: "Ce défi n'est plus disponible pour le moment", message: "Revenez plus tard pour de nouvelles questions ou allez dans le mode entraînement pour refaire les questions déjà vues.", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
-                // add an "OK" button
+                // add "OK" button
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
@@ -112,9 +112,9 @@ class SoloViewController: UIViewController {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
-        // add an "later" button
+        // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
-        // add an "update" button
+        // add "update" button
         myAlert.addAction(UIAlertAction(title: "Mettre à jour maintenant", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             self.dismissViewControllerAnimated(true, completion: nil)
         }))

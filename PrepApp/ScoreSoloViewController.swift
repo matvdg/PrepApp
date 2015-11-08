@@ -173,21 +173,24 @@ class ScoreSoloViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
 
-    
     private func loadData() {
         self.awardPointsBonus = (((self.score - 10) > 1) ? (self.score - 10) : 0) * 2
         self.awardPoints = self.awardPointsBonus + self.numberOfQuestions + 5 * self.succeeded
-        //"Questions réussies", "AwardPoints réussites", "AwardPoints assiduité",  "AwardPoints bonus", "Total AwardPoints"
+        //Questions succeeded
         self.statsData.append("\(self.succeeded) / \(self.numberOfQuestions)")
         self.statsDetails.append("\(self.succeeded) \(self.grammarQuestionString(self.succeeded)) \(self.grammarSucceededString(self.succeeded)), \(self.numberOfQuestions-self.succeeded) \(self.grammarQuestionString(self.numberOfQuestions-self.succeeded)) \(self.grammarFailedString(self.numberOfQuestions-self.succeeded)) sur un total de \(self.numberOfQuestions) \(self.grammarQuestionString(self.numberOfQuestions)), soit une note de \(self.score) sur 20.")
+        //AwardPoints succeeded
         self.statsData.append((self.succeeded*5).toStringPoints())
-        self.statsDetails.append("5 points par question réussie = 5 pts 𝗫 \(self.succeeded) \(self.grammarQuestionString(self.succeeded)) \(self.grammarSucceededString(self.succeeded)) = \((self.succeeded*5).toStringPoints())")
+        self.statsDetails.append("5 points par question réussie = 5 pts X \(self.succeeded) \(self.grammarQuestionString(self.succeeded)) \(self.grammarSucceededString(self.succeeded)) = \((self.succeeded*5).toStringPoints())")
+        //AwardPoints assiduity
         self.statsData.append(self.numberOfQuestions.toStringPoints())
         self.statsDetails.append("L'assiduité est récompensée ! 1 point par question faite = \(self.numberOfQuestions.toStringPoints())")
+        //AwardPoints Bonus
         self.statsData.append(self.awardPointsBonus.toStringPoints())
         self.statsDetails.append("Tous les points au dessus de la note 10/20 vous rapportent deux AwardPoints en bonus. Vous gagnez \(self.awardPointsBonus.toStringPoints()).")
+        //Total AwardPoints
         self.statsData.append(self.awardPoints.toStringPoints())
-        self.statsDetails.append("AwardPoints réussites (\((self.succeeded*5).toStringPoints())) + AwardPoints assiduité (\(self.awardPointsBonus.toStringPoints())) + AwardPoints bonus (\(self.awardPointsBonus.toStringPoints())) = total AwardPoints (\(self.awardPoints.toStringPoints()))")
+        self.statsDetails.append("AwardPoints réussites (\((self.succeeded*5).toStringPoints())) + AwardPoints assiduité (\(self.numberOfQuestions.toStringPoints())) + AwardPoints bonus (\(self.awardPointsBonus.toStringPoints())) = total AwardPoints (\(self.awardPoints.toStringPoints()))")
         //save scoring
         User.currentUser!.awardPoints += self.awardPoints
         User.currentUser!.saveUser()
@@ -197,7 +200,7 @@ class ScoreSoloViewController: UIViewController, UITableViewDataSource, UITableV
     
     //UITableViewDataSource Methods
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return self.statsTopics.count
     }
     
     // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:

@@ -57,7 +57,7 @@ class FactorySync {
     static let pendingDuoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/pending/")
     static let requestDuoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/request/")
     static let retrieveResultsDuoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/results/")
-    static let sendResultsDuoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/results/send")
+    static let sendResultsDuoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/results/send/")
     
     //CONTEST
     static let contestUrl = NSURL(string: "\(FactorySync.apiUrl!)/contest/")

@@ -108,9 +108,9 @@ class SettingsTableViewController: UITableViewController {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
-        // add an "later" button
+        // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
-        // add an "update" button
+        // add "update" button
         myAlert.addAction(UIAlertAction(title: "Mettre à jour maintenant", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             self.dismissViewControllerAnimated(true, completion: nil)
         }))
@@ -166,7 +166,7 @@ class SettingsTableViewController: UITableViewController {
                 // create alert controller
                 let myAlert = UIAlertController(title: message!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
-                // add an "OK" button
+                // add "OK" button
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
                 SwiftSpinner.hide()
@@ -177,7 +177,7 @@ class SettingsTableViewController: UITableViewController {
             // create alert controller
             let myAlert = UIAlertController(title: "Oups !", message: "Le pseudo ne peut être vide.", preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
-            // add an "OK" button
+            // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
@@ -227,7 +227,7 @@ class SettingsTableViewController: UITableViewController {
                     // create alert controller
                     let myAlert = UIAlertController(title: message!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
                     myAlert.view.tintColor = colorGreen
-                    // add an "OK" button
+                    // add "OK" button
                     myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                     // show the alert
                     SwiftSpinner.hide()
@@ -238,7 +238,7 @@ class SettingsTableViewController: UITableViewController {
                 // create alert controller
                 let myAlert = UIAlertController(title: "Oups !", message: "Le nouveau mot de passe et la confirmation ne correspondent pas.", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
-                // add an "OK" button
+                // add "OK" button
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
@@ -247,7 +247,7 @@ class SettingsTableViewController: UITableViewController {
             // create alert controller
             let myAlert = UIAlertController(title: "Le mot de passe est trop faible !", message: "Minimum huit caractères dont une majuscule et deux chiffres.", preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
-            // add an "OK" button
+            // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
@@ -263,7 +263,7 @@ class SettingsTableViewController: UITableViewController {
             // create alert controller
             let myAlert = UIAlertController(title: "Touch ID activé", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
-            // add an "OK" button
+            // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
@@ -274,7 +274,7 @@ class SettingsTableViewController: UITableViewController {
             // create alert controller
             let myAlert = UIAlertController(title: "Touch ID désactivé", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
-            // add an "OK" button
+            // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)

@@ -80,7 +80,7 @@ class SyncViewController: UIViewController {
                             // create alert controller
                             let myAlert = UIAlertController(title: "Erreur de téléchargement", message: "Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
                             myAlert.view.tintColor = colorGreen
-                            // add an "OK" button
+                            // add "OK" button
                             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                                 self.progression.hidden = true
                                 self.tryAgainButton.hidden = false
@@ -98,7 +98,7 @@ class SyncViewController: UIViewController {
                         // create alert controller
                         let myAlert = UIAlertController(title: "Erreur de téléchargement", message: "Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
                         myAlert.view.tintColor = colorGreen
-                        // add an "OK" button
+                        // add "OK" button
                         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                             self.progression.hidden = true
                             self.tryAgainButton.hidden = false
@@ -131,7 +131,7 @@ class SyncViewController: UIViewController {
             // create alert controller
             let myAlert = UIAlertController(title: "Erreur de téléchargement", message: "Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
-            // add an "OK" button
+            // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 self.progression.hidden = true
                 self.tryAgainButton.hidden = false

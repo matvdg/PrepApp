@@ -37,8 +37,6 @@ class SubjectManager {
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
             (data, response, error) in
-            
-            
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
                     print("error : no connexion in getSubjects")
@@ -62,7 +60,6 @@ class SubjectManager {
                     }
                 }
             }
-            
         }
         task.resume()
     }
@@ -122,7 +119,6 @@ class SubjectManager {
             print("subjects: nothing new to sync")
             FactorySync.getChapterManager().saveChapters()
         }
-        
     }
     
     private func deleteSubjects(idsToRemove: [Int]){
@@ -169,7 +165,7 @@ class SubjectManager {
                     newSubject.timePerQuestion = subjectData["timePerQuestion"] as! Int
                     try! self.realm.write {
                         self.realm.add(newSubject)
-                        print(newSubject)
+                        //print(newSubject)
                     }
                 })
             }
@@ -194,7 +190,6 @@ class SubjectManager {
                     let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
                         let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
-                        
                         
                         if let result = jsonResult {
                             callback(result as NSDictionary)

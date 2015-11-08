@@ -77,7 +77,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 				// create alert controller
 				let myAlert = UIAlertController(title: error, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
-				// add an "OK" button
+				// add "OK" button
 				myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
 				// show the alert
 				self.presentViewController(myAlert, animated: true, completion: nil)
@@ -93,7 +93,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         // create alert controller
                         let myAlert = UIAlertController(title: "Erreur !", message: "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
                         myAlert.view.tintColor = colorGreen
-                        // add an "OK" button
+                        // add "OK" button
                         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                         // show the alert
                         self.presentViewController(myAlert, animated: true, completion: nil)

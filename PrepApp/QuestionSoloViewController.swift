@@ -38,7 +38,7 @@ class QuestionSoloViewController: UIViewController,
     var timeChallengeTimer = NSTimer()
     var animatingCorrectionTimer = NSTimer()
     var stopAnimationCorrectionTimer = NSTimer()
-    var timeLeft = NSTimeInterval(20*60)
+    var timeLeft = NSTimeInterval(1)
     var senseAnimationCorrection: Bool = true
     var waitBeforeNextQuestion: Bool = false
     let baseUrl = NSURL(fileURLWithPath: FactorySync.path, isDirectory: true)
@@ -57,10 +57,11 @@ class QuestionSoloViewController: UIViewController,
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
         self.markButton.image = nil
-        self.chrono.text = "20"
+        self.chrono.text = ""
         self.chrono.textAlignment = NSTextAlignment.Center
         self.markButton.enabled = false
         self.designSoloChallengeTitleBar()
+        self.timeLeft = NSTimeInterval(60 * FactorySync.getConfigManager().loadDuration())
         self.timeChallengeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("countdown"), userInfo: nil, repeats: true)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
@@ -117,7 +118,7 @@ class QuestionSoloViewController: UIViewController,
             // create alert controller
             let myAlert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
-            // add an "OK" button
+            // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
@@ -207,7 +208,7 @@ class QuestionSoloViewController: UIViewController,
             if self.checkUnanswered() {
                 let myAlert = UIAlertController(title: "Attention, vous n'avez pas répondu à toutes les questions !", message: "Voulez-vous tout de même terminer le défi solo ?", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
-                // add an "OK" button
+                // add "OK" button
                 myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                     //challenge finished! switch to results mode
                     
@@ -221,7 +222,7 @@ class QuestionSoloViewController: UIViewController,
             } else {
                 let myAlert = UIAlertController(title: "Voulez-vous vraiment terminer le défi solo ?", message: "Vous ne pourrez plus modifier vos réponses.", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
-                // add an "OK" button
+                // add "OK" button
                 myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                     //challenge finished! switch to results mode
                     
@@ -236,7 +237,7 @@ class QuestionSoloViewController: UIViewController,
         } else {
             let myAlert = UIAlertController(title: "Voulez-vous vraiment quitter le défi solo ?", message: "Vous ne pourrez plus revoir vos réponses, mais vous pourrez retrouver les questions et leur correction dans entraînement", preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
-            // add an "OK" button
+            // add "OK" button
             myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 self.dismissViewControllerAnimated(true, completion: nil)
             }))
@@ -822,9 +823,9 @@ class QuestionSoloViewController: UIViewController,
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
-        // add an "later" button
+        // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
-        // add an "update" button
+        // add "update" button
         myAlert.addAction(UIAlertAction(title: "Mettre à jour maintenant", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             self.dismissViewControllerAnimated(true, completion: nil)
         }))
@@ -850,7 +851,7 @@ class QuestionSoloViewController: UIViewController,
             self.allAnswers[self.currentNumber] = self.selectedAnswers
             let myAlert = UIAlertController(title: "Temps écoulé", message: "Le défi solo est à présent terminé.", preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
-            // add an "OK" button
+            // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 //challenge finished! switch to results mode
                 self.displayResultsMode()
