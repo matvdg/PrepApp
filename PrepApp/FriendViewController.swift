@@ -194,14 +194,14 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         }
         ///TODO !!!! when removing test, don't forget to uncomment viewDidAppear !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //loading test ResultsDuo popup notification
-//        FactoryDuo.getDuoManager().loadTestResults { (data) -> Void in
-//            if let resultsDuo = data {
-//                self.resultsDuo = resultsDuo
-//                self.performSegueWithIdentifier("showResultsDuo", sender: self)
-//            } else {
-//                print("no resultsDuo notification to display")
-//            }
-//        }
+        FactoryDuo.getDuoManager().loadTestResults { (data) -> Void in
+            if let resultsDuo = data {
+                self.resultsDuo = resultsDuo
+                self.performSegueWithIdentifier("showResultsDuo", sender: self)
+            } else {
+                print("no resultsDuo notification to display")
+            }
+        }
     }
     
     func templating(){
