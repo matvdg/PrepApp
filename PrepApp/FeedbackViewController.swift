@@ -18,6 +18,8 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
     @IBOutlet weak var feedback: UITextView!
 
     @IBAction func send(sender: AnyObject) {
+        SwiftSpinner.show("Envoi en cours...")
+        SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
         self.sendFeedback()
     }
     
@@ -68,6 +70,7 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
 
     func sendFeedback() {
         if self.feedback.text == "Taper votre feedback ici :" || self.feedback.text == "" {
+            SwiftSpinner.hide()
             // create alert controller
             let myAlert = UIAlertController(title: "Erreur", message: "Votre message est vide !", preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
@@ -76,8 +79,8 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
         } else {
-            
             User.currentUser!.sendFeedback(self.topics[self.topicsPicker.selectedRowInComponent(0)], feedback: self.feedback.text) { (title, message, result) -> Void in
+                SwiftSpinner.hide()
                 // create alert controller
                 let myAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen

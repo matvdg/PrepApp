@@ -18,6 +18,8 @@ class CommentViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBAction func send(sender: AnyObject) {
+        SwiftSpinner.show("Envoi en cours...")
+        SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
         self.sendComment()
     }
     
@@ -68,6 +70,7 @@ class CommentViewController: UIViewController {
     
     func sendComment() {
         if self.comment.text == "Taper votre commentaire ici :" || self.comment.text == "" {
+            SwiftSpinner.hide()
             // create alert controller
             let myAlert = UIAlertController(title: "Erreur", message: "Votre message est vide !", preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
@@ -77,6 +80,7 @@ class CommentViewController: UIViewController {
             self.presentViewController(myAlert, animated: true, completion: nil)
         } else {
             User.currentUser!.sendComment(self.selectedId, comment: self.comment.text, callback: { (title, message, result) -> Void in
+                SwiftSpinner.hide()
                 // create alert controller
                 let myAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
