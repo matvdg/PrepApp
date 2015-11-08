@@ -10,7 +10,7 @@ import UIKit
 
 class NewsfeedManager {
     
-    var realm = FactoryRealm.getRealmNewsfeed()
+    private var realm = FactoryRealm.getRealmNewsfeed()
     
     //API
     private func retrieveNewsfeed(callback: (NSArray?) -> Void) {
@@ -23,8 +23,7 @@ class NewsfeedManager {
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    print("error : no connexion in retrieveNewsfeed")
-                    print(error!)
+                    print("newsfeed offline")
                     callback(nil)
                 } else {
                     let statusCode = (response as! NSHTTPURLResponse).statusCode

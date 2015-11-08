@@ -181,8 +181,8 @@ class ResultsDuoViewController: UIViewController {
                 //it's a draw!
                 self.awardPoints = 5
                 self.animateAwardPoint()
-                self.playerA.text = "VOUS - égalité"
-                self.playerB.text! += " - égalité"
+                self.playerA.text = "VOUS - Égalité"
+                self.playerB.text! += " - Égalité"
                 self.playerA.textColor = colorAwardPoints
                 self.playerB.textColor = colorAwardPoints
                 self.bonusA.text = self.awardPoints.toStringPoints()
@@ -193,8 +193,8 @@ class ResultsDuoViewController: UIViewController {
                     Sound.playTrack("true")
                     self.awardPoints = 10
                     self.animateAwardPoint()
-                    self.playerA.text = "VOUS - gagnant"
-                    self.playerB.text! += " - perdant"
+                    self.playerA.text = "VOUS - Gagnant"
+                    self.playerB.text! += " - Perdant"
                     self.playerA.textColor = colorGreen
                     self.playerB.textColor = colorWrongAnswer
                     self.bonusA.text = self.awardPoints.toStringPoints()
@@ -204,8 +204,8 @@ class ResultsDuoViewController: UIViewController {
                     //you loose!
                     Sound.playTrack("false")
                     self.awardPoints = 0
-                    self.playerA.text = "VOUS - perdant"
-                    self.playerB.text! += " - gagnant"
+                    self.playerA.text = "VOUS - Perdant"
+                    self.playerB.text! += " - Gagnant"
                     self.playerA.textColor = colorWrongAnswer
                     self.playerB.textColor = colorGreen
                     self.bonusA.text = self.awardPoints.toStringPoints()
@@ -219,8 +219,8 @@ class ResultsDuoViewController: UIViewController {
                 Sound.playTrack("notif")
                 self.awardPoints = 5
                 self.animateAwardPoint()
-                self.playerA.text! += " - égalité"
-                self.playerB.text! = "VOUS - égalité"
+                self.playerA.text! += " - Égalité"
+                self.playerB.text! = "VOUS - Égalité"
                 self.playerA.textColor = colorAwardPoints
                 self.playerB.textColor = colorAwardPoints
                 self.bonusA.text = self.awardPoints.toStringPoints()
@@ -231,8 +231,8 @@ class ResultsDuoViewController: UIViewController {
                     Sound.playTrack("true")
                     self.awardPoints = 10
                     self.animateAwardPoint()
-                    self.playerB.text! = "VOUS - gagnant"
-                    self.playerA.text! += " - perdant"
+                    self.playerB.text! = "VOUS - Gagnant"
+                    self.playerA.text! += " - Perdant"
                     self.playerB.textColor = colorGreen
                     self.playerA.textColor = colorWrongAnswer
                     self.bonusB.text = self.awardPoints.toStringPoints()
@@ -242,8 +242,8 @@ class ResultsDuoViewController: UIViewController {
                     //you loose!
                     Sound.playTrack("false")
                     self.awardPoints = 0
-                    self.playerB.text! = "VOUS - perdant"
-                    self.playerA.text! += " - gagnant"
+                    self.playerB.text! = "VOUS - Perdant"
+                    self.playerA.text! += " - Gagnant"
                     self.playerB.textColor = colorWrongAnswer
                     self.playerA.textColor = colorGreen
                     self.bonusB.text = self.awardPoints.toStringPoints()

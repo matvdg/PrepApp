@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "awardPointHD-3.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "awardPointHD-2.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "awardPointHD-1.png"
+      "filename" : "awardPointHD-1.png",
+      "scale" : "3x"
     }
   ],
   "info" : {
