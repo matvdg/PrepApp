@@ -23,19 +23,11 @@ class NewsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("viewDidLoad")
-        print("selected = \(self.selected)")
         self.dismissButton.layer.cornerRadius = 6.0
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         self.loadNews()
 
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        self.loadNews()
-        print("viewDidAppear")
-        print("selected = \(self.selected)")
     }
     
     func loadNews() {
