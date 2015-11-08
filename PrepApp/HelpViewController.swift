@@ -100,6 +100,11 @@ class HelpViewController: UIViewController {
 
     }
     
+    override func viewDidAppear(animated: Bool) {
+        self.helpText.setContentOffset(CGPointZero, animated: true)
+        self.helpText.scrollRangeToVisible(NSRange(location: 0, length: 0))
+    }
+    
     func logout() {
         print("logging out")
         self.dismissViewControllerAnimated(true, completion: nil)

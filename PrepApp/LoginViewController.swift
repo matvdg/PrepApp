@@ -108,6 +108,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 	@IBOutlet weak var pass: UITextField!
     
 	@IBAction func login(sender: AnyObject) {
+        self.resignFirstResponder()
+        self.view.endEditing(true)
         SwiftSpinner.show("Connexion...")
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
 		self.connect()
