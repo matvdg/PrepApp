@@ -38,6 +38,8 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 // add buttons
         myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
         myAlert.addAction(UIAlertAction(title: "Partager", style: .Default, handler: { (action) -> Void in
+            SwiftSpinner.show("Un instant S.V.P.")
+            SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
             self.share()
         }))
         
@@ -274,15 +276,15 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     
     private func share() {
         let idToShare = String(User.currentUser!.id).sha1()
-        let welcome = "Bonjour, je souhaite faire un duel avec toi sur Prep'App !"
-        let text = "Mon code Prep'App à rentrer dans défi duo :"
-        let link = "www.prep-app.com"
+        let welcome = "Bonjour, je souhaite faire un duel avec toi sur Prep'App !\\n"
+        let text = "Mon code Prep'App à rentrer dans défi duo : \n\n"
+        let link = NSURL(fileURLWithPath: "http://www.prep-app.com")
         let objectsToShare: [AnyObject] = [welcome, text, idToShare, link]
         let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
         activityVC.excludedActivityTypes = [UIActivityTypePostToTwitter]
-        activityVC.setValue("Prep'App", forKey: "subject")
+        activityVC.setValue("Mon code Prep'App", forKey: "subject")
         self.presentViewController(activityVC, animated: true, completion: nil)
-
+        SwiftSpinner.hide()
     }
     
     private func challenge(friend: Friend) {
