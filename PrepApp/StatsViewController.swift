@@ -100,10 +100,10 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.statsDetails.append("Vous avez \(FactorySync.getConfigManager().loadWeeksBeforeExam()) \(self.grammarWeekString(FactorySync.getConfigManager().loadWeeksBeforeExam())) avant l'échéance fixée par votre établissement (concours/examen/partiels) le \(FactorySync.getConfigManager().loadDate())")
         //awardPoints
         self.statsData.append(User.currentUser!.awardPoints.toStringPoints())
-        self.statsDetails.append("\(User.currentUser!.awardPoints.toStringPoints()) AwardsPoints gagnés dans Prep'App Kiné, total des AwardPoints réussites, assiduité et bonus.")
+        self.statsDetails.append("\(User.currentUser!.awardPoints.toStringPoints()) AwardPoints gagnés dans Prep'App Kiné, total des AwardPoints réussites, assiduité et bonus.")
         //awardPoints global
         self.statsData.append(User.currentUser!.awardPoints.toStringPoints())
-        self.statsDetails.append("\(User.currentUser!.awardPoints.toStringPoints()) AwardsPoints gagnés dans toutes les applications Prep'App, total des AwardPoints réussites, assiduité et bonus.")
+        self.statsDetails.append("\(User.currentUser!.awardPoints.toStringPoints()) AwardPoints gagnés dans toutes les applications Prep'App, total des AwardPoints réussites, assiduité et bonus.")
     }
     
     private func grammarQuestionString(int: Int) -> String {

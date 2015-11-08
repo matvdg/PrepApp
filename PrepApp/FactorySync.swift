@@ -25,6 +25,7 @@ class FactorySync {
     private static let questionManager = QuestionManager()
     private static let subjectManager = SubjectManager()
     private static let configManager = ConfigManager()
+    private static let newsfeedManager = NewsfeedManager()
     private static let realm = FactoryRealm.getRealm()
     
     /*APIs*/
@@ -39,6 +40,8 @@ class FactorySync {
     static let configUrl = NSURL(string: "\(FactorySync.apiUrl!)/configs/")
     static let versionUrl = NSURL(string: "\(FactorySync.apiUrl!)/configs/version/")
     
+    //NEWSFEED
+    static let newsfeedUrl = NSURL(string: "\(FactorySync.apiUrl!)/newsfeed/")
     
     //QUESTIONS
     static let questionUrl = NSURL(string: "\(FactorySync.apiUrl!)/questions/")
@@ -98,6 +101,10 @@ class FactorySync {
     
     class func getConfigManager() -> ConfigManager {
         return self.configManager
+    }
+    
+    class func getNewsfeedManager() -> NewsfeedManager {
+        return self.newsfeedManager
     }
     
     //Called in SyncViewController.swift

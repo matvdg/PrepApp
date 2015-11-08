@@ -30,6 +30,8 @@
 		F60739E91BB348AB004DEC32 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60739E81BB348AB004DEC32 /* Friend.swift */; };
 		F60739EB1BB3E6E9004DEC32 /* FactoryDuo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60739EA1BB3E6E9004DEC32 /* FactoryDuo.swift */; };
 		F60CA2321BBEBC1200C83DDE /* DuoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60CA2311BBEBC1200C83DDE /* DuoManager.swift */; };
+		F60ED4811BEFA04F00825A0E /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60ED4801BEFA04F00825A0E /* News.swift */; };
+		F60ED4851BEFA1E800825A0E /* NewsfeedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60ED4841BEFA1E800825A0E /* NewsfeedManager.swift */; };
 		F61A1CDB1B003F7500777584 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F61A1CDA1B003F7500777584 /* SWRevealViewController.m */; };
 		F61A1CDF1B0041CD00777584 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61A1CDE1B0041CD00777584 /* MenuController.swift */; };
 		F62C29FE1BE6B37F00DF5EF0 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62C29F91BE6B36400DF5EF0 /* Charts.framework */; };
@@ -159,6 +161,8 @@
 		F60739E81BB348AB004DEC32 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		F60739EA1BB3E6E9004DEC32 /* FactoryDuo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryDuo.swift; sourceTree = "<group>"; };
 		F60CA2311BBEBC1200C83DDE /* DuoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DuoManager.swift; sourceTree = "<group>"; };
+		F60ED4801BEFA04F00825A0E /* News.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
+		F60ED4841BEFA1E800825A0E /* NewsfeedManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsfeedManager.swift; sourceTree = "<group>"; };
 		F61A1CD91B003F7500777584 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		F61A1CDA1B003F7500777584 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		F61A1CDE1B0041CD00777584 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
@@ -376,6 +380,7 @@
 				95C5C48C1B9503F6001DA9B5 /* Answer.swift */,
 				F6322A201B615E3E0074549E /* Image.swift */,
 				F60739E81BB348AB004DEC32 /* Friend.swift */,
+				F60ED4801BEFA04F00825A0E /* News.swift */,
 				F6C267FB1BB56BDC00CA462A /* PendingDuo.swift */,
 				F66771801B61A31900042145 /* FactoryRealm.swift */,
 			);
@@ -385,6 +390,7 @@
 		F64630A81B5FD5C9006A5F71 /* Sync */ = {
 			isa = PBXGroup;
 			children = (
+				F60ED4841BEFA1E800825A0E /* NewsfeedManager.swift */,
 				F60082D21B854F9E00F7BCBB /* ConfigManager.swift */,
 				F6987A6C1B16321B002989C6 /* ImageManager.swift */,
 				953686E61BB0179100CD6615 /* QuestionManager.swift */,
@@ -675,6 +681,8 @@
 				F60739E91BB348AB004DEC32 /* Friend.swift in Sources */,
 				F6C02C461B762A810021ABE1 /* UITableViewCellAnswer.swift in Sources */,
 				F6C3095C1B0365B100B8FAC9 /* HomeViewController.swift in Sources */,
+				F60ED4851BEFA1E800825A0E /* NewsfeedManager.swift in Sources */,
+				F60ED4811BEFA04F00825A0E /* News.swift in Sources */,
 				F6AAE6D61AF433E100195E11 /* AppDelegate.swift in Sources */,
 				F67436321BEEDEAD003E798B /* ResultsDuoViewController.swift in Sources */,
 				F67436301BEEC36E003E798B /* ResultDuo.swift in Sources */,

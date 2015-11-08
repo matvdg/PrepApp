@@ -12,6 +12,7 @@ class NewsfeedViewController: UIViewController {
     
     var timer = NSTimer()
 
+    @IBOutlet weak var newsfeedTable: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()

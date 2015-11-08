@@ -31,8 +31,6 @@ class ResultsDuoViewController: UIViewController {
     @IBOutlet weak var greenRoundB: UILabel!
     @IBOutlet weak var scoreA: UILabel!
     @IBOutlet weak var scoreB: UILabel!
-    @IBOutlet weak var succeededA: UILabel!
-    @IBOutlet weak var succeededB: UILabel!
     @IBOutlet weak var bonusA: UILabel!
     @IBOutlet weak var bonusB: UILabel!
     @IBOutlet weak var designButtonDismiss: UIButton!
@@ -152,22 +150,6 @@ class ResultsDuoViewController: UIViewController {
         self.awardPointImage.layer.addAnimation(animation, forKey: nil)
     }
     
-    private func grammarQuestionString(int: Int) -> String {
-        if int < 2 {
-            return "question"
-        } else {
-            return "questions"
-        }
-    }
-    
-    private func grammarSucceededString(int: Int) -> String {
-        if int < 2 {
-            return "réussie"
-        } else {
-            return "réussies"
-        }
-    }
-    
     private func loadData() {
         let resultDuo = self.resultDuo!
         let resultA = resultDuo.resultDuo[0]
@@ -191,9 +173,6 @@ class ResultsDuoViewController: UIViewController {
         self.playerB.text = playerB
         self.scorePlayerA = resultA.score*20/questionsNumber
         self.scorePlayerB = resultB.score*20/questionsNumber
-        self.succeededA.text = "\(resultA.score) \(self.grammarQuestionString(resultA.score)) \(self.grammarSucceededString(resultA.score)) sur \(questionsNumber)"
-        self.succeededB.text = "\(resultB.score) \(self.grammarQuestionString(resultB.score)) \(self.grammarSucceededString(resultB.score)) sur \(questionsNumber)"
-        
         
         if resultA.id == User.currentUser!.id {
             //you're player A

@@ -12,7 +12,7 @@ import UIKit
 class FriendManager {
     
     let realm = FactoryRealm.getRealmFriends()
-    //"")
+    
     //API
     private func findFriend(code: String, callback: (NSDictionary?, String) -> Void) {
         

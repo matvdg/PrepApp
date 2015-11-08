@@ -17,6 +17,7 @@ class FactoryRealm {
     static let realmImages = try! Realm(path: "\(FactorySync.path)/images.realm")
     static let realmFriends = try! Realm(path: "\(FactorySync.path)/friends.realm")
     static let realmDuo = try! Realm(path: "\(FactorySync.path)/duo.realm")
+    static let realmNewsfeed = try! Realm(path: "\(FactorySync.path)/newsfeed.realm")
     
     class func getRealm() -> Realm {
         return realm
@@ -36,6 +37,10 @@ class FactoryRealm {
     
     class func getRealmDuo() -> Realm {
         return realmDuo
+    }
+    
+    class func getRealmNewsfeed() -> Realm {
+        return realmNewsfeed
     }
     
     class func clearUserDB() {

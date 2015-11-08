@@ -593,7 +593,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     func getPerfChartData() {
         if self.weeksBeforeExam.count < 2 {
             self.noDataLabel = UILabel(frame: CGRectMake(0, self.view.bounds.height / 2 - 100, self.view.bounds.width, 200))
-            self.noDataLabel.text = "Pas assez de données pour le moment. Le graphe performances nécessite au moins deux semaines de données, veuillez revenir plus tard."
+            self.noDataLabel.text = "Afin d'être significatif, le graphique Performances nécessite deux semaines de données. Veuillez revenir plus tard !"
             self.noDataLabel.font = UIFont(name: "Segoe UI", size: 20)
             self.noDataLabel.numberOfLines = 4
             self.noDataLabel.textAlignment = NSTextAlignment.Center
