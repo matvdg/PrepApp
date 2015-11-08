@@ -182,7 +182,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 SwiftSpinner.hide()
             }
         })
-        ///TODO !!!! when removing test, don't forget to uncomment viewDidAppear !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        
         //loading ResultsDuo popup notification
         FactoryDuo.getDuoManager().loadResults { (data) -> Void in
             if let resultsDuo = data {
@@ -192,16 +192,16 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 print("no resultsDuo notification to display")
             }
         }
-        
+        ///TODO !!!! when removing test, don't forget to uncomment viewDidAppear !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //loading test ResultsDuo popup notification
-        FactoryDuo.getDuoManager().loadTestResults { (data) -> Void in
-            if let resultsDuo = data {
-                self.resultsDuo = resultsDuo
-                self.performSegueWithIdentifier("showResultsDuo", sender: self)
-            } else {
-                print("no resultsDuo notification to display")
-            }
-        }
+//        FactoryDuo.getDuoManager().loadTestResults { (data) -> Void in
+//            if let resultsDuo = data {
+//                self.resultsDuo = resultsDuo
+//                self.performSegueWithIdentifier("showResultsDuo", sender: self)
+//            } else {
+//                print("no resultsDuo notification to display")
+//            }
+//        }
     }
     
     func templating(){
@@ -346,9 +346,16 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
             cell.backgroundColor = colorGreyBackground
             cell.textLabel!.adjustsFontSizeToFitWidth = false
             cell.textLabel!.adjustsFontSizeToFitWidth = true
+            
+            //fetching expiration
+            let offsetComponents = NSDateComponents()
+            offsetComponents.minute = 24*60 - FactorySync.getConfigManager().loadDuration()
+            let initDate = pendingDuo.date
+            let expirationDate = NSCalendar.currentCalendar().dateByAddingComponents(offsetComponents, toDate: initDate, options: NSCalendarOptions(rawValue: 0))!
+            //formatting
             let formatter = NSDateFormatter()
-            formatter.dateFormat = "dd/MM/yyyy"
-            let dateInString = formatter.stringFromDate(pendingDuo.date)
+            formatter.dateFormat = "EEEE à H:m"
+            let dateInString = "Expire \(formatter.stringFromDate(expirationDate))"
             if pendingDuo.id == -1 {
                 cell.accessoryType = UITableViewCellAccessoryType.None
                 cell.detailTextLabel!.text = ""
