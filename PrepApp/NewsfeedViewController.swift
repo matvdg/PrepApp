@@ -20,10 +20,8 @@ class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         if( traitCollection.forceTouchCapability == .Available){
-            registerForPreviewingWithDelegate(self, sourceView: view)
+            registerForPreviewingWithDelegate(self, sourceView: self.newsfeedTable)
         }
-        self.newsfeedTable.delegate = self
-        self.newsfeedTable.dataSource = self
         self.pullToRefresh.tintColor = colorGreen
         self.pullToRefresh.attributedTitle = NSAttributedString(string: "▼ Glisser vers le bas pour actualiser le fil d'actualités ▼")
         self.pullToRefresh.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
@@ -143,8 +141,7 @@ class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableVi
     
     //peek&pop
     func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        let indexPath = self.newsfeedTable!.indexPathForSelectedRow
-        print(indexPath)
+        let indexPath = self.newsfeedTable!.indexPathForRowAtPoint(location)
         let cell = self.newsfeedTable!.cellForRowAtIndexPath(indexPath!)
         let newsVC = storyboard?.instantiateViewControllerWithIdentifier("NewsVC") as? NewsViewController
         newsVC!.selected = indexPath!.row

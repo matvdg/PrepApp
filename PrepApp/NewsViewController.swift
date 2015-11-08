@@ -24,10 +24,10 @@ class NewsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(self.selected)
         self.loadNews()
         if self.hideButton {
-            self.title = self.newsfeed[self.selected].title
-            self.titleLabel.text! = "Aperçu"
+            self.title = ""
             self.dismissButton.hidden = true
         } else {
             self.dismissButton.hidden = false
