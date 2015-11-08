@@ -3980,7 +3980,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10pts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kTz-qN-bMW">
-                                <rect key="frame" x="421" y="333" width="50" height="30"/>
+                                <rect key="frame" x="421" y="353" width="50" height="30"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="AC6-63-aIg"/>
@@ -4001,7 +4001,7 @@
                                 </variation>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="awardPointHD" translatesAutoresizingMaskIntoConstraints="NO" id="gca-GU-rPI">
-                                <rect key="frame" x="129" y="275" width="50" height="50"/>
+                                <rect key="frame" x="129" y="295" width="50" height="50"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="6f9-OB-myb"/>
@@ -4017,7 +4017,7 @@
                                 </variation>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="awardPointHD" translatesAutoresizingMaskIntoConstraints="NO" id="TXX-Tf-Ezk">
-                                <rect key="frame" x="421" y="275" width="50" height="50"/>
+                                <rect key="frame" x="421" y="295" width="50" height="50"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="6ek-jP-ocG"/>
@@ -4041,29 +4041,29 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bonus AwardPoints" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2s1-Bw-EtH">
-                                <rect key="frame" x="72" y="225" width="164.5" height="47"/>
+                                <rect key="frame" x="72" y="245" width="164.5" height="47"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="47" id="CYy-Bn-lCu"/>
                                     <constraint firstAttribute="width" constant="164.5" id="eHG-JD-gOK"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
                                 <color key="textColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bonus AwardPoints" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000298023224" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="78j-49-yac">
-                                <rect key="frame" x="364" y="225" width="164.5" height="47"/>
+                                <rect key="frame" x="364" y="245" width="164.5" height="47"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="164.5" id="Nbk-vG-hSe"/>
                                     <constraint firstAttribute="height" constant="47" id="fxq-Ta-ZW7"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
                                 <color key="textColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0pt" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3FG-Wy-0bd">
-                                <rect key="frame" x="129" y="333" width="50" height="30"/>
+                                <rect key="frame" x="129" y="353" width="50" height="30"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46.5" id="3TT-1U-ANH"/>
@@ -4110,10 +4110,10 @@
                             <constraint firstItem="3FG-Wy-0bd" firstAttribute="top" secondItem="gca-GU-rPI" secondAttribute="bottom" constant="8" id="WgM-dV-Fhd"/>
                             <constraint firstItem="Qbv-Yt-LA9" firstAttribute="centerX" secondItem="THR-nc-iV9" secondAttribute="centerX" id="Wzv-wC-dme"/>
                             <constraint firstItem="wGI-DY-Ei7" firstAttribute="centerX" secondItem="Spc-1z-oip" secondAttribute="centerX" id="ZMC-RI-oSC"/>
-                            <constraint firstItem="2s1-Bw-EtH" firstAttribute="top" secondItem="THR-nc-iV9" secondAttribute="bottom" constant="9" id="cNq-Ts-aIa"/>
+                            <constraint firstItem="2s1-Bw-EtH" firstAttribute="top" secondItem="THR-nc-iV9" secondAttribute="bottom" constant="29" id="cNq-Ts-aIa"/>
                             <constraint firstItem="Bur-Td-rTr" firstAttribute="centerX" secondItem="cuv-ko-gTm" secondAttribute="centerX" id="dOe-rF-AdZ"/>
                             <constraint firstItem="TXX-Tf-Ezk" firstAttribute="centerX" secondItem="78j-49-yac" secondAttribute="centerX" id="eGL-1Z-VXx"/>
-                            <constraint firstItem="78j-49-yac" firstAttribute="top" secondItem="cuv-ko-gTm" secondAttribute="bottom" constant="9" id="ebk-EL-KRa"/>
+                            <constraint firstItem="78j-49-yac" firstAttribute="top" secondItem="cuv-ko-gTm" secondAttribute="bottom" constant="29" id="ebk-EL-KRa"/>
                             <constraint firstItem="Bur-Td-rTr" firstAttribute="centerY" secondItem="cuv-ko-gTm" secondAttribute="centerY" id="ffu-h2-GEF"/>
                             <constraint firstAttribute="trailing" secondItem="P7A-c9-QNd" secondAttribute="trailing" constant="8" id="g7L-AT-nne"/>
                             <constraint firstItem="OUM-av-kRk" firstAttribute="centerY" secondItem="Spc-1z-oip" secondAttribute="centerY" id="gUQ-mo-VNN"/>
