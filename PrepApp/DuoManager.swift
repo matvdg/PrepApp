@@ -84,7 +84,7 @@ class DuoManager {
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    print(error)
+                    print(error!)
                     callback(nil)
                 } else {
                     
@@ -120,7 +120,7 @@ class DuoManager {
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
                     print("error : no connexion in retrieveResultsDuo")
-                    print(error)
+                    print(error!)
                     callback(nil)
                 } else {
                     let statusCode = (response as! NSHTTPURLResponse).statusCode
@@ -221,5 +221,13 @@ class DuoManager {
         }
         return result
     }
+    
+    func deletePendingDuo(pendindDuoToRemove: PendingDuo) {
+        try! self.realm.write({
+            self.realm.delete(pendindDuoToRemove)
+            print("pendindDuo removed")
+        })
+    }
+
 
 }

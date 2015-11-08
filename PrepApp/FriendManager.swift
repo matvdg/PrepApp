@@ -118,7 +118,7 @@ class FriendManager {
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    print(error)
+                    print(error!)
                     callback(nil)
                 } else {
                     let statusCode = (response as! NSHTTPURLResponse).statusCode

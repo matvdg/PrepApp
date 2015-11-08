@@ -354,7 +354,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
             let expirationDate = NSCalendar.currentCalendar().dateByAddingComponents(offsetComponents, toDate: initDate, options: NSCalendarOptions(rawValue: 0))!
             //formatting
             let formatter = NSDateFormatter()
-            formatter.dateFormat = "EEEE à H:m"
+            formatter.dateFormat = "EEEE à H:mm"
             let dateInString = "Expire \(formatter.stringFromDate(expirationDate))"
             if pendingDuo.id == -1 {
                 cell.accessoryType = UITableViewCellAccessoryType.None
@@ -455,6 +455,9 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                     self.firstName = pendingDuo.firstName
                     self.nickname = pendingDuo.nickname
                     print("Launching challenge number \(pendingDuo.id)")
+                    self.pendingDuos.removeAtIndex(indexPath.row)
+                    FactoryDuo.getDuoManager().deletePendingDuo(pendingDuo)
+                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
                     self.performSegueWithIdentifier("showDuo", sender: self)
                 }))
                 // show the alert
