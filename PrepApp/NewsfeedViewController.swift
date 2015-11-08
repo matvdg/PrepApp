@@ -22,7 +22,7 @@ class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableVi
         self.newsfeedTable.delegate = self
         self.newsfeedTable.dataSource = self
         self.pullToRefresh.tintColor = colorGreen
-        self.pullToRefresh.attributedTitle = NSAttributedString(string: "▼ Glisser vers le bas pour actualiser le fil d'actualité ▼")
+        self.pullToRefresh.attributedTitle = NSAttributedString(string: "▼ Glisser vers le bas pour actualiser le fil d'actualités ▼")
         self.pullToRefresh.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.newsfeedTable?.addSubview(pullToRefresh)
         //sync newsfeed
@@ -38,7 +38,7 @@ class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableVi
         self.view!.backgroundColor = colorGreyBackground
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.navigationController!.navigationBar.tintColor = colorGreen
-        self.title = "Fil d'actualité"
+        self.title = "Fil d'actualités"
         let swipeRight = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipeRight.direction = UISwipeGestureRecognizerDirection.Right
         self.view.addGestureRecognizer(swipeRight)

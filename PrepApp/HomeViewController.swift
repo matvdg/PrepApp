@@ -165,7 +165,7 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.noDataLabel.layer.zPosition = 8
         self.notificationMessage.layer.zPosition = 5
         //other customization
-        self.legend.text = "Inclinez en mode paysage pour voir votre graphe performance. Glissez à droite pour voir le fil d'actualité Prep'App."
+        self.legend.text = "Inclinez en mode paysage pour voir votre graphe performance. Glissez à droite pour voir le fil d'actualités Prep'App."
         self.stats.hidden = true
         self.view.backgroundColor = colorGreyBackground
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
