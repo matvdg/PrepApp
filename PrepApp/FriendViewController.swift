@@ -489,14 +489,14 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView(frame: CGRectMake(0, 0, tableView.bounds.size.width, 30))
+        let headerView = UIView(frame: CGRectMake(0, 0, tableView.bounds.size.width, 44))
         headerView.backgroundColor = colorGreen
         
-        let headerLabel = UILabel(frame: CGRectMake(15, 0, tableView.bounds.size.width, 20))
+        let headerLabel = UILabel(frame: CGRectMake(15, 0, tableView.bounds.size.width, 44))
         headerLabel.backgroundColor = UIColor.clearColor()
         headerLabel.shadowOffset = CGSizeMake(0,2)
         headerLabel.textColor = UIColor.whiteColor()
-        headerLabel.font = UIFont(name: "Segoe UI", size: 16)
+        headerLabel.font = UIFont(name: "Segoe UI", size: 20)
         if section == 0 {
             headerLabel.text = "Défis en attente"
         } else {
