@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="segoe.ttf">
@@ -1023,7 +1022,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prep'App Kiné" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qvd-SZ-NUK">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prep'App Kiné" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qvd-SZ-NUK">
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -1070,10 +1069,7 @@
                                         <animations/>
                                         <color key="backgroundColor" red="0.94901961089999998" green="0.94901961089999998" blue="0.94901961089999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <segue destination="NNi-8R-czT" kind="presentation" modalTransitionStyle="flipHorizontal" id="3hd-zz-NOl">
-                                                <segue key="commit" inheritsFrom="parent" id="Fqf-v3-gbM"/>
-                                                <segue key="preview" inheritsFrom="commit" id="XYd-yB-VE4"/>
-                                            </segue>
+                                            <segue destination="NNi-8R-czT" kind="presentation" modalTransitionStyle="flipHorizontal" id="3hd-zz-NOl"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1580,7 +1576,7 @@
         <!--NewsVC-->
         <scene sceneID="qoD-nZ-87D">
             <objects>
-                <viewController title="NewsVC" id="NNi-8R-czT" customClass="NewsViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewsVC" title="NewsVC" id="NNi-8R-czT" customClass="NewsViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MUf-oW-RYL"/>
                         <viewControllerLayoutGuide type="bottom" id="NQL-Yh-mS6"/>
@@ -1640,7 +1636,7 @@
                                     <action selector="runChallenge:" destination="Cpx-Ts-0mG" eventType="touchUpInside" id="Nvb-h9-ZsX"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Professeur - le mercredi 25 mars 2015 à 13:22" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vE0-la-Sa1">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Professeur - le mercredi 25 mars 2015 à 13:22" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vE0-la-Sa1">
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -4196,7 +4192,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="Mzc-wZ-R5Z"/>
         <segue reference="KwL-6O-QQR"/>
-        <segue reference="3hd-zz-NOl"/>
         <segue reference="78B-T2-OOj"/>
         <segue reference="FJi-Sh-npJ"/>
     </inferredMetricsTieBreakers>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIViewControllerPreviewingDelegate {
     
     var timer = NSTimer()
     var newsfeed = [News]()
@@ -19,6 +19,9 @@ class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableVi
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if( traitCollection.forceTouchCapability == .Available){
+            registerForPreviewingWithDelegate(self, sourceView: view)
+        }
         self.newsfeedTable.delegate = self
         self.newsfeedTable.dataSource = self
         self.pullToRefresh.tintColor = colorGreen
@@ -138,5 +141,22 @@ class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableVi
         self.presentViewController(myAlert, animated: true, completion: nil)
     }
     
+    //peek&pop
+    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        let indexPath = self.newsfeedTable!.indexPathForSelectedRow
+        print(indexPath)
+        let cell = self.newsfeedTable!.cellForRowAtIndexPath(indexPath!)
+        let newsVC = storyboard?.instantiateViewControllerWithIdentifier("NewsVC") as? NewsViewController
+        newsVC!.selected = indexPath!.row
+        newsVC!.newsfeed = self.newsfeed
+        newsVC!.hideButton = true
+        newsVC!.preferredContentSize = CGSize(width: 0.0, height: 300)
+        previewingContext.sourceRect = cell!.frame
+        return newsVC
+    }
+    
+    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+        self.showViewController(viewControllerToCommit, sender: self)
+    }
 
 }

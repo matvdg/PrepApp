@@ -16,7 +16,7 @@ class HelpViewController: UIViewController {
     var helpTopics = ["Aide Accueil","Aide Entraînement","Aide Défi solo","Aide Défi duo","Aide Concours","Aide Statistiques","Aide Questions marquées", "Aide Classement", "Aide Suggestions", "Aide Réglages","Mentions légales"]
     var helpTexts = [
         //1- Aide accueil
-        "Consultez d’un coup d’oeil votre diagramme de niveau et ciblez vos révisions. Obtenez le détail de votre progression pour chaque matière en touchant les boutons de la légende. \n\n  Tournez votre appareil en mode paysage pour accéder à votre graphique Performances. Votre performance est l’indice mesurant votre taux de réponses justes par matière et ce toutes les semaines. Le graphe en bâtons représente quant à lui le nombre de questions répondues (plus le bâton est haut, plus votre performance est significative.) \n\n Glissez vers la droite pour avoir accès au fil d’actualités de votre établissement. Vous pouvez glisser vers le bas dans le fil d'actualités pour actualiser la page.",
+        "Consultez d’un coup d’oeil votre diagramme de niveau et ciblez vos révisions. Obtenez le détail de votre progression pour chaque matière en touchant les boutons de la légende. \n\n  Tournez votre appareil en mode paysage pour accéder à votre graphique Performances. Votre performance est l’indice mesurant votre taux de réponses justes par matière et ce toutes les semaines. Le graphe en bâtons représente quant à lui le nombre de questions répondues (plus le bâton est haut, plus votre performance est significative.) \n\n Glissez vers la droite pour avoir accès au fil d’actualités de votre établissement. Vous pouvez glisser vers le bas dans le fil d'actualités pour actualiser la page. ",
         
         //2- Aide Entraînement
         "Orientez vos révisions en choisissant la matière et le chapitre que vous souhaitez. Si la solution de la question est incomprise, marquez-la en appuyant sur le drapeau afin de faire part à vos professeurs de vos difficultés. Vous pouvez y ajouter un commentaire destiné à vos professeurs. Toutes les questions marquées sont accessible dans le menu afin de les retravailler par la suite. Appuyez sur \"Question\" pour afficher la barre des filtres et retrouvez les nouvelles questions, celles réussies, marquées ou échouées. Une question faite vous rapporte 1 AwardPoint pour l'assiduité et 5 AwardPoints si elle a été réussie pour la première fois. Si une question provient d'un défi, vous gagnez un second AwardPoint d'assiduité !",
@@ -64,7 +64,7 @@ class HelpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if( traitCollection.forceTouchCapability == .Available){
-            self.helpTexts[0] += "Vous disposez d'un iPhone 6S ou 6S+ avec 3D Touch ? Vous pouvez utilisez peek&pop dans le fil d'actualités. Utilisez Peek pour afficher l’aperçu d’une news d’une légère pression. Puis ouvrez-la avec Pop en appuyant plus fermement."
+            self.helpTexts[0] += "Vous disposez d'un iPhone 6S ou 6S+ avec 3D Touch ? Vous pouvez utilisez peek&pop dans le fil d'actualités. Utilisez Peek pour afficher l’aperçu d’une actualité d’une légère pression. Puis ouvrez-la avec Pop en appuyant plus fermement."
         }
         SwiftSpinner.show("Veuillez patienter...")
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))

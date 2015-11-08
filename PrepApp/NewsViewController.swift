@@ -12,6 +12,7 @@ class NewsViewController: UIViewController {
     
     var newsfeed = [News]()
     var selected = 0
+    var hideButton = false
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var content: UITextView!
@@ -23,11 +24,17 @@ class NewsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.loadNews()
+        if self.hideButton {
+            self.title = self.newsfeed[self.selected].title
+            self.titleLabel.text! = "Aperçu"
+            self.dismissButton.hidden = true
+        } else {
+            self.dismissButton.hidden = false
+        }
         self.dismissButton.layer.cornerRadius = 6.0
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
-        self.loadNews()
-
     }
     
     func loadNews() {
