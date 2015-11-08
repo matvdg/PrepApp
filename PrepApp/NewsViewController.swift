@@ -24,11 +24,11 @@ class NewsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(self.selected)
         self.loadNews()
         if self.hideButton {
             self.title = ""
             self.dismissButton.hidden = true
+            self.titleLabel.backgroundColor = colorGreenLogo
         } else {
             self.dismissButton.hidden = false
         }
