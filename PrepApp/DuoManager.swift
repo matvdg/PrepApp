@@ -167,19 +167,7 @@ class DuoManager {
                 callback(nil)
             }
         }
-    }
-    
-    func loadTestResults(callback: ([ResultDuo]?) -> Void )  {
-        var resultDuoArray = [ResultDuo]()
-        let resultDuoA = ResultDuo(idDuo: 3, resultDuo: [Result(id: 40, firstName: "Jean", lastName: "Dupont", nickname: "jdupont", score: 3), Result(id: 39, firstName: "John", lastName: "Appleseed", nickname: "jappleseed", score: 6)])
-//        let resultDuoB = ResultDuo(idDuo: 4, resultDuo: [Result(id: 40, firstName: "Jean", lastName: "Dupont", nickname: "jdupont", score: 2), Result(id: 39, firstName: "John", lastName: "Appleseed", nickname: "jappleseed", score: 3)])
-//        let resultDuoC = ResultDuo(idDuo: 5, resultDuo: [Result(id: 40, firstName: "Jean", lastName: "Dupont", nickname: "jdupont", score: 4), Result(id: 39, firstName: "John", lastName: "Appleseed", nickname: "jappleseed", score: 4)])
-        resultDuoArray.append(resultDuoA)
-//        resultDuoArray.append(resultDuoB)
-//        resultDuoArray.append(resultDuoC)
-        callback(resultDuoArray)
-    }
-    
+    }    
     
     //REALM
     func savePendingDuos(callback: (Bool) -> Void) {

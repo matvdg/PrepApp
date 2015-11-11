@@ -93,7 +93,7 @@ class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 12)
         cell.detailTextLabel!.textColor = colorGreen
         cell.detailTextLabel!.adjustsFontSizeToFitWidth = false
-        
+        cell.tintColor = colorGreen
         //formatting date
         let formatter = NSDateFormatter()
         formatter.dateFormat = "EEEE d MMMM yyy à H:mm"

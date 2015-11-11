@@ -651,7 +651,7 @@
                                                     <rect key="frame" x="25" y="15" width="20" height="20"/>
                                                     <animations/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Suggestions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUu-8A-8xM">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Feedback" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUu-8A-8xM">
                                                     <rect key="frame" x="65" y="9" width="135" height="31"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="16"/>
@@ -1053,6 +1053,7 @@
                                 <rect key="frame" x="0.0" y="108" width="600" height="492"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.94901961089999998" green="0.94901961089999998" blue="0.94901961089999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" red="0.086274512112140656" green="0.62745100259780884" blue="0.5215686559677124" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.94901961088180542" green="0.94901961088180542" blue="0.94901961088180542" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="news" textLabel="hC8-h8-Xan" detailTextLabel="Gvk-9O-LUa" style="IBUITableViewCellStyleSubtitle" id="TvE-JH-Uc4">
@@ -2446,7 +2447,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="NFQ-HY-pYI"/>
                                 </constraints>
-                                <string key="text">Des suggestions ? Des remarques ? Faites-nous part de vos commentaires en contactant directement les créateurs de Prep'App ! Vous pourrez éventuellement être contactés.</string>
+                                <string key="text">Faites-nous part de vos commentaires en contactant directement l'équipe Prep'App ! Vous pourrez éventuellement être contactés en retour.</string>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="17"/>
                                 <color key="textColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>

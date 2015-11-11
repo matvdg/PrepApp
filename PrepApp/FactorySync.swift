@@ -26,6 +26,7 @@ class FactorySync {
     private static let subjectManager = SubjectManager()
     private static let configManager = ConfigManager()
     private static let newsfeedManager = NewsfeedManager()
+    private static let contestManager = ContestManager()
     private static let realm = FactoryRealm.getRealm()
     
     /*APIs*/
@@ -105,6 +106,10 @@ class FactorySync {
     
     class func getNewsfeedManager() -> NewsfeedManager {
         return self.newsfeedManager
+    }
+    
+    class func getContestManager() -> ContestManager {
+        return self.contestManager
     }
     
     //Called in SyncViewController.swift

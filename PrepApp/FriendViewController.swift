@@ -125,11 +125,11 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     override func viewDidAppear(animated: Bool) {
-//        if self.refreshIsNeeded {
-//            self.loadData()
-//        } else {
-//            self.refreshIsNeeded = true
-//        }
+        if self.refreshIsNeeded {
+            self.loadData()
+        } else {
+            self.refreshIsNeeded = true
+        }
     }
 
     func logout() {
@@ -187,16 +187,6 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         
         //loading ResultsDuo popup notification
         FactoryDuo.getDuoManager().loadResults { (data) -> Void in
-            if let resultsDuo = data {
-                self.resultsDuo = resultsDuo
-                self.performSegueWithIdentifier("showResultsDuo", sender: self)
-            } else {
-                print("no resultsDuo notification to display")
-            }
-        }
-        ///TODO !!!! when removing test, don't forget to uncomment viewDidAppear !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //loading test ResultsDuo popup notification
-        FactoryDuo.getDuoManager().loadTestResults { (data) -> Void in
             if let resultsDuo = data {
                 self.resultsDuo = resultsDuo
                 self.performSegueWithIdentifier("showResultsDuo", sender: self)
@@ -276,9 +266,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
     
     private func share() {
         let idToShare = String(User.currentUser!.id).sha1()
-        let welcome = "Bonjour, je souhaite faire un duel avec toi sur Prep'App !\n"
-        let text = "Mon code Prep'App à rentrer dans défi duo : \n"
-        let objectsToShare: [AnyObject] = [welcome, text, idToShare]
+        let objectsToShare: [AnyObject] = [idToShare]
         let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
         activityVC.excludedActivityTypes = [UIActivityTypePostToTwitter]
         activityVC.setValue("Mon code Prep'App", forKey: "subject")

@@ -10,7 +10,7 @@ import UIKit
 
 class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate {
     
-    var topics = ["Une suggestion/idée", "Un bug/remarque", "Une nouvelle fonctionnalité", "Un autre commentaire"]
+    var topics = ["Suggestion/idée", "Bug/remarque", "Autre"]
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var topicsPicker: UIPickerView!

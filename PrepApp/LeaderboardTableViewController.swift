@@ -105,19 +105,11 @@ class LeaderboardTableViewController: UITableViewController  {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("friend", forIndexPath: indexPath) 
         let friend = self.friends[indexPath.row]
-        var textTodisplay = "#\(indexPath.row+1) "
-        if FactorySync.getConfigManager().loadNicknamePreference() {
-            textTodisplay += "\(friend.nickname)"
-        } else {
-            textTodisplay += "\(friend.firstName) \(friend.lastName)"
-        }
-        cell.textLabel!.text = textTodisplay
         cell.textLabel?.textColor = UIColor.blackColor()
         cell.backgroundColor = colorGreyBackground
         cell.textLabel!.adjustsFontSizeToFitWidth = false
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
-        cell.tintColor = colorGreen
         cell.backgroundColor = colorGreyBackground
         cell.detailTextLabel!.text = friend.awardPoints.toStringPoints()
         cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 16)
@@ -125,7 +117,24 @@ class LeaderboardTableViewController: UITableViewController  {
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.detailTextLabel!.adjustsFontSizeToFitWidth = true
         cell.tintColor = colorGreen
-        
+        var textTodisplay = ""
+        switch indexPath.row {
+        case 0:
+            cell.imageView?.image = UIImage(named: "gold")
+        case 1:
+            cell.imageView?.image = UIImage(named: "silver")
+        case 2:
+            cell.imageView?.image = UIImage(named: "bronze")
+        default:
+            cell.imageView?.image = nil
+            textTodisplay = "#\(indexPath.row+1) "
+        }
+        if FactorySync.getConfigManager().loadNicknamePreference() {
+            textTodisplay += "\(friend.nickname)"
+        } else {
+            textTodisplay += "\(friend.firstName) \(friend.lastName)"
+        }
+        cell.textLabel!.text = textTodisplay
         if friend.id == User.currentUser!.id {
             cell.backgroundColor = colorGreenLogo
             cell.detailTextLabel!.textColor = UIColor.whiteColor()

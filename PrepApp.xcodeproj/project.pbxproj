@@ -75,6 +75,7 @@
 		F6CB05D01BBC927200289CEA /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CB05CF1BBC927200289CEA /* SettingsTableViewController.swift */; };
 		F6CB05D21BBC951700289CEA /* UITableViewCellSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CB05D11BBC951700289CEA /* UITableViewCellSetting.swift */; };
 		F6E086311BF3C28100B4DB10 /* Contest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E086301BF3C28100B4DB10 /* Contest.swift */; };
+		F6E086351BF3CA0400B4DB10 /* ContestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E086341BF3CA0400B4DB10 /* ContestManager.swift */; };
 		F6ECC1101AF6DFE8008F18E3 /* SyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ECC10F1AF6DFE8008F18E3 /* SyncViewController.swift */; };
 		F6FBFAB81AFA1F5E0020B074 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FBFAB71AFA1F5E0020B074 /* User.swift */; };
 		F6FBFABF1AFA33CD0020B074 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FBFABE1AFA33CD0020B074 /* LoginViewController.swift */; };
@@ -213,6 +214,7 @@
 		F6CB05CF1BBC927200289CEA /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SettingsTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F6CB05D11BBC951700289CEA /* UITableViewCellSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellSetting.swift; sourceTree = "<group>"; };
 		F6E086301BF3C28100B4DB10 /* Contest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contest.swift; sourceTree = "<group>"; };
+		F6E086341BF3CA0400B4DB10 /* ContestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContestManager.swift; sourceTree = "<group>"; };
 		F6ECC10F1AF6DFE8008F18E3 /* SyncViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncViewController.swift; sourceTree = "<group>"; };
 		F6FBB4B71B160CE300A18600 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		F6FBFAB71AFA1F5E0020B074 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 		F64630A81B5FD5C9006A5F71 /* Sync */ = {
 			isa = PBXGroup;
 			children = (
+				F6E086341BF3CA0400B4DB10 /* ContestManager.swift */,
 				F60ED4841BEFA1E800825A0E /* NewsfeedManager.swift */,
 				F60082D21B854F9E00F7BCBB /* ConfigManager.swift */,
 				F6987A6C1B16321B002989C6 /* ImageManager.swift */,
@@ -679,6 +682,7 @@
 				F6AC7B4D1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift in Sources */,
 				953686E71BB0179100CD6615 /* QuestionManager.swift in Sources */,
 				F60739E41BB216CB004DEC32 /* PreviewQuestionViewController.swift in Sources */,
+				F6E086351BF3CA0400B4DB10 /* ContestManager.swift in Sources */,
 				F62C2A081BE6F58600DF5EF0 /* ScoreDuoViewController.swift in Sources */,
 				95C5C48D1B9503F6001DA9B5 /* Answer.swift in Sources */,
 				F60739E21BB216BE004DEC32 /* CommentViewController.swift in Sources */,
