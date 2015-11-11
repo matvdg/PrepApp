@@ -9,10 +9,24 @@ class MenuController: UITableViewController {
         self.revealViewController().rearViewRevealWidth = 220
         let name = "\(User.currentUser!.firstName) \(User.currentUser!.lastName)"
         self.name.text = name
-        
-        
+        self.menu.backgroundColor = colorDarkGrey
+        self.topCell.backgroundColor = colorDarkGrey
+        self.homeCell.backgroundColor = colorDarkGrey
+        self.separatorA.backgroundColor = colorDarkGrey
+        self.trainingCell.backgroundColor = colorDarkGrey
+        self.soloCell.backgroundColor = colorDarkGrey
+        self.duoCell.backgroundColor = colorDarkGrey
+        self.contestCell.backgroundColor = colorDarkGrey
+        self.separatorB.backgroundColor = colorDarkGrey
+        self.statsCell.backgroundColor = colorDarkGrey
+        self.markedCell.backgroundColor = colorDarkGrey
+        self.leaderboardCell.backgroundColor = colorDarkGrey
+        self.feedbackCell.backgroundColor = colorDarkGrey
+        self.separatorC.backgroundColor = colorDarkGrey
+        self.logoutCell.backgroundColor = colorDarkGrey
     }
 
+    @IBOutlet var menu: UITableView!
     @IBOutlet weak var name: UILabel!
 	@IBAction func logout(sender: AnyObject) {
         
@@ -34,6 +48,23 @@ class MenuController: UITableViewController {
         
         
 			}
+    
+    @IBOutlet weak var topCell: UITableViewCell!
+    @IBOutlet weak var homeCell: UITableViewCell!
+    @IBOutlet weak var separatorA: UITableViewCell!
+    @IBOutlet weak var trainingCell: UITableViewCell!
+    @IBOutlet weak var soloCell: UITableViewCell!
+    @IBOutlet weak var duoCell: UITableViewCell!
+    @IBOutlet weak var contestCell: UITableViewCell!
+    @IBOutlet weak var separatorB: UITableViewCell!
+    @IBOutlet weak var statsCell: UITableViewCell!
+    @IBOutlet weak var markedCell: UITableViewCell!
+    @IBOutlet weak var leaderboardCell: UITableViewCell!
+    @IBOutlet weak var feedbackCell: UITableViewCell!
+    @IBOutlet weak var separatorC: UITableViewCell!
+    @IBOutlet weak var logoutCell: UITableViewCell!
+    
+    
     
     func syncNclearHistory(){
         FactoryHistory.getHistory().syncHistory({ (result) -> Void in
