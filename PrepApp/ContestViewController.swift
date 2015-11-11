@@ -10,20 +10,25 @@ import UIKit
 
 class ContestViewController: UIViewController {
 
+    //@IBOutlets
     @IBOutlet weak var noContestLabel: UILabel!
+    @IBOutlet weak var contestTitle: UILabel!
+    @IBOutlet weak var contestDate: UILabel!
+    @IBOutlet weak var contestContent: UITextView!
+    @IBOutlet weak var launchButton: UIButton!
+    @IBOutlet weak var imageDate: UIImageView!
 	@IBOutlet var menuButton: UIBarButtonItem!
-	var timer = NSTimer()
     
+    //properties
+    var contest = Contest()
+    
+    //app method
 	override func viewDidLoad() {
+        self.loadData()
         //sync
-        self.noContestLabel.hidden = true
-        SwiftSpinner.show("Recherche de concours...")
-        SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("stopAnimation"), userInfo: nil, repeats: false)
-        
-        SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
+        self.launchButton.layer.cornerRadius = 6
         super.viewDidLoad()
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.navigationController!.navigationBar.tintColor = colorGreen
@@ -36,12 +41,7 @@ class ContestViewController: UIViewController {
 		}
 	}
     
-    func stopAnimation(){
-        self.timer.invalidate()
-        SwiftSpinner.hide()
-        self.noContestLabel.hidden = false
-    }
-    
+    //methods
     func logout() {
         print("logging out")
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -60,6 +60,53 @@ class ContestViewController: UIViewController {
         
         // show the alert
         self.presentViewController(myAlert, animated: true, completion: nil)
+    }
+    
+    func loadData() {
+        //hiding objects
+        self.noContestLabel.hidden = true
+        self.contestTitle.hidden = true
+        self.contestContent.hidden = true
+        self.contestDate.hidden = true
+        self.launchButton.hidden = true
+        self.imageDate.hidden = true
+        
+        //looking for contest
+        SwiftSpinner.show("Recherche de concours...")
+        SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+        FactorySync.getContestManager().getContests { (answer) -> Void in
+            SwiftSpinner.hide()
+            if let contest = answer {
+                self.contest = contest
+                self.title = "Concours n°\(contest.id)"
+                self.contestTitle.text = contest.name
+                self.contestContent.text = contest.content.html2String
+                //formatting date
+                let formatter = NSDateFormatter()
+                formatter.dateFormat = "d/M/yy"
+                let begin = formatter.stringFromDate(contest.begin)
+                let end = formatter.stringFromDate(contest.end)
+                self.contestDate.text = "Du \(begin) au \(end)"
+                self.contestTitle.hidden = false
+                self.contestContent.hidden = false
+                self.contestDate.hidden = false
+                self.launchButton.hidden = false
+                self.imageDate.hidden = false
+            } else {
+                self.noContestLabel.hidden = false
+                self.contestTitle.hidden = true
+                self.contestContent.hidden = true
+                self.contestDate.hidden = true
+                self.launchButton.hidden = true
+                self.imageDate.hidden = true
+            }
+        }
+        
+
+    }
+    
+    //@IBAction
+    @IBAction func launch(sender: AnyObject) {
     }
 
 }

@@ -10,7 +10,6 @@ import UIKit
 
 class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIViewControllerPreviewingDelegate {
     
-    var timer = NSTimer()
     var newsfeed = [News]()
     var selected = 0
     var pullToRefresh =  UIRefreshControl()

@@ -113,6 +113,10 @@
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -2089,7 +2093,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pas de concours pour le moment... Veuillez revenir plus tard !" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3k9-KC-NhV">
-                                <rect key="frame" x="146.5" y="265" width="307" height="70"/>
+                                <rect key="frame" x="146" y="265" width="307" height="70"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="1nK-Ma-tzF"/>
@@ -2099,12 +2103,87 @@
                                 <color key="textColor" red="0.086274512112140656" green="0.62745100259780884" blue="0.5215686559677124" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="neP-Pg-4ft">
+                                <rect key="frame" x="20" y="151" width="560" height="381"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES" address="YES"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lth-4D-nz3">
+                                <rect key="frame" x="200" y="540" width="200" height="40"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="66F-Lz-ivU"/>
+                                    <constraint firstAttribute="width" constant="200" id="asB-aR-BQb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="20"/>
+                                <state key="normal" title="Lancer le concours">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismiss:" destination="NNi-8R-czT" eventType="touchUpInside" id="Va7-O3-WuY"/>
+                                    <action selector="dismiss:" destination="Lhv-hg-5Wc" eventType="touchUpInside" id="lgd-Wa-XTO"/>
+                                    <action selector="dismiss:" destination="hNO-Ei-Fwf" eventType="touchUpInside" id="toI-xb-QbE"/>
+                                    <action selector="launch:" destination="EGs-tW-rEi" eventType="touchUpInside" id="qty-Bh-J9O"/>
+                                    <action selector="runChallenge:" destination="Cpx-Ts-0mG" eventType="touchUpInside" id="Nxl-JY-Ekw"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Concours de chimie" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oRi-M0-Cce">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="nRW-Jq-hir"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Du 12/3/15 au 18/3/15" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iJV-n7-9Gu">
+                                <rect key="frame" x="0.0" y="108" width="600" height="44"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="7XG-FT-hlf"/>
+                                    <constraint firstAttribute="height" constant="44" id="eDM-Xa-m7A"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="16"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="term" translatesAutoresizingMaskIntoConstraints="NO" id="txz-Lz-PM3">
+                                <rect key="frame" x="20" y="108" width="44" height="44"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="4kL-Dv-YNl"/>
+                                    <constraint firstAttribute="width" constant="44" id="aOG-VF-ZkE"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.92549020051956177" green="0.92549020051956177" blue="0.92549020051956177" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.1058823529" green="0.50588235290000005" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="iJV-n7-9Gu" secondAttribute="trailing" id="1tW-2j-GoB"/>
+                            <constraint firstItem="neP-Pg-4ft" firstAttribute="trailing" secondItem="tmV-aZ-BMz" secondAttribute="trailingMargin" id="AiO-fa-6Kl"/>
+                            <constraint firstAttribute="trailing" secondItem="oRi-M0-Cce" secondAttribute="trailing" id="CRc-S3-Rrl"/>
+                            <constraint firstItem="iJV-n7-9Gu" firstAttribute="top" secondItem="oRi-M0-Cce" secondAttribute="bottom" id="FpP-Wc-ddh"/>
+                            <constraint firstItem="Vov-UX-aOy" firstAttribute="top" secondItem="Lth-4D-nz3" secondAttribute="bottom" constant="20" id="Jo2-O7-rUb"/>
+                            <constraint firstItem="Lth-4D-nz3" firstAttribute="centerX" secondItem="tmV-aZ-BMz" secondAttribute="centerX" id="WFu-rH-Evw"/>
                             <constraint firstItem="3k9-KC-NhV" firstAttribute="centerX" secondItem="tmV-aZ-BMz" secondAttribute="centerX" id="a2z-Do-4KE"/>
+                            <constraint firstItem="oRi-M0-Cce" firstAttribute="leading" secondItem="tmV-aZ-BMz" secondAttribute="leading" id="aGM-Bm-xZ6"/>
+                            <constraint firstItem="Vov-UX-aOy" firstAttribute="top" secondItem="neP-Pg-4ft" secondAttribute="bottom" constant="68" id="c6v-WT-j0E"/>
+                            <constraint firstItem="iJV-n7-9Gu" firstAttribute="leading" secondItem="tmV-aZ-BMz" secondAttribute="leading" id="fbc-90-TIO"/>
+                            <constraint firstItem="Lth-4D-nz3" firstAttribute="top" secondItem="neP-Pg-4ft" secondAttribute="bottom" constant="8" id="jCs-fj-icH"/>
+                            <constraint firstItem="neP-Pg-4ft" firstAttribute="top" secondItem="oRi-M0-Cce" secondAttribute="bottom" constant="43" id="kCL-dn-e4n"/>
+                            <constraint firstItem="neP-Pg-4ft" firstAttribute="leading" secondItem="tmV-aZ-BMz" secondAttribute="leadingMargin" id="nyA-0k-kQc"/>
+                            <constraint firstItem="txz-Lz-PM3" firstAttribute="top" secondItem="oRi-M0-Cce" secondAttribute="bottom" id="oxI-AZ-yR0"/>
+                            <constraint firstItem="oRi-M0-Cce" firstAttribute="top" secondItem="g49-Ik-QMX" secondAttribute="bottom" id="s09-jx-VrC"/>
+                            <constraint firstItem="txz-Lz-PM3" firstAttribute="leading" secondItem="tmV-aZ-BMz" secondAttribute="leadingMargin" id="sTT-tf-PVK"/>
                             <constraint firstItem="3k9-KC-NhV" firstAttribute="centerY" secondItem="tmV-aZ-BMz" secondAttribute="centerY" id="wQR-ev-05R"/>
                         </constraints>
                     </view>
@@ -2114,6 +2193,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="contestContent" destination="neP-Pg-4ft" id="ig1-YP-rFW"/>
+                        <outlet property="contestDate" destination="iJV-n7-9Gu" id="b7E-gE-5Cv"/>
+                        <outlet property="contestTitle" destination="oRi-M0-Cce" id="fv6-BL-wnl"/>
+                        <outlet property="imageDate" destination="txz-Lz-PM3" id="ZZl-TG-Jt0"/>
+                        <outlet property="launchButton" destination="Lth-4D-nz3" id="THz-59-sJL"/>
                         <outlet property="menuButton" destination="ASX-wF-jKb" id="i8c-1C-rEI"/>
                         <outlet property="noContestLabel" destination="3k9-KC-NhV" id="2IH-kt-zQP"/>
                     </connections>
@@ -4202,6 +4286,7 @@
         <image name="solo" width="22" height="22"/>
         <image name="stats" width="22" height="22"/>
         <image name="target" width="775" height="775"/>
+        <image name="term" width="22" height="22"/>
         <image name="training" width="22" height="22"/>
         <image name="trimaskgreen" width="1317" height="1254"/>
     </resources>
