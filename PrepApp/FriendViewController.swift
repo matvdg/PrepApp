@@ -278,8 +278,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         let idToShare = String(User.currentUser!.id).sha1()
         let welcome = "Bonjour, je souhaite faire un duel avec toi sur Prep'App !\n"
         let text = "Mon code Prep'App à rentrer dans défi duo : \n"
-        let link = NSURL(fileURLWithPath: "http://www.prep-app.com")
-        let objectsToShare: [AnyObject] = [welcome, text, idToShare, link]
+        let objectsToShare: [AnyObject] = [welcome, text, idToShare]
         let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
         activityVC.excludedActivityTypes = [UIActivityTypePostToTwitter]
         activityVC.setValue("Mon code Prep'App", forKey: "subject")
