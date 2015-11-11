@@ -81,6 +81,8 @@ class ContestViewController: UIViewController {
                 self.title = "Concours n°\(contest.id)"
                 self.contestTitle.text = contest.name
                 self.contestContent.text = contest.content.html2String
+                self.contestContent.font = UIFont(name: "Segoe UI", size: 16.0)
+                self.contestContent.textAlignment = NSTextAlignment.Justified
                 //formatting date
                 let formatter = NSDateFormatter()
                 formatter.dateFormat = "d/M/yy"
