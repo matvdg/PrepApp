@@ -110,8 +110,6 @@ class FactorySync {
     //Called in SyncViewController.swift
     class func sync() {
         print("syncing")
-        //FactorySync.getImageManager().hasFinishedSync == false
-        //FactorySync.getQuestionManager().hasFinishedSync == false
         FactorySync.getSubjectManager().saveSubjects()
         // we fetch subjects then chapters then questions then images in order to avoid Realm bad mapping (ORM)
     }

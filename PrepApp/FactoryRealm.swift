@@ -18,6 +18,7 @@ class FactoryRealm {
     static let realmFriends = try! Realm(path: "\(FactorySync.path)/friends.realm")
     static let realmDuo = try! Realm(path: "\(FactorySync.path)/duo.realm")
     static let realmNewsfeed = try! Realm(path: "\(FactorySync.path)/newsfeed.realm")
+    static let realmContest = try! Realm(path: "\(FactorySync.path)/contest.realm")
     
     class func getRealm() -> Realm {
         return realm
@@ -43,6 +44,10 @@ class FactoryRealm {
         return realmNewsfeed
     }
     
+    class func getRealmContest() -> Realm {
+        return realmContest
+    }
+    
     class func clearUserDB() {
         do {
             try self.realmHistory.write {
@@ -60,7 +65,7 @@ class FactoryRealm {
         } catch {
             print("error in Realm")
         }
-                print("userDB cleaned")
+        print("userDB cleaned")
     }
     
 }

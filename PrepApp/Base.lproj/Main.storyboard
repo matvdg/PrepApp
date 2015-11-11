@@ -1936,6 +1936,21 @@
                                     <action selector="shareCode:" destination="LtT-CV-61z" eventType="touchUpInside" id="qbl-6n-13W"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEe-79-dBg">
+                                <rect key="frame" x="285" y="72" width="30" height="30"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ndn-PD-xBI"/>
+                                    <constraint firstAttribute="width" constant="30" id="zcG-tj-SuO"/>
+                                </constraints>
+                                <state key="normal" image="add">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addFriend:" destination="LtT-CV-61z" eventType="touchUpInside" id="nZL-0W-Chl"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="44" sectionFooterHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="jkn-gm-ZUH">
                                 <rect key="frame" x="0.0" y="125" width="600" height="475"/>
                                 <animations/>
@@ -2008,21 +2023,6 @@
                                     <outlet property="delegate" destination="LtT-CV-61z" id="E66-FK-fIF"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEe-79-dBg">
-                                <rect key="frame" x="285" y="72" width="30" height="30"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="ndn-PD-xBI"/>
-                                    <constraint firstAttribute="width" constant="30" id="zcG-tj-SuO"/>
-                                </constraints>
-                                <state key="normal" image="add">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="addFriend:" destination="LtT-CV-61z" eventType="touchUpInside" id="nZL-0W-Chl"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator" translatesAutoresizingMaskIntoConstraints="NO" id="QaF-Zf-ibB">
                                 <rect key="frame" x="0.0" y="125" width="600" height="1"/>
                                 <animations/>
