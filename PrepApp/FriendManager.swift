@@ -168,10 +168,12 @@ class FriendManager {
                     if statusCode == 200 {
                         callback(true)
                     } else {
+                        print("error : bad answer in updateFriends")
                         print(statusCode)
                         callback(false)
                     }
                 } else {
+                    print("error : no connexion in updateFriends")
                     print(error)
                     callback(false)
                 }

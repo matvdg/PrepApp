@@ -123,17 +123,17 @@ class LeaderboardTableViewController: UITableViewController  {
             //cell.backgroundColor = colorAwardPoints
             //cell.textLabel?.textColor = UIColor.whiteColor()
             //cell.detailTextLabel!.textColor = UIColor.whiteColor()
-            cell.imageView?.image = UIImage(named: "gold")
+            cell.imageView?.image = UIImage(named: "goldcup")
         case 1:
             //cell.backgroundColor = colorSilver
             //cell.textLabel?.textColor = UIColor.whiteColor()
             //cell.detailTextLabel!.textColor = UIColor.whiteColor()
-            cell.imageView?.image = UIImage(named: "silver")
+            cell.imageView?.image = UIImage(named: "silvermedal")
         case 2:
             //cell.backgroundColor = colorBronze
             //cell.textLabel?.textColor = UIColor.whiteColor()
             //cell.detailTextLabel!.textColor = UIColor.whiteColor()
-            cell.imageView?.image = UIImage(named: "bronze")
+            cell.imageView?.image = UIImage(named: "bronzemedal")
         default:
             cell.imageView?.image = nil
             textTodisplay = " #\(indexPath.row+1)    "
@@ -148,12 +148,11 @@ class LeaderboardTableViewController: UITableViewController  {
         if friend.id == User.currentUser!.id {
             cell.backgroundColor = colorGreenLogo
             cell.detailTextLabel!.textColor = UIColor.whiteColor()
-            cell.textLabel?.textColor = UIColor.whiteColor()            
+            cell.textLabel?.textColor = UIColor.whiteColor()
         }
 
         return cell
     }
-    
     
     //UITableViewDelegate Methods
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

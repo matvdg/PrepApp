@@ -109,7 +109,7 @@ class DuoManager {
         task.resume()
     }
     
-    private func retrieveResultsDuo(callback: (NSArray?) -> Void) {
+    private func retrieveResultsDuo(callback: (NSDictionary?) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.retrieveResultsDuoUrl!)
         request.HTTPMethod = "POST"
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
@@ -125,7 +125,7 @@ class DuoManager {
                 } else {
                     let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSArray
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
                         
                         if let result = jsonResult {
                             callback(result)
@@ -148,20 +148,15 @@ class DuoManager {
         self.retrieveResultsDuo { (data) -> Void in
             var resultDuoArray = [ResultDuo]()
             if let result = data {
-                for data in result {
-                    if let dico = data as? NSDictionary {
-                        for (key,value) in dico {
-                            if let idDuo = key as? String  {
-                                let resultDuo = ResultDuo(idDuo: Int(idDuo)!, resultDuo: ResultDuo.hydrateResultDuo(value as! NSArray))
-                                resultDuoArray.append(resultDuo)
-                            } else {
-                                callback(nil)
-                            }
-                        }
+                for (key,value) in result {
+                    if let idDuo = key as? String  {
+                        let resultDuo = ResultDuo(idDuo: Int(idDuo)!, resultDuo: ResultDuo.hydrateResultDuo(value as! NSArray))
+                        resultDuoArray.append(resultDuo)
                     } else {
                         callback(nil)
                     }
                 }
+                
                 callback(resultDuoArray)
             } else {
                 callback(nil)
