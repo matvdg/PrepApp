@@ -36,7 +36,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         let myAlert = UIAlertController(title: "\(String(User.currentUser!.id).sha1())", message: "Partagez votre code à vos amis en leur envoyant un message !", preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
                 // add buttons
-        myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
+        myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
         myAlert.addAction(UIAlertAction(title: "Partager", style: .Default, handler: { (action) -> Void in
             SwiftSpinner.show("Un instant S.V.P.")
             SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
@@ -52,7 +52,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         let myAlert = UIAlertController(title: "Ajouter un ami", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
         // add buttons
-        myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
+        myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
         myAlert.addAction(UIAlertAction(title: "Ajouter", style: .Default, handler: self.add))
         //add prompt
         myAlert.addTextFieldWithConfigurationHandler(self.addTextField)
@@ -77,7 +77,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous êtes sur le point de lancer un défi à\(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de \(FactorySync.getConfigManager().loadDuration()) minutes. ", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
                 // add buttons
-                myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
+                myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
                 myAlert.addAction(UIAlertAction(title: "GO !", style: .Default, handler: { (action) -> Void in
                     self.challenge(shuffledFriend)
                 }))
@@ -142,9 +142,9 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
         // add "later" button
-        myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
+        myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button
-        myAlert.addAction(UIAlertAction(title: "Mettre à jour maintenant", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+        myAlert.addAction(UIAlertAction(title: "Mettre à jour maintenant", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
             self.dismissViewControllerAnimated(true, completion: nil)
         }))
         
@@ -437,7 +437,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 let myAlert = UIAlertController(title: "Répondre au défi ?", message: "Vous êtes sur le point de répondre au défi de\(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de \(FactorySync.getConfigManager().loadDuration()) minutes. ", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
                 // add buttons
-                myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
+                myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
                 myAlert.addAction(UIAlertAction(title: "GO !", style: .Default, handler: { (action) -> Void in
                     self.idDuo = pendingDuo.id
                     self.lastName = pendingDuo.lastName
@@ -465,7 +465,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
                 let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous êtes sur le point de lancer un défi à votre ami(e)\(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de \(FactorySync.getConfigManager().loadDuration()) minutes. ", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
                 // add buttons
-                myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
+                myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
                 myAlert.addAction(UIAlertAction(title: "GO !", style: .Default, handler: { (action) -> Void in
                     self.challenge(friend)
                 }))

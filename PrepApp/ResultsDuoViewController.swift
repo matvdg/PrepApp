@@ -41,8 +41,8 @@ class ResultsDuoViewController: UIViewController {
         let myAlert = UIAlertController(title: "Voulez-vous vraiment quitter ?", message: "Cette page ne pourra plus être consultée", preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
         // add buttons
-        myAlert.addAction(UIAlertAction(title: "NON", style: UIAlertActionStyle.Default, handler: nil))
-        myAlert.addAction(UIAlertAction(title: "OUI", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+        myAlert.addAction(UIAlertAction(title: "NON", style: UIAlertActionStyle.Cancel, handler: nil))
+        myAlert.addAction(UIAlertAction(title: "OUI", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
             if self.resultsDuo!.count == 1 {
                 self.dismissViewControllerAnimated(true, completion: nil)
             } else {

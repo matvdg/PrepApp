@@ -109,9 +109,9 @@ class SettingsTableViewController: UITableViewController {
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
         // add "later" button
-        myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Default, handler: nil))
+        myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button
-        myAlert.addAction(UIAlertAction(title: "Mettre à jour maintenant", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+        myAlert.addAction(UIAlertAction(title: "Mettre à jour maintenant", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
             self.dismissViewControllerAnimated(true, completion: nil)
         }))
         
@@ -149,8 +149,8 @@ class SettingsTableViewController: UITableViewController {
         let myAlert = UIAlertController(title: "Modifier votre pseudo", message: "Taper votre nouveau pseudonyme ou votre prénom/nom, si vous le souhaitez.", preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
         // add buttons
-        myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
-        myAlert.addAction(UIAlertAction(title: "Modifier", style: UIAlertActionStyle.Default, handler: self.sendNickname))
+        myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
+        myAlert.addAction(UIAlertAction(title: "Modifier", style: UIAlertActionStyle.Destructive, handler: self.sendNickname))
         //add prompt
         myAlert.addTextFieldWithConfigurationHandler(self.addNickname)
         // show the alert
@@ -208,8 +208,8 @@ class SettingsTableViewController: UITableViewController {
         let myAlert = UIAlertController(title: "Modifier votre mot de passe", message: "Minimum huit caractères dont une majuscule et deux chiffres.", preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
         // add buttons
-        myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Default, handler: nil))
-        myAlert.addAction(UIAlertAction(title: "Modifier", style: .Default, handler: self.sendPassword))
+        myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
+        myAlert.addAction(UIAlertAction(title: "Modifier", style: .Destructive, handler: self.sendPassword))
         //add prompts
         myAlert.addTextFieldWithConfigurationHandler(self.addPassword)
         myAlert.addTextFieldWithConfigurationHandler(self.addConfirmationPassword)
