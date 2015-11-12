@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommentViewController: UIViewController {
+class CommentViewController: UIViewController, UITextViewDelegate {
     
     var selectedId = 0
 
@@ -105,6 +105,14 @@ class CommentViewController: UIViewController {
             textView.text = "Taper votre commentaire ici :"
             textView.textColor = UIColor.lightGrayColor()
         }
+    }
+    
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
     }
 
 

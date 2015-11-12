@@ -121,5 +121,20 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
             textView.textColor = UIColor.lightGrayColor()
         }
     }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
+        // We do not want UITextField to insert line-breaks.
+    }
+    
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+
 
 }

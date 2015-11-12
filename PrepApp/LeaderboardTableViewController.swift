@@ -120,14 +120,23 @@ class LeaderboardTableViewController: UITableViewController  {
         var textTodisplay = ""
         switch indexPath.row {
         case 0:
+            //cell.backgroundColor = colorAwardPoints
+            //cell.textLabel?.textColor = UIColor.whiteColor()
+            //cell.detailTextLabel!.textColor = UIColor.whiteColor()
             cell.imageView?.image = UIImage(named: "gold")
         case 1:
+            //cell.backgroundColor = colorSilver
+            //cell.textLabel?.textColor = UIColor.whiteColor()
+            //cell.detailTextLabel!.textColor = UIColor.whiteColor()
             cell.imageView?.image = UIImage(named: "silver")
         case 2:
+            //cell.backgroundColor = colorBronze
+            //cell.textLabel?.textColor = UIColor.whiteColor()
+            //cell.detailTextLabel!.textColor = UIColor.whiteColor()
             cell.imageView?.image = UIImage(named: "bronze")
         default:
             cell.imageView?.image = nil
-            textTodisplay = "#\(indexPath.row+1) "
+            textTodisplay = " #\(indexPath.row+1)    "
         }
         if FactorySync.getConfigManager().loadNicknamePreference() {
             textTodisplay += "\(friend.nickname)"
@@ -135,6 +144,7 @@ class LeaderboardTableViewController: UITableViewController  {
             textTodisplay += "\(friend.firstName) \(friend.lastName)"
         }
         cell.textLabel!.text = textTodisplay
+        cell.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10)
         if friend.id == User.currentUser!.id {
             cell.backgroundColor = colorGreenLogo
             cell.detailTextLabel!.textColor = UIColor.whiteColor()

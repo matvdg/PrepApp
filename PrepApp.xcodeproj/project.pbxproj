@@ -76,6 +76,8 @@
 		F6CB05D21BBC951700289CEA /* UITableViewCellSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CB05D11BBC951700289CEA /* UITableViewCellSetting.swift */; };
 		F6E086311BF3C28100B4DB10 /* Contest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E086301BF3C28100B4DB10 /* Contest.swift */; };
 		F6E086351BF3CA0400B4DB10 /* ContestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E086341BF3CA0400B4DB10 /* ContestManager.swift */; };
+		F6E086371BF3F59A00B4DB10 /* QuestionContestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E086361BF3F59A00B4DB10 /* QuestionContestViewController.swift */; };
+		F6E086391BF3F5A700B4DB10 /* ScoreContestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E086381BF3F5A700B4DB10 /* ScoreContestViewController.swift */; };
 		F6ECC1101AF6DFE8008F18E3 /* SyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ECC10F1AF6DFE8008F18E3 /* SyncViewController.swift */; };
 		F6FBFAB81AFA1F5E0020B074 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FBFAB71AFA1F5E0020B074 /* User.swift */; };
 		F6FBFABF1AFA33CD0020B074 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FBFABE1AFA33CD0020B074 /* LoginViewController.swift */; };
@@ -215,6 +217,8 @@
 		F6CB05D11BBC951700289CEA /* UITableViewCellSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellSetting.swift; sourceTree = "<group>"; };
 		F6E086301BF3C28100B4DB10 /* Contest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contest.swift; sourceTree = "<group>"; };
 		F6E086341BF3CA0400B4DB10 /* ContestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContestManager.swift; sourceTree = "<group>"; };
+		F6E086361BF3F59A00B4DB10 /* QuestionContestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionContestViewController.swift; sourceTree = "<group>"; };
+		F6E086381BF3F5A700B4DB10 /* ScoreContestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreContestViewController.swift; sourceTree = "<group>"; };
 		F6ECC10F1AF6DFE8008F18E3 /* SyncViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncViewController.swift; sourceTree = "<group>"; };
 		F6FBB4B71B160CE300A18600 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		F6FBFAB71AFA1F5E0020B074 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -373,6 +377,8 @@
 			isa = PBXGroup;
 			children = (
 				F605AF111B04151500E90596 /* ContestViewController.swift */,
+				F6E086361BF3F59A00B4DB10 /* QuestionContestViewController.swift */,
+				F6E086381BF3F5A700B4DB10 /* ScoreContestViewController.swift */,
 			);
 			name = Contest;
 			sourceTree = "<group>";
@@ -689,6 +695,7 @@
 				F6ECC1101AF6DFE8008F18E3 /* SyncViewController.swift in Sources */,
 				9555BBCD1BA8371600BED5A2 /* LeaderboardTableViewController.swift in Sources */,
 				F60739E91BB348AB004DEC32 /* Friend.swift in Sources */,
+				F6E086371BF3F59A00B4DB10 /* QuestionContestViewController.swift in Sources */,
 				F6C02C461B762A810021ABE1 /* UITableViewCellAnswer.swift in Sources */,
 				F6C3095C1B0365B100B8FAC9 /* HomeViewController.swift in Sources */,
 				F60ED4851BEFA1E800825A0E /* NewsfeedManager.swift in Sources */,
@@ -721,6 +728,7 @@
 				F60739E61BB2EAE6004DEC32 /* FriendManager.swift in Sources */,
 				F6322A211B615E3E0074549E /* Image.swift in Sources */,
 				F6E086311BF3C28100B4DB10 /* Contest.swift in Sources */,
+				F6E086391BF3F5A700B4DB10 /* ScoreContestViewController.swift in Sources */,
 				F6FBFABF1AFA33CD0020B074 /* LoginViewController.swift in Sources */,
 				F64630A11B5E662F006A5F71 /* ChapterManager.swift in Sources */,
 				F667EC501BE5371100F98DA5 /* HelpViewController.swift in Sources */,

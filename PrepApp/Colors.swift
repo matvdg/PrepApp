@@ -22,6 +22,8 @@ let colorRightAnswer = UIColor(red: 78/255, green: 167/255, blue: 137/255, alpha
 let colorUnanswered = UIColor.lightGrayColor()
 let colorAwardPoints = UIColor(red: 1, green: 189/255, blue: 46/255, alpha: 1)
 let colorDarkGrey = UIColor(red: 217/255, green: 217/255, blue: 217/255, alpha: 1)
+let colorBronze = UIColor(red: 205/255, green: 127/255, blue: 50/255, alpha: 1)
+let colorSilver = UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 1)
 
 
 
