@@ -266,7 +266,6 @@ UIAdaptivePresentationControllerDelegate  {
         self.greyMask.layer.zPosition = 100
         self.view.addSubview(self.greyMask)
 
-        
         var tempQuestions = [Question]()
         //fetching training questions
         var questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 0", currentChapter!)
@@ -282,6 +281,13 @@ UIAdaptivePresentationControllerDelegate  {
         }
         //fetching duo questions already DONE
         questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 2", currentChapter!)
+        for question in questionsRealm {
+            if FactoryHistory.getHistory().isQuestionDone(question.id){
+                tempQuestions.append(question)
+            }
+        }
+        //fetching contest questions already DONE
+        questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 3", currentChapter!)
         for question in questionsRealm {
             if FactoryHistory.getHistory().isQuestionDone(question.id){
                 tempQuestions.append(question)

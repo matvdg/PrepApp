@@ -176,7 +176,16 @@ extension Int {
         }
     }
 
+}
 
+extension Float {
+    func toStringPoints() -> String {
+        if self < 2 || self > -2 {
+            return "\(self)pt"
+        } else {
+            return "\(self)pts"
+        }
+    }
 }
 
 extension String {

@@ -187,7 +187,7 @@ class QuestionManager {
         let info = self.formatInfo(data["info"] as! String)
         let type = data["type"] as! Int
         let idDuo = data["idGroupDuo"] as! Int
-        let idConcours = data["idConcours"] as! Int
+        let idContest = data["idConcours"] as! Int
         let correction = self.parseNplaceImage(data["correction"] as! String, images: images)
         let version = data["version"] as! Int
         
@@ -200,7 +200,7 @@ class QuestionManager {
             "info" : info,
             "type" : type,
             "idDuo" : idDuo,
-            "idConcours" : idConcours,
+            "idContest" : idContest,
             "correction" : correction,
             "version" : version
             ])

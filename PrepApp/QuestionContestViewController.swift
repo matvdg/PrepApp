@@ -19,8 +19,9 @@ class QuestionContestViewController: UIViewController,
     
     //properties
     var mode = 0 //0 = challenge 1 = results
-    var choice: Int = 0
-    var score = 0
+    var contest: Contest?
+    var score: Int = 0
+    var emptyAnswers = 0
     var soundAlreadyPlayed = false
     var succeeded = 0
     let realm = FactoryRealm.getRealm()
@@ -60,8 +61,11 @@ class QuestionContestViewController: UIViewController,
         self.chrono.text = ""
         self.chrono.textAlignment = NSTextAlignment.Center
         self.markButton.enabled = false
-        self.designSoloChallengeTitleBar()
-        self.timeLeft = NSTimeInterval(60 * FactorySync.getConfigManager().loadDuration())
+        self.titleLabel.text = "Concours n°\(self.contest!.id)"
+        self.endChallengeButton.layer.cornerRadius = 6
+        self.titleLabel.textColor = UIColor.blackColor()
+        self.titleBar.backgroundColor = colorGreenLogo
+        self.timeLeft = NSTimeInterval(60 * self.contest!.duration)
         self.timeChallengeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("countdown"), userInfo: nil, repeats: true)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
@@ -206,7 +210,7 @@ class QuestionContestViewController: UIViewController,
         if self.mode == 0 {
             self.allAnswers[self.currentNumber] = self.selectedAnswers
             if self.checkUnanswered() {
-                let myAlert = UIAlertController(title: "Attention, vous n'avez pas répondu à toutes les questions !", message: "Voulez-vous tout de même terminer le défi solo ?", preferredStyle: UIAlertControllerStyle.Alert)
+                let myAlert = UIAlertController(title: "Attention, vous n'avez pas répondu à toutes les questions !", message: "Voulez-vous tout de même terminer le concours ?", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
                 // add "OK" button
                 myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
@@ -220,7 +224,7 @@ class QuestionContestViewController: UIViewController,
                 self.presentViewController(myAlert, animated: true, completion: nil)
                 
             } else {
-                let myAlert = UIAlertController(title: "Voulez-vous vraiment terminer le défi solo ?", message: "Vous ne pourrez plus modifier vos réponses.", preferredStyle: UIAlertControllerStyle.Alert)
+                let myAlert = UIAlertController(title: "Voulez-vous vraiment terminer le concours ?", message: "Vous ne pourrez plus modifier vos réponses.", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
                 // add "OK" button
                 myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
@@ -235,7 +239,7 @@ class QuestionContestViewController: UIViewController,
             }
             
         } else {
-            let myAlert = UIAlertController(title: "Voulez-vous vraiment quitter le défi solo ?", message: "Vous ne pourrez plus revoir vos réponses, mais vous pourrez retrouver les questions et leur correction dans entraînement", preferredStyle: UIAlertControllerStyle.Alert)
+            let myAlert = UIAlertController(title: "Voulez-vous vraiment quitter le concours ?", message: "Vous ne pourrez plus revoir vos réponses, mais vous pourrez retrouver les questions et leur correction dans entraînement", preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
             // add "OK" button
             myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
@@ -305,137 +309,14 @@ class QuestionContestViewController: UIViewController,
         self.greyMask.layer.zPosition = 100
         self.view.addSubview(self.greyMask)
         
-        
-        var tempQuestions = [Question]()
-        //fetching solo questions NEVER DONE
-        let questionsRealm = realm.objects(Question).filter("type = 1")
+        //fetching contest questions
+        let questionsRealm = realm.objects(Question).filter("idContest = \(self.contest!.id)")
         for question in questionsRealm {
-            if FactoryHistory.getHistory().isQuestionNew(question.id){
-                tempQuestions.append(question)
-            }
+            self.questions.append(question)
         }
+        self.questions.shuffle()
         
-        tempQuestions.shuffle()
-        
-        //now applying the trigram choice choosen by user 1 biology, 2 physics, 3 chemistry, 4 bioPhy, 5 bioChe, 6 chePhy, 7 all
-        var counter = 0
-        switch self.choice {
-            
-            
-        case 1: //biology
-            
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 1 && counter < 12 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            self.questions.shuffle()
-            
-        case 2: //physics
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 2 && counter < 6 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            self.questions.shuffle()
-            
-        case 3: //chemistry
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 3 && counter < 6 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            self.questions.shuffle()
-            
-        case 4: //bioPhy
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 1 && counter < 8 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 2 && counter < 11 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            
-            self.questions.shuffle()
-            
-        case 5: //bioChe
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 1 && counter < 8 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 3 && counter < 11 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            
-            self.questions.shuffle()
-            
-        case 6: //chePhy
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 2 && counter < 4 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 3 && counter < 6 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            
-            self.questions.shuffle()
-            
-        case 7: //all
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 1 && counter < 6 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 2 && counter < 8 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            for question in tempQuestions {
-                
-                if question.chapter!.subject!.id == 3 && counter < 9 {
-                    self.questions.append(question)
-                    counter++
-                }
-            }
-            
-            self.questions.shuffle()
-            
-        default:
-            print("default")
-        }
-        
+        //checking pagination
         if self.questions.count == 1 {
             self.nextButton.enabled = false
             self.previousButton.enabled = false
@@ -443,56 +324,6 @@ class QuestionContestViewController: UIViewController,
             self.nextButton.enabled = true
             self.previousButton.enabled = false
         }
-        
-        self.questions.shuffle()
-        
-        
-    }
-    
-    private func designSoloChallengeTitleBar() {
-        switch self.choice {
-            
-        case 1: //biology
-            self.titleLabel.text = "Défi solo Biologie"
-            self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorBio
-            
-        case 2: //physics
-            self.titleLabel.text = "Défi solo Physique"
-            self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorPhy
-            
-        case 3: //chemistry
-            self.titleLabel.text = "Défi solo Chimie"
-            self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorChe
-            
-            
-        case 4: //bioPhy
-            self.titleLabel.text = "Défi solo Biologie/Physique"
-            self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorBioPhy
-            
-        case 5: //bioChe
-            self.titleLabel.text = "Défi solo Biologie/Chimie"
-            self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorBioChe
-            
-        case 6: //chePhy
-            self.titleLabel.text = "Défi solo Chimie/Physique"
-            self.titleLabel.textColor = UIColor.whiteColor()
-            self.titleBar.backgroundColor = colorChePhy
-            
-        case 7: //all
-            self.titleLabel.text = "Défi solo Biologie/Physique/Chimie"
-            self.titleLabel.textColor = UIColor.whiteColor()
-            self.titleBar.backgroundColor = colorGreenLogo
-            
-        default:
-            print("default")
-        }
-        
-        self.endChallengeButton.layer.cornerRadius = 6
         
     }
     
@@ -651,7 +482,7 @@ class QuestionContestViewController: UIViewController,
     private func showAnswers() {
         
         self.answers.userInteractionEnabled = false
-        if self.checkAnswers() {
+        if self.checkAnswers() == 1 {
             //true
             if !self.soundAlreadyPlayed {
                 Sound.playTrack("true")
@@ -710,10 +541,7 @@ class QuestionContestViewController: UIViewController,
         }
     }
     
-    private func computeScore() -> (Int, Int){
-        var succeeded = 0
-        var score = 0
-        
+    private func computeScore() {
         for i in 0..<self.questions.count {
             
             let historyQuestion = QuestionHistory()
@@ -722,6 +550,7 @@ class QuestionContestViewController: UIViewController,
             if let answers = self.allAnswers[i] {
                 self.selectedAnswers = answers
             } else {
+                //in case of no answer
                 self.selectedAnswers = []
             }
             self.goodAnswers.removeAll(keepCapacity: false)
@@ -733,19 +562,25 @@ class QuestionContestViewController: UIViewController,
                 numberAnswer++
             }
             
-            if self.checkAnswers() {
-                //true
+            if self.checkAnswers() == 1 {
+                //true answer
                 historyQuestion.success = true
-                succeeded++
+                self.succeeded++
+            } else if self.checkAnswers() == 0 {
+                //empty anwser
+                historyQuestion.success = false
+                self.emptyAnswers++
             } else {
-                //false
+                //false answer
                 historyQuestion.success = false
             }
             //saving the question result in history
             FactoryHistory.getHistory().addQuestionToHistory(historyQuestion)
         }
-        score = Int(succeeded * 20 / self.questions.count)
-        return (succeeded,score)
+        let maxPoints = Float(self.questions.count) * self.contest!.goodAnswer
+        let failedQuestions = self.questions.count - self.succeeded - self.emptyAnswers
+        let points = Float(self.succeeded) * self.contest!.goodAnswer + Float(failedQuestions) * -self.contest!.wrongAnswer + Float(self.emptyAnswers) * self.contest!.noAnswer
+        self.score = Int(points / maxPoints * 20)
     }
     
     func animateButton(){
@@ -839,7 +674,7 @@ class QuestionContestViewController: UIViewController,
             self.timeLeft--
             let seconds = Int(floor(self.timeLeft % 60))
             let minutes = Int(floor(self.timeLeft / 60))
-            var string = "20"
+            var string = "120"
             if minutes < 1 {
                 string = String(format: "%02d", seconds)
             } else {
@@ -849,7 +684,7 @@ class QuestionContestViewController: UIViewController,
         } else {
             //challenge finished! switch to results mode
             self.allAnswers[self.currentNumber] = self.selectedAnswers
-            let myAlert = UIAlertController(title: "Temps écoulé", message: "Le défi solo est à présent terminé.", preferredStyle: UIAlertControllerStyle.Alert)
+            let myAlert = UIAlertController(title: "Temps écoulé", message: "Le concours est à présent terminé.", preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
             // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
@@ -865,19 +700,17 @@ class QuestionContestViewController: UIViewController,
     
     func displayResultsMode() {
         //challenge finished! switch to results mode
-        let (succeeded,score) = self.computeScore()
-        self.score = score
-        self.succeeded = succeeded
+        self.computeScore()
         print("challenge mode ended, results mode")
         self.mode = 1
         self.chrono.hidden = true
         self.chronoImage.hidden = true
         self.calc.image = UIImage(named: "score")
-        self.titleLabel.text = "Correction du défi duo"
+        self.titleLabel.text = "Correction du concours"
         self.markButton.enabled = true
         self.markButton.image = UIImage(named: "markedBar")
         self.timeChallengeTimer.invalidate()
-        let myAlert = UIAlertController(title: "Défi solo terminé", message: "Vous pouvez à présent voir les réponses et les corrections si disponibles et éventuellement mettre certaines questions de côté en les marquant" , preferredStyle: UIAlertControllerStyle.Alert)
+        let myAlert = UIAlertController(title: "Concours terminé", message: "Vous pouvez à présent voir les réponses et les corrections si disponibles et éventuellement mettre certaines questions de côté en les marquant" , preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             self.loadQuestion()
@@ -895,23 +728,36 @@ class QuestionContestViewController: UIViewController,
         }
     }
     
-    private func checkAnswers() -> Bool {
-        var result = false
-        for selectedAnswer in self.selectedAnswers {
-            result = false
-            for answer in self.goodAnswers {
-                if answer == selectedAnswer {
-                    result = true
+    private func checkAnswers() -> Int {
+        if self.selectedAnswers.isEmpty {
+            //empty answer
+            return 0
+        } else {
+            var result = false
+            
+            for selectedAnswer in self.selectedAnswers {
+                result = false
+                for answer in self.goodAnswers {
+                    if answer == selectedAnswer {
+                        result = true
+                    }
+                }
+                if result == false {
+                    break
                 }
             }
-            if result == false {
-                break
+            if self.selectedAnswers.count != self.goodAnswers.count {
+                result = false
             }
+            if result {
+                //good answer
+                return 1
+            } else {
+                //wrong answer
+                return -1
+            }
+
         }
-        if self.selectedAnswers.count != self.goodAnswers.count {
-            result = false
-        }
-        return result
     }
     
     private func checkUnanswered() -> Bool {
@@ -1056,11 +902,12 @@ class QuestionContestViewController: UIViewController,
             commentVC.selectedId = self.currentQuestion!.id
         }
         
-        if let scoreVC = segue.destinationViewController as? ScoreSoloViewController {
+        if let scoreVC = segue.destinationViewController as? ScoreContestViewController {
             // Pass the selected object to the new view controller.
             scoreVC.score = self.score
+            scoreVC.emptyAnswers = self.emptyAnswers
             scoreVC.succeeded = self.succeeded
-            scoreVC.choice = self.choice
+            scoreVC.contest = self.contest
             scoreVC.numberOfQuestions = self.questions.count
         }
         

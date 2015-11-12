@@ -10,21 +10,19 @@ import UIKit
 
 class ScoreContestViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     
-    var choice = 0
-    var score = 0
+    var emptyAnswers = 0
+    var score: Int = 0
+    var contest: Contest?
     var animationScore = 0
     var animationBonus = 0
     var succeeded = 0
     var numberOfQuestions = 0
     var awardPoints = 0
-    var awardPointsBonus = 0
-    var statsTopics = ["Questions réussies", "AwardPoints réussites", "AwardPoints assiduité",  "AwardPoints bonus", "Total AwardPoints"]
+    var statsTopics = ["Bonnes réponses", "Réponses vides", "Mauvaises réponses", "Total", "AwardPoints réussites", "AwardPoints assiduité", "Total AwardPoints"]
     var statsData: [String] = []
     var statsDetails: [String] = []
-    var statsPics = ["check","stars","puzzle","bonus","awardPoint"]
+    var statsPics = ["true", "empty", "false", "check","stars","puzzle","awardPoint"]
     var scoreTimer = NSTimer()
-    
-    
     
     @IBOutlet weak var stats: UITableView!
     @IBOutlet weak var dismissButton: UIButton!
@@ -41,8 +39,7 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
         self.view!.backgroundColor = colorGreyBackground
         self.loadData()
         self.dismissButton.layer.cornerRadius = 6
-        self.designScore()
-        self.designSoloChallengeTitleBar()
+        self.designScoreVC()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -53,54 +50,12 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    private func designSoloChallengeTitleBar() {
-        switch self.choice {
-            
-        case 1: //biology
-            self.titleLabel.text = "Défi solo Biologie"
-            self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorBio
-            
-        case 2: //physics
-            self.titleLabel.text = "Défi solo Physique"
-            self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorPhy
-            
-            
-        case 3: //chemistry
-            self.titleLabel.text = "Défi solo Chimie"
-            self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorChe
-            
-            
-        case 4: //bioPhy
-            self.titleLabel.text = "Défi solo Biologie/Physique"
-            self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorBioPhy
-            
-            
-        case 5: //bioChe
-            self.titleLabel.text = "Défi solo Biologie/Chimie"
-            self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorBioChe
-            
-        case 6: //chePhy
-            self.titleLabel.text = "Défi solo Chimie/Physique"
-            self.titleLabel.textColor = UIColor.whiteColor()
-            self.titleBar.backgroundColor = colorChePhy
-            
-        case 7: //all
-            self.titleLabel.text = "Défi solo Biologie/Physique/Chimie"
-            self.titleLabel.textColor = UIColor.whiteColor()
-            self.titleBar.backgroundColor = colorGreenLogo
-            
-        default:
-            print("default")
-        }
-        
-    }
-    
-    private func designScore() {
+    private func designScoreVC() {
+        self.dismissButton.layer.cornerRadius = 6
+        self.view!.backgroundColor = colorGreyBackground
+        self.titleLabel.text = "Résultats du concours n°\(self.contest!.id)"
+        self.titleLabel.textColor = UIColor.whiteColor()
+        self.titleBar.backgroundColor = colorGreenLogo
         self.greenRound.layer.cornerRadius = self.greenRound.layer.bounds.width / 2
         self.greenRound.backgroundColor = UIColor.whiteColor()
         self.greenRound.layer.borderColor = colorGreenLogo.CGColor
@@ -120,6 +75,7 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
                 self.scoreLabel.textColor = colorGreenLogo
             }
             self.animationScore++
+            print("+ animation")
         } else {
             self.scoreLabel.text = "\(self.animationScore)"
             if self.animationScore < 10 {
@@ -129,6 +85,7 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
             }
             self.animationScore = 0
             self.scoreTimer.invalidate()
+            print("timer invalidate")
         }
         
         
@@ -174,23 +131,34 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     private func loadData() {
-        self.awardPointsBonus = (((self.score - 10) > 1) ? (self.score - 10) : 0) * 2
-        self.awardPoints = self.awardPointsBonus + self.numberOfQuestions + 5 * self.succeeded
-        //Questions succeeded
-        self.statsData.append("\(self.succeeded) / \(self.numberOfQuestions)")
-        self.statsDetails.append("\(self.succeeded) \(self.grammarQuestionString(self.succeeded)) \(self.grammarSucceededString(self.succeeded)), \(self.numberOfQuestions-self.succeeded) \(self.grammarQuestionString(self.numberOfQuestions-self.succeeded)) \(self.grammarFailedString(self.numberOfQuestions-self.succeeded)) sur un total de \(self.numberOfQuestions) \(self.grammarQuestionString(self.numberOfQuestions)), soit une note de \(self.score) sur 20.")
+        self.awardPoints = self.numberOfQuestions + 5 * self.succeeded
+        let failed = self.numberOfQuestions - self.succeeded - self.emptyAnswers
+        let goodAnswers = Float(self.succeeded)*self.contest!.goodAnswer
+        let wrongAnswers = Float(failed)*(-self.contest!.wrongAnswer)
+        let noAnswers = Float(self.emptyAnswers)*self.contest!.noAnswer
+        let total = goodAnswers + wrongAnswers + noAnswers
+        let maxPoints = Float(self.numberOfQuestions) * self.contest!.goodAnswer
+        //Bonnes réponses
+        self.statsData.append(goodAnswers.toStringPoints())
+        self.statsDetails.append("\(self.contest!.goodAnswer.toStringPoints()) X \(self.succeeded) = \(goodAnswers.toStringPoints())")
+        //Réponses vides
+        self.statsData.append(noAnswers.toStringPoints())
+        self.statsDetails.append("\(self.contest!.noAnswer.toStringPoints()) X \(self.emptyAnswers) = \(noAnswers.toStringPoints())")
+        //Mauvaises réponses
+        self.statsData.append(wrongAnswers.toStringPoints())
+        self.statsDetails.append("\((-self.contest!.wrongAnswer).toStringPoints()) X \(failed) = \(wrongAnswers.toStringPoints())")
+        //Total
+        self.statsData.append(total.toStringPoints())
+        self.statsDetails.append("\(total.toStringPoints()) sur \(maxPoints.toStringPoints()) ce qui fait une note de \(self.score)/20")
         //AwardPoints succeeded
         self.statsData.append((self.succeeded*5).toStringPoints())
         self.statsDetails.append("5 points par question réussie = 5 pts X \(self.succeeded) \(self.grammarQuestionString(self.succeeded)) \(self.grammarSucceededString(self.succeeded)) = \((self.succeeded*5).toStringPoints())")
         //AwardPoints assiduity
         self.statsData.append(self.numberOfQuestions.toStringPoints())
         self.statsDetails.append("L'assiduité est récompensée ! 1 point par question faite = \(self.numberOfQuestions.toStringPoints())")
-        //AwardPoints Bonus
-        self.statsData.append(self.awardPointsBonus.toStringPoints())
-        self.statsDetails.append("Tous les points au dessus de la note 10/20 vous rapportent deux AwardPoints en bonus. Vous gagnez \(self.awardPointsBonus.toStringPoints()).")
         //Total AwardPoints
         self.statsData.append(self.awardPoints.toStringPoints())
-        self.statsDetails.append("AwardPoints réussites (\((self.succeeded*5).toStringPoints())) + AwardPoints assiduité (\(self.numberOfQuestions.toStringPoints())) + AwardPoints bonus (\(self.awardPointsBonus.toStringPoints())) = total AwardPoints (\(self.awardPoints.toStringPoints()))")
+        self.statsDetails.append("AwardPoints réussites (\((self.succeeded*5).toStringPoints())) + AwardPoints assiduité (\(self.numberOfQuestions.toStringPoints())) = total AwardPoints (\(self.awardPoints.toStringPoints())) Consultez le fil d'actualités après la fin du concours pour voir votre classement et recevoir éventuellement des AwardPoints Bonus !")
         //save scoring
         User.currentUser!.awardPoints += self.awardPoints
         User.currentUser!.saveUser()

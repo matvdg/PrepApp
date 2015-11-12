@@ -2168,11 +2168,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="term" translatesAutoresizingMaskIntoConstraints="NO" id="txz-Lz-PM3">
-                                <rect key="frame" x="20" y="108" width="44" height="44"/>
+                                <rect key="frame" x="20" y="112" width="35" height="35"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="4kL-Dv-YNl"/>
-                                    <constraint firstAttribute="width" constant="44" id="aOG-VF-ZkE"/>
+                                    <constraint firstAttribute="height" constant="35" id="4kL-Dv-YNl"/>
+                                    <constraint firstAttribute="width" constant="35" id="aOG-VF-ZkE"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -2193,7 +2193,7 @@
                             <constraint firstItem="Lth-4D-nz3" firstAttribute="top" secondItem="neP-Pg-4ft" secondAttribute="bottom" constant="8" id="jCs-fj-icH"/>
                             <constraint firstItem="neP-Pg-4ft" firstAttribute="top" secondItem="oRi-M0-Cce" secondAttribute="bottom" constant="43" id="kCL-dn-e4n"/>
                             <constraint firstItem="neP-Pg-4ft" firstAttribute="leading" secondItem="tmV-aZ-BMz" secondAttribute="leadingMargin" id="nyA-0k-kQc"/>
-                            <constraint firstItem="txz-Lz-PM3" firstAttribute="top" secondItem="oRi-M0-Cce" secondAttribute="bottom" id="oxI-AZ-yR0"/>
+                            <constraint firstItem="txz-Lz-PM3" firstAttribute="top" secondItem="oRi-M0-Cce" secondAttribute="bottom" constant="4" id="oxI-AZ-yR0"/>
                             <constraint firstItem="oRi-M0-Cce" firstAttribute="top" secondItem="g49-Ik-QMX" secondAttribute="bottom" id="s09-jx-VrC"/>
                             <constraint firstItem="txz-Lz-PM3" firstAttribute="leading" secondItem="tmV-aZ-BMz" secondAttribute="leadingMargin" id="sTT-tf-PVK"/>
                             <constraint firstItem="3k9-KC-NhV" firstAttribute="centerY" secondItem="tmV-aZ-BMz" secondAttribute="centerY" id="wQR-ev-05R"/>

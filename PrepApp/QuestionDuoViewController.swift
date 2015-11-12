@@ -570,10 +570,7 @@ class QuestionDuoViewController: UIViewController,
         }
     }
     
-    private func computeScore() -> (Int, Int){
-        var succeeded = 0
-        var score = 0
-        
+    private func computeScore(){
         for i in 0..<self.questions.count {
             
             let historyQuestion = QuestionHistory()
@@ -582,6 +579,7 @@ class QuestionDuoViewController: UIViewController,
             if let answers = self.allAnswers[i] {
                 self.selectedAnswers = answers
             } else {
+                //in case of no answer
                 self.selectedAnswers = []
             }
             self.goodAnswers.removeAll(keepCapacity: false)
@@ -596,7 +594,7 @@ class QuestionDuoViewController: UIViewController,
             if self.checkAnswers() {
                 //true
                 historyQuestion.success = true
-                succeeded++
+                self.succeeded++
             } else {
                 //false
                 historyQuestion.success = false
@@ -604,8 +602,7 @@ class QuestionDuoViewController: UIViewController,
             //saving the question result in history
             FactoryHistory.getHistory().addQuestionToHistory(historyQuestion)
         }
-        score = Int(succeeded * 20 / self.questions.count)
-        return (succeeded,score)
+        self.score = Int(succeeded * 20 / self.questions.count)
     }
     
     func animateButton(){
@@ -725,9 +722,7 @@ class QuestionDuoViewController: UIViewController,
     
     func displayResultsMode() {
         //challenge finished! switch to results mode
-        let (succeeded,score) = self.computeScore()
-        self.score = score
-        self.succeeded = succeeded
+        self.computeScore()
         print("challenge mode ended, results mode")
         self.mode = 1
         self.chrono.hidden = true

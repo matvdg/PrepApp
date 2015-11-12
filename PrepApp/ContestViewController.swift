@@ -107,15 +107,24 @@ class ContestViewController: UIViewController {
 
     }
     
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        let QCVC = segue.destinationViewController as! QuestionContestViewController
+        // Pass the selected object to the new view controller.
+        QCVC.contest = self.contest
+    }
+    
     //@IBAction
     @IBAction func launch(sender: AnyObject) {
         // create alert controller
         let myAlert = UIAlertController(title: "Lancer le concours ?", message: "Vous devez disposer de \(self.contest.duration) minutes devant vous !", preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
         // add buttons
-        myAlert.addAction(UIAlertAction(title: "NON", style: UIAlertActionStyle.Destructive, handler: nil))
-        myAlert.addAction(UIAlertAction(title: "OUI", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+        myAlert.addAction(UIAlertAction(title: "NON", style: UIAlertActionStyle.Cancel, handler: nil))
+        myAlert.addAction(UIAlertAction(title: "OUI", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
             print("launching contest number \(self.contest.id)")
+            self.performSegueWithIdentifier("showContest", sender: self)
         }))
         // show the alert
         self.presentViewController(myAlert, animated: true, completion: nil)
