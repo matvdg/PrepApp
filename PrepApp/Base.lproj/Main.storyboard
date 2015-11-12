@@ -341,11 +341,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zXa-YV-zhG" userLabel="help">
-                                                    <rect key="frame" x="185" y="13" width="27" height="27"/>
+                                                    <rect key="frame" x="185" y="16" width="22" height="22"/>
                                                     <animations/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="27" id="gX0-N8-h5q"/>
-                                                        <constraint firstAttribute="width" constant="27" id="kM7-vL-nlP"/>
+                                                        <constraint firstAttribute="height" constant="22" id="gX0-N8-h5q"/>
+                                                        <constraint firstAttribute="width" constant="22" id="kM7-vL-nlP"/>
                                                     </constraints>
                                                     <state key="normal" backgroundImage="help">
                                                         <color key="titleColor" red="0.35864504419999998" green="0.35864504419999998" blue="0.35864504419999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -388,7 +388,7 @@
                                                 <constraint firstItem="qQ6-sy-vhF" firstAttribute="leading" secondItem="rYS-eU-hgM" secondAttribute="leadingMargin" constant="17" id="cUf-Iy-9rj"/>
                                                 <constraint firstItem="EZk-2y-O2t" firstAttribute="leading" secondItem="qQ6-sy-vhF" secondAttribute="trailing" constant="8" id="ccO-zM-KdA"/>
                                                 <constraint firstItem="EZk-2y-O2t" firstAttribute="top" secondItem="rYS-eU-hgM" secondAttribute="topMargin" constant="8" id="fsc-DN-BN6"/>
-                                                <constraint firstItem="zXa-YV-zhG" firstAttribute="top" secondItem="rYS-eU-hgM" secondAttribute="topMargin" constant="5" id="oTH-AE-Hu1"/>
+                                                <constraint firstItem="zXa-YV-zhG" firstAttribute="top" secondItem="rYS-eU-hgM" secondAttribute="topMargin" constant="8" id="oTH-AE-Hu1"/>
                                                 <constraint firstItem="zXa-YV-zhG" firstAttribute="leading" secondItem="EZk-2y-O2t" secondAttribute="trailing" constant="8" id="zXH-dU-4Kc"/>
                                             </constraints>
                                         </tableViewCellContentView>
