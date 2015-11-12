@@ -144,7 +144,7 @@ class LeaderboardTableViewController: UITableViewController  {
             textTodisplay += "\(friend.firstName) \(friend.lastName)"
         }
         cell.textLabel!.text = textTodisplay
-        cell.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10)
+        cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 10)
         if friend.id == User.currentUser!.id {
             cell.backgroundColor = colorGreenLogo
             cell.detailTextLabel!.textColor = UIColor.whiteColor()
