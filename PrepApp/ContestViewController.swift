@@ -29,7 +29,7 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
         self.contestContent.backgroundColor = UIColor.clearColor()
-        self.contestContent.opaque = true
+        self.contestContent.opaque = false
         self.launchButton.layer.cornerRadius = 6
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
@@ -127,9 +127,8 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     //UIWebViewDelegate method
     func webViewDidFinishLoad(webView: UIWebView) {
-        print("webViewDidFinishLoad")
         webView.backgroundColor = UIColor.clearColor()
-        webView.opaque = true
+        webView.opaque = false
     }
 
 }

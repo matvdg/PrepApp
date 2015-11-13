@@ -96,7 +96,11 @@ class ContestManager {
                         newContest.id = contest["id"] as! Int
                         newContest.duration = contest["duration"] as! Int
                         newContest.name = contest["name"] as! String
-                        newContest.content = contest["description"] as! String
+                        var description = ""
+                        //"<body style=\"background-color: transparent;\">"
+                        description += contest["description"] as! String
+                        //description += "</body>"
+                        newContest.content = description
                         newContest.goodAnswer = contest["goodAnswer"] as! Float
                         newContest.wrongAnswer = contest["wrongAnswer"] as! Float
                         newContest.noAnswer = contest["noAnswer"] as! Float
