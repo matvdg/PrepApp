@@ -18,6 +18,7 @@ class FriendManager {
         
         let request = NSMutableURLRequest(URL: FactorySync.findFriendUrl!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&id=\(code)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -61,6 +62,7 @@ class FriendManager {
         
         let request = NSMutableURLRequest(URL: FactorySync.shuffleFriendUrl!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -111,6 +113,7 @@ class FriendManager {
     private func retrieveFriends(callback: (NSArray?) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.retrieveFriendsUrl!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -158,6 +161,7 @@ class FriendManager {
     private func updateFriends(friendsList: NSString, callback: (Bool) -> Void){
         let request = NSMutableURLRequest(URL: FactorySync.updateFriendsUrl!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&friends=\(friendsList)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {

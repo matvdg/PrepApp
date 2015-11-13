@@ -193,6 +193,7 @@ class History {
     private func updateHistory(history: NSString, callback: (Bool) -> Void){
         let request = NSMutableURLRequest(URL: FactorySync.updateHistoryUrl!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&history=\(history)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -245,6 +246,7 @@ class History {
         let url = NSURL(string: "\(FactorySync.retrieveHistoryUrl!)")
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {

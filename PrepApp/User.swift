@@ -45,6 +45,7 @@ class User {
 	func changePassword(newPass: String, callback: (String?) -> Void){
 		let request = NSMutableURLRequest(URL: FactorySync.passwordUrl!)
 		request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
 		let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&newPass=\(newPass)"
 		request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
 		let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -70,6 +71,7 @@ class User {
     func changeNickname(newNickname: String, callback: (String?) -> Void){
         let request = NSMutableURLRequest(URL: FactorySync.nicknameUrl!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&nickname=\(newNickname)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -95,6 +97,7 @@ class User {
     func updateLevel(newLevel: Int){
         let request = NSMutableURLRequest(URL: FactorySync.levelUrl!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&level=\(newLevel)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -114,6 +117,7 @@ class User {
     func updateAwardPoints(newAwardPoints: Int){
         let request = NSMutableURLRequest(URL: FactorySync.awardPointsUrl!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&awardPoints=\(newAwardPoints)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -134,6 +138,7 @@ class User {
         let url = NSURL(string: "\(FactorySync.questionMarkedUrl!)\(id)")
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&comment=\(comment)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -157,6 +162,7 @@ class User {
     func sendFeedback(topic: String, feedback: String, callback: (String, String, Bool) -> Void){
         let request = NSMutableURLRequest(URL: FactorySync.feedbackUrl!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&topic=\(topic)&feedback=\(feedback)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -197,6 +203,7 @@ class User {
 	static func login(mail: String, pass: String, callback: (NSDictionary?, String?) -> Void) {
 		let request = NSMutableURLRequest(URL: FactorySync.userUrl!)
 		request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
 		let encryptedPassword = pass.sha1()
 		let postString = "mail=\(mail)&pass=\(encryptedPassword)"
 		request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)

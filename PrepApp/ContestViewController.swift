@@ -21,8 +21,10 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
     var elements = ["Date","Durée","Réponse juste","Réponse vide","Réponse fausse"]
     var images = ["term","solo","true","empty","false"]
     var details: [String]?
+    var refreshIsNeeded = false
+    var contestHistory: ContestHistory?
     
-    //app method
+    //app methods
 	override func viewDidLoad() {
         self.loadData()
         //sync
@@ -39,7 +41,15 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.title = self.contest.name
 	}
     
-    //methods
+    override func viewDidAppear(animated: Bool) {
+        if self.refreshIsNeeded {
+            self.loadData()
+            self.contestTable.reloadData()
+        } else {
+            self.refreshIsNeeded = true
+        }
+    }
+    
     func logout() {
         print("logging out")
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -60,6 +70,7 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.presentViewController(myAlert, animated: true, completion: nil)
     }
     
+    //methods
     func loadData() {
         //formatting date
         let formatter = NSDateFormatter()
@@ -79,19 +90,23 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.contestContent.loadHTMLString(self.contest.content, baseURL: nil)
         
         if !FactoryHistory.getHistory().isContestNew(self.contest.id) {
-            self.launchButton.enabled = false
-            self.launchButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Disabled)
-            self.launchButton.backgroundColor = colorDarkGrey
-            self.launchButton.setTitle("Concours terminé", forState: UIControlState.Disabled)
+            /*the contest isn't new -> fetched from QuestionHistory - we couldn't have checked into ContestHistory -although it'd have been an easier check- because this local data isn't saved into PrepApp servers, just in local Realm DB, so we loose it after a new install of the app... So we could do the contest twice and cheating just by reinstalling the app. So we checked into QuestionHistory which is stored locally and remotely, the check is 100% sure :D */
+            //now we check into the local only ContestHistory to let display the score again or not
+            if let resultContest = FactorySync.getContestManager().getResultContest(self.contest.id) {
+                //results available!
+                print("results available!")
+                self.contestHistory = resultContest
+                self.launchButton.backgroundColor = colorDarkGrey
+                self.launchButton.setTitle("Revoir les résultats", forState: UIControlState.Disabled)
+            } else {
+                print("no results to display")
+                //no results to display
+                self.launchButton.enabled = false
+                self.launchButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Disabled)
+                self.launchButton.backgroundColor = colorDarkGrey
+                self.launchButton.setTitle("Concours terminé", forState: UIControlState.Disabled)
+            }
         }
-    }
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        let QCVC = segue.destinationViewController as! QuestionContestViewController
-        // Pass the selected object to the new view controller.
-        QCVC.contest = self.contest
     }
     
     //@IBAction
@@ -103,10 +118,6 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
         myAlert.addAction(UIAlertAction(title: "NON", style: UIAlertActionStyle.Cancel, handler: nil))
         myAlert.addAction(UIAlertAction(title: "OUI", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
             print("launching contest number \(self.contest.id)")
-            self.launchButton.enabled = false
-            self.launchButton.backgroundColor = colorDarkGrey
-            self.launchButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Disabled)
-            self.launchButton.setTitle("Concours terminé", forState: UIControlState.Disabled)
             self.performSegueWithIdentifier("showContest", sender: self)
         }))
         // show the alert
@@ -141,5 +152,24 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
         webView.backgroundColor = UIColor.clearColor()
         webView.opaque = false
     }
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        if let QCVC = segue.destinationViewController as? QuestionContestViewController {
+            // Pass the selected object to the new view controller.
+            QCVC.contest = self.contest
+        }
+        
+        if let scoreVC = segue.destinationViewController as? ScoreContestViewController {
+            // Pass the selected object to the new view controller.
+            scoreVC.score = self.contestHistory!.score
+            scoreVC.emptyAnswers = self.contestHistory!.emptyAnswers
+            scoreVC.succeeded = self.contestHistory!.succeeded
+            scoreVC.numberOfQuestions = self.contestHistory!.numberOfQuestions
+            scoreVC.contest = self.contest
+        }
+    }
+
 
 }

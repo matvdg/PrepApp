@@ -11,11 +11,14 @@ import UIKit
 class ContestManager {
     
     private var realm = FactoryRealm.getRealmContest()
+    private var realmHistory = FactoryRealm.getRealmContestHistory()
+
     
     //API
     private func retrieveContests(callback: (NSArray?) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.contestUrl!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -51,6 +54,7 @@ class ContestManager {
         
         let request = NSMutableURLRequest(URL: FactorySync.retrieveContestUrl!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -83,6 +87,7 @@ class ContestManager {
     func sendResultsContest(idContest: Int, points: Float, callback: (Bool, String) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.sendContestUrl!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&idContest=\(idContest)&points=\(points)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -165,11 +170,24 @@ class ContestManager {
         resultsContest.emptyAnswers = emptyAnswers
         resultsContest.succeeded = succeeded
         resultsContest.numberOfQuestions = numberOfQuestions
-        try! self.realm.write({
-            self.realm.add(resultsContest)
-        })
+        do {
+            try self.realmHistory.write({
+                self.realmHistory.add(resultsContest)
+            })
+        } catch {
+            print(error)
+        }
+        
     }
     
+    //get a resultContest from local RealmDB
+    func getResultContest(id: Int) -> ContestHistory? {
+        if !realm.objects(ContestHistory).filter("id = \(id)").isEmpty {
+            return realmHistory.objects(ContestHistory).filter("id = \(id)").first
+        } else {
+            return nil
+        }
+    }
 
     
 }

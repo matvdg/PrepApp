@@ -17,6 +17,7 @@ class DuoManager {
     func requestDuo(idFriend: Int, callback: (Int?, String?) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.requestDuoUrl!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&idFriend=\(idFriend)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -52,6 +53,7 @@ class DuoManager {
     func sendResultsDuo(idDuo: Int, success: Int, callback: (Bool, String) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.sendResultsDuoUrl!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&idDuo=\(idDuo)&success=\(success)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -77,6 +79,7 @@ class DuoManager {
     private func getPendingDuos(callback: (NSArray?) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.pendingDuoUrl!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -112,6 +115,7 @@ class DuoManager {
     private func retrieveResultsDuo(callback: (NSDictionary?) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.retrieveResultsDuoUrl!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {

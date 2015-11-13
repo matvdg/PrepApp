@@ -16,6 +16,7 @@ class NewsfeedManager {
     private func retrieveNewsfeed(callback: (NSArray?) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.newsfeedUrl!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {

@@ -38,6 +38,7 @@ class ImageManager {
     private func getUploads(callback: (NSDictionary) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.imageUrl!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {

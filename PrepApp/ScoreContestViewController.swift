@@ -11,6 +11,7 @@ import UIKit
 class ScoreContestViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     
     var emptyAnswers = 0
+    var reviewMode = false
     var score: Int = 0
     var contest: Contest?
     var animationScore = 0
@@ -62,10 +63,13 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
         self.greenRound.layer.borderWidth = 6
         self.greenRound.layer.masksToBounds = true
         self.scoreLabel.textColor = colorWrongAnswer
-        let min = Int(-abs(self.contest!.wrongAnswer) * Float(self.numberOfQuestions))
+        let min = Int(-abs(self.contest!.wrongAnswer) * Float(self.numberOfQuestions))*20/self.numberOfQuestions
         self.animationScore = min
         self.scoreLabel.text = "\(self.animationScore)"
         self.scoreTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("animateScore"), userInfo: nil, repeats: true)
+        if self.reviewMode {
+            self.dismissButton.setTitle("OK", forState: UIControlState.Normal)
+        }
     }
     
     func animateScore() {

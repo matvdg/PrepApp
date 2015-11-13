@@ -220,9 +220,9 @@ class Scoring {
         
         let request = NSMutableURLRequest(URL: FactorySync.leaderboardUrl!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
-        request.timeoutInterval = NSTimeInterval(5)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
             (data, response, error) in
             

@@ -34,6 +34,7 @@ class ChapterManager {
     private func getChapters(callback: (NSDictionary) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.chapterUrl!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -186,6 +187,7 @@ class ChapterManager {
         let url = NSURL(string: "\(FactorySync.chapterUrl!)\(id)")
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
