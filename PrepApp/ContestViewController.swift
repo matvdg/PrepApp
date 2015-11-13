@@ -69,11 +69,14 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
         //adding contest details to the table
         self.details = ["Du \(begin) au \(end)"]
         self.details!.append("\(self.contest.duration) minutes")
-        self.details!.append(self.contest.goodAnswer.toStringPoints())
-        self.details!.append(self.contest.noAnswer.toStringPoints())
+        let goodAnswer = abs(self.contest.goodAnswer)
+        let badAnswer = -abs(self.contest.wrongAnswer)
+        let emptyAnswer = -abs(self.contest.noAnswer)
+        self.details!.append(goodAnswer.toStringPoints())
+        self.details!.append(badAnswer.toStringPoints())
+        self.details!.append(emptyAnswer.toStringPoints())
         //loading content
         self.contestContent.loadHTMLString(self.contest.content, baseURL: nil)
-        self.details!.append(self.contest.wrongAnswer.toStringPoints())
         
         if !FactoryHistory.getHistory().isContestNew(self.contest.id) {
             self.launchButton.enabled = false

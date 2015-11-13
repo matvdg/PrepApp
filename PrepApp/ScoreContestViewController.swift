@@ -129,20 +129,23 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
     private func loadData() {
         self.awardPoints = self.numberOfQuestions + 5 * self.succeeded
         let failed = self.numberOfQuestions - self.succeeded - self.emptyAnswers
-        let goodAnswers = Float(self.succeeded)*self.contest!.goodAnswer
-        let wrongAnswers = Float(failed)*(-self.contest!.wrongAnswer)
-        let noAnswers = Float(self.emptyAnswers)*self.contest!.noAnswer
+        let goodAnswer = abs(self.contest!.goodAnswer)
+        let badAnswer = -abs(self.contest!.wrongAnswer)
+        let emptyAnswer = -abs(self.contest!.noAnswer)
+        let goodAnswers = Float(self.succeeded)*goodAnswer
+        let wrongAnswers = Float(failed)*(badAnswer)
+        let noAnswers = Float(self.emptyAnswers)*emptyAnswer
         let total = goodAnswers + wrongAnswers + noAnswers
         let maxPoints = Float(self.numberOfQuestions) * self.contest!.goodAnswer
         //Bonnes réponses
         self.statsData.append(goodAnswers.toStringPoints())
-        self.statsDetails.append("\(self.contest!.goodAnswer.toStringPoints()) X \(self.succeeded) = \(goodAnswers.toStringPoints())")
+        self.statsDetails.append("\(goodAnswer.toStringPoints()) X \(self.succeeded) = \(goodAnswers.toStringPoints())")
         //Réponses vides
         self.statsData.append(noAnswers.toStringPoints())
-        self.statsDetails.append("\(self.contest!.noAnswer.toStringPoints()) X \(self.emptyAnswers) = \(noAnswers.toStringPoints())")
+        self.statsDetails.append("\(emptyAnswer.toStringPoints()) X \(self.emptyAnswers) = \(noAnswers.toStringPoints())")
         //Mauvaises réponses
         self.statsData.append(wrongAnswers.toStringPoints())
-        self.statsDetails.append("\((-self.contest!.wrongAnswer).toStringPoints()) X \(failed) = \(wrongAnswers.toStringPoints())")
+        self.statsDetails.append("\((badAnswer).toStringPoints()) X \(failed) = \(wrongAnswers.toStringPoints())")
         //Total
         self.statsData.append(total.toStringPoints())
         self.statsDetails.append("\(total.toStringPoints()) sur \(maxPoints.toStringPoints()) ce qui fait une note de \(self.score)/20")
