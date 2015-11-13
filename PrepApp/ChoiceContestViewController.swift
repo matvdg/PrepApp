@@ -208,7 +208,7 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
         headerLabel.textColor = UIColor.whiteColor()
         headerLabel.font = UIFont(name: "Segoe UI", size: 20)
         if section == 0 {
-            headerLabel.text = "Concours"
+            headerLabel.text = "Concours en cours"
         } else {
             headerLabel.text = "Résultats de concours"
         }

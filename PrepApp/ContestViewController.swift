@@ -64,16 +64,23 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
         //formatting date
         let formatter = NSDateFormatter()
         formatter.dateFormat = "d/M/yy"
-        let begin = formatter.stringFromDate(contest.begin)
-        let end = formatter.stringFromDate(contest.end)
+        let begin = formatter.stringFromDate(self.contest.begin)
+        let end = formatter.stringFromDate(self.contest.end)
         //adding contest details to the table
         self.details = ["Du \(begin) au \(end)"]
-        self.details!.append("\(contest.duration) minutes")
-        self.details!.append(contest.goodAnswer.toStringPoints())
-        self.details!.append(contest.noAnswer.toStringPoints())
+        self.details!.append("\(self.contest.duration) minutes")
+        self.details!.append(self.contest.goodAnswer.toStringPoints())
+        self.details!.append(self.contest.noAnswer.toStringPoints())
         //loading content
-        self.contestContent.loadHTMLString(contest.content, baseURL: nil)
-        self.details!.append(contest.wrongAnswer.toStringPoints())
+        self.contestContent.loadHTMLString(self.contest.content, baseURL: nil)
+        self.details!.append(self.contest.wrongAnswer.toStringPoints())
+        
+        if !FactoryHistory.getHistory().isContestNew(self.contest.id) {
+            self.launchButton.enabled = false
+            self.launchButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Disabled)
+            self.launchButton.backgroundColor = colorDarkGrey
+            self.launchButton.setTitle("Concours terminé", forState: UIControlState.Disabled)
+        }
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -95,6 +102,7 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
             print("launching contest number \(self.contest.id)")
             self.launchButton.enabled = false
             self.launchButton.backgroundColor = colorDarkGrey
+            self.launchButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Disabled)
             self.launchButton.setTitle("Concours terminé", forState: UIControlState.Disabled)
             self.performSegueWithIdentifier("showContest", sender: self)
         }))

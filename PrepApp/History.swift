@@ -13,6 +13,8 @@ class History {
     
     private let realmHistory = FactoryRealm.getRealmHistory()
     private let realm = FactoryRealm.getRealm()
+    private let realmContest = FactoryRealm.getRealmContest()
+    
     var syncHistoryNeeded = true
     
     func addQuestionToHistory(question: QuestionHistory) {
@@ -66,6 +68,22 @@ class History {
     
     func isQuestionNew(id: Int)-> Bool {
         return !self.isQuestionDone(id)
+    }
+    
+    func isContestNew(id: Int)-> Bool {
+        if !realm.objects(Question).filter("idContest = \(id)").isEmpty {
+            let questionFromContest = realm.objects(Question).filter("idContest = \(id)").first
+            let questionsHistory = self.realmHistory.objects(QuestionHistory)
+            var result = true
+            for questionHistory in questionsHistory {
+                if questionFromContest!.id == questionHistory.id {
+                    result = false
+                    break
+                }
+            }
+            return result
+        }
+        return false
     }
     
     func isQuestionNewInTraining(id: Int)-> Bool {
