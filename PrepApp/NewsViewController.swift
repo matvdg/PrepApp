@@ -10,14 +10,10 @@ import UIKit
 
 class NewsViewController: UIViewController {
     
-    var newsfeed = [News]()
-    var selected = 0
-    var hideButton = false
+    var news = News()
 
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var content: UITextView!
     @IBOutlet weak var details: UILabel!
-    @IBOutlet weak var dismissButton: UIButton!
     @IBAction func dismiss(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -25,28 +21,23 @@ class NewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadNews()
-        if self.hideButton {
-            self.title = ""
-            self.dismissButton.hidden = true
-            self.titleLabel.backgroundColor = colorGreenLogo
-        } else {
-            self.dismissButton.hidden = false
-        }
-        self.dismissButton.layer.cornerRadius = 6.0
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
+        if let _ = self.navigationController {
+            self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
+            self.navigationController!.navigationBar.tintColor = colorGreen
+        }
     }
     
     func loadNews() {
-        let news = self.newsfeed[self.selected]
-        self.titleLabel.text = news.title
+        self.title = self.news.title
         //formatting date
         let formatter = NSDateFormatter()
         formatter.dateFormat = "EEEE d MMMM yyy à H:mm"
-        let dateInString = formatter.stringFromDate(news.date)
-        self.details.text = "\(news.firstName) \(news.lastName) - \(dateInString)"
+        let dateInString = formatter.stringFromDate(self.news.date)
+        self.details.text = "\(self.news.firstName) \(self.news.lastName) - \(dateInString)"
         self.details.font = UIFont(name: "Segoe UI", size: 16)
-        self.content.text = news.content
+        self.content.text = self.news.content
     }
     
     func logout() {

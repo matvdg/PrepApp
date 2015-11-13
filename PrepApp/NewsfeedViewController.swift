@@ -11,7 +11,6 @@ import UIKit
 class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIViewControllerPreviewingDelegate {
     
     var newsfeed = [News]()
-    var selected = 0
     var pullToRefresh =  UIRefreshControl()
 
     @IBOutlet weak var newsfeedTable: UITableView!
@@ -113,8 +112,8 @@ class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableVi
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let newsVC = segue.destinationViewController as! NewsViewController
         // Pass the selected object to the new view controller.
-        newsVC.newsfeed = self.newsfeed
-        newsVC.selected = self.newsfeedTable.indexPathForSelectedRow!.row
+        let selected = self.newsfeedTable.indexPathForSelectedRow!.row
+        newsVC.news = self.newsfeed[selected]
     }
     
     func logout() {
@@ -143,9 +142,7 @@ class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableVi
         let indexPath = self.newsfeedTable!.indexPathForRowAtPoint(location)
         let cell = self.newsfeedTable!.cellForRowAtIndexPath(indexPath!)
         let newsVC = storyboard?.instantiateViewControllerWithIdentifier("NewsVC") as? NewsViewController
-        newsVC!.selected = indexPath!.row
-        newsVC!.newsfeed = self.newsfeed
-        newsVC!.hideButton = true
+        newsVC!.news = self.newsfeed[indexPath!.row]
         newsVC!.preferredContentSize = CGSize(width: 0.0, height: 300)
         previewingContext.sourceRect = cell!.frame
         return newsVC
