@@ -80,6 +80,31 @@ class ContestManager {
         task.resume()
     }
 
+    func sendResultsContest(idContest: Int, points: Float, callback: (Bool, String) -> Void) {
+        let request = NSMutableURLRequest(URL: FactorySync.sendContestUrl!)
+        request.HTTPMethod = "POST"
+        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&idContest=\(idContest)&points=\(points)"
+        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
+            (data, response, error) in
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                if error != nil {
+                    callback(false, "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.")
+                } else {
+                    let statusCode = (response as! NSHTTPURLResponse).statusCode
+                    if statusCode == 200 {
+                        callback(true, "Résultats envoyés avec succès au serveur")
+                    } else {
+                        print("header status = \(statusCode) in requestDuo")
+                        callback(true, "Vous avez dépassé la date de fin de concours. Vous ne pouvez pas envoyer vos résultats ni recevoir d'AwardPoints en bonus. Veuillez vérifier la date et l'heure de votre appareil pour éviter de rencontrer à nouveau ce problème.")
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
+
     
     //REALM
     
@@ -122,6 +147,27 @@ class ContestManager {
             }
             callback(result)
         }
+    }
+    
+    ///save resultsContest to RealmDB ContestHistory
+    func saveResultsContest(contest: Contest, score: Int, emptyAnswers: Int, succeeded: Int, numberOfQuestions: Int ) {
+        let resultsContest = ContestHistory()
+        resultsContest.id = contest.id
+        resultsContest.duration = contest.duration
+        resultsContest.name = contest.name
+        resultsContest.content = contest.content
+        resultsContest.goodAnswer = contest.goodAnswer
+        resultsContest.noAnswer = contest.noAnswer
+        resultsContest.wrongAnswer = contest.wrongAnswer
+        resultsContest.begin = contest.begin
+        resultsContest.end = contest.end
+        resultsContest.score = score
+        resultsContest.emptyAnswers = emptyAnswers
+        resultsContest.succeeded = succeeded
+        resultsContest.numberOfQuestions = numberOfQuestions
+        try! self.realm.write({
+            self.realm.add(resultsContest)
+        })
     }
     
 

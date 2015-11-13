@@ -104,7 +104,7 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
         }
         if self.contestsLeaderboard.isEmpty {
             let templateContestLeaderboard = ContestLeaderboard()
-            templateContestLeaderboard.name = "Pas de résultats de concours pour le moment"
+            templateContestLeaderboard.name = "Pas de classement pour le moment"
             self.contestsLeaderboard.append(templateContestLeaderboard)
         }
         
@@ -165,7 +165,7 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
             formatter.dateFormat = "d/M/yy"
             let end = formatter.stringFromDate(contestLeaderboard.end)
             //adding contest details to the table
-            if contestLeaderboard.name == "Pas de résultats de concours pour le moment" {
+            if contestLeaderboard.name == "Pas de classement pour le moment" {
                 cell.accessoryType = UITableViewCellAccessoryType.None
                 cell.detailTextLabel!.text = ""
             } else {
@@ -210,7 +210,7 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
         if section == 0 {
             headerLabel.text = "Concours en cours"
         } else {
-            headerLabel.text = "Résultats de concours"
+            headerLabel.text = "Classements de concours"
         }
         headerView.addSubview(headerLabel)
         return headerView

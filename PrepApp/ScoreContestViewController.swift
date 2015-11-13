@@ -62,6 +62,8 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
         self.greenRound.layer.borderWidth = 6
         self.greenRound.layer.masksToBounds = true
         self.scoreLabel.textColor = colorWrongAnswer
+        let min = Int(-abs(self.contest!.wrongAnswer) * Float(self.numberOfQuestions))
+        self.animationScore = min
         self.scoreLabel.text = "\(self.animationScore)"
         self.scoreTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("animateScore"), userInfo: nil, repeats: true)
     }
@@ -148,7 +150,7 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
         self.statsDetails.append("\((badAnswer).toStringPoints()) X \(failed) = \(wrongAnswers.toStringPoints())")
         //Total
         self.statsData.append(total.toStringPoints())
-        self.statsDetails.append("\(total.toStringPoints()) sur \(maxPoints.toStringPoints()) ce qui fait une note de \(self.score)/20")
+        self.statsDetails.append("\(total.toStringPoints()) sur \(maxPoints.toStringPoints()), soit une note de \(self.score) sur 20.")
         //AwardPoints succeeded
         self.statsData.append((self.succeeded*5).toStringPoints())
         self.statsDetails.append("5 points par question réussie = 5 pts X \(self.succeeded) \(self.grammarQuestionString(self.succeeded)) \(self.grammarSucceededString(self.succeeded)) = \((self.succeeded*5).toStringPoints())")

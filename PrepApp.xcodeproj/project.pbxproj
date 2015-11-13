@@ -62,6 +62,7 @@
 		F67436301BEEC36E003E798B /* ResultDuo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F674362F1BEEC36E003E798B /* ResultDuo.swift */; };
 		F67436321BEEDEAD003E798B /* ResultsDuoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67436311BEEDEAD003E798B /* ResultsDuoViewController.swift */; };
 		F68320DA1B03C6F1006B974E /* TrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68320D91B03C6F1006B974E /* TrainingViewController.swift */; };
+		F687CA261BF69B8000556754 /* ContestHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F687CA251BF69B8000556754 /* ContestHistory.swift */; };
 		F6987A6D1B16321B002989C6 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6987A6C1B16321B002989C6 /* ImageManager.swift */; };
 		F6AAE6D61AF433E100195E11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AAE6D51AF433E100195E11 /* AppDelegate.swift */; };
 		F6AAE6DD1AF433E100195E11 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6AAE6DB1AF433E100195E11 /* Main.storyboard */; };
@@ -203,6 +204,7 @@
 		F674362F1BEEC36E003E798B /* ResultDuo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultDuo.swift; sourceTree = "<group>"; };
 		F67436311BEEDEAD003E798B /* ResultsDuoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsDuoViewController.swift; sourceTree = "<group>"; };
 		F68320D91B03C6F1006B974E /* TrainingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TrainingViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		F687CA251BF69B8000556754 /* ContestHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContestHistory.swift; sourceTree = "<group>"; };
 		F6987A6C1B16321B002989C6 /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		F6AAE6D01AF433E100195E11 /* PrepApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrepApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6AAE6D41AF433E100195E11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 				F60ED4801BEFA04F00825A0E /* News.swift */,
 				F6C267FB1BB56BDC00CA462A /* PendingDuo.swift */,
 				F6E086301BF3C28100B4DB10 /* Contest.swift */,
+				F687CA251BF69B8000556754 /* ContestHistory.swift */,
 				F6B0E3A41BF551E100FEB3D0 /* ContestLeaderboard.swift */,
 				F6B0E3A61BF5522800FEB3D0 /* ContestPlayer.swift */,
 				F66771801B61A31900042145 /* FactoryRealm.swift */,
@@ -755,6 +758,7 @@
 				F604061E1B8E6150006F7F4E /* Colors.swift in Sources */,
 				F605AF121B04151500E90596 /* ContestViewController.swift in Sources */,
 				F62C2A061BE6C3B400DF5EF0 /* SwiftSpinner.swift in Sources */,
+				F687CA261BF69B8000556754 /* ContestHistory.swift in Sources */,
 				95D765011B9F34AD002C31CC /* FactoryHistory.swift in Sources */,
 				F64630A51B5E6959006A5F71 /* FactorySync.swift in Sources */,
 				F6CB05D21BBC951700289CEA /* UITableViewCellSetting.swift in Sources */,

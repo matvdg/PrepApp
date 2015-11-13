@@ -21,6 +21,7 @@ class QuestionContestViewController: UIViewController,
     var mode = 0 //0 = challenge 1 = results
     var contest: Contest?
     var score: Int = 0
+    var points: Float = 0
     var emptyAnswers = 0
     var soundAlreadyPlayed = false
     var succeeded = 0
@@ -239,11 +240,35 @@ class QuestionContestViewController: UIViewController,
             }
             
         } else {
-            let myAlert = UIAlertController(title: "Voulez-vous vraiment quitter le concours ?", message: "Vous ne pourrez plus revoir vos réponses, mais vous pourrez retrouver les questions et leur correction dans entraînement", preferredStyle: UIAlertControllerStyle.Alert)
+            let myAlert = UIAlertController(title: "Voulez-vous vraiment quitter ce concours ?", message: "Vous pourrez consulter à nouveau vos résultats et recevoir le classement dès la fin du concours ! Vous ne pourrez cependant plus revoir vos réponses, mais vous pourrez retrouver les questions et leur correction dans entraînement. Vous devez disposer d'une connexion internet pour envoyer vos résultats au serveur.", preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
             // add "OK" button
-            myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
-                self.dismissViewControllerAnimated(true, completion: nil)
+            myAlert.addAction(UIAlertAction(title: "Oui, envoyer mes résultats", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                SwiftSpinner.show("Envoi des résultats")
+                SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+                FactorySync.getContestManager().sendResultsContest(self.contest!.id, points: self.points, callback: { (answer, message) -> Void in
+                    SwiftSpinner.hide()
+                    if answer {
+                        FactorySync.getContestManager().saveResultsContest(self.contest!, score: self.score, emptyAnswers: self.emptyAnswers, succeeded: self.succeeded, numberOfQuestions: self.questions.count)
+                        let myAlert = UIAlertController(title: "Envoi des résultats", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                        myAlert.view.tintColor = colorGreen
+                        //add an "OK" button
+                        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+                            self.dismissViewControllerAnimated(true, completion: nil)
+                        }))
+                        
+                        // show the alert
+                        self.presentViewController(myAlert, animated: true, completion: nil)
+                        
+                    } else {
+                        let myAlert = UIAlertController(title: "Oups !", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                        myAlert.view.tintColor = colorGreen
+                        //add an "try again" button
+                        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
+                        // show the alert
+                        self.presentViewController(myAlert, animated: true, completion: nil)
+                    }
+                })
             }))
             myAlert.addAction(UIAlertAction(title: "Non, annuler", style: UIAlertActionStyle.Cancel, handler: nil))
             // show the alert
@@ -579,8 +604,8 @@ class QuestionContestViewController: UIViewController,
         }
         let maxPoints = Float(self.questions.count) * self.contest!.goodAnswer
         let failedQuestions = self.questions.count - self.succeeded - self.emptyAnswers
-        let points = Float(self.succeeded) * self.contest!.goodAnswer + Float(failedQuestions) * -self.contest!.wrongAnswer + Float(self.emptyAnswers) * self.contest!.noAnswer
-        self.score = Int(points / maxPoints * 20)
+        self.points = Float(self.succeeded) * self.contest!.goodAnswer + Float(failedQuestions) * -self.contest!.wrongAnswer + Float(self.emptyAnswers) * self.contest!.noAnswer
+        self.score = Int(self.points / maxPoints * 20)
     }
     
     func animateButton(){
