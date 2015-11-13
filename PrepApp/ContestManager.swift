@@ -13,7 +13,7 @@ class ContestManager {
     private var realm = FactoryRealm.getRealmContest()
     
     //API
-    private func retrieveContestId(callback: (NSDictionary?) -> Void) {
+    private func retrieveContests(callback: (NSArray?) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.contestUrl!)
         request.HTTPMethod = "POST"
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
@@ -23,21 +23,21 @@ class ContestManager {
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    print("retrieveContestId offline")
+                    print("retrieveContests offline")
                     callback(nil)
                 } else {
                     let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSArray
                         
                         if let result = jsonResult {
                             callback(result)
                         } else {
-                            print("error : NSArray nil in retrieveContestId")
+                            print("error : NSArray nil in retrieveContests")
                             callback(nil)
                         }
                     } else {
-                        print("header status = \(statusCode) in retrieveContestId")
+                        print("header status = \(statusCode) in retrieveContests")
                         callback(nil)
                     }
                 }
@@ -47,9 +47,9 @@ class ContestManager {
         task.resume()
     }
     
-    private func retrieveContest(contest: Int, callback: (NSDictionary?) -> Void) {
-        let url = NSURL(string: "\(FactorySync.contestUrl!)\(contest)")
-        let request = NSMutableURLRequest(URL: url!)
+    private func retrieveContestLeaderboards(callback: (NSArray?) -> Void) {
+        
+        let request = NSMutableURLRequest(URL: FactorySync.retrieveContestUrl!)
         request.HTTPMethod = "POST"
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
@@ -58,21 +58,19 @@ class ContestManager {
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    print("contest offline")
                     callback(nil)
+                    
                 } else {
                     let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSArray
                         
                         if let result = jsonResult {
                             callback(result)
                         } else {
-                            print("error : NSArray nil in retrieveContest")
                             callback(nil)
                         }
                     } else {
-                        print("header status = \(statusCode) in retrieveContest")
                         callback(nil)
                     }
                 }
@@ -84,49 +82,44 @@ class ContestManager {
 
     
     //REALM
-    func getContests(callback: (Contest?) -> Void) {
-        self.retrieveContestId({ (data) -> Void in
-            if let idContest = data {
+    
+    ///return array of Contest from Realm if offline, from API if online (+backup to RealmDB)
+    func getContests(callback: ([Contest]) -> Void) {
+        
+        self.retrieveContests { (data) -> Void in
+            var result = [Contest]()
+            if let contests = data {
                 //online
-                let id = idContest["id"] as! Int
-                self.retrieveContest(id, callback: { (data) -> Void in
-                    if let contest = data {
-                        let result = Contest()
-                        result.id = contest["id"] as! Int
-                        result.duration = contest["duration"] as! Int
-                        result.name = contest["name"] as! String
-                        result.content = contest["description"] as! String
-                        result.goodAnswer = contest["goodAnswer"] as! Float
-                        result.wrongAnswer = contest["wrongAnswer"] as! Float
-                        result.noAnswer = contest["noAnswer"] as! Float
-                        result.begin = NSDate(timeIntervalSince1970: NSTimeInterval(contest["begin"] as! Int))
-                        result.end = NSDate(timeIntervalSince1970: NSTimeInterval(contest["end"] as! Int))
+                for content in contests {
+                    if let contest = content as? NSDictionary {
+                        let newContest = Contest()
+                        newContest.id = contest["id"] as! Int
+                        newContest.duration = contest["duration"] as! Int
+                        newContest.name = contest["name"] as! String
+                        newContest.content = contest["description"] as! String
+                        newContest.goodAnswer = contest["goodAnswer"] as! Float
+                        newContest.wrongAnswer = contest["wrongAnswer"] as! Float
+                        newContest.noAnswer = contest["noAnswer"] as! Float
+                        newContest.begin = NSDate(timeIntervalSince1970: NSTimeInterval(contest["begin"] as! Int))
+                        newContest.end = NSDate(timeIntervalSince1970: NSTimeInterval(contest["end"] as! Int))
                         try! self.realm.write({
                             self.realm.deleteAll()
-                            self.realm.add(result)
+                            self.realm.add(newContest)
                         })
-                        callback(result)
-                    } else {
-                        //offline
-                        let realm = self.realm.objects(Contest)
-                        if realm.count == 1 {
-                            callback(self.realm.objects(Contest).first!)
-                        } else {
-                            callback(nil)
-                        }
+                        result.append(newContest)
                     }
-                })
+                }
             } else {
                 //offline
-                let realm = self.realm.objects(Contest)
-                if realm.count == 1 {
-                    callback(self.realm.objects(Contest).first!)
-                } else {
-                    callback(nil)
+                let contests = self.realm.objects(Contest)
+                for contest in contests {
+                    result.append(contest)
                 }
-
             }
-        })
+            callback(result)
+        }
     }
+    
+
     
 }

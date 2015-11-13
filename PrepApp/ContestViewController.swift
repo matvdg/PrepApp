@@ -8,19 +8,19 @@
 
 import UIKit
 
-class ContestViewController: UIViewController {
+class ContestViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIWebViewDelegate {
 
     //@IBOutlets
-    @IBOutlet weak var noContestLabel: UILabel!
     @IBOutlet weak var contestTitle: UILabel!
-    @IBOutlet weak var contestDate: UILabel!
-    @IBOutlet weak var contestContent: UITextView!
     @IBOutlet weak var launchButton: UIButton!
-    @IBOutlet weak var imageDate: UIImageView!
-	@IBOutlet var menuButton: UIBarButtonItem!
+    @IBOutlet weak var contestTable: UITableView!
+    @IBOutlet weak var contestContent: UIWebView!
     
     //properties
     var contest = Contest()
+    var elements = ["Date","Durée","Réponse juste","Réponse vide","Réponse fausse"]
+    var images = ["term","solo","true","empty","false"]
+    var details: [String]?
     
     //app method
 	override func viewDidLoad() {
@@ -28,17 +28,15 @@ class ContestViewController: UIViewController {
         //sync
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
+        self.contestContent.backgroundColor = UIColor.clearColor()
+        self.contestContent.opaque = true
         self.launchButton.layer.cornerRadius = 6
         super.viewDidLoad()
-        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreen
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
-		if self.revealViewController() != nil {
-			self.menuButton.target = self.revealViewController()
-			self.menuButton.action = "revealToggle:"
-			self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-		}
+        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
+        self.navigationController!.navigationBar.tintColor = colorGreen
+        self.title = self.contest.name
 	}
     
     //methods
@@ -63,48 +61,19 @@ class ContestViewController: UIViewController {
     }
     
     func loadData() {
-        //hiding objects
-        self.noContestLabel.hidden = true
-        self.contestTitle.hidden = true
-        self.contestContent.hidden = true
-        self.contestDate.hidden = true
-        self.launchButton.hidden = true
-        self.imageDate.hidden = true
-        
-        //looking for contest
-        SwiftSpinner.show("Recherche de concours...")
-        SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-        FactorySync.getContestManager().getContests { (answer) -> Void in
-            SwiftSpinner.hide()
-            if let contest = answer {
-                self.contest = contest
-                self.title = "Concours n°\(contest.id)"
-                self.contestTitle.text = contest.name
-                self.contestContent.text = contest.content.html2String
-                self.contestContent.font = UIFont(name: "Segoe UI", size: 16.0)
-                self.contestContent.textAlignment = NSTextAlignment.Justified
-                //formatting date
-                let formatter = NSDateFormatter()
-                formatter.dateFormat = "d/M/yy"
-                let begin = formatter.stringFromDate(contest.begin)
-                let end = formatter.stringFromDate(contest.end)
-                self.contestDate.text = "Du \(begin) au \(end)"
-                self.contestTitle.hidden = false
-                self.contestContent.hidden = false
-                self.contestDate.hidden = false
-                self.launchButton.hidden = false
-                self.imageDate.hidden = false
-            } else {
-                self.noContestLabel.hidden = false
-                self.contestTitle.hidden = true
-                self.contestContent.hidden = true
-                self.contestDate.hidden = true
-                self.launchButton.hidden = true
-                self.imageDate.hidden = true
-            }
-        }
-        
-
+        //formatting date
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "d/M/yy"
+        let begin = formatter.stringFromDate(contest.begin)
+        let end = formatter.stringFromDate(contest.end)
+        //adding contest details to the table
+        self.details = ["Du \(begin) au \(end)"]
+        self.details!.append("\(contest.duration) minutes")
+        self.details!.append(contest.goodAnswer.toStringPoints())
+        self.details!.append(contest.noAnswer.toStringPoints())
+        //loading content
+        self.contestContent.loadHTMLString(contest.content, baseURL: nil)
+        self.details!.append(contest.wrongAnswer.toStringPoints())
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -124,11 +93,43 @@ class ContestViewController: UIViewController {
         myAlert.addAction(UIAlertAction(title: "NON", style: UIAlertActionStyle.Cancel, handler: nil))
         myAlert.addAction(UIAlertAction(title: "OUI", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
             print("launching contest number \(self.contest.id)")
+            self.launchButton.enabled = false
+            self.launchButton.backgroundColor = colorDarkGrey
+            self.launchButton.setTitle("Concours terminé", forState: UIControlState.Disabled)
             self.performSegueWithIdentifier("showContest", sender: self)
         }))
         // show the alert
         self.presentViewController(myAlert, animated: true, completion: nil)
 
+    }
+    
+    //UITableViewDataSource
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.elements.count
+    }
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("item", forIndexPath: indexPath)
+        let image = self.images[indexPath.row]
+        cell.imageView!.image = UIImage(named: image)
+        cell.textLabel?.textColor = UIColor.blackColor()
+        cell.textLabel!.font = UIFont(name: "Segoe UI", size: 18)
+        cell.textLabel!.text = self.elements[indexPath.row]
+        cell.backgroundColor = colorGreyBackground
+        cell.detailTextLabel!.text = self.details![indexPath.row]
+        cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 18)
+        cell.detailTextLabel!.textColor = colorGreen
+        cell.textLabel!.adjustsFontSizeToFitWidth = true
+        cell.detailTextLabel!.adjustsFontSizeToFitWidth = true
+        cell.textLabel!.font = UIFont(name: "Segoe UI", size: 12)
+        cell.tintColor = colorGreen
+        return cell
+    }
+    
+    //UIWebViewDelegate method
+    func webViewDidFinishLoad(webView: UIWebView) {
+        print("webViewDidFinishLoad")
+        webView.backgroundColor = UIColor.clearColor()
+        webView.opaque = true
     }
 
 }

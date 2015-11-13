@@ -61,7 +61,7 @@ class QuestionContestViewController: UIViewController,
         self.chrono.text = ""
         self.chrono.textAlignment = NSTextAlignment.Center
         self.markButton.enabled = false
-        self.titleLabel.text = "Concours n°\(self.contest!.id)"
+        self.titleLabel.text = self.contest!.name
         self.endChallengeButton.layer.cornerRadius = 6
         self.titleLabel.textColor = UIColor.blackColor()
         self.titleBar.backgroundColor = colorGreenLogo

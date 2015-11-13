@@ -22,7 +22,7 @@
 		F60082D31B854F9E00F7BCBB /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60082D21B854F9E00F7BCBB /* ConfigManager.swift */; };
 		F604061E1B8E6150006F7F4E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F604061D1B8E6150006F7F4E /* Colors.swift */; };
 		F605AF0E1B04146C00E90596 /* SoloViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605AF0D1B04146C00E90596 /* SoloViewController.swift */; };
-		F605AF101B0414F300E90596 /* FriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605AF0F1B0414F300E90596 /* FriendViewController.swift */; };
+		F605AF101B0414F300E90596 /* DuoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605AF0F1B0414F300E90596 /* DuoViewController.swift */; };
 		F605AF121B04151500E90596 /* ContestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F605AF111B04151500E90596 /* ContestViewController.swift */; };
 		F60739E21BB216BE004DEC32 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60739E11BB216BE004DEC32 /* CommentViewController.swift */; };
 		F60739E41BB216CB004DEC32 /* PreviewQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60739E31BB216CB004DEC32 /* PreviewQuestionViewController.swift */; };
@@ -54,6 +54,7 @@
 		F64630A31B5E663C006A5F71 /* SubjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64630A21B5E663C006A5F71 /* SubjectManager.swift */; };
 		F64630A51B5E6959006A5F71 /* FactorySync.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64630A41B5E6959006A5F71 /* FactorySync.swift */; };
 		F64630A71B5FD451006A5F71 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F64630A61B5FD451006A5F71 /* LocalAuthentication.framework */; };
+		F660C7541BF53C8100252366 /* ChoiceContestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F660C7531BF53C8100252366 /* ChoiceContestViewController.swift */; };
 		F663E3181B7A620800F23294 /* QuestionHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F663E3171B7A620800F23294 /* QuestionHistory.swift */; };
 		F663E31C1B7A6BD000F23294 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = F663E31B1B7A6BD000F23294 /* History.swift */; };
 		F66771811B61A31900042145 /* FactoryRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66771801B61A31900042145 /* FactoryRealm.swift */; };
@@ -67,6 +68,9 @@
 		F6AAE6E21AF433E100195E11 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6AAE6E01AF433E100195E11 /* LaunchScreen.xib */; };
 		F6AAE6EE1AF433E100195E11 /* PrepAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AAE6ED1AF433E100195E11 /* PrepAppTests.swift */; };
 		F6AC7B4D1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AC7B4C1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift */; };
+		F6B0E3A51BF551E100FEB3D0 /* ContestLeaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B0E3A41BF551E100FEB3D0 /* ContestLeaderboard.swift */; };
+		F6B0E3A71BF5522800FEB3D0 /* ContestPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B0E3A61BF5522800FEB3D0 /* ContestPlayer.swift */; };
+		F6B0E3A91BF557A200FEB3D0 /* LeaderboardContestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B0E3A81BF557A200FEB3D0 /* LeaderboardContestViewController.swift */; };
 		F6C02C421B760B960021ABE1 /* ChoiceQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C02C411B760B960021ABE1 /* ChoiceQuestionViewController.swift */; };
 		F6C02C461B762A810021ABE1 /* UITableViewCellAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C02C451B762A810021ABE1 /* UITableViewCellAnswer.swift */; };
 		F6C267FC1BB56BDC00CA462A /* PendingDuo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C267FB1BB56BDC00CA462A /* PendingDuo.swift */; };
@@ -158,7 +162,7 @@
 		F60082D21B854F9E00F7BCBB /* ConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		F604061D1B8E6150006F7F4E /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		F605AF0D1B04146C00E90596 /* SoloViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SoloViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		F605AF0F1B0414F300E90596 /* FriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FriendViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		F605AF0F1B0414F300E90596 /* DuoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DuoViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F605AF111B04151500E90596 /* ContestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ContestViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F60739E11BB216BE004DEC32 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CommentViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F60739E31BB216CB004DEC32 /* PreviewQuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewQuestionViewController.swift; sourceTree = "<group>"; };
@@ -191,6 +195,7 @@
 		F64630A21B5E663C006A5F71 /* SubjectManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubjectManager.swift; sourceTree = "<group>"; };
 		F64630A41B5E6959006A5F71 /* FactorySync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactorySync.swift; sourceTree = "<group>"; };
 		F64630A61B5FD451006A5F71 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		F660C7531BF53C8100252366 /* ChoiceContestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceContestViewController.swift; sourceTree = "<group>"; };
 		F663E3171B7A620800F23294 /* QuestionHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionHistory.swift; sourceTree = "<group>"; };
 		F663E31B1B7A6BD000F23294 /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = History.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F66771801B61A31900042145 /* FactoryRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryRealm.swift; sourceTree = "<group>"; };
@@ -208,6 +213,9 @@
 		F6AAE6EC1AF433E100195E11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6AAE6ED1AF433E100195E11 /* PrepAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepAppTests.swift; sourceTree = "<group>"; };
 		F6AC7B4C1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceQuestionViewControllerDelegate.swift; sourceTree = "<group>"; };
+		F6B0E3A41BF551E100FEB3D0 /* ContestLeaderboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContestLeaderboard.swift; sourceTree = "<group>"; };
+		F6B0E3A61BF5522800FEB3D0 /* ContestPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContestPlayer.swift; sourceTree = "<group>"; };
+		F6B0E3A81BF557A200FEB3D0 /* LeaderboardContestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardContestViewController.swift; sourceTree = "<group>"; };
 		F6C02C411B760B960021ABE1 /* ChoiceQuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ChoiceQuestionViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F6C02C451B762A810021ABE1 /* UITableViewCellAnswer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellAnswer.swift; sourceTree = "<group>"; };
 		F6C267FB1BB56BDC00CA462A /* PendingDuo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingDuo.swift; sourceTree = "<group>"; };
@@ -355,7 +363,7 @@
 		F6322A121B61578B0074549E /* Duo */ = {
 			isa = PBXGroup;
 			children = (
-				F605AF0F1B0414F300E90596 /* FriendViewController.swift */,
+				F605AF0F1B0414F300E90596 /* DuoViewController.swift */,
 				F62C2A091BE6F59300DF5EF0 /* QuestionDuoViewController.swift */,
 				F62C2A071BE6F58600DF5EF0 /* ScoreDuoViewController.swift */,
 				F67436311BEEDEAD003E798B /* ResultsDuoViewController.swift */,
@@ -376,9 +384,11 @@
 		F6322A141B6157A70074549E /* Contest */ = {
 			isa = PBXGroup;
 			children = (
+				F660C7531BF53C8100252366 /* ChoiceContestViewController.swift */,
 				F605AF111B04151500E90596 /* ContestViewController.swift */,
 				F6E086361BF3F59A00B4DB10 /* QuestionContestViewController.swift */,
 				F6E086381BF3F5A700B4DB10 /* ScoreContestViewController.swift */,
+				F6B0E3A81BF557A200FEB3D0 /* LeaderboardContestViewController.swift */,
 			);
 			name = Contest;
 			sourceTree = "<group>";
@@ -396,6 +406,8 @@
 				F60ED4801BEFA04F00825A0E /* News.swift */,
 				F6C267FB1BB56BDC00CA462A /* PendingDuo.swift */,
 				F6E086301BF3C28100B4DB10 /* Contest.swift */,
+				F6B0E3A41BF551E100FEB3D0 /* ContestLeaderboard.swift */,
+				F6B0E3A61BF5522800FEB3D0 /* ContestPlayer.swift */,
 				F66771801B61A31900042145 /* FactoryRealm.swift */,
 			);
 			name = "Realm Entities";
@@ -717,11 +729,13 @@
 				F6C267FC1BB56BDC00CA462A /* PendingDuo.swift in Sources */,
 				F6C02C421B760B960021ABE1 /* ChoiceQuestionViewController.swift in Sources */,
 				954441E41B9CB49F0035B7ED /* ScoreSoloViewController.swift in Sources */,
+				F660C7541BF53C8100252366 /* ChoiceContestViewController.swift in Sources */,
+				F6B0E3A51BF551E100FEB3D0 /* ContestLeaderboard.swift in Sources */,
 				952588BD1B974BDF00F68B3F /* QuestionSoloViewController.swift in Sources */,
 				F6987A6D1B16321B002989C6 /* ImageManager.swift in Sources */,
 				F62C2A0A1BE6F59300DF5EF0 /* QuestionDuoViewController.swift in Sources */,
 				F6322A1A1B6158300074549E /* CorrectionViewController.swift in Sources */,
-				F605AF101B0414F300E90596 /* FriendViewController.swift in Sources */,
+				F605AF101B0414F300E90596 /* DuoViewController.swift in Sources */,
 				F6322A1F1B615E360074549E /* Chapter.swift in Sources */,
 				F6FBFAC31AFA98D40020B074 /* Extensions.swift in Sources */,
 				952588BB1B9742E400F68B3F /* NewsfeedViewController.swift in Sources */,
@@ -736,6 +750,8 @@
 				F64630A31B5E663C006A5F71 /* SubjectManager.swift in Sources */,
 				F60082D11B84F9C600F7BCBB /* UserPreferences.swift in Sources */,
 				F61A1CDB1B003F7500777584 /* SWRevealViewController.m in Sources */,
+				F6B0E3A71BF5522800FEB3D0 /* ContestPlayer.swift in Sources */,
+				F6B0E3A91BF557A200FEB3D0 /* LeaderboardContestViewController.swift in Sources */,
 				F604061E1B8E6150006F7F4E /* Colors.swift in Sources */,
 				F605AF121B04151500E90596 /* ContestViewController.swift in Sources */,
 				F62C2A061BE6C3B400DF5EF0 /* SwiftSpinner.swift in Sources */,

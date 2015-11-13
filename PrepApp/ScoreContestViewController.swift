@@ -18,7 +18,7 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
     var succeeded = 0
     var numberOfQuestions = 0
     var awardPoints = 0
-    var statsTopics = ["Bonnes réponses", "Réponses vides", "Mauvaises réponses", "Total", "AwardPoints réussites", "AwardPoints assiduité", "Total AwardPoints"]
+    var statsTopics = ["Réponses justes", "Réponses vides", "Réponses fausses", "Total", "AwardPoints réussites", "AwardPoints assiduité", "Total AwardPoints"]
     var statsData: [String] = []
     var statsDetails: [String] = []
     var statsPics = ["true", "empty", "false", "check","stars","puzzle","awardPoint"]
@@ -53,7 +53,7 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
     private func designScoreVC() {
         self.dismissButton.layer.cornerRadius = 6
         self.view!.backgroundColor = colorGreyBackground
-        self.titleLabel.text = "Résultats du concours n°\(self.contest!.id)"
+        self.titleLabel.text = "Résultats du concours"
         self.titleLabel.textColor = UIColor.whiteColor()
         self.titleBar.backgroundColor = colorGreenLogo
         self.greenRound.layer.cornerRadius = self.greenRound.layer.bounds.width / 2
@@ -75,7 +75,6 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
                 self.scoreLabel.textColor = colorGreenLogo
             }
             self.animationScore++
-            print("+ animation")
         } else {
             self.scoreLabel.text = "\(self.animationScore)"
             if self.animationScore < 10 {
@@ -85,10 +84,7 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
             }
             self.animationScore = 0
             self.scoreTimer.invalidate()
-            print("timer invalidate")
         }
-        
-        
     }
     
     private func animateAwardPoint() {

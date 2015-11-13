@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FriendViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //properties
     var friends = [Friend]()
@@ -115,6 +115,7 @@ class FriendViewController: UIViewController, UITableViewDataSource, UITableView
         self.designShuffle.layer.cornerRadius = 6
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.navigationController!.navigationBar.tintColor = colorGreen
+        self.title = "Défi duo"
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         if self.revealViewController() != nil {

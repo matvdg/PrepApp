@@ -167,11 +167,11 @@ class MarkedQuestionsTableViewController: UITableViewController {
         }
     }
     
-
-    //UITableViewDelegate Methods
-    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.01
-    }
+//
+//    //UITableViewDelegate Methods
+//    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return 0.01
+//    }
     
     override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
         self.selectedQuestion = self.questions[indexPath.row]
