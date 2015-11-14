@@ -66,6 +66,10 @@ class FactoryRealm {
             try self.realmDuo.write {
                 self.realmDuo.deleteAll()
             }
+            
+            try self.realmContestHistory.write {
+                self.realmContestHistory.deleteAll()
+            }
  
         } catch {
             print("error in Realm")
