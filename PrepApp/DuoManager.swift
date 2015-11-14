@@ -51,7 +51,7 @@ class DuoManager {
     }
     
     func sendResultsDuo(idDuo: Int, success: Int, callback: (Bool, String) -> Void) {
-        let request = NSMutableURLRequest(URL: FactorySync.sendResultsDuoUrl!)
+        let request = NSMutableURLRequest(URL: FactorySync.sendDuoResultsUrl!)
         request.HTTPMethod = "POST"
         request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&idDuo=\(idDuo)&success=\(success)"
@@ -113,7 +113,7 @@ class DuoManager {
     }
     
     private func retrieveResultsDuo(callback: (NSDictionary?) -> Void) {
-        let request = NSMutableURLRequest(URL: FactorySync.retrieveResultsDuoUrl!)
+        let request = NSMutableURLRequest(URL: FactorySync.retrieveDuoResultsUrl!)
         request.HTTPMethod = "POST"
         request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"

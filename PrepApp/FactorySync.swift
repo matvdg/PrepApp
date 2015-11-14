@@ -60,13 +60,13 @@ class FactorySync {
     //DUO
     static let pendingDuoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/pending/")
     static let requestDuoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/request/")
-    static let retrieveResultsDuoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/results/")
-    static let sendResultsDuoUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/results/send/")
+    static let retrieveDuoResultsUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/results/")
+    static let sendDuoResultsUrl = NSURL(string: "\(FactorySync.apiUrl!)/duo/results/send/")
     
     //CONTEST
     static let contestUrl = NSURL(string: "\(FactorySync.apiUrl!)/contest/")
-    static let retrieveContestUrl = NSURL(string: "\(FactorySync.apiUrl!)/contest/results/")
-    static let sendContestUrl = NSURL(string: "\(FactorySync.apiUrl!)/contest/results/send")
+    static let retrieveContestResultsUrl = NSURL(string: "\(FactorySync.apiUrl!)/contest/results/")
+    static let sendContestResultsUrl = NSURL(string: "\(FactorySync.apiUrl!)/contest/results/send")
     
     //FEEDBACK
     static let feedbackUrl = NSURL(string: "\(FactorySync.apiUrl!)/feedback/")

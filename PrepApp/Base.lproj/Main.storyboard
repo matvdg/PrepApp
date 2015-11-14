@@ -4640,8 +4640,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Aucun résultats de concours pour le moment" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="5n1-a7-P3Z">
-                                                    <rect key="frame" x="15" y="12" width="325" height="19.5"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Aucun résultat pour le moment" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="5n1-a7-P3Z">
+                                                    <rect key="frame" x="15" y="12" width="223" height="19.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -4649,6 +4649,35 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="22/05/2015" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" id="Lcy-50-zGJ">
+                                                    <rect key="frame" x="480.5" y="12" width="84.5" height="19.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <animations/>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                        <color key="backgroundColor" red="0.9360984564" green="0.93607044220000002" blue="0.93608629700000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="contestLeaderboard" textLabel="Tnm-Zm-QCq" detailTextLabel="7ZS-xG-y1C" style="IBUITableViewCellStyleValue1" id="Lms-Xu-uDG" userLabel="contestResult">
+                                        <rect key="frame" x="0.0" y="196" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lms-Xu-uDG" id="twE-ys-Wcg">
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Aucun classement pour le moment" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="Tnm-Zm-QCq">
+                                                    <rect key="frame" x="15" y="12" width="251" height="19.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="22/05/2015" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" id="7ZS-xG-y1C">
                                                     <rect key="frame" x="480.5" y="12" width="84.5" height="19.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>
@@ -4688,7 +4717,8 @@
                         <outlet property="contestTable" destination="wxd-98-TxX" id="RpN-2w-Z8O"/>
                         <outlet property="menuButton" destination="pyE-Bj-HpK" id="YWy-GP-TTM"/>
                         <segue destination="EGs-tW-rEi" kind="show" identifier="showContestContent" id="hbY-uc-hKp"/>
-                        <segue destination="1db-Qe-kWv" kind="presentation" identifier="showContestLeaderboard" modalTransitionStyle="coverVertical" id="dDg-sS-IBx"/>
+                        <segue destination="1db-Qe-kWv" kind="show" identifier="showContestLeaderboard" id="dDg-sS-IBx"/>
+                        <segue destination="bTg-Bo-55X" kind="presentation" identifier="showScore" modalTransitionStyle="coverVertical" id="F9M-0G-DBV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sbZ-T6-fcd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4709,7 +4739,7 @@
                         <color key="sectionIndexBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="contestPlayer" textLabel="hOE-UL-r3Q" detailTextLabel="lPM-mP-k6z" style="IBUITableViewCellStyleValue1" id="UuZ-dt-qbc">
-                                <rect key="frame" x="0.0" y="22" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="86" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UuZ-dt-qbc" id="hbj-cY-af7">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -4796,7 +4826,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="Mzc-wZ-R5Z"/>
         <segue reference="KwL-6O-QQR"/>
-        <segue reference="dYD-Xd-t1r"/>
+        <segue reference="F9M-0G-DBV"/>
         <segue reference="z3b-Ap-bLN"/>
         <segue reference="Pp1-nw-Dh8"/>
     </inferredMetricsTieBreakers>

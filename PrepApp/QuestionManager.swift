@@ -205,7 +205,7 @@ class QuestionManager {
             "idContest" : idContest,
             "correction" : correction,
             "version" : version
-            ])
+        ])
         
         try! realm.write {
             realm.add(newQuestion)

@@ -12,11 +12,13 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
     
     //properties
     var contests = [Contest]()
+    var contestsHistory = [ContestHistory]()
     var contestsLeaderboard = [ContestLeaderboard]()
     let realm = FactoryRealm.getRealmFriends()
     var pullToRefresh =  UIRefreshControl()
     var refreshIsNeeded = false
     var selectedContest: Contest?
+    var selectedContestHistory: ContestHistory?
     var selectedContestLeaderboard: ContestLeaderboard?
     
     //@IBOutlet
@@ -83,14 +85,48 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
         //loading contests
         FactorySync.getContestManager().getContests { (contests) -> Void in
             self.contests = contests
-            self.templating()
-            self.contestTable.reloadData()
-            // tell refresh control it can stop showing up now
-            if self.pullToRefresh.refreshing
-            {
-                self.pullToRefresh.endRefreshing()
+            self.contestsHistory = FactorySync.getContestManager().getResultContests()
+            let contestsHistory = FactoryHistory.getHistory().getContests()
+            print(contestsHistory)
+            if contestsHistory.isEmpty {
+                //sync finished!
+                self.templating()
+                self.contestTable.reloadData()
+                // tell refresh control it can stop showing up now
+                if self.pullToRefresh.refreshing
+                {
+                    self.pullToRefresh.endRefreshing()
+                }
+                //hide the waiting animation
+                SwiftSpinner.hide()
+                print("no contestHistory to display")
+            } else {
+                for contestHistory in contestsHistory {
+                    var counter = 0
+                    FactorySync.getContestManager().getContestLeaderboard(contestHistory, callback: { (data) -> Void in
+                        counter++
+                        if let contestLeaderboard = data {
+                            //online
+                            self.contestsLeaderboard.append(contestLeaderboard)
+                        }
+                        print(counter)
+                        if counter == contestsHistory.count {
+                            //sync finished!
+                            self.templating()
+                            self.contestTable.reloadData()
+                            // tell refresh control it can stop showing up now
+                            if self.pullToRefresh.refreshing
+                            {
+                                self.pullToRefresh.endRefreshing()
+                            }
+                            //hide the waiting animation
+                            SwiftSpinner.hide()
+                        }
+                    })
+                }
+
             }
-            SwiftSpinner.hide()
+            
         }
     }
     
@@ -98,13 +134,19 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
         if self.contests.isEmpty {
             let templateContest = Contest()
             templateContest.id = -1
-            templateContest.name = "Pas de concours pour le moment"
+            templateContest.name = "Aucun concours pour le moment"
             self.contests.append(templateContest)
-            
+        }
+        if self.contestsHistory.isEmpty {
+            let templateContestHistory = ContestHistory()
+            templateContestHistory.id = -1
+            templateContestHistory.name = "Aucun résultat pour le moment"
+            self.contestsHistory.append(templateContestHistory)
         }
         if self.contestsLeaderboard.isEmpty {
             let templateContestLeaderboard = ContestLeaderboard()
-            templateContestLeaderboard.name = "Pas de classement pour le moment"
+            templateContestLeaderboard.id = -1
+            templateContestLeaderboard.name = "Aucun classement pour le moment"
             self.contestsLeaderboard.append(templateContestLeaderboard)
         }
         
@@ -116,7 +158,7 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
     
     // MARK: - Table view data source
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -152,24 +194,39 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
             cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
             cell.tintColor = colorGreen
             return cell
-        } else {
+        } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier("contestResult", forIndexPath: indexPath)
+            let contestHistory = self.contestsHistory[indexPath.row]
+            cell.textLabel!.text = contestHistory.name
+            cell.textLabel?.textColor = UIColor.blackColor()
+            cell.backgroundColor = colorGreyBackground
+            cell.textLabel!.adjustsFontSizeToFitWidth = true
+            cell.textLabel!.adjustsFontSizeToFitWidth = true
+            //adding contest details to the table
+            if contestHistory.id == -1 {
+                cell.accessoryType = UITableViewCellAccessoryType.None
+                cell.detailTextLabel!.text = ""
+            } else {
+                cell.detailTextLabel!.text = ""
+                cell.accessoryView = UIImageView(image: UIImage(named: "results"))
+            }
+            cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
+            cell.tintColor = colorGreen
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("contestLeaderboard", forIndexPath: indexPath)
             let contestLeaderboard = self.contestsLeaderboard[indexPath.row]
             cell.textLabel!.text = contestLeaderboard.name
             cell.textLabel?.textColor = UIColor.blackColor()
             cell.backgroundColor = colorGreyBackground
             cell.textLabel!.adjustsFontSizeToFitWidth = true
             cell.textLabel!.adjustsFontSizeToFitWidth = true
-            //formatting date
-            let formatter = NSDateFormatter()
-            formatter.dateFormat = "d/M/yy"
-            let end = formatter.stringFromDate(contestLeaderboard.end)
             //adding contest details to the table
-            if contestLeaderboard.name == "Pas de classement pour le moment" {
+            if contestLeaderboard.id == -1 {
                 cell.accessoryType = UITableViewCellAccessoryType.None
                 cell.detailTextLabel!.text = ""
             } else {
-                cell.detailTextLabel!.text = end
+                cell.detailTextLabel!.text = ""
                 cell.accessoryView = UIImageView(image: UIImage(named: "leaderboard"))
             }
             cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
@@ -190,9 +247,15 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
             if contest.id != -1 {
                 self.performSegueWithIdentifier("showContestContent", sender: self)
             }
+        } else if indexPath.section == 1 {
+            let contestHistory = self.contestsHistory[indexPath.row]
+            self.selectedContestHistory = contestHistory
+            if contestHistory.id != -1 {
+                self.performSegueWithIdentifier("showScore", sender: self)
+            }
         } else {
             let contestLeaderboard = self.contestsLeaderboard[indexPath.row]
-            if contestLeaderboard.name != "Pas de résultats de concours pour le moment" {
+            if contestLeaderboard.id != -1 {
                 self.performSegueWithIdentifier("showContestLeaderboard", sender: self)
             }
         }
@@ -201,7 +264,6 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRectMake(0, 0, tableView.bounds.size.width, 44))
         headerView.backgroundColor = colorGreen
-        
         let headerLabel = UILabel(frame: CGRectMake(15, 0, tableView.bounds.size.width, 44))
         headerLabel.backgroundColor = UIColor.clearColor()
         headerLabel.shadowOffset = CGSizeMake(0,2)
@@ -209,6 +271,8 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
         headerLabel.font = UIFont(name: "Segoe UI", size: 20)
         if section == 0 {
             headerLabel.text = "Concours en cours"
+        } else if section == 1 {
+            headerLabel.text = "Résultats de concours"
         } else {
             headerLabel.text = "Classements de concours"
         }
@@ -226,6 +290,26 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
         if let LCVC = segue.destinationViewController as? LeaderboardContestViewController {
             // Pass the selected object to the new view controller.
             LCVC.leaderboard = self.selectedContestLeaderboard!
+        }
+        
+        if let scoreVC = segue.destinationViewController as? ScoreContestViewController {
+            // Pass the selected object to the new view controller.
+            scoreVC.score = self.selectedContestHistory!.score
+            scoreVC.emptyAnswers = self.selectedContestHistory!.emptyAnswers
+            scoreVC.succeeded = self.selectedContestHistory!.succeeded
+            scoreVC.numberOfQuestions = self.selectedContestHistory!.numberOfQuestions
+            let contest = Contest()
+            contest.id = self.selectedContestHistory!.id
+            contest.name = selectedContestHistory!.name
+            contest.content = selectedContestHistory!.content
+            contest.wrongAnswer = selectedContestHistory!.wrongAnswer
+            contest.goodAnswer = selectedContestHistory!.goodAnswer
+            contest.noAnswer = selectedContestHistory!.noAnswer
+            contest.duration = selectedContestHistory!.duration
+            contest.begin = selectedContestHistory!.begin
+            contest.end = selectedContestHistory!.end
+            scoreVC.contest = contest
+            scoreVC.reviewMode = true
         }
     }
 }

@@ -201,16 +201,16 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
         if self.friends.isEmpty {
             let templateFriend = Friend()
             templateFriend.id = -1
-            templateFriend.firstName = "Pas d'amis pour le moment"
-            templateFriend.nickname = "Pas d'amis pour le moment"
+            templateFriend.firstName = "Aucun ami pour le moment"
+            templateFriend.nickname = "Aucun ami pour le moment"
             self.friends.append(templateFriend)
             
         }
         if self.pendingDuos.isEmpty {
             let templateDuo = PendingDuo()
             templateDuo.id = -1
-            templateDuo.firstName = "Pas de défi en attente pour le moment"
-            templateDuo.nickname = "Pas de défi en attente pour le moment"
+            templateDuo.firstName = "Aucun défi en attente pour le moment"
+            templateDuo.nickname = "Aucun défi en attente pour le moment"
             self.pendingDuos.append(templateDuo)
         }
 

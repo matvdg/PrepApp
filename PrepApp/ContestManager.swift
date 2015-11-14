@@ -45,25 +45,23 @@ class ContestManager {
                     }
                 }
             }
-            
         }
         task.resume()
     }
     
-    private func retrieveContestLeaderboards(callback: (NSArray?) -> Void) {
-        
-        let request = NSMutableURLRequest(URL: FactorySync.retrieveContestUrl!)
+    private func retrieveContestResults(idContest: Int, callback: (NSArray?) -> Void) {
+        let request = NSMutableURLRequest(URL: FactorySync.retrieveContestResultsUrl!)
         request.HTTPMethod = "POST"
         request.timeoutInterval = NSTimeInterval(5)
-        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
+        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&idContest=\(idContest)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
             (data, response, error) in
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
+                    print("retrieveContestLeaderboard offline")
                     callback(nil)
-                    
                 } else {
                     let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
@@ -72,23 +70,24 @@ class ContestManager {
                         if let result = jsonResult {
                             callback(result)
                         } else {
+                            print("error : NSArray nil in retrieveContestLeaderboard")
                             callback(nil)
                         }
                     } else {
+                        print("header status = \(statusCode) in retrieveContestLeaderboard")
                         callback(nil)
                     }
                 }
             }
-            
         }
         task.resume()
     }
 
     func sendResultsContest(idContest: Int, points: Float, callback: (Bool, String) -> Void) {
-        let request = NSMutableURLRequest(URL: FactorySync.sendContestUrl!)
+        let request = NSMutableURLRequest(URL: FactorySync.sendContestResultsUrl!)
         request.HTTPMethod = "POST"
         request.timeoutInterval = NSTimeInterval(5)
-        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&idContest=\(idContest)&points=\(points)"
+        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&idContest=\(idContest)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
             (data, response, error) in
@@ -113,7 +112,7 @@ class ContestManager {
     
     //REALM
     
-    ///return array of Contest from Realm if offline, from API if online (+backup to RealmDB)
+    ///callback array of Contest from Realm if offline, from API if online (+backup to RealmDB)
     func getContests(callback: ([Contest]) -> Void) {
         
         self.retrieveContests { (data) -> Void in
@@ -154,6 +153,32 @@ class ContestManager {
         }
     }
     
+    ///callback a ContestLeaderboard from API if online or nil if offline
+    func getContestLeaderboard(contestHistory: ContestHistory, callback: (ContestLeaderboard?) -> Void) {
+        self.retrieveContestResults(contestHistory.id, callback: { (data) -> Void in
+            if let array = data {
+                var players = [ContestPlayer]()
+                for element in array {
+                    if let player = element as? NSDictionary {
+                        let newPlayer = ContestPlayer()
+                        newPlayer.firstName = player["firstName"] as! String
+                        newPlayer.lastName = player["lastName"] as! String
+                        newPlayer.nickname = player["nickname"] as! String
+                        newPlayer.points = player["points"] as! Float
+                        players.append(newPlayer)
+                    }
+                }
+                callback(ContestLeaderboard(value: [
+                    "id" : contestHistory.id,
+                    "name" : contestHistory.name,
+                    "players" : players
+                    ]))
+            } else {
+                callback(nil)
+            }
+        })
+    }
+
     ///save resultsContest to RealmDB ContestHistory
     func saveResultsContest(contest: Contest, score: Int, emptyAnswers: Int, succeeded: Int, numberOfQuestions: Int ) {
         let resultsContest = ContestHistory()
@@ -180,7 +205,7 @@ class ContestManager {
         
     }
     
-    //get a resultContest from local RealmDB
+    ///get a resultContest from local RealmDB
     func getResultContest(id: Int) -> ContestHistory? {
         if !realmHistory.objects(ContestHistory).filter("id = \(id)").isEmpty {
             return realmHistory.objects(ContestHistory).filter("id = \(id)").first
@@ -188,6 +213,15 @@ class ContestManager {
             return nil
         }
     }
-
+    
+    ///get resultContests from local RealmDB
+    func getResultContests() -> [ContestHistory] {
+        var result = [ContestHistory]()
+        let realm = realmHistory.objects(ContestHistory)
+        for item in realm {
+            result.append(item)
+        }
+        return result
+    }
     
 }

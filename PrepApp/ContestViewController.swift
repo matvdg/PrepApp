@@ -11,7 +11,6 @@ import UIKit
 class ContestViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIWebViewDelegate {
 
     //@IBOutlets
-    @IBOutlet weak var contestTitle: UILabel!
     @IBOutlet weak var launchButton: UIButton!
     @IBOutlet weak var contestTable: UITableView!
     @IBOutlet weak var contestContent: UIWebView!
@@ -24,7 +23,6 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
     var refreshIsNeeded = false
     var contestHistory: ContestHistory?
     var reviewMode = false
-    
     //app methods
 	override func viewDidLoad() {
         self.loadData()
@@ -91,14 +89,14 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.contestContent.loadHTMLString(self.contest.content, baseURL: nil)
         
         if !FactoryHistory.getHistory().isContestNew(self.contest.id) {
-            /*the contest isn't new -> fetched from QuestionHistory - we couldn't have checked into ContestHistory -although it'd have been an easier check- because this local data isn't saved into PrepApp servers, just in local Realm DB, so we loose it after a new install of the app... So we could do the contest twice and cheating just by reinstalling the app. So we checked into QuestionHistory which is stored locally and remotely, the check is 100% sure :D */
-            //now we check into the local only ContestHistory to let display the score again or not
+            /*the contest isn't new -> fetched from QuestionHistory - we couldn't have checked into ContestHistory -although it'd have been an easier check- because this local data isn't saved into PrepApp servers, just in local Realm DB, so we loose it after a new install of the app... So we could do the contest twice and cheating just by reinstalling the app or logging out. So we checked into QuestionHistory which is stored locally and remotely, the check is 100% sure :D */
+            //now we check into the local only ContestHistory to let display the score again or not (only if available)
             if let resultContest = FactorySync.getContestManager().getResultContest(self.contest.id) {
                 //results available!
                 print("results available!")
                 self.contestHistory = resultContest
-                self.launchButton.setTitle("Revoir les résultats", forState: UIControlState.Normal)
                 self.reviewMode = true
+                self.launchButton.setTitle("Revoir les résultats", forState: UIControlState.Normal)
             } else {
                 print("no results to display")
                 //no results to display

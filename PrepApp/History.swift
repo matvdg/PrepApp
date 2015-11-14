@@ -14,6 +14,7 @@ class History {
     private let realmHistory = FactoryRealm.getRealmHistory()
     private let realm = FactoryRealm.getRealm()
     private let realmContest = FactoryRealm.getRealmContest()
+    private let realmContestHistory = FactoryRealm.getRealmContestHistory()
     
     var syncHistoryNeeded = true
     
@@ -84,6 +85,32 @@ class History {
             return result
         }
         return false
+    }
+    
+    func getContests() -> [ContestHistory] {
+        var ids = [Int]()
+        var result = [ContestHistory]()
+        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        for questionHistory in questionsHistory {
+            let questions = self.realm.objects(Question)
+            for question in questions {
+                if question.id == questionHistory.id {
+                    if question.idContest != 0 {
+                        if !ids.contains(question.idContest){
+                            ids.append(question.idContest)
+                        }
+                    }
+                }
+            }
+        }
+        print(ids)
+        for id in ids {
+            if !self.realmContestHistory.objects(ContestHistory).filter("id = \(id)").isEmpty {
+                result.append(self.realmContestHistory.objects(ContestHistory).filter("id = \(id)").first!)
+            }
+        }
+        print(result)
+        return result
     }
     
     func isQuestionNewInTraining(id: Int)-> Bool {
@@ -289,15 +316,12 @@ class History {
         //syncing if necessary
         if FactoryHistory.getHistory().syncHistoryNeeded {
             FactoryHistory.getHistory().syncHistory { (result) -> Void in
-                print("history synced = \(result)")
                 if result {
                     User.currentUser!.updateLevel(User.currentUser!.level)
                     User.currentUser!.updateAwardPoints(User.currentUser!.awardPoints)
                     FactoryHistory.getHistory().syncHistoryNeeded = false
                 }
             }
-        } else {
-            print("nothing new in History/Level/AP, no need to sync")
         }
     }
 

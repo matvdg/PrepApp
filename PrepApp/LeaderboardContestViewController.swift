@@ -58,19 +58,19 @@ class LeaderboardContestViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.leaderboard.leaderboard.count
+        return self.leaderboard.players.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("contestPlayer", forIndexPath: indexPath)
-        let contestPlayer = self.leaderboard.leaderboard[indexPath.row]
+        let contestPlayer = self.leaderboard.players[indexPath.row]
         cell.textLabel?.textColor = UIColor.blackColor()
         cell.backgroundColor = colorGreyBackground
         cell.textLabel!.adjustsFontSizeToFitWidth = false
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
         cell.backgroundColor = colorGreyBackground
-        cell.detailTextLabel!.text = contestPlayer.score.toStringPoints()
+        cell.detailTextLabel!.text = contestPlayer.points.toStringPoints()
         cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 16)
         cell.detailTextLabel!.textColor = colorGreen
         cell.textLabel!.adjustsFontSizeToFitWidth = true
@@ -91,7 +91,7 @@ class LeaderboardContestViewController: UITableViewController {
         case 2:
             //cell.backgroundColor = colorBronze
             //cell.textLabel?.textColor = UIColor.whiteColor()
-            //cell.detailTextLabel!.textColor = UIColor.whiteColor()
+            //cell.detailTextLabel!.textColor = UIColor.whiteColor()r
             cell.imageView?.image = UIImage(named: "bronzemedal")
         default:
             cell.imageView?.image = nil

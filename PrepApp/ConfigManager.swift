@@ -36,14 +36,12 @@ class ConfigManager {
         //we backup the DatabaseVersion for persistence storage
         NSUserDefaults.standardUserDefaults().setObject(version, forKey: "version")
         NSUserDefaults.standardUserDefaults().synchronize()
-        print("version saved")
     }
     
     func saveCurrentDay(currentDay: Int) {
         //we backup the currentDay for persistence storage
         NSUserDefaults.standardUserDefaults().setObject(currentDay, forKey: "currentDay")
         NSUserDefaults.standardUserDefaults().synchronize()
-        print("currentDay saved")
     }
     
     func loadDate() -> String {

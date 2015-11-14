@@ -100,17 +100,7 @@ class User {
         request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&level=\(newLevel)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
-            (data, response, error) in
-            dispatch_async(dispatch_get_main_queue()) {
-                if error == nil {
-                    let statusCode = (response as! NSHTTPURLResponse).statusCode
-                    if statusCode == 200 {
-                        print("level synced")
-                    }
-                }
-            }
-        }
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request)
         task.resume()
     }
 
@@ -120,17 +110,7 @@ class User {
         request.timeoutInterval = NSTimeInterval(5)
         let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&awardPoints=\(newAwardPoints)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
-            (data, response, error) in
-            dispatch_async(dispatch_get_main_queue()) {
-                if error == nil {
-                    let statusCode = (response as! NSHTTPURLResponse).statusCode
-                    if statusCode == 200 {
-                        print("awardPoints synced")
-                    }
-                }
-            }
-        }
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request)
         task.resume()
     }
     

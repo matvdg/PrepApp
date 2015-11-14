@@ -10,5 +10,5 @@ import RealmSwift
 
 // ContestPlayer model
 class ContestPlayer : Friend {
-    dynamic var score: Float = 0
+    dynamic var points: Float = 0
 }

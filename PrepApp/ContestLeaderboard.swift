@@ -10,7 +10,7 @@ import RealmSwift
 
 // ContestLeaderboard model
 class ContestLeaderboard : Object {
+    dynamic var id: Int = 0
     dynamic var name: String = ""
-    let leaderboard = List<ContestPlayer>()
-    dynamic var end: NSDate = NSDate()
+    let players = List<ContestPlayer>()
 }
