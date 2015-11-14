@@ -44,7 +44,7 @@ class QuestionContestViewController: UIViewController,
     var senseAnimationCorrection: Bool = true
     var waitBeforeNextQuestion: Bool = false
     let baseUrl = NSURL(fileURLWithPath: FactorySync.path, isDirectory: true)
-    
+    var reviewMode = false
     //graphics properties
     var submitButton = UIButton()
     var wording = UIWebView()
@@ -128,6 +128,7 @@ class QuestionContestViewController: UIViewController,
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
         } else {
+            self.reviewMode = true
             self.performSegueWithIdentifier("showScore", sender: self)
         }
     }
@@ -934,6 +935,7 @@ class QuestionContestViewController: UIViewController,
             scoreVC.succeeded = self.succeeded
             scoreVC.contest = self.contest
             scoreVC.numberOfQuestions = self.questions.count
+            scoreVC.reviewMode = self.reviewMode
         }
         
     }

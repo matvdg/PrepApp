@@ -23,6 +23,7 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
     var details: [String]?
     var refreshIsNeeded = false
     var contestHistory: ContestHistory?
+    var reviewMode = false
     
     //app methods
 	override func viewDidLoad() {
@@ -96,8 +97,8 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
                 //results available!
                 print("results available!")
                 self.contestHistory = resultContest
-                self.launchButton.backgroundColor = colorDarkGrey
-                self.launchButton.setTitle("Revoir les résultats", forState: UIControlState.Disabled)
+                self.launchButton.setTitle("Revoir les résultats", forState: UIControlState.Normal)
+                self.reviewMode = true
             } else {
                 print("no results to display")
                 //no results to display
@@ -111,18 +112,21 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     //@IBAction
     @IBAction func launch(sender: AnyObject) {
-        // create alert controller
-        let myAlert = UIAlertController(title: "Lancer le concours ?", message: "Vous devez disposer de \(self.contest.duration) minutes devant vous !", preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
-        // add buttons
-        myAlert.addAction(UIAlertAction(title: "NON", style: UIAlertActionStyle.Cancel, handler: nil))
-        myAlert.addAction(UIAlertAction(title: "OUI", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
-            print("launching contest number \(self.contest.id)")
-            self.performSegueWithIdentifier("showContest", sender: self)
-        }))
-        // show the alert
-        self.presentViewController(myAlert, animated: true, completion: nil)
-
+        if self.reviewMode {
+            self.performSegueWithIdentifier("showScore", sender: self)
+        } else {
+            // create alert controller
+            let myAlert = UIAlertController(title: "Lancer le concours ?", message: "Vous devez disposer de \(self.contest.duration) minutes devant vous !", preferredStyle: UIAlertControllerStyle.Alert)
+            myAlert.view.tintColor = colorGreen
+            // add buttons
+            myAlert.addAction(UIAlertAction(title: "NON", style: UIAlertActionStyle.Cancel, handler: nil))
+            myAlert.addAction(UIAlertAction(title: "OUI", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+                print("launching contest number \(self.contest.id)")
+                self.performSegueWithIdentifier("showContest", sender: self)
+            }))
+            // show the alert
+            self.presentViewController(myAlert, animated: true, completion: nil)
+        }
     }
     
     //UITableViewDataSource
@@ -168,6 +172,7 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
             scoreVC.succeeded = self.contestHistory!.succeeded
             scoreVC.numberOfQuestions = self.contestHistory!.numberOfQuestions
             scoreVC.contest = self.contest
+            scoreVC.reviewMode = self.reviewMode
         }
     }
 

@@ -24,7 +24,7 @@ class QuestionDuoViewController: UIViewController,
     var lastName = ""
     var firstName = ""
     var nickname = ""
-
+    var reviewMode = false
     var soundAlreadyPlayed = false
     var succeeded = 0
     let realm = FactoryRealm.getRealm()
@@ -137,6 +137,7 @@ class QuestionDuoViewController: UIViewController,
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
         } else {
+            self.reviewMode = true
             self.performSegueWithIdentifier("showScore", sender: self)
         }
     }
@@ -919,6 +920,7 @@ class QuestionDuoViewController: UIViewController,
             scoreVC.firstName = self.firstName
             scoreVC.lastName = self.lastName
             scoreVC.nickname = self.nickname
+            scoreVC.reviewMode = self.reviewMode
         }
     }
     

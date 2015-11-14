@@ -165,9 +165,11 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
         self.statsData.append(self.awardPoints.toStringPoints())
         self.statsDetails.append("AwardPoints réussites (\((self.succeeded*5).toStringPoints())) + AwardPoints assiduité (\(self.numberOfQuestions.toStringPoints())) = total AwardPoints (\(self.awardPoints.toStringPoints())) Consultez le fil d'actualités après la fin du concours pour voir votre classement et recevoir éventuellement des AwardPoints Bonus !")
         //save scoring
-        User.currentUser!.awardPoints += self.awardPoints
-        User.currentUser!.saveUser()
-        User.currentUser!.updateAwardPoints(User.currentUser!.awardPoints)
+        if !self.reviewMode {
+            User.currentUser!.awardPoints += self.awardPoints
+            User.currentUser!.saveUser()
+            User.currentUser!.updateAwardPoints(User.currentUser!.awardPoints)
+        }
         
     }
     

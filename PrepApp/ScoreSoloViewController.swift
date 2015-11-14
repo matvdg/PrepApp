@@ -10,6 +10,7 @@ import UIKit
 
 class ScoreSoloViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     
+    //properties
     var choice = 0
     var score = 0
     var animationScore = 0
@@ -23,9 +24,9 @@ class ScoreSoloViewController: UIViewController, UITableViewDataSource, UITableV
     var statsDetails: [String] = []
     var statsPics = ["check","stars","puzzle","bonus","awardPoint"]
     var scoreTimer = NSTimer()
-
+    var reviewMode = false
     
-    
+    //@IBOutlets
     @IBOutlet weak var stats: UITableView!
     @IBOutlet weak var dismissButton: UIButton!
     @IBOutlet weak var scoreLabel: UILabel!
@@ -34,6 +35,7 @@ class ScoreSoloViewController: UIViewController, UITableViewDataSource, UITableV
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var awardPointImage: UIImageView!
 
+    //app methods
     override func viewDidLoad() {
         super.viewDidLoad()
         //sync
@@ -48,11 +50,14 @@ class ScoreSoloViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidAppear(animated: Bool) {
         self.animateAwardPoint()
     }
-
+    
+    //@IBAction
     @IBAction func dismiss(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    
+    //methods
     private func designSoloChallengeTitleBar() {
         switch self.choice {
             
@@ -192,19 +197,17 @@ class ScoreSoloViewController: UIViewController, UITableViewDataSource, UITableV
         self.statsData.append(self.awardPoints.toStringPoints())
         self.statsDetails.append("AwardPoints réussites (\((self.succeeded*5).toStringPoints())) + AwardPoints assiduité (\(self.numberOfQuestions.toStringPoints())) + AwardPoints bonus (\(self.awardPointsBonus.toStringPoints())) = total AwardPoints (\(self.awardPoints.toStringPoints()))")
         //save scoring
-        User.currentUser!.awardPoints += self.awardPoints
-        User.currentUser!.saveUser()
-        User.currentUser!.updateAwardPoints(User.currentUser!.awardPoints)
-
+        if !self.reviewMode {
+            User.currentUser!.awardPoints += self.awardPoints
+            User.currentUser!.saveUser()
+            User.currentUser!.updateAwardPoints(User.currentUser!.awardPoints)
+        }
     }
     
     //UITableViewDataSource Methods
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.statsTopics.count
     }
-    
-    // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
-    // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("stat", forIndexPath: indexPath) 

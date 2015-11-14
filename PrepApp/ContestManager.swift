@@ -182,7 +182,7 @@ class ContestManager {
     
     //get a resultContest from local RealmDB
     func getResultContest(id: Int) -> ContestHistory? {
-        if !realm.objects(ContestHistory).filter("id = \(id)").isEmpty {
+        if !realmHistory.objects(ContestHistory).filter("id = \(id)").isEmpty {
             return realmHistory.objects(ContestHistory).filter("id = \(id)").first
         } else {
             return nil

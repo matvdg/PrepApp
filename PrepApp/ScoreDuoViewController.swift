@@ -24,6 +24,7 @@ class ScoreDuoViewController: UIViewController, UITableViewDataSource, UITableVi
     var statsDetails: [String] = []
     var statsPics = ["check","stars","puzzle","awardPoint"]
     var scoreTimer = NSTimer()
+    var reviewMode = false
     
     
     //@IBOutlets
@@ -153,9 +154,11 @@ class ScoreDuoViewController: UIViewController, UITableViewDataSource, UITableVi
         self.statsData.append(self.awardPoints.toStringPoints())
         self.statsDetails.append("AwardPoints réussites (\((self.succeeded*5).toStringPoints())) + AwardPoints assiduité (\(self.numberOfQuestions.toStringPoints())) = total AwardPoints (\(self.awardPoints.toStringPoints()))")
         //save scoring
-        User.currentUser!.awardPoints += self.awardPoints
-        User.currentUser!.saveUser()
-        User.currentUser!.updateAwardPoints(User.currentUser!.awardPoints)
+        if !self.reviewMode {
+            User.currentUser!.awardPoints += self.awardPoints
+            User.currentUser!.saveUser()
+            User.currentUser!.updateAwardPoints(User.currentUser!.awardPoints)
+        }
     }
     
     //UITableViewDataSource Methods

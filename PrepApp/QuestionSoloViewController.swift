@@ -42,6 +42,7 @@ class QuestionSoloViewController: UIViewController,
     var senseAnimationCorrection: Bool = true
     var waitBeforeNextQuestion: Bool = false
     let baseUrl = NSURL(fileURLWithPath: FactorySync.path, isDirectory: true)
+    var reviewMode = false
     
     //graphics properties
     var submitButton = UIButton()
@@ -123,6 +124,7 @@ class QuestionSoloViewController: UIViewController,
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
         } else {
+            self.reviewMode = true
             self.performSegueWithIdentifier("showScore", sender: self)
         }
     }
@@ -1057,6 +1059,7 @@ class QuestionSoloViewController: UIViewController,
             scoreVC.succeeded = self.succeeded
             scoreVC.choice = self.choice
             scoreVC.numberOfQuestions = self.questions.count
+            scoreVC.reviewMode = self.reviewMode
         }
 
     }
