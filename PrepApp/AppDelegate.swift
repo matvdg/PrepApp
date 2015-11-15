@@ -46,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func applicationDidEnterBackground(application: UIApplication) {
         // we first check if Touch ID protection is enabled
+        User.background = true
         if (User.instantiateUserStored()){
             if (UserPreferences.touchId) {
                 User.authenticated = false
@@ -57,27 +58,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func applicationWillEnterForeground(application: UIApplication) {
+        // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
         UserPreferences.touchID()
         FactorySync.offlineMode = false
-        FactorySync.getConfigManager().getLastVersion { (version) -> Void in
-            if let versionDB: Int = version { //checking if sync is needed
-                FactorySync.getConfigManager().saveConfig({ (result) -> Void in
-                    if result {
-                        print("config saved")
-                        FactoryHistory.getHistory().sync()
-                    } else {
-                        print("error loading config, working with local config")
+        if User.instantiateUserStored() {
+            FactorySync.getConfigManager().getLastVersion { (version) -> Void in
+                if let versionDB: Int = version { //checking if sync is needed
+                    FactorySync.getConfigManager().saveConfig({ (result) -> Void in
+                        if result {
+                            print("config saved")
+                            FactoryHistory.getHistory().sync()
+                        } else {
+                            print("error loading config, working with local config")
+                        }
+                    })
+                    print("AppDelegate localVersion = \(FactorySync.getConfigManager().loadVersion()) dbVersion = \(versionDB)")
+                    if FactorySync.getConfigManager().loadVersion() != versionDB { //prompting a sync
+                        NSNotificationCenter.defaultCenter().postNotificationName("update", object: nil)
                     }
-                })
-                print("AppDelegate localVersion = \(FactorySync.getConfigManager().loadVersion()) dbVersion = \(versionDB)")
-                if FactorySync.getConfigManager().loadVersion() != versionDB { //prompting a sync
-                    NSNotificationCenter.defaultCenter().postNotificationName("update", object: nil)
                 }
             }
         }
-
-		// Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-        
 	}
 
 	func applicationDidBecomeActive(application: UIApplication) {
@@ -86,15 +87,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func applicationWillTerminate(application: UIApplication) {
-        // we first check if Touch ID protection is enabled
-        
-        if (User.instantiateUserStored()){
-            
-            if (UserPreferences.touchId) {
-                User.authenticated = false
-                //we protect the app as Touch ID is enabled
-            }
-        }
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
     

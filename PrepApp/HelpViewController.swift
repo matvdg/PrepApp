@@ -66,8 +66,6 @@ class HelpViewController: UIViewController {
         if( traitCollection.forceTouchCapability == .Available){
             self.helpTexts[0] += "Vous disposez d'un iPhone 6S ou 6S+ avec 3D Touch ? Vous pouvez utilisez peek&pop dans le fil d'actualités. Utilisez Peek pour afficher l’aperçu d’une actualité d’une légère pression. Puis ouvrez-la avec Pop en appuyant plus fermement."
         }
-        SwiftSpinner.show("Veuillez patienter...")
-        SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]

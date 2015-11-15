@@ -18,8 +18,8 @@ class CommentViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBAction func send(sender: AnyObject) {
-        SwiftSpinner.show("Envoi en cours...")
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+        SwiftSpinner.show("Envoi en cours...")
         self.sendComment()
     }
     

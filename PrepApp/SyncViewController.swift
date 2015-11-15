@@ -33,9 +33,14 @@ class SyncViewController: UIViewController {
     }
 
 	override func viewDidLoad() {
+        super.viewDidLoad()
+        dispatch_async(dispatch_get_main_queue(), {
+            SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+            SwiftSpinner.show("Veuillez patienter...")
+        })
         self.view!.backgroundColor = colorGreyBackground
         SyncViewController.widthImage = self.view.frame.width - 20
-		super.viewDidLoad()
+		
         self.tryAgainButton.layer.cornerRadius = 6
         self.tryAgainButton.hidden = true
         self.logo.image = UIImage(named: "l350")
@@ -66,16 +71,19 @@ class SyncViewController: UIViewController {
                     FactorySync.getConfigManager().saveConfig({ (result) -> Void in
                         if result {
                             FactoryHistory.getHistory().sync()
-                            print("localVersion = \(FactorySync.getConfigManager().loadVersion()) dbVersion = \(versionDB), ", terminator: "")
+                            print("localVersion = \(FactorySync.getConfigManager().loadVersion()) dbVersion = \(versionDB)")
                             if FactorySync.getConfigManager().loadVersion() != versionDB { //syncing...
+                                SwiftSpinner.hide()
                                 FactorySync.sync()
                                 self.timer = NSTimer.scheduledTimerWithTimeInterval(0.030, target: self, selector: Selector("result"), userInfo: nil, repeats: true)
                                 self.version = versionDB
                             } else { //no sync needed
                                 print("no need to sync")
+                                SwiftSpinner.hide()
                                 self.performSegueWithIdentifier("syncDidFinish", sender: self)
                             }
                         } else {
+                            SwiftSpinner.hide()
                             Sound.playTrack("error")
                             // create alert controller
                             let myAlert = UIAlertController(title: "Erreur de téléchargement", message: "Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -94,6 +102,7 @@ class SyncViewController: UIViewController {
                     
                 } else { //offline mode
                     if FactorySync.getConfigManager().loadVersion() == 0 { //if the app has never synced, can't run the app
+                        SwiftSpinner.hide()
                         Sound.playTrack("error")
                         // create alert controller
                         let myAlert = UIAlertController(title: "Erreur de téléchargement", message: "Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -110,6 +119,7 @@ class SyncViewController: UIViewController {
 
                         
                     } else { //run the app in offline mode
+                        SwiftSpinner.hide()
                         FactorySync.offlineMode = true
                         print("offline mode")
                         self.performSegueWithIdentifier("syncDidFinish", sender: self)

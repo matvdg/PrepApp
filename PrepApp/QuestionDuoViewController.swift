@@ -227,8 +227,8 @@ class QuestionDuoViewController: UIViewController,
                 myAlert.addAction(UIAlertAction(title: "Oui, envoyer mes résultats", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
                     //challenge finished! switch to results mode and sending results (before displaying them to avoid cheating by killing the app)
                     self.computeScore()
-                    SwiftSpinner.show("Envoi des résultats")
                     SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+                    SwiftSpinner.show("Envoi des résultats")
                     FactoryDuo.getDuoManager().sendResultsDuo(self.idDuo, success: self.succeeded, callback: { (answer, message) -> Void in
                         SwiftSpinner.hide()
                         if answer {
@@ -262,8 +262,8 @@ class QuestionDuoViewController: UIViewController,
                 myAlert.addAction(UIAlertAction(title: "Oui, envoyer mes résultats", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
                     //challenge finished! switch to results mode and sending results (before displaying them to avoid cheating by killing the app)
                     self.computeScore()
-                    SwiftSpinner.show("Envoi des résultats")
                     SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+                    SwiftSpinner.show("Envoi des résultats")
                     FactoryDuo.getDuoManager().sendResultsDuo(self.idDuo, success: self.succeeded, callback: { (answer, message) -> Void in
                         SwiftSpinner.hide()
                         if answer {

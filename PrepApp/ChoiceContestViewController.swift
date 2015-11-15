@@ -80,8 +80,8 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
     
     //methods
     private func loadData() {
-        SwiftSpinner.show("Recherche de concours...")
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+        SwiftSpinner.show("Recherche de concours...")
         //loading contests
         FactorySync.getContestManager().getContests { (contests) -> Void in
             self.contests = contests

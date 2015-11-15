@@ -18,8 +18,6 @@ class MarkedQuestionsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        SwiftSpinner.show("Veuillez patienter...")
-        SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
         //sync
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground

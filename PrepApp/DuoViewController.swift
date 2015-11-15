@@ -38,8 +38,8 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 // add buttons
         myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
         myAlert.addAction(UIAlertAction(title: "Partager", style: .Default, handler: { (action) -> Void in
-            SwiftSpinner.show("Un instant S.V.P.")
             SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+            SwiftSpinner.show("Un instant S.V.P.")
             self.share()
         }))
         
@@ -61,8 +61,8 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     @IBAction func shuffleFriend(sender: AnyObject) {
-        SwiftSpinner.show("Recherche d'un défi aléatoire...")
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+        SwiftSpinner.show("Recherche d'un défi aléatoire...")
         FactoryDuo.getFriendManager().shuffleDuo { (friend, error) -> Void in
             SwiftSpinner.hide()
             if let shuffledFriend = friend {
@@ -103,8 +103,8 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
         self.pullToRefresh.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.pullToRefresh.tintColor = colorGreen
         self.friendsTable?.addSubview(pullToRefresh)
-        SwiftSpinner.show("Mise à jour des défis...")
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+        SwiftSpinner.show("Mise à jour des défis...")
         //sync
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
@@ -223,8 +223,8 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     func add(alert: UIAlertAction!) {
-        SwiftSpinner.show("Veuillez patienter...")
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+        SwiftSpinner.show("Veuillez patienter...")
         FactoryDuo.getFriendManager().saveFriend(self.textField.text!, callback: { (result, message) -> Void in
             SwiftSpinner.hide()
             if result {

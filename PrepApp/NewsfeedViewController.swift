@@ -25,8 +25,8 @@ class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableVi
         self.pullToRefresh.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.newsfeedTable?.addSubview(pullToRefresh)
         //sync newsfeed
-        SwiftSpinner.show("Mise à jour du flux...")
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+        SwiftSpinner.show("Mise à jour du flux...")
         FactorySync.getNewsfeedManager().getNewsfeed { (newsfeed) -> Void in
             SwiftSpinner.hide()
             self.newsfeed = newsfeed

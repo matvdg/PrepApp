@@ -200,6 +200,28 @@ class HomeViewController: UIViewController, ChartViewDelegate {
         self.renderPieCharts()
     }
     
+    func logout() {
+        ///called when touchID failed, authenticated = false
+        print("logging out")
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func update() {
+        // create alert controller
+        let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        myAlert.view.tintColor = colorGreen
+        // add "later" button
+        myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
+        // add "update" button
+        myAlert.addAction(UIAlertAction(title: "Mettre à jour maintenant", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }))
+        
+        // show the alert
+        self.presentViewController(myAlert, animated: true, completion: nil)
+    }
+
+    
     //methods
     
 
@@ -723,27 +745,6 @@ class HomeViewController: UIViewController, ChartViewDelegate {
             }
         }
         
-    }
-
-    func logout() {
-        ///called when touchID failed, authenticated = false
-        print("logging out")
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    func update() {
-        // create alert controller
-        let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
-        // add "later" button
-        myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
-        // add "update" button
-        myAlert.addAction(UIAlertAction(title: "Mettre à jour maintenant", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }))
-        
-        // show the alert
-        self.presentViewController(myAlert, animated: true, completion: nil)
     }
     
     func animatePieCharts() {

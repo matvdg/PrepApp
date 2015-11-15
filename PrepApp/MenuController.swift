@@ -35,9 +35,8 @@ class MenuController: UITableViewController {
         myAlert.view.tintColor = colorGreen
         // add "OK" button
         myAlert.addAction(UIAlertAction(title: "OUI", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
-            SwiftSpinner.show("Déconnexion...")
             SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-
+            SwiftSpinner.show("Déconnexion...")
             self.syncNclearHistory()
         }))
         myAlert.addAction(UIAlertAction(title: "NON", style: UIAlertActionStyle.Cancel, handler: nil))

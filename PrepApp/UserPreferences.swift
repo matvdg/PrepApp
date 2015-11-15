@@ -46,7 +46,6 @@ class UserPreferences {
                                 if complete {
                                     // There's no error, the authentication completed successfully
                                     print("authentication successful")
-                                    User.authenticated = true
                                     NSNotificationCenter.defaultCenter().postNotificationName("success", object: nil)
                                 } else {
                                     // There's an error, the authentication didn't complete successfully

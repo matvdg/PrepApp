@@ -18,8 +18,8 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
     @IBOutlet weak var feedback: UITextView!
 
     @IBAction func send(sender: AnyObject) {
-        SwiftSpinner.show("Envoi en cours...")
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+        SwiftSpinner.show("Envoi en cours...")
         self.sendFeedback()
     }
     

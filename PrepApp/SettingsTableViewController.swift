@@ -160,8 +160,8 @@ class SettingsTableViewController: UITableViewController {
     
     func sendNickname(alert: UIAlertAction!) {
         if self.nickname.text != "" {
-            SwiftSpinner.show("Veuillez patienter...")
             SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+            SwiftSpinner.show("Veuillez patienter...")
             User.currentUser!.changeNickname(self.nickname.text!, callback: { (message) -> Void in
                 // create alert controller
                 let myAlert = UIAlertController(title: message!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
@@ -221,8 +221,8 @@ class SettingsTableViewController: UITableViewController {
     private func sendPassword(alert: UIAlertAction!) {
         if (self.password.text!.hasGoodLength() && self.password.text!.hasTwoNumber() && self.password.text!.hasUppercase()){
             if self.password.text == self.confirmationPassword.text {
-                SwiftSpinner.show("Veuillez patienter...")
                 SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+                SwiftSpinner.show("Veuillez patienter...")
                 User.currentUser?.changePassword(self.password.text!.sha1(), callback: { (message) -> Void in
                     // create alert controller
                     let myAlert = UIAlertController(title: message!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)

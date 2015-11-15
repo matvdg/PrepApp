@@ -11,6 +11,7 @@ import LocalAuthentication
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
+    //app methods
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideDebugButton(true)
@@ -22,16 +23,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
 		self.designButton.layer.cornerRadius = 6
     }
-
-	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		self.view.endEditing(true)
-	}
 	
 	override func viewDidAppear(animated: Bool) {
 		//if user already logged in persistent data, load it
+        print("Realm path = ")
         print(FactorySync.path)
-        if (User.instantiateUserStored()){
-            if (UserPreferences.touchId) {
+        if User.instantiateUserStored() {
+            if UserPreferences.touchId {
                 UserPreferences.touchID()
             } else {
                 User.authenticated = true
@@ -52,7 +50,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let value = UIInterfaceOrientation.Portrait.rawValue
         UIDevice.currentDevice().setValue(value, forKey: "orientation")
 	}
-	
+    
+    //methods
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
 		let nextTag: NSInteger = textField.tag + 1
 		// Try to find next responder
@@ -85,7 +88,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 				self.presentViewController(myAlert, animated: true, completion: nil)
 			} else {
 				User.instantiateUser(data!, pass: self.pass.text!)
-				//we store the current user infoss to avoid further login until he logs out
+				//we store the current user infos to avoid further login until he logs out
 				User.currentUser!.saveUser()
                 FactoryRealm.clearUserDB()
                 FactoryHistory.getHistory().retrieveHistory({ (result) -> Void in
@@ -105,16 +108,26 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 		}
 	}
     
+    func login() {
+        User.authenticated = true
+        if !User.background {
+            self.performSegueWithIdentifier("loginDidSucceded", sender: self)
+        }
+    }
+    
+    //@IBOutlets
 	@IBOutlet weak var designButton: UIButton!
 	@IBOutlet weak var mail: UITextField!
 	@IBOutlet weak var pass: UITextField!
     
+    
+    //@IBActions
 	@IBAction func login(sender: AnyObject) {
         self.resignFirstResponder()
         self.view.endEditing(true)
-        SwiftSpinner.show("Connexion...")
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-		self.connect()
+        SwiftSpinner.show("Connexion...")
+        self.connect()
 	}
     
 	//debugMode
