@@ -13,6 +13,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideDebugButton(true)
         self.view!.backgroundColor = colorGreyBackground
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "login", name: "success", object: nil)
         if (User.instantiateUserStored()){
@@ -40,8 +41,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             self.performSegueWithIdentifier("loginDidSucceded", sender: self)
         } else {
             if FactorySync.debugMode {
+                self.hideDebugButton(false)
                 self.mail.text = "matvdg@icloud.com"
-                self.pass.text = "Draconis31*"
+                self.pass.text = "test"
             } else {
                 self.mail.text = ""
                 self.pass.text = ""
@@ -114,6 +116,44 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
 		self.connect()
 	}
-	
+    
+	//debugMode
+    
+    @IBAction func pressDebug(sender: AnyObject) {
+        
+        switch sender.tag {
+        case 3 :
+            self.mail.text = "laurie.guillet@icloud.com"
+            print("laurie.guillet@icloud.com")
+        case 4:
+            self.mail.text = "jean.dupont@icloud.com"
+            print("jean.dupont@icloud.com")
+        case 5:
+            self.mail.text = "paul.bismut@icloud.com"
+            print("paul.bismut@icloud.com")
+        case 6:
+            self.mail.text = "marc.herrero@icloud.com"
+            print("marc.herrero@icloud.com")
+        case 7:
+            self.mail.text = "nicolas.durand@icloud.com"
+            print("nicolas.durand@icloud.com")
+        case 8:
+            self.mail.text = "john.appleseed@icloud.com"
+            print("john.appleseed@icloud.com")
+        default:
+            self.mail.text = "matvdg@icloud.com"
+            print("matvdg@icloud.com")
+        }
+
+    }
+    
+    func hideDebugButton(hide: Bool) {
+        for i in 3...8 {
+            let button = view.viewWithTag(i) as! UIButton
+            button.layer.cornerRadius = 6
+            button.hidden = hide
+        }
+    }
+    
 
 }

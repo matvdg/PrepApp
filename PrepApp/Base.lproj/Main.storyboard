@@ -122,6 +122,12 @@
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -195,6 +201,57 @@
                                     <action selector="login:" destination="Dek-1z-2AB" eventType="touchUpInside" id="PYU-mt-jYP"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkM-c7-x1Z">
+                                <rect key="frame" x="260.5" y="329" width="80" height="42"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="bYb-Zt-ru7"/>
+                                    <constraint firstAttribute="height" constant="42" id="zus-V7-1uW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
+                                <state key="normal" title="jdupont">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressDebug:" destination="Dek-1z-2AB" eventType="touchUpInside" id="PfS-xJ-RYf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OsI-tP-h0b">
+                                <rect key="frame" x="348.5" y="329" width="80" height="42"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="LCd-Op-lUg"/>
+                                    <constraint firstAttribute="width" constant="80" id="XFa-Ih-SVD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
+                                <state key="normal" title="pbismut">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressDebug:" destination="Dek-1z-2AB" eventType="touchUpInside" id="2Mx-ze-HGy"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hyZ-0A-jxn">
+                                <rect key="frame" x="172.5" y="329" width="80" height="42"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="K1b-gF-QY6"/>
+                                    <constraint firstAttribute="height" constant="42" id="YYd-Mz-Qi1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
+                                <state key="normal" title="lguillet">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressDebug:" destination="Dek-1z-2AB" eventType="touchUpInside" id="IeC-s3-CBq"/>
+                                </connections>
+                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoHD" translatesAutoresizingMaskIntoConstraints="NO" id="Zwp-3S-REo">
                                 <rect key="frame" x="216" y="20" width="169" height="169"/>
                                 <animations/>
@@ -202,26 +259,89 @@
                                     <constraint firstAttribute="width" secondItem="Zwp-3S-REo" secondAttribute="height" multiplier="1:1" id="Sax-lB-Sv8"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NsX-Rw-6v8">
+                                <rect key="frame" x="260.5" y="379" width="80" height="42"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="Azc-hd-lFb"/>
+                                    <constraint firstAttribute="width" constant="80" id="F9X-tR-Oef"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
+                                <state key="normal" title="ndurand">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressDebug:" destination="Dek-1z-2AB" eventType="touchUpInside" id="KLh-Bm-c6l"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tek-OG-DF1">
+                                <rect key="frame" x="348.5" y="379" width="80" height="42"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="dZe-dr-lif"/>
+                                    <constraint firstAttribute="width" constant="80" id="yxh-g1-RFP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
+                                <state key="normal" title="jappleseed">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressDebug:" destination="Dek-1z-2AB" eventType="touchUpInside" id="sbb-Td-E9G"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yZO-1u-yn3">
+                                <rect key="frame" x="172.5" y="379" width="80" height="42"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="3hG-2Y-KtR"/>
+                                    <constraint firstAttribute="width" constant="80" id="wFV-Ua-Lwc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
+                                <state key="normal" title="mherrero">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressDebug:" destination="Dek-1z-2AB" eventType="touchUpInside" id="FlZ-so-Oar"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="pkM-c7-x1Z" firstAttribute="top" secondItem="Q6A-KH-lfQ" secondAttribute="bottom" constant="8" id="03Y-9L-ZSn"/>
                             <constraint firstAttribute="centerX" secondItem="Zwp-3S-REo" secondAttribute="centerX" id="0EN-aX-Iq8"/>
                             <constraint firstItem="rmc-PG-fwb" firstAttribute="leading" secondItem="D0K-Yk-rNP" secondAttribute="leadingMargin" constant="50" id="0eE-BO-rSx"/>
+                            <constraint firstItem="pkM-c7-x1Z" firstAttribute="centerY" secondItem="hyZ-0A-jxn" secondAttribute="centerY" id="1Qj-f5-tve"/>
+                            <constraint firstItem="NsX-Rw-6v8" firstAttribute="top" secondItem="pkM-c7-x1Z" secondAttribute="bottom" constant="8" id="2eG-s7-iCW"/>
                             <constraint firstItem="rmc-PG-fwb" firstAttribute="top" secondItem="Zwp-3S-REo" secondAttribute="bottom" constant="8" id="3LY-ZB-Jka"/>
+                            <constraint firstItem="NsX-Rw-6v8" firstAttribute="centerX" secondItem="pkM-c7-x1Z" secondAttribute="centerX" id="3sp-9j-NDf"/>
+                            <constraint firstItem="OsI-tP-h0b" firstAttribute="centerY" secondItem="pkM-c7-x1Z" secondAttribute="centerY" id="5IG-QF-znY"/>
+                            <constraint firstItem="pkM-c7-x1Z" firstAttribute="leading" secondItem="hyZ-0A-jxn" secondAttribute="trailing" constant="8" id="6Nw-jV-MpL"/>
                             <constraint firstItem="Dma-It-3SB" firstAttribute="leading" secondItem="D0K-Yk-rNP" secondAttribute="leadingMargin" constant="50" id="8Zc-Uf-XIw"/>
+                            <constraint firstItem="tek-OG-DF1" firstAttribute="top" secondItem="OsI-tP-h0b" secondAttribute="bottom" constant="8" id="Cdv-OM-dmW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Dma-It-3SB" secondAttribute="trailing" constant="50" id="HUK-OX-Tzu"/>
+                            <constraint firstItem="NsX-Rw-6v8" firstAttribute="leading" secondItem="yZO-1u-yn3" secondAttribute="trailing" constant="8" id="OlQ-50-m1c"/>
                             <constraint firstItem="Dma-It-3SB" firstAttribute="top" secondItem="ncj-KK-RP6" secondAttribute="bottom" constant="10" id="QAt-o2-G4h"/>
                             <constraint firstItem="nIR-aV-kPO" firstAttribute="leading" secondItem="D0K-Yk-rNP" secondAttribute="leadingMargin" constant="50" id="QTt-Ox-czF"/>
                             <constraint firstItem="Zwp-3S-REo" firstAttribute="top" secondItem="D0K-Yk-rNP" secondAttribute="topMargin" constant="20" id="TMQ-9M-I0e"/>
                             <constraint firstAttribute="centerY" secondItem="Q6A-KH-lfQ" secondAttribute="centerY" id="Uaw-jX-B79"/>
+                            <constraint firstItem="yZO-1u-yn3" firstAttribute="top" secondItem="hyZ-0A-jxn" secondAttribute="bottom" constant="8" id="Ud7-l0-a9D"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ncj-KK-RP6" secondAttribute="trailing" constant="50" id="W6b-E4-ouq"/>
                             <constraint firstAttribute="centerX" secondItem="Q6A-KH-lfQ" secondAttribute="centerX" id="Wel-JL-X9T"/>
+                            <constraint firstItem="pkM-c7-x1Z" firstAttribute="centerX" secondItem="D0K-Yk-rNP" secondAttribute="centerX" id="ZWO-nI-Y6C"/>
                             <constraint firstItem="nIR-aV-kPO" firstAttribute="top" secondItem="Dma-It-3SB" secondAttribute="bottom" id="b6j-4N-mJB"/>
                             <constraint firstItem="ncj-KK-RP6" firstAttribute="top" secondItem="rmc-PG-fwb" secondAttribute="bottom" constant="3" id="ccK-dq-GT0"/>
+                            <constraint firstItem="tek-OG-DF1" firstAttribute="leading" secondItem="NsX-Rw-6v8" secondAttribute="trailing" constant="8" id="ijL-aZ-hUC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="nIR-aV-kPO" secondAttribute="trailing" constant="50" id="jBf-z2-3bI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rmc-PG-fwb" secondAttribute="trailing" constant="50" id="jsJ-JV-8NN"/>
+                            <constraint firstItem="OsI-tP-h0b" firstAttribute="leading" secondItem="pkM-c7-x1Z" secondAttribute="trailing" constant="8" id="m3d-jU-oTU"/>
                             <constraint firstItem="ncj-KK-RP6" firstAttribute="leading" secondItem="D0K-Yk-rNP" secondAttribute="leadingMargin" constant="50" id="o7Z-te-4LT"/>
                             <constraint firstItem="Q6A-KH-lfQ" firstAttribute="top" secondItem="nIR-aV-kPO" secondAttribute="bottom" constant="23" id="qPG-Ds-9ir"/>
                         </constraints>
@@ -2088,7 +2208,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AQa-OD-B6R">
