@@ -157,7 +157,6 @@ class ContestManager {
     func getContestLeaderboard(contestHistory: ContestHistory, callback: (ContestLeaderboard?) -> Void) {
         self.retrieveContestResults(contestHistory.id, callback: { (data) -> Void in
             if let array = data {
-                print(data)
                 var players = [ContestPlayer]()
                 for element in array {
                     if let player = element as? NSDictionary {

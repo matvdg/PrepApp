@@ -9,8 +9,6 @@
 import UIKit
 
 class LeaderboardContestViewController: UITableViewController {
-
-    @IBOutlet weak var menuButton: UIBarButtonItem!
     
     var leaderboard = ContestLeaderboard()
     
@@ -20,13 +18,7 @@ class LeaderboardContestViewController: UITableViewController {
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreen
-        if self.revealViewController() != nil {
-            self.menuButton.target = self.revealViewController()
-            self.menuButton.action = "revealToggle:"
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        }
-        
+        self.navigationController!.navigationBar.tintColor = colorGreen        
         self.title = self.leaderboard.name
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)

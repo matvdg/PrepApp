@@ -80,6 +80,7 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
     
     //methods
     private func loadData() {
+        self.contestsLeaderboard = [ContestLeaderboard]()
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
         SwiftSpinner.show("Recherche de concours...")
         //loading contests
@@ -97,20 +98,16 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
                 }
                 //hide the waiting animation
                 SwiftSpinner.hide()
-                print("no contestHistory to display")
             } else {
-                print(self.contestsHistory.count)
                 for contestHistory in self.contestsHistory {
                     var counter = 0
                     FactorySync.getContestManager().getContestLeaderboard(contestHistory, callback: { (data) -> Void in
                         counter++
-                        print(counter)
                         if let contestLeaderboard = data {
                             //online
                             self.contestsLeaderboard.append(contestLeaderboard)
                         }
                         if counter == self.contestsHistory.count {
-                            print("if counter == contestsHistory.count ")
                             //sync finished!
                             self.templating()
                             self.contestTable.reloadData()
@@ -255,6 +252,7 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
             }
         } else {
             let contestLeaderboard = self.contestsLeaderboard[indexPath.row]
+            self.selectedContestLeaderboard = contestLeaderboard
             if contestLeaderboard.id != -1 {
                 self.performSegueWithIdentifier("showContestLeaderboard", sender: self)
             }

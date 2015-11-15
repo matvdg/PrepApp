@@ -4895,15 +4895,8 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="2fU-P3-Umr">
-                        <barButtonItem key="leftBarButtonItem" image="menu" id="6NN-ZU-aXX">
-                            <color key="tintColor" red="0.25628075" green="0.59876227380000002" blue="0.4630164504" alpha="1" colorSpace="calibratedRGB"/>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="2fU-P3-Umr"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="menuButton" destination="6NN-ZU-aXX" id="B4r-ad-wse"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fEh-is-ULU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
