@@ -87,7 +87,7 @@ class ContestManager {
         let request = NSMutableURLRequest(URL: FactorySync.sendContestResultsUrl!)
         request.HTTPMethod = "POST"
         request.timeoutInterval = NSTimeInterval(5)
-        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&idContest=\(idContest)"
+        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&idContest=\(idContest)&points=\(points)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
             (data, response, error) in
@@ -100,7 +100,7 @@ class ContestManager {
                     if statusCode == 200 {
                         callback(true, "Résultats envoyés avec succès au serveur")
                     } else {
-                        print("header status = \(statusCode) in requestDuo")
+                        print("header status = \(statusCode) in sendResultsContest")
                         callback(true, "Vous avez dépassé la date de fin de concours. Vous ne pouvez pas envoyer vos résultats ni recevoir d'AwardPoints en bonus. Veuillez vérifier la date et l'heure de votre appareil pour éviter de rencontrer à nouveau ce problème.")
                     }
                 }
