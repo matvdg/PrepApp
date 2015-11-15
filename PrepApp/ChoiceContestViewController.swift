@@ -86,8 +86,7 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
         FactorySync.getContestManager().getContests { (contests) -> Void in
             self.contests = contests
             self.contestsHistory = FactorySync.getContestManager().getResultContests()
-            let contestsHistory = FactoryHistory.getHistory().getContests()
-            if contestsHistory.isEmpty {
+            if self.contestsHistory.isEmpty {
                 //sync finished!
                 self.templating()
                 self.contestTable.reloadData()
@@ -100,16 +99,18 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
                 SwiftSpinner.hide()
                 print("no contestHistory to display")
             } else {
-                for contestHistory in contestsHistory {
+                print(self.contestsHistory.count)
+                for contestHistory in self.contestsHistory {
                     var counter = 0
-                    ///TODO: check the end date to avoid useless connexion 
                     FactorySync.getContestManager().getContestLeaderboard(contestHistory, callback: { (data) -> Void in
                         counter++
+                        print(counter)
                         if let contestLeaderboard = data {
                             //online
                             self.contestsLeaderboard.append(contestLeaderboard)
                         }
-                        if counter == contestsHistory.count {
+                        if counter == self.contestsHistory.count {
+                            print("if counter == contestsHistory.count ")
                             //sync finished!
                             self.templating()
                             self.contestTable.reloadData()

@@ -87,30 +87,6 @@ class History {
         return false
     }
     
-    func getContests() -> [ContestHistory] {
-        var ids = [Int]()
-        var result = [ContestHistory]()
-        let questionsHistory = self.realmHistory.objects(QuestionHistory)
-        for questionHistory in questionsHistory {
-            let questions = self.realm.objects(Question)
-            for question in questions {
-                if question.id == questionHistory.id {
-                    if question.idContest != 0 {
-                        if !ids.contains(question.idContest){
-                            ids.append(question.idContest)
-                        }
-                    }
-                }
-            }
-        }
-        for id in ids {
-            if !self.realmContestHistory.objects(ContestHistory).filter("id = \(id)").isEmpty {
-                result.append(self.realmContestHistory.objects(ContestHistory).filter("id = \(id)").first!)
-            }
-        }
-        return result
-    }
-    
     func isQuestionNewInTraining(id: Int)-> Bool {
         let questionsHistory = self.realmHistory.objects(QuestionHistory)
         var result = true //all questions are by default new

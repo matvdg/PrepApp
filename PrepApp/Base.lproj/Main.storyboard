@@ -268,7 +268,7 @@
                                     <constraint firstAttribute="width" constant="80" id="F9X-tR-Oef"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
-                                <state key="normal" title="ndurand">
+                                <state key="normal" title="bigboss">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>

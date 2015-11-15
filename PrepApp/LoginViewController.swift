@@ -148,8 +148,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             self.mail.text = "marc.herrero@icloud.com"
             print("marc.herrero@icloud.com")
         case 7:
-            self.mail.text = "nicolas.durand@icloud.com"
-            print("nicolas.durand@icloud.com")
+            self.mail.text = "perennou.julien@gmail"
+            print("perennou.julien@gmail")
         case 8:
             self.mail.text = "john.appleseed@icloud.com"
             print("john.appleseed@icloud.com")
