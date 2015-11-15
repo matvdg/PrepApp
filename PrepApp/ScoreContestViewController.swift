@@ -63,8 +63,9 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
         self.greenRound.layer.borderWidth = 6
         self.greenRound.layer.masksToBounds = true
         self.scoreLabel.textColor = colorWrongAnswer
-        let min = Int(-abs(self.contest!.wrongAnswer) * Float(self.numberOfQuestions))*20/self.numberOfQuestions
-        self.animationScore = min
+        let maxPoints = Float(self.numberOfQuestions) * abs(self.contest!.goodAnswer)
+        let min = -abs(self.contest!.wrongAnswer) * Float(self.numberOfQuestions) * Float(20) / maxPoints
+        self.animationScore = Int(floor(min))
         self.scoreLabel.text = "\(self.animationScore)"
         self.scoreTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("animateScore"), userInfo: nil, repeats: true)
         if self.reviewMode {
@@ -74,6 +75,7 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
     
     func animateScore() {
         if self.animationScore != self.score {
+            
             self.scoreLabel.text = "\(self.animationScore)"
             if self.animationScore < 10 {
                 self.scoreLabel.textColor = colorWrongAnswer
@@ -142,7 +144,7 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
         let wrongAnswers = Float(failed)*(badAnswer)
         let noAnswers = Float(self.emptyAnswers)*emptyAnswer
         let total = goodAnswers + wrongAnswers + noAnswers
-        let maxPoints = Float(self.numberOfQuestions) * self.contest!.goodAnswer
+        let maxPoints = Float(self.numberOfQuestions) * abs(self.contest!.goodAnswer)
         //Bonnes réponses
         self.statsData.append(goodAnswers.toStringPoints())
         self.statsDetails.append("\(goodAnswer.toStringPoints()) X \(self.succeeded) = \(goodAnswers.toStringPoints())")

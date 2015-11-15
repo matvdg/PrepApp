@@ -103,13 +103,11 @@ class History {
                 }
             }
         }
-        print(ids)
         for id in ids {
             if !self.realmContestHistory.objects(ContestHistory).filter("id = \(id)").isEmpty {
                 result.append(self.realmContestHistory.objects(ContestHistory).filter("id = \(id)").first!)
             }
         }
-        print(result)
         return result
     }
     

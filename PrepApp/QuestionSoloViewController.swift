@@ -874,7 +874,7 @@ class QuestionSoloViewController: UIViewController,
         self.markButton.enabled = true
         self.markButton.image = UIImage(named: "markedBar")
         self.timeChallengeTimer.invalidate()
-        let myAlert = UIAlertController(title: "Défi solo terminé", message: "Vous pouvez à présent voir les réponses et les corrections si disponibles et éventuellement mettre certaines questions de côté en les marquant" , preferredStyle: UIAlertControllerStyle.Alert)
+        let myAlert = UIAlertController(title: "Défi solo terminé", message: "Vous pouvez à présent voir les réponses et les corrections si disponibles et éventuellement mettre certaines questions de côté en les marquant à l'aide du drapeau." , preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             self.loadQuestion()

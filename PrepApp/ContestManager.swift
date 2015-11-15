@@ -74,7 +74,7 @@ class ContestManager {
                             callback(nil)
                         }
                     } else {
-                        print("header status = \(statusCode) in retrieveContestLeaderboard")
+                        print("no leaderboard available yet")
                         callback(nil)
                     }
                 }

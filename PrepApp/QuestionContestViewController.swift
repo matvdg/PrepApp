@@ -209,75 +209,95 @@ class QuestionContestViewController: UIViewController,
     }
     
     @IBAction func endChallenge(sender: AnyObject) {
-        if self.mode == 0 {
+        if self.mode == 0 { //challenge mode
             self.allAnswers[self.currentNumber] = self.selectedAnswers
-            if self.checkUnanswered() {
-                let myAlert = UIAlertController(title: "Attention, vous n'avez pas répondu à toutes les questions !", message: "Voulez-vous tout de même terminer le concours ?", preferredStyle: UIAlertControllerStyle.Alert)
+            if !self.checkUnanswered() {
+                let myAlert = UIAlertController(title: "Voulez-vous vraiment terminer le concours ?", message: "Vous ne pourrez plus modifier vos réponses. Vous devez disposer d'une connexion internet pour envoyer vos résultats au serveur.", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
                 // add "OK" button
-                myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
-                    //challenge finished! switch to results mode
-                    
-                    self.cleanView()
-                    self.displayResultsMode()
+                myAlert.addAction(UIAlertAction(title: "Oui, envoyer mes résultats", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+                    //challenge finished! switch to results mode and sending results (before displaying them to avoid cheating by killing the app)
+                    self.computeScore()
+                    SwiftSpinner.show("Envoi des résultats")
+                    SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+                    FactorySync.getContestManager().sendResultsContest(self.contest!.id, points: self.points, callback: { (answer, message) -> Void in
+                        SwiftSpinner.hide()
+                        if answer {
+                            FactorySync.getContestManager().saveResultsContest(self.contest!, score: self.score, emptyAnswers: self.emptyAnswers, succeeded: self.succeeded, numberOfQuestions: self.questions.count)
+                            let myAlert = UIAlertController(title: "Envoi des résultats", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                            myAlert.view.tintColor = colorGreen
+                            //add an "OK" button
+                            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+                                self.cleanView()
+                                self.displayResultsMode()
+                            }))
+                            
+                            // show the alert
+                            self.presentViewController(myAlert, animated: true, completion: nil)
+                            
+                        } else {
+                            let myAlert = UIAlertController(title: "Oups !", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                            myAlert.view.tintColor = colorGreen
+                            //add an "try again" button
+                            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
+                            // show the alert
+                            self.presentViewController(myAlert, animated: true, completion: nil)
+                        }
+                    })
                 }))
                 myAlert.addAction(UIAlertAction(title: "Non, annuler", style: UIAlertActionStyle.Cancel, handler: nil))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
-                
-            } else {
-                let myAlert = UIAlertController(title: "Voulez-vous vraiment terminer le concours ?", message: "Vous ne pourrez plus modifier vos réponses.", preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+            } else { //alerting if some questions are unanswered
+                let myAlert = UIAlertController(title: "Attention, vous n'avez pas répondu à toutes les questions !", message: "Voulez-vous tout de même terminer le concours ? Vous devez disposer d'une connexion internet pour envoyer vos résultats au serveur.", preferredStyle: UIAlertControllerStyle.Alert)
                 // add "OK" button
-                myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
-                    //challenge finished! switch to results mode
-                    
-                    self.cleanView()
-                    self.displayResultsMode()
+                myAlert.addAction(UIAlertAction(title: "Oui, envoyer mes résultats", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+                    //challenge finished! switch to results mode and sending results (before displaying them to avoid cheating by killing the app)
+                    self.computeScore()
+                    SwiftSpinner.show("Envoi des résultats")
+                    SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+                    FactorySync.getContestManager().sendResultsContest(self.contest!.id, points: self.points, callback: { (answer, message) -> Void in
+                        SwiftSpinner.hide()
+                        if answer {
+                            FactorySync.getContestManager().saveResultsContest(self.contest!, score: self.score, emptyAnswers: self.emptyAnswers, succeeded: self.succeeded, numberOfQuestions: self.questions.count)
+                            let myAlert = UIAlertController(title: "Envoi des résultats", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                            myAlert.view.tintColor = colorGreen
+                            //add an "OK" button
+                            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+                                self.cleanView()
+                                self.displayResultsMode()
+                            }))
+                            
+                            // show the alert
+                            self.presentViewController(myAlert, animated: true, completion: nil)
+                            
+                        } else {
+                            let myAlert = UIAlertController(title: "Oups !", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                            myAlert.view.tintColor = colorGreen
+                            //add an "try again" button
+                            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
+                            // show the alert
+                            self.presentViewController(myAlert, animated: true, completion: nil)
+                        }
+                    })
                 }))
                 myAlert.addAction(UIAlertAction(title: "Non, annuler", style: UIAlertActionStyle.Cancel, handler: nil))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
             }
             
-        } else {
-            let myAlert = UIAlertController(title: "Voulez-vous vraiment quitter ce concours ?", message: "Vous pourrez consulter à nouveau vos résultats et recevoir le classement dès la fin du concours ! Vous ne pourrez cependant plus revoir vos réponses, mais vous pourrez retrouver les questions et leur correction dans entraînement. Vous devez disposer d'une connexion internet pour envoyer vos résultats au serveur.", preferredStyle: UIAlertControllerStyle.Alert)
+        } else { //correction mode
+            let myAlert = UIAlertController(title: "Voulez-vous vraiment quitter ce concours ?", message: "Vous pourrez consulter à nouveau vos résultats et recevoir le classement dès la fin du concours ! Vous ne pourrez cependant plus revoir vos réponses, mais vous pourrez retrouver les questions et leur correction dans entraînement.", preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
             // add "OK" button
-            myAlert.addAction(UIAlertAction(title: "Oui, envoyer mes résultats", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                SwiftSpinner.show("Envoi des résultats")
-                SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-                FactorySync.getContestManager().sendResultsContest(self.contest!.id, points: self.points, callback: { (answer, message) -> Void in
-                    SwiftSpinner.hide()
-                    if answer {
-                        FactorySync.getContestManager().saveResultsContest(self.contest!, score: self.score, emptyAnswers: self.emptyAnswers, succeeded: self.succeeded, numberOfQuestions: self.questions.count)
-                        let myAlert = UIAlertController(title: "Envoi des résultats", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                        myAlert.view.tintColor = colorGreen
-                        //add an "OK" button
-                        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
-                            self.dismissViewControllerAnimated(true, completion: nil)
-                        }))
-                        
-                        // show the alert
-                        self.presentViewController(myAlert, animated: true, completion: nil)
-                        
-                    } else {
-                        let myAlert = UIAlertController(title: "Oups !", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                        myAlert.view.tintColor = colorGreen
-                        //add an "try again" button
-                        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
-                        // show the alert
-                        self.presentViewController(myAlert, animated: true, completion: nil)
-                    }
-                })
+            myAlert.addAction(UIAlertAction(title: "Oui, quitter", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+                self.dismissViewControllerAnimated(true, completion: nil)
+                
             }))
             myAlert.addAction(UIAlertAction(title: "Non, annuler", style: UIAlertActionStyle.Cancel, handler: nil))
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
-            
-            
         }
-        
     }
     
     //methods
@@ -603,10 +623,16 @@ class QuestionContestViewController: UIViewController,
             //saving the question result in history
             FactoryHistory.getHistory().addQuestionToHistory(historyQuestion)
         }
-        let maxPoints = Float(self.questions.count) * self.contest!.goodAnswer
-        let failedQuestions = self.questions.count - self.succeeded - self.emptyAnswers
-        self.points = Float(self.succeeded) * self.contest!.goodAnswer + Float(failedQuestions) * -self.contest!.wrongAnswer + Float(self.emptyAnswers) * self.contest!.noAnswer
-        self.score = Int(self.points / maxPoints * 20)
+        let failed = self.questions.count - self.succeeded - self.emptyAnswers
+        let goodAnswer = abs(self.contest!.goodAnswer)
+        let badAnswer = -abs(self.contest!.wrongAnswer)
+        let emptyAnswer = -abs(self.contest!.noAnswer)
+        let goodAnswers = Float(self.succeeded)*goodAnswer
+        let wrongAnswers = Float(failed)*(badAnswer)
+        let noAnswers = Float(self.emptyAnswers)*emptyAnswer
+        self.points = goodAnswers + wrongAnswers + noAnswers
+        let maxPoints = Float(self.questions.count) * abs(self.contest!.goodAnswer)
+        self.score = Int(floor(self.points / maxPoints * 20))
     }
     
     func animateButton(){
@@ -726,7 +752,6 @@ class QuestionContestViewController: UIViewController,
     
     func displayResultsMode() {
         //challenge finished! switch to results mode
-        self.computeScore()
         print("challenge mode ended, results mode")
         self.mode = 1
         self.chrono.hidden = true
@@ -736,7 +761,7 @@ class QuestionContestViewController: UIViewController,
         self.markButton.enabled = true
         self.markButton.image = UIImage(named: "markedBar")
         self.timeChallengeTimer.invalidate()
-        let myAlert = UIAlertController(title: "Concours terminé", message: "Vous pouvez à présent voir les réponses et les corrections si disponibles et éventuellement mettre certaines questions de côté en les marquant" , preferredStyle: UIAlertControllerStyle.Alert)
+        let myAlert = UIAlertController(title: "Concours terminé", message: "Vous pouvez à présent voir les réponses et les corrections si disponibles et éventuellement mettre certaines questions de côté en les marquant à l'aide du drapeau." , preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             self.loadQuestion()

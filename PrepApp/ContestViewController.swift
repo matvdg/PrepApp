@@ -93,12 +93,10 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
             //now we check into the local only ContestHistory to let display the score again or not (only if available)
             if let resultContest = FactorySync.getContestManager().getResultContest(self.contest.id) {
                 //results available!
-                print("results available!")
                 self.contestHistory = resultContest
                 self.reviewMode = true
                 self.launchButton.setTitle("Revoir les résultats", forState: UIControlState.Normal)
             } else {
-                print("no results to display")
                 //no results to display
                 self.launchButton.enabled = false
                 self.launchButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Disabled)

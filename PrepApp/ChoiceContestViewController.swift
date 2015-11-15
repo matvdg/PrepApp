@@ -87,7 +87,6 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
             self.contests = contests
             self.contestsHistory = FactorySync.getContestManager().getResultContests()
             let contestsHistory = FactoryHistory.getHistory().getContests()
-            print(contestsHistory)
             if contestsHistory.isEmpty {
                 //sync finished!
                 self.templating()
@@ -103,13 +102,13 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
             } else {
                 for contestHistory in contestsHistory {
                     var counter = 0
+                    ///TODO: check the end date to avoid useless connexion 
                     FactorySync.getContestManager().getContestLeaderboard(contestHistory, callback: { (data) -> Void in
                         counter++
                         if let contestLeaderboard = data {
                             //online
                             self.contestsLeaderboard.append(contestLeaderboard)
                         }
-                        print(counter)
                         if counter == contestsHistory.count {
                             //sync finished!
                             self.templating()
