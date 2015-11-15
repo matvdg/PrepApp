@@ -131,7 +131,7 @@ class ImageManager {
     private func saveFile(url: NSURL, imageName: String, objectToAdd: Image){
         
         let request = NSMutableURLRequest(URL: url)
-        request.timeoutInterval = NSTimeInterval(240)
+        //request.timeoutInterval = NSTimeInterval(240)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
             (data, response, error) in
             
