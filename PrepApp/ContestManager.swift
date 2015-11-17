@@ -49,7 +49,7 @@ class ContestManager {
         task.resume()
     }
     
-    private func retrieveContestResults(idContest: Int, callback: (NSArray?) -> Void) {
+    private func retrieveContestResults(idContest: Int, callback: (NSDictionary?) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.retrieveContestResultsUrl!)
         request.HTTPMethod = "POST"
         request.timeoutInterval = NSTimeInterval(5)
@@ -65,12 +65,12 @@ class ContestManager {
                 } else {
                     let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSArray
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
                         
                         if let result = jsonResult {
                             callback(result)
                         } else {
-                            print("error : NSArray nil in retrieveContestLeaderboard")
+                            print("error : NSDictionary nil in retrieveContestLeaderboard")
                             callback(nil)
                         }
                     } else {
@@ -144,6 +144,7 @@ class ContestManager {
                 }
             } else {
                 //offline
+                print("contests offline")
                 let contests = self.realm.objects(Contest)
                 for contest in contests {
                     result.append(contest)
@@ -154,11 +155,13 @@ class ContestManager {
     }
     
     ///callback a ContestLeaderboard from API if online or nil if offline
-    func getContestLeaderboard(contestHistory: ContestHistory, callback: (ContestLeaderboard?) -> Void) {
-        self.retrieveContestResults(contestHistory.id, callback: { (data) -> Void in
-            if let array = data {
+    func getContestLeaderboard(id: Int, callback: (ContestLeaderboard?) -> Void) {
+        self.retrieveContestResults(id, callback: { (data) -> Void in
+            if let dico = data {
+                let name = dico["name"] as! String
+                let board = dico["leaderboard"] as! NSArray
                 var players = [ContestPlayer]()
-                for element in array {
+                for element in board {
                     if let player = element as? NSDictionary {
                         let newPlayer = ContestPlayer()
                         newPlayer.firstName = player["firstName"] as! String
@@ -169,8 +172,8 @@ class ContestManager {
                     }
                 }
                 callback(ContestLeaderboard(value: [
-                    "id" : contestHistory.id,
-                    "name" : contestHistory.name,
+                    "id" : id,
+                    "name" : name,
                     "players" : players
                     ]))
             } else {

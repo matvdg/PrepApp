@@ -12,6 +12,7 @@ import RealmSwift
 
 class FactoryRealm {
     
+    //questions/chapters/subjects
     static let realm = try! Realm()
     static let realmHistory = try! Realm(path: "\(FactorySync.path)/history.realm")
     static let realmImages = try! Realm(path: "\(FactorySync.path)/images.realm")

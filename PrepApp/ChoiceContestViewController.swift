@@ -87,7 +87,9 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
         FactorySync.getContestManager().getContests { (contests) -> Void in
             self.contests = contests
             self.contestsHistory = FactorySync.getContestManager().getResultContests()
-            if self.contestsHistory.isEmpty {
+            let leaderboardsToRetrieve = FactoryHistory.getHistory().retrieveContestsDone()
+            print(leaderboardsToRetrieve)
+            if leaderboardsToRetrieve.isEmpty {
                 //sync finished!
                 self.templating()
                 self.contestTable.reloadData()
@@ -99,15 +101,15 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
                 //hide the waiting animation
                 SwiftSpinner.hide()
             } else {
-                for contestHistory in self.contestsHistory {
+                for id in leaderboardsToRetrieve {
                     var counter = 0
-                    FactorySync.getContestManager().getContestLeaderboard(contestHistory, callback: { (data) -> Void in
+                    FactorySync.getContestManager().getContestLeaderboard(id, callback: { (data) -> Void in
                         counter++
                         if let contestLeaderboard = data {
                             //online
                             self.contestsLeaderboard.append(contestLeaderboard)
                         }
-                        if counter == self.contestsHistory.count {
+                        if counter == leaderboardsToRetrieve.count {
                             //sync finished!
                             self.templating()
                             self.contestTable.reloadData()
@@ -121,9 +123,7 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
                         }
                     })
                 }
-
             }
-            
         }
     }
     
