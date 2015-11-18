@@ -88,8 +88,9 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
             self.contests = contests
             self.contestsHistory = FactorySync.getContestManager().getResultContests()
             let leaderboardsToRetrieve = FactoryHistory.getHistory().retrieveContestsDone()
-            print(leaderboardsToRetrieve)
+            print("leaderboardsToRetrieve = =\(leaderboardsToRetrieve)")
             if leaderboardsToRetrieve.isEmpty {
+                print("leaderboardsToRetrieve empty")
                 //sync finished!
                 self.templating()
                 self.contestTable.reloadData()
@@ -102,14 +103,19 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
                 SwiftSpinner.hide()
             } else {
                 for id in leaderboardsToRetrieve {
+                    print("inside loop")
                     var counter = 0
+                    print(counter)
                     FactorySync.getContestManager().getContestLeaderboard(id, callback: { (data) -> Void in
                         counter++
+                        print(counter)
                         if let contestLeaderboard = data {
                             //online
                             self.contestsLeaderboard.append(contestLeaderboard)
                         }
                         if counter == leaderboardsToRetrieve.count {
+                            print(counter)
+                            print("sync finished")
                             //sync finished!
                             self.templating()
                             self.contestTable.reloadData()

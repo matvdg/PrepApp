@@ -171,6 +171,7 @@ class ContestManager {
                         players.append(newPlayer)
                     }
                 }
+                print("ok")
                 callback(ContestLeaderboard(value: [
                     "id" : id,
                     "name" : name,
