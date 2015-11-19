@@ -83,6 +83,9 @@ class FactorySync {
     static let updateHistoryUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/history/")
     static let retrieveHistoryUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/retrieve/history/")
     
+    //P'Chat
+    static let pchatUrl = NSURL(string: "http://93.26.44.149/")
+    
     static let path: String = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] 
     
     
