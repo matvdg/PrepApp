@@ -749,7 +749,7 @@
                                                     <rect key="frame" x="25" y="15" width="20" height="20"/>
                                                     <animations/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Prep'Chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2aV-Nm-43W">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2aV-Nm-43W">
                                                     <rect key="frame" x="65" y="9" width="135" height="31"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="16"/>
@@ -4973,10 +4973,10 @@
             </objects>
             <point key="canvasLocation" x="3617" y="-3354"/>
         </scene>
-        <!--Prep'Chat-->
+        <!--Chat-->
         <scene sceneID="EDZ-Lv-alM">
             <objects>
-                <navigationController title="Prep'Chat" automaticallyAdjustsScrollViewInsets="NO" id="Gtb-GS-YuM" sceneMemberID="viewController">
+                <navigationController title="Chat" automaticallyAdjustsScrollViewInsets="NO" id="Gtb-GS-YuM" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OYZ-Va-pv2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -4992,10 +4992,10 @@
             </objects>
             <point key="canvasLocation" x="2229" y="-7642"/>
         </scene>
-        <!--PrepChatVC-->
+        <!--ChatVC-->
         <scene sceneID="XnF-qO-8q7">
             <objects>
-                <viewController title="PrepChatVC" id="pai-at-yon" customClass="PrepChatViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="ChatVC" id="pai-at-yon" customClass="ChatViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ycF-uv-Gif"/>
                         <viewControllerLayoutGuide type="bottom" id="D4W-Oy-9ju"/>

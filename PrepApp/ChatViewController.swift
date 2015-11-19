@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PrepChatViewController: UIViewController, UIWebViewDelegate {
+class ChatViewController: UIViewController, UIWebViewDelegate {
     
         
     @IBOutlet weak var menuButton: UIBarButtonItem!
@@ -19,7 +19,7 @@ class PrepChatViewController: UIViewController, UIWebViewDelegate {
         //sync
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
-        self.title = "Prep'Chat"
+        self.title = "Chat"
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
@@ -35,7 +35,7 @@ class PrepChatViewController: UIViewController, UIWebViewDelegate {
     
     func loadChat() {
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-        SwiftSpinner.show("Chargement de Prep'Chat...")
+        SwiftSpinner.show("Chargement de Chat...")
         let request = NSMutableURLRequest(URL: FactorySync.pchatUrl!)
         request.HTTPMethod = "POST"
         request.timeoutInterval = NSTimeInterval(5)
