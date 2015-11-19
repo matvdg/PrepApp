@@ -5005,7 +5005,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="595-Ml-ucr">
-                                <rect key="frame" x="0.0" y="64" width="600" height="492"/>
+                                <rect key="frame" x="8" y="72" width="584" height="476"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.94901961088180542" green="0.94901961088180542" blue="0.94901961088180542" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -5016,10 +5016,10 @@
                         <animations/>
                         <color key="backgroundColor" red="0.94901961088180542" green="0.94901961088180542" blue="0.94901961088180542" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="D4W-Oy-9ju" firstAttribute="top" secondItem="595-Ml-ucr" secondAttribute="bottom" id="Equ-Ab-U0q"/>
-                            <constraint firstItem="595-Ml-ucr" firstAttribute="top" secondItem="ycF-uv-Gif" secondAttribute="bottom" id="G1A-Iy-ToR"/>
-                            <constraint firstAttribute="trailing" secondItem="595-Ml-ucr" secondAttribute="trailing" id="hOu-0j-ACl"/>
-                            <constraint firstItem="595-Ml-ucr" firstAttribute="leading" secondItem="HOS-wv-Mpd" secondAttribute="leading" id="t2B-4d-7eS"/>
+                            <constraint firstItem="D4W-Oy-9ju" firstAttribute="top" secondItem="595-Ml-ucr" secondAttribute="bottom" constant="8" id="Equ-Ab-U0q"/>
+                            <constraint firstItem="595-Ml-ucr" firstAttribute="top" secondItem="ycF-uv-Gif" secondAttribute="bottom" constant="8" id="G1A-Iy-ToR"/>
+                            <constraint firstAttribute="trailing" secondItem="595-Ml-ucr" secondAttribute="trailing" constant="8" id="hOu-0j-ACl"/>
+                            <constraint firstItem="595-Ml-ucr" firstAttribute="leading" secondItem="HOS-wv-Mpd" secondAttribute="leading" constant="8" id="t2B-4d-7eS"/>
                         </constraints>
                     </view>
                     <toolbarItems/>

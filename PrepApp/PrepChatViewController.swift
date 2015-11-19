@@ -69,5 +69,17 @@ class PrepChatViewController: UIViewController, UIWebViewDelegate {
         SwiftSpinner.hide()
     }
     
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
+        SwiftSpinner.hide()
+        let myAlert = UIAlertController(title: "Erreur", message: "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez." , preferredStyle: UIAlertControllerStyle.Alert)
+        myAlert.view.tintColor = colorGreen
+        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
+        myAlert.addAction(UIAlertAction(title: "Réessayer", style: .Default, handler: { (action) -> Void in
+            self.loadChat()
+        }))
+        // show the alert
+        self.presentViewController(myAlert, animated: true, completion: nil)
+    }
+    
     
 }
