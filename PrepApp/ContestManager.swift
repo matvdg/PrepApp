@@ -119,6 +119,9 @@ class ContestManager {
             var result = [Contest]()
             if let contests = data {
                 //online
+                try! self.realm.write({
+                    self.realm.deleteAll()
+                })
                 for content in contests {
                     if let contest = content as? NSDictionary {
                         let newContest = Contest()
@@ -136,7 +139,6 @@ class ContestManager {
                         newContest.begin = NSDate(timeIntervalSince1970: NSTimeInterval(contest["begin"] as! Int))
                         newContest.end = NSDate(timeIntervalSince1970: NSTimeInterval(contest["end"] as! Int))
                         try! self.realm.write({
-                            self.realm.deleteAll()
                             self.realm.add(newContest)
                         })
                         result.append(newContest)
