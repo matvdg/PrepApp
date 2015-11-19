@@ -127,6 +127,8 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     override func viewDidAppear(animated: Bool) {
         if self.refreshIsNeeded {
+            SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+            SwiftSpinner.show("Mise à jour des défis...")
             self.loadData()
         } else {
             self.refreshIsNeeded = true
