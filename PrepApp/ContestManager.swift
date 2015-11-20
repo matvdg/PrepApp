@@ -12,6 +12,7 @@ class ContestManager {
     
     private var realm = FactoryRealm.getRealmContest()
     private var realmHistory = FactoryRealm.getRealmContestHistory()
+    private var realmLeaderboard = FactoryRealm.getRealmContestLeaderboard()
 
     
     //API
@@ -49,38 +50,74 @@ class ContestManager {
         task.resume()
     }
     
-    private func retrieveContestResults(idContest: Int, callback: (NSDictionary?) -> Void) {
-        let request = NSMutableURLRequest(URL: FactorySync.retrieveContestResultsUrl!)
+    private func retrieveDataContestLeaderboards(callback: (NSArray?, Bool) -> Void) {
+        let request = NSMutableURLRequest(URL: FactorySync.retrieveContestLeaderboardsUrl!)
         request.HTTPMethod = "POST"
         request.timeoutInterval = NSTimeInterval(5)
-        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&idContest=\(idContest)"
+        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
             (data, response, error) in
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    print("retrieveContestLeaderboard offline")
-                    callback(nil)
+                    print("retrieveContestLeaderboards offline")
+                    callback(nil, false)
                 } else {
                     let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
+                        let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSArray
                         
                         if let result = jsonResult {
-                            callback(result)
+                            callback(result, true)
                         } else {
-                            print("error : NSDictionary nil in retrieveContestLeaderboard")
-                            callback(nil)
+                            print("error : NSArray nil in retrieveContestLeaderboards")
+                            callback(nil, false)
                         }
                     } else {
                         print("no leaderboard available yet")
-                        callback(nil)
+                        callback(nil, true)
                     }
                 }
             }
         }
         task.resume()
+    }
+    
+    ///callback array of ContestLeaderboard from API
+    private func retrieveContestLeaderboards(callback: ([ContestLeaderboard]?) -> Void) {
+        self.retrieveDataContestLeaderboards { (data, online) -> Void in
+            if online { //online even if empty
+                var result = [ContestLeaderboard]()
+                if let array = data {
+                    for element in array {
+                        if let dico = element as? NSDictionary {
+                            let id = dico["id"] as! Int
+                            let name = dico["name"] as! String
+                            let board = dico["leaderboard"] as! NSArray
+                            var players = [ContestPlayer]()
+                            for playerData in board {
+                                if let player = playerData as? NSDictionary {
+                                    let newPlayer = ContestPlayer()
+                                    newPlayer.firstName = player["firstName"] as! String
+                                    newPlayer.lastName = player["lastName"] as! String
+                                    newPlayer.nickname = player["nickname"] as! String
+                                    newPlayer.points = player["points"] as! Float
+                                    players.append(newPlayer)
+                                }
+                            }
+                            result.append(ContestLeaderboard(value: [
+                                "id" : id,
+                                "name" : name,
+                                "players" : players ]))
+                        }
+                    }
+                }
+                callback(result)
+            } else { //offline or error
+                callback(nil)
+            }
+        }
     }
 
     func sendResultsContest(idContest: Int, points: Float, callback: (Bool, String) -> Void) {
@@ -156,33 +193,31 @@ class ContestManager {
         }
     }
     
-    ///callback a ContestLeaderboard from API if online or nil if offline
-    func getContestLeaderboard(id: Int, callback: (ContestLeaderboard?) -> Void) {
-        self.retrieveContestResults(id, callback: { (data) -> Void in
-            if let dico = data {
-                let name = dico["name"] as! String
-                let board = dico["leaderboard"] as! NSArray
-                var players = [ContestPlayer]()
-                for element in board {
-                    if let player = element as? NSDictionary {
-                        let newPlayer = ContestPlayer()
-                        newPlayer.firstName = player["firstName"] as! String
-                        newPlayer.lastName = player["lastName"] as! String
-                        newPlayer.nickname = player["nickname"] as! String
-                        newPlayer.points = player["points"] as! Float
-                        players.append(newPlayer)
-                    }
+    ///callback array of ContestLeaderboard from Realm if offline, from API if online (+backup to RealmDB)
+    func getContestLeaderboards(callback: ([ContestLeaderboard]) -> Void) {
+        self.retrieveContestLeaderboards { (data) -> Void in
+            var result = [ContestLeaderboard]()
+            if let contestLeaderboards = data {
+                //online
+                try! self.realmLeaderboard.write({
+                    self.realmLeaderboard.deleteAll()
+                })
+                for contestLeaderboard in contestLeaderboards {
+                    result.append(contestLeaderboard)
+                    try! self.realmLeaderboard.write({
+                        self.realmLeaderboard.add(contestLeaderboard)
+                    })
                 }
-                print("ok")
-                callback(ContestLeaderboard(value: [
-                    "id" : id,
-                    "name" : name,
-                    "players" : players
-                    ]))
             } else {
-                callback(nil)
+                //offline
+                print("contestLearderboards offline")
+                let contestLeaderboards = self.realmLeaderboard.objects(ContestLeaderboard)
+                for contestLeaderboard in contestLeaderboards {
+                    result.append(contestLeaderboard)
+                }
             }
-        })
+            callback(result)
+        }
     }
 
     ///save resultsContest to RealmDB ContestHistory

@@ -13,7 +13,7 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
     //properties
     var contests = [Contest]()
     var contestsHistory = [ContestHistory]()
-    var contestsLeaderboard = [ContestLeaderboard]()
+    var contestLeaderboards = [ContestLeaderboard]()
     let realm = FactoryRealm.getRealmFriends()
     var pullToRefresh =  UIRefreshControl()
     var refreshIsNeeded = false
@@ -24,7 +24,6 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
     //@IBOutlet
     @IBOutlet var menuButton: UIBarButtonItem!
     @IBOutlet weak var contestTable: UITableView!
-    
     
     //app methods
     override func viewDidLoad() {
@@ -80,15 +79,15 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
     
     //methods
     private func loadData() {
-        self.contestsLeaderboard = [ContestLeaderboard]()
+        self.contestLeaderboards = [ContestLeaderboard]()
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
         SwiftSpinner.show("Recherche de concours...")
         //loading contests
         FactorySync.getContestManager().getContests { (contests) -> Void in
             self.contests = contests
             self.contestsHistory = FactorySync.getContestManager().getResultContests()
-            let leaderboardsToRetrieve = FactoryHistory.getHistory().retrieveContestsDone()
-            if leaderboardsToRetrieve.isEmpty {
+            FactorySync.getContestManager().getContestLeaderboards({ (contestLeaderboards) -> Void in
+                self.contestLeaderboards = contestLeaderboards
                 //sync finished!
                 self.templating()
                 self.contestTable.reloadData()
@@ -99,31 +98,8 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
                 }
                 //hide the waiting animation
                 SwiftSpinner.hide()
-            } else {
-                for id in leaderboardsToRetrieve {
-                    var counter = 0
-                    print(counter)
-                    FactorySync.getContestManager().getContestLeaderboard(id, callback: { (data) -> Void in
-                        counter++
-                        if let contestLeaderboard = data {
-                            //online
-                            self.contestsLeaderboard.append(contestLeaderboard)
-                        }
-                        if counter == leaderboardsToRetrieve.count {
-                            //sync finished!
-                            self.templating()
-                            self.contestTable.reloadData()
-                            // tell refresh control it can stop showing up now
-                            if self.pullToRefresh.refreshing
-                            {
-                                self.pullToRefresh.endRefreshing()
-                            }
-                            //hide the waiting animation
-                            SwiftSpinner.hide()
-                        }
-                    })
-                }
-            }
+
+            })
         }
     }
     
@@ -140,11 +116,11 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
             templateContestHistory.name = "Aucun résultat pour le moment"
             self.contestsHistory.append(templateContestHistory)
         }
-        if self.contestsLeaderboard.isEmpty {
+        if self.contestLeaderboards.isEmpty {
             let templateContestLeaderboard = ContestLeaderboard()
             templateContestLeaderboard.id = -1
             templateContestLeaderboard.name = "Aucun classement pour le moment"
-            self.contestsLeaderboard.append(templateContestLeaderboard)
+            self.contestLeaderboards.append(templateContestLeaderboard)
         }
         
     }
@@ -164,7 +140,7 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
         } else if section == 1 {
             return self.contestsHistory.count
         } else {
-            return self.contestsLeaderboard.count
+            return self.contestLeaderboards.count
         }
         
     }
@@ -214,7 +190,7 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("contestLeaderboard", forIndexPath: indexPath)
-            let contestLeaderboard = self.contestsLeaderboard[indexPath.row]
+            let contestLeaderboard = self.contestLeaderboards[indexPath.row]
             cell.textLabel!.text = contestLeaderboard.name
             cell.textLabel?.textColor = UIColor.blackColor()
             cell.backgroundColor = colorGreyBackground
@@ -253,7 +229,7 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
                 self.performSegueWithIdentifier("showScore", sender: self)
             }
         } else {
-            let contestLeaderboard = self.contestsLeaderboard[indexPath.row]
+            let contestLeaderboard = self.contestLeaderboards[indexPath.row]
             self.selectedContestLeaderboard = contestLeaderboard
             if contestLeaderboard.id != -1 {
                 self.performSegueWithIdentifier("showContestLeaderboard", sender: self)

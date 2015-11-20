@@ -96,7 +96,8 @@ class LeaderboardContestViewController: UITableViewController {
         }
         cell.textLabel!.text = textTodisplay
         cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 10)
-        if contestPlayer.id == User.currentUser!.id {
+        //TODO : ask Julien to send me ContestPlayer unique IDs to avoid potential confusing nickname matching
+        if contestPlayer.nickname == User.currentUser!.nickname {
             cell.backgroundColor = colorGreenLogo
             cell.detailTextLabel!.textColor = UIColor.whiteColor()
             cell.textLabel?.textColor = UIColor.whiteColor()

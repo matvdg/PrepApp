@@ -86,22 +86,6 @@ class History {
         return false
     }
     
-    func retrieveContestsDone() -> [Int] {
-        let questionsHistory = self.realmHistory.objects(QuestionHistory)
-        let questions = self.realm.objects(Question)
-        var result = [Int]()
-        for questionHistory in questionsHistory {
-            for question in questions {
-                if question.id == questionHistory.id {
-                    if !result.contains(question.idContest) {
-                        result.append(question.idContest)
-                    }
-                }
-            }
-        }
-        return result
-    }
-    
     func isQuestionNewInTraining(id: Int)-> Bool {
         let questionsHistory = self.realmHistory.objects(QuestionHistory)
         var result = true //all questions are by default new

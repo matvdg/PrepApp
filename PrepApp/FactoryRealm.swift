@@ -21,6 +21,7 @@ class FactoryRealm {
     static let realmNewsfeed = try! Realm(path: "\(FactorySync.path)/newsfeed.realm")
     static let realmContest = try! Realm(path: "\(FactorySync.path)/contest.realm")
     static let realmContestHistory = try! Realm(path: "\(FactorySync.path)/contestHistory.realm")
+    static let realmContestLeaderboard = try! Realm(path: "\(FactorySync.path)/contestLeaderboard.realm")
     
     class func getRealm() -> Realm {
         return realm
@@ -52,6 +53,10 @@ class FactoryRealm {
     
     class func getRealmContestHistory() -> Realm {
         return realmContestHistory
+    }
+    
+    class func getRealmContestLeaderboard() -> Realm {
+        return realmContestLeaderboard
     }
     
     class func clearUserDB() {

@@ -9,6 +9,11 @@
 import RealmSwift
 
 // ContestPlayer model
-class ContestPlayer : Friend {
+class ContestPlayer : Object {
+    
+    dynamic var firstName: String = ""
+    dynamic var lastName: String = ""
+    dynamic var nickname: String = ""
     dynamic var points: Float = 0
+    
 }

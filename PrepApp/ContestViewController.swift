@@ -80,11 +80,12 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.details = ["Du \(begin) au \(end)"]
         self.details!.append("\(self.contest.duration) minutes")
         let goodAnswer = abs(self.contest.goodAnswer)
-        let badAnswer = -abs(self.contest.wrongAnswer)
         let emptyAnswer = -abs(self.contest.noAnswer)
+        let badAnswer = -abs(self.contest.wrongAnswer)
         self.details!.append(goodAnswer.toStringPoints())
-        self.details!.append(badAnswer.toStringPoints())
         self.details!.append(emptyAnswer.toStringPoints())
+        self.details!.append(badAnswer.toStringPoints())
+        
         //loading content
         self.contestContent.loadHTMLString(self.contest.content, baseURL: nil)
         

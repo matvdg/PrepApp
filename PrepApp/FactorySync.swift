@@ -65,7 +65,7 @@ class FactorySync {
     
     //CONTEST
     static let contestUrl = NSURL(string: "\(FactorySync.apiUrl!)/contest/")
-    static let retrieveContestResultsUrl = NSURL(string: "\(FactorySync.apiUrl!)/contest/results/")
+    static let retrieveContestLeaderboardsUrl = NSURL(string: "\(FactorySync.apiUrl!)/contest/results/")
     static let sendContestResultsUrl = NSURL(string: "\(FactorySync.apiUrl!)/contest/results/send")
     
     //FEEDBACK
