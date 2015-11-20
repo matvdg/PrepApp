@@ -199,6 +199,7 @@ class ContestManager {
                 //online
                 try! self.realm.write({
                     self.realm.delete(self.realm.objects(ContestLeaderboard))
+                    self.realm.delete(self.realm.objects(ContestPlayer))
                 })
                 for contestLeaderboard in contestLeaderboards {
                     result.append(contestLeaderboard)
