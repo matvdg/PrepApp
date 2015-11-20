@@ -10,9 +10,7 @@ import UIKit
 
 class ContestManager {
     
-    private var realm = FactoryRealm.getRealmContest()
-    private var realmHistory = FactoryRealm.getRealmContestHistory()
-    private var realmLeaderboard = FactoryRealm.getRealmContestLeaderboard()
+    private var realm = FactoryRealm.getRealm()
 
     
     //API
@@ -157,7 +155,7 @@ class ContestManager {
             if let contests = data {
                 //online
                 try! self.realm.write({
-                    self.realm.deleteAll()
+                    self.realm.delete(self.realm.objects(Contest))
                 })
                 for content in contests {
                     if let contest = content as? NSDictionary {
@@ -199,19 +197,19 @@ class ContestManager {
             var result = [ContestLeaderboard]()
             if let contestLeaderboards = data {
                 //online
-                try! self.realmLeaderboard.write({
-                    self.realmLeaderboard.deleteAll()
+                try! self.realm.write({
+                    self.realm.delete(self.realm.objects(ContestLeaderboard))
                 })
                 for contestLeaderboard in contestLeaderboards {
                     result.append(contestLeaderboard)
-                    try! self.realmLeaderboard.write({
-                        self.realmLeaderboard.add(contestLeaderboard)
+                    try! self.realm.write({
+                        self.realm.add(contestLeaderboard)
                     })
                 }
             } else {
                 //offline
                 print("contestLearderboards offline")
-                let contestLeaderboards = self.realmLeaderboard.objects(ContestLeaderboard)
+                let contestLeaderboards = self.realm.objects(ContestLeaderboard)
                 for contestLeaderboard in contestLeaderboards {
                     result.append(contestLeaderboard)
                 }
@@ -237,8 +235,8 @@ class ContestManager {
         resultsContest.succeeded = succeeded
         resultsContest.numberOfQuestions = numberOfQuestions
         do {
-            try self.realmHistory.write({
-                self.realmHistory.add(resultsContest)
+            try self.realm.write({
+                self.realm.add(resultsContest)
             })
         } catch {
             print(error)
@@ -248,8 +246,8 @@ class ContestManager {
     
     ///get a resultContest from local RealmDB
     func getResultContest(id: Int) -> ContestHistory? {
-        if !realmHistory.objects(ContestHistory).filter("id = \(id)").isEmpty {
-            return realmHistory.objects(ContestHistory).filter("id = \(id)").first
+        if !realm.objects(ContestHistory).filter("id = \(id)").isEmpty {
+            return realm.objects(ContestHistory).filter("id = \(id)").first
         } else {
             return nil
         }
@@ -258,9 +256,9 @@ class ContestManager {
     ///get resultContests from local RealmDB
     func getResultContests() -> [ContestHistory] {
         var result = [ContestHistory]()
-        let realm = realmHistory.objects(ContestHistory)
-        for item in realm {
-            result.append(item)
+        let contestsHistory = self.realm.objects(ContestHistory)
+        for contestHistory in contestsHistory {
+            result.append(contestHistory)
         }
         return result
     }

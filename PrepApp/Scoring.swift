@@ -11,12 +11,11 @@ import RealmSwift
 
 class Scoring {
     
-    private let realmHistory = FactoryRealm.getRealmHistory()
     private let realm = FactoryRealm.getRealm()
     
     func getScore(subject: Int) -> (Int,Int,Int) {
         
-        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        let questionsHistory = self.realm.objects(QuestionHistory)
         let questionsToCompute = List<QuestionHistory>()
         var succeeded = 0
         var percent = 0
@@ -53,7 +52,7 @@ class Scoring {
     }
     
     func getSucceeded() -> Int {
-        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        let questionsHistory = self.realm.objects(QuestionHistory)
         var succeeded = 0
         for question in questionsHistory {
             if question.firstSuccess {
@@ -65,7 +64,7 @@ class Scoring {
     }
     
     func getFailed() -> Int {
-        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        let questionsHistory = self.realm.objects(QuestionHistory)
         var failed = 0
         for question in questionsHistory {
             if !question.firstSuccess {
@@ -76,7 +75,7 @@ class Scoring {
     }
     
     func getAssiduity() -> Int {
-        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        let questionsHistory = self.realm.objects(QuestionHistory)
         var counter = 0
         for question in questionsHistory {
             counter++
@@ -88,7 +87,7 @@ class Scoring {
     }
     
     func getPerf(subject: Int) -> [Double] {
-        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        let questionsHistory = self.realm.objects(QuestionHistory)
         var questionsToCompute: [Int:[QuestionHistory]] = [:]
         var performances: [Int:Int] = [:]
         var result: [Double] = []
@@ -139,7 +138,7 @@ class Scoring {
     }
     
     func getQuestionsAnswered() -> [Double] {
-        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        let questionsHistory = self.realm.objects(QuestionHistory)
         var questionsToCompute: [Int:[QuestionHistory]] = [:]
         var questionsAnsweredDic: [Int:Int] = [:]
         var result: [Double] = []
@@ -182,7 +181,7 @@ class Scoring {
     }
     
     func getWeeksBeforeExam () -> [String] {
-        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        let questionsHistory = self.realm.objects(QuestionHistory)
         var weeks: [Int] = []
         var result: [String] = []
         var maxWeek = 0

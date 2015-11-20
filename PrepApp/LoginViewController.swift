@@ -26,7 +26,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 	
 	override func viewDidAppear(animated: Bool) {
 		//if user already logged in persistent data, load it
-        print("Realm path = ")
         print(FactorySync.path)
         if User.instantiateUserStored() {
             if UserPreferences.touchId {

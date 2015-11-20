@@ -16,7 +16,7 @@ class ImageManager {
     var numberOfImagesToDownload: Int = 0
     var numberOfImagesDownloaded: Int = 0
     var hasFinishedSync: Bool = false
-    let realm = FactoryRealm.getRealmImages()
+    let realm = FactoryRealm.getRealm()
 	
     func sync(){
         self.hasFinishedSync = false

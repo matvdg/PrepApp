@@ -14,7 +14,7 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
     var contests = [Contest]()
     var contestsHistory = [ContestHistory]()
     var contestLeaderboards = [ContestLeaderboard]()
-    let realm = FactoryRealm.getRealmFriends()
+    let realm = FactoryRealm.getRealm()
     var pullToRefresh =  UIRefreshControl()
     var refreshIsNeeded = false
     var selectedContest: Contest?

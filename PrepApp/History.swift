@@ -10,16 +10,13 @@ import UIKit
 
 class History {
     
-    private let realmHistory = FactoryRealm.getRealmHistory()
     private let realm = FactoryRealm.getRealm()
-    private let realmContest = FactoryRealm.getRealmContest()
-    private let realmContestHistory = FactoryRealm.getRealmContestHistory()
     
     var syncHistoryNeeded = true
     
     func addQuestionToHistory(question: QuestionHistory) {
         self.syncHistoryNeeded = true
-        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        let questionsHistory = self.realm.objects(QuestionHistory)
         var updated = false
         
         for questionHistory in questionsHistory {
@@ -29,7 +26,7 @@ class History {
                     question.doubleAssiduity = true
                     print("double assiduity")
                 }
-                try! self.realmHistory.write {
+                try! self.realm.write {
                     questionHistory.success = question.success
                     questionHistory.training = question.training
                     questionHistory.doubleAssiduity = question.doubleAssiduity
@@ -41,10 +38,10 @@ class History {
             
         }
         if updated == false { //firstTime in DB
-            try! self.realmHistory.write {
+            try! self.realm.write {
                 question.firstSuccess = question.success
                 question.weeksBeforeExam = FactorySync.getConfigManager().loadWeeksBeforeExam()
-                self.realmHistory.add(question)
+                self.realm.add(question)
             }
             print("added")
         }
@@ -54,11 +51,11 @@ class History {
     
     func updateQuestionMark(question: QuestionHistory) {
         self.syncHistoryNeeded = true
-        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        let questionsHistory = self.realm.objects(QuestionHistory)
         for questionHistory in questionsHistory {
             
             if question.id == questionHistory.id {
-                try! self.realmHistory.write {
+                try! self.realm.write {
                     questionHistory.marked = question.marked
                 }
                 break
@@ -73,7 +70,7 @@ class History {
     func isContestNew(id: Int)-> Bool {
         if !realm.objects(Question).filter("idContest = \(id)").isEmpty {
             let questionFromContest = realm.objects(Question).filter("idContest = \(id)").first
-            let questionsHistory = self.realmHistory.objects(QuestionHistory)
+            let questionsHistory = self.realm.objects(QuestionHistory)
             var result = true
             for questionHistory in questionsHistory {
                 if questionFromContest!.id == questionHistory.id {
@@ -87,7 +84,7 @@ class History {
     }
     
     func isQuestionNewInTraining(id: Int)-> Bool {
-        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        let questionsHistory = self.realm.objects(QuestionHistory)
         var result = true //all questions are by default new
         for questionHistory in questionsHistory {
             if id == questionHistory.id && questionHistory.training == true {
@@ -99,7 +96,7 @@ class History {
     }
     
     func isQuestionDone(id: Int)-> Bool {
-        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        let questionsHistory = self.realm.objects(QuestionHistory)
         var result = false
         for questionHistory in questionsHistory {
             if id == questionHistory.id {
@@ -112,7 +109,7 @@ class History {
     }
     
     func isQuestionSuccessed(id: Int)-> Bool {
-        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        let questionsHistory = self.realm.objects(QuestionHistory)
         var result = false
         for questionHistory in questionsHistory {
             if id == questionHistory.id && questionHistory.success  {
@@ -124,7 +121,7 @@ class History {
     }
     
     func isQuestionFailed(id: Int)-> Bool {
-        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        let questionsHistory = self.realm.objects(QuestionHistory)
         var result = false
         for questionHistory in questionsHistory {
             if id == questionHistory.id && !questionHistory.success {
@@ -136,7 +133,7 @@ class History {
     }
     
     func isQuestionMarked(id: Int)-> Bool {
-        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        let questionsHistory = self.realm.objects(QuestionHistory)
         var result = false
         for questionHistory in questionsHistory {
             if id == questionHistory.id && questionHistory.marked {
@@ -148,7 +145,7 @@ class History {
     }
     
     func getMarkedQuestions() -> ([Question],[Bool]) {
-        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        let questionsHistory = self.realm.objects(QuestionHistory)
         let questions = self.realm.objects(Question)
         var isTraining = [Bool]()
         var markedQuestions = [Question]()
@@ -167,7 +164,7 @@ class History {
     }
     
     func syncHistory(callback: (Bool) -> Void) {
-        let questionsHistory = self.realmHistory.objects(QuestionHistory)
+        let questionsHistory = self.realm.objects(QuestionHistory)
         
         var post: [NSMutableDictionary] = []
         for question in questionsHistory {
@@ -227,8 +224,8 @@ class History {
                         historyQuestion.marked =  question["marked"] as! Bool
                         historyQuestion.doubleAssiduity = question["doubleAssiduity"] as! Bool
                         historyQuestion.weeksBeforeExam = question["weeksBeforeExam"] as! Int
-                        try! self.realmHistory.write({
-                            self.realmHistory.add(historyQuestion)
+                        try! self.realm.write({
+                            self.realm.add(historyQuestion)
                         })
                     } else {
                         callback(false)

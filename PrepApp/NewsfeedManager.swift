@@ -10,7 +10,7 @@ import UIKit
 
 class NewsfeedManager {
     
-    private var realm = FactoryRealm.getRealmNewsfeed()
+    private var realm = FactoryRealm.getRealm()
     
     //API
     private func retrieveNewsfeed(callback: (NSArray?) -> Void) {
@@ -55,7 +55,7 @@ class NewsfeedManager {
             if let newsfeed = data {
                 //online
                 try! self.realm.write({ () -> Void in
-                    self.realm.deleteAll()
+                    self.realm.delete(self.realm.objects(News))
                 })
                 for data in newsfeed {
                     if let news = data as? NSDictionary {

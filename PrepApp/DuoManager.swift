@@ -11,7 +11,7 @@ import UIKit
 
 class DuoManager {
     
-    let realm = FactoryRealm.getRealmDuo()
+    let realm = FactoryRealm.getRealm()
     
     //API
     func requestDuo(idFriend: Int, callback: (Int?, String?) -> Void) {
@@ -174,7 +174,7 @@ class DuoManager {
         self.getPendingDuos({ (data) -> Void in
             if let pendingDuos = data {
                 try! self.realm.write({ () -> Void in
-                    self.realm.deleteAll()
+                    self.realm.delete(self.realm.objects(PendingDuo))
                 })
                 for data in pendingDuos {
                     if let pendingDuoData = data as? NSDictionary {

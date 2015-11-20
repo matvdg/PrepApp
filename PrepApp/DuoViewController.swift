@@ -13,7 +13,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
     //properties
     var friends = [Friend]()
     var pendingDuos = [PendingDuo]()
-    let realm = FactoryRealm.getRealmFriends()
+    let realm = FactoryRealm.getRealm()
     var textField =  UITextField()
     var pullToRefresh =  UIRefreshControl()
     var idDuo = 0

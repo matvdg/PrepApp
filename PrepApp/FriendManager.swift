@@ -11,7 +11,7 @@ import UIKit
 
 class FriendManager {
     
-    let realm = FactoryRealm.getRealmFriends()
+    let realm = FactoryRealm.getRealm()
     
     //API
     private func findFriend(code: String, callback: (NSDictionary?, String) -> Void) {
@@ -211,7 +211,7 @@ class FriendManager {
         self.retrieveFriends({ (data) -> Void in
             if let friendList = data {
                 try! self.realm.write({ () -> Void in
-                    self.realm.deleteAll()
+                    self.realm.delete(self.realm.objects(Friend))
                 })
                 for data in friendList {
                     if let friend = data as? NSDictionary {

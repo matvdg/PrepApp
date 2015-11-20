@@ -745,7 +745,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pchat" translatesAutoresizingMaskIntoConstraints="NO" id="lDn-rN-uar">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="chat" translatesAutoresizingMaskIntoConstraints="NO" id="lDn-rN-uar">
                                                     <rect key="frame" x="25" y="15" width="20" height="20"/>
                                                     <animations/>
                                                 </imageView>
@@ -5044,6 +5044,7 @@
         <image name="awardPointHD" width="500" height="500"/>
         <image name="bio" width="512" height="512"/>
         <image name="calc" width="22" height="22"/>
+        <image name="chat" width="22" height="22"/>
         <image name="che" width="512" height="512"/>
         <image name="chrono" width="44" height="44"/>
         <image name="contest" width="22" height="22"/>
@@ -5059,7 +5060,6 @@
         <image name="markedBar" width="22" height="22"/>
         <image name="menu" width="22" height="22"/>
         <image name="next" width="20" height="20"/>
-        <image name="pchat" width="22" height="22"/>
         <image name="phy" width="512" height="512"/>
         <image name="previous" width="20" height="20"/>
         <image name="score" width="22" height="22"/>
