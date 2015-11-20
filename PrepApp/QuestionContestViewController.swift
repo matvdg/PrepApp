@@ -140,7 +140,7 @@ class QuestionContestViewController: UIViewController,
         if FactoryHistory.getHistory().isQuestionMarked(self.currentQuestion!.id){
             Sound.playTrack("error")
             title = "Question déjà marquée !"
-            message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\" dans \"Profil\""
+            message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\""
             let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
             myAlert.addAction(UIAlertAction(title: "Supprimer le marquage", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
@@ -167,7 +167,7 @@ class QuestionContestViewController: UIViewController,
             if FactoryHistory.getHistory().isQuestionDone(self.currentQuestion!.id) {
                 Sound.playTrack("notif")
                 title = "Question marquée"
-                message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\" dans \"Profil\""
+                message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\""
                 let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
                 let historyQuestion = QuestionHistory()

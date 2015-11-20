@@ -43,7 +43,6 @@ class History {
                 question.weeksBeforeExam = FactorySync.getConfigManager().loadWeeksBeforeExam()
                 self.realm.add(question)
             }
-            print("added")
         }
 
 
