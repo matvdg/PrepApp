@@ -94,7 +94,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //methods
     func renderBadge(){
-        self.badge.titleLabel!.font = UIFont(name: "Times New Roman", size: 50)!
+        self.badge.titleLabel!.font = UIFont.systemFontOfSize(50)
         self.badge.backgroundColor = colors[User.currentUser!.color]
         self.badge.layer.zPosition = 100
         //self.badge.layer.borderColor = UIColor.whiteColor().CGColor
