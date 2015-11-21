@@ -11,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Prep'App</string>
+	<string>Prep&apos;App</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -30,10 +30,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>segoe.ttf</string>
-		<string>stix.otf</string>
-		<string>stixi.otf</string>
-		<string>stixb.otf</string>
-		<string>stixbi.otf</string>
+		<string>timer.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

@@ -55,6 +55,7 @@
 		F64630A31B5E663C006A5F71 /* SubjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64630A21B5E663C006A5F71 /* SubjectManager.swift */; };
 		F64630A51B5E6959006A5F71 /* FactorySync.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64630A41B5E6959006A5F71 /* FactorySync.swift */; };
 		F64630A71B5FD451006A5F71 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F64630A61B5FD451006A5F71 /* LocalAuthentication.framework */; };
+		F652F5B61C00D90F00485F74 /* timer.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F652F5B51C00D90F00485F74 /* timer.ttf */; };
 		F660C7541BF53C8100252366 /* ChoiceContestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F660C7531BF53C8100252366 /* ChoiceContestViewController.swift */; };
 		F663E3181B7A620800F23294 /* QuestionHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F663E3171B7A620800F23294 /* QuestionHistory.swift */; };
 		F663E31C1B7A6BD000F23294 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = F663E31B1B7A6BD000F23294 /* History.swift */; };
@@ -199,6 +200,7 @@
 		F64630A21B5E663C006A5F71 /* SubjectManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubjectManager.swift; sourceTree = "<group>"; };
 		F64630A41B5E6959006A5F71 /* FactorySync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactorySync.swift; sourceTree = "<group>"; };
 		F64630A61B5FD451006A5F71 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		F652F5B51C00D90F00485F74 /* timer.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = timer.ttf; sourceTree = "<group>"; };
 		F660C7531BF53C8100252366 /* ChoiceContestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceContestViewController.swift; sourceTree = "<group>"; };
 		F663E3171B7A620800F23294 /* QuestionHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionHistory.swift; sourceTree = "<group>"; };
 		F663E31B1B7A6BD000F23294 /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = History.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -310,6 +312,7 @@
 		F62D40931AF443170051DE83 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				F652F5B51C00D90F00485F74 /* timer.ttf */,
 				F62D408E1AF442E00051DE83 /* segoe.ttf */,
 			);
 			name = Fonts;
@@ -663,6 +666,7 @@
 			files = (
 				F6C3095E1B037ACF00B8FAC9 /* Images.xcassets in Resources */,
 				F6AAE6DD1AF433E100195E11 /* Main.storyboard in Resources */,
+				F652F5B61C00D90F00485F74 /* timer.ttf in Resources */,
 				F62D408F1AF442E60051DE83 /* segoe.ttf in Resources */,
 				F63B5AEC1B77D390002C0A79 /* sounds in Resources */,
 				F6AAE6E21AF433E100195E11 /* LaunchScreen.xib in Resources */,

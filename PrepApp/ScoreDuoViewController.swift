@@ -80,23 +80,25 @@ class ScoreDuoViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func animateScore() {
-        if self.animationScore != self.score {
-            self.scoreLabel.text = "\(self.animationScore)"
-            if self.animationScore < 10 {
-                self.scoreLabel.textColor = colorWrongAnswer
+        if !self.reviewMode {
+            if self.animationScore != self.score {
+                self.scoreLabel.text = "\(self.animationScore)"
+                if self.animationScore < 10 {
+                    self.scoreLabel.textColor = colorWrongAnswer
+                } else {
+                    self.scoreLabel.textColor = colorGreenLogo
+                }
+                self.animationScore++
             } else {
-                self.scoreLabel.textColor = colorGreenLogo
+                self.scoreLabel.text = "\(self.animationScore)"
+                if self.animationScore < 10 {
+                    self.scoreLabel.textColor = colorWrongAnswer
+                } else {
+                    self.scoreLabel.textColor = colorGreenLogo
+                }
+                self.animationScore = 0
+                self.scoreTimer.invalidate()
             }
-            self.animationScore++
-        } else {
-            self.scoreLabel.text = "\(self.animationScore)"
-            if self.animationScore < 10 {
-                self.scoreLabel.textColor = colorWrongAnswer
-            } else {
-                self.scoreLabel.textColor = colorGreenLogo
-            }
-            self.animationScore = 0
-            self.scoreTimer.invalidate()
         }
     }
     

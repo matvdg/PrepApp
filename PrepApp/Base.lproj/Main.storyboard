@@ -125,9 +125,11 @@
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
-            <string>SegoeUI-Regular</string>
-            <string>SegoeUI-Regular</string>
-            <string>SegoeUI-Regular</string>
+        </mutableArray>
+        <mutableArray key="timer.ttf">
+            <string>Digital-7</string>
+            <string>Digital-7</string>
+            <string>Digital-7</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -3058,23 +3060,22 @@
                                 </items>
                                 <color key="tintColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chrono" translatesAutoresizingMaskIntoConstraints="NO" id="ffN-K2-E90">
-                                <rect key="frame" x="20" y="20" width="44" height="44"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="timer" translatesAutoresizingMaskIntoConstraints="NO" id="ffN-K2-E90">
+                                <rect key="frame" x="20" y="18" width="40" height="40"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="44" id="OJO-jM-mTK"/>
-                                    <constraint firstAttribute="height" constant="44" id="Xga-yy-Ifr"/>
+                                    <constraint firstAttribute="width" constant="40" id="OJO-jM-mTK"/>
+                                    <constraint firstAttribute="height" constant="40" id="Xga-yy-Ifr"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m4V-RB-Nfm">
-                                <rect key="frame" x="20" y="20" width="44" height="44"/>
+                                <rect key="frame" x="20" y="19" width="40" height="40"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="Mqg-iC-0k5"/>
-                                    <constraint firstAttribute="width" constant="44" id="YYt-Gs-bkn"/>
+                                    <constraint firstAttribute="height" constant="40" id="Mqg-iC-0k5"/>
+                                    <constraint firstAttribute="width" constant="40" id="YYt-Gs-bkn"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Digital-7" family="Digital-7" pointSize="25"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hhB-tO-WKN">
@@ -3112,7 +3113,7 @@
                         <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="of3-me-pjg" firstAttribute="leading" secondItem="m4V-RB-Nfm" secondAttribute="trailing" constant="8" id="0FM-5l-riF"/>
+                            <constraint firstItem="of3-me-pjg" firstAttribute="leading" secondItem="m4V-RB-Nfm" secondAttribute="trailing" constant="12" id="0FM-5l-riF"/>
                             <constraint firstItem="ffN-K2-E90" firstAttribute="leading" secondItem="Ko6-yj-spk" secondAttribute="leadingMargin" id="0TK-Bh-OPY"/>
                             <constraint firstAttribute="trailing" secondItem="a17-fY-AsR" secondAttribute="trailing" id="8Vj-1h-m3R"/>
                             <constraint firstItem="a17-fY-AsR" firstAttribute="top" secondItem="eM6-bp-prJ" secondAttribute="bottom" id="Jq1-uu-QJO"/>
@@ -3125,11 +3126,11 @@
                             <constraint firstItem="QyA-tT-qgg" firstAttribute="leading" secondItem="Ko6-yj-spk" secondAttribute="leading" id="XZp-g8-2pU"/>
                             <constraint firstItem="of3-me-pjg" firstAttribute="top" secondItem="Df8-UU-wld" secondAttribute="bottom" id="bkE-e1-goB"/>
                             <constraint firstItem="eM6-bp-prJ" firstAttribute="top" secondItem="QyA-tT-qgg" secondAttribute="bottom" id="dMk-AF-jGN"/>
-                            <constraint firstItem="ffN-K2-E90" firstAttribute="top" secondItem="Df8-UU-wld" secondAttribute="bottom" id="hXC-gn-H1o"/>
+                            <constraint firstItem="ffN-K2-E90" firstAttribute="top" secondItem="Df8-UU-wld" secondAttribute="bottom" constant="-2" id="hXC-gn-H1o"/>
                             <constraint firstItem="hhB-tO-WKN" firstAttribute="leading" secondItem="of3-me-pjg" secondAttribute="trailing" constant="8" id="ixs-U3-2OY"/>
                             <constraint firstItem="QyA-tT-qgg" firstAttribute="top" secondItem="Df8-UU-wld" secondAttribute="bottom" constant="-20" id="koW-9N-TrY"/>
                             <constraint firstItem="eM6-bp-prJ" firstAttribute="top" secondItem="of3-me-pjg" secondAttribute="bottom" id="mVl-ex-af9"/>
-                            <constraint firstItem="m4V-RB-Nfm" firstAttribute="top" secondItem="Df8-UU-wld" secondAttribute="bottom" id="rfe-dk-2Hr"/>
+                            <constraint firstItem="m4V-RB-Nfm" firstAttribute="top" secondItem="Df8-UU-wld" secondAttribute="bottom" constant="-1" id="rfe-dk-2Hr"/>
                             <constraint firstAttribute="trailing" secondItem="QyA-tT-qgg" secondAttribute="trailing" id="yn4-z1-kIZ"/>
                         </constraints>
                     </view>
@@ -3655,23 +3656,22 @@
                                 </items>
                                 <color key="tintColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chrono" translatesAutoresizingMaskIntoConstraints="NO" id="Rlr-KN-PdF">
-                                <rect key="frame" x="20" y="20" width="44" height="44"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="timer" translatesAutoresizingMaskIntoConstraints="NO" id="Rlr-KN-PdF">
+                                <rect key="frame" x="20" y="19" width="40" height="40"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="37H-b2-hUi"/>
-                                    <constraint firstAttribute="width" constant="44" id="cto-gy-CCJ"/>
+                                    <constraint firstAttribute="height" constant="40" id="37H-b2-hUi"/>
+                                    <constraint firstAttribute="width" constant="40" id="cto-gy-CCJ"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FGd-u4-m2f">
-                                <rect key="frame" x="20" y="20" width="44" height="44"/>
+                                <rect key="frame" x="20" y="20" width="40" height="40"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="EOc-BY-3Fv"/>
-                                    <constraint firstAttribute="width" constant="44" id="sND-L2-SVo"/>
+                                    <constraint firstAttribute="height" constant="40" id="EOc-BY-3Fv"/>
+                                    <constraint firstAttribute="width" constant="40" id="sND-L2-SVo"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Digital-7" family="Digital-7" pointSize="25"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZO1-6n-J5h">
@@ -3713,7 +3713,7 @@
                             <constraint firstAttribute="trailing" secondItem="nzI-sp-woL" secondAttribute="trailing" id="0bQ-id-yPy"/>
                             <constraint firstItem="nzI-sp-woL" firstAttribute="top" secondItem="oF0-bt-AAc" secondAttribute="bottom" id="3Yz-Y6-YSe"/>
                             <constraint firstItem="ZO1-6n-J5h" firstAttribute="trailing" secondItem="zpb-Xl-paJ" secondAttribute="trailingMargin" id="4lB-u9-QKA"/>
-                            <constraint firstItem="vv5-bj-e6n" firstAttribute="leading" secondItem="FGd-u4-m2f" secondAttribute="trailing" constant="8" id="ADP-gA-FSv"/>
+                            <constraint firstItem="vv5-bj-e6n" firstAttribute="leading" secondItem="FGd-u4-m2f" secondAttribute="trailing" constant="12" id="ADP-gA-FSv"/>
                             <constraint firstItem="ZO1-6n-J5h" firstAttribute="leading" secondItem="vv5-bj-e6n" secondAttribute="trailing" constant="8" id="FWw-De-ER0"/>
                             <constraint firstItem="9cz-uP-18k" firstAttribute="leading" secondItem="zpb-Xl-paJ" secondAttribute="leading" id="Fi6-H6-ibp"/>
                             <constraint firstAttribute="trailing" secondItem="9cz-uP-18k" secondAttribute="trailing" id="HJV-Es-qNl"/>
@@ -3723,7 +3723,7 @@
                             <constraint firstItem="Rlr-KN-PdF" firstAttribute="leading" secondItem="zpb-Xl-paJ" secondAttribute="leadingMargin" id="VUk-OB-9AN"/>
                             <constraint firstItem="nzI-sp-woL" firstAttribute="top" secondItem="vv5-bj-e6n" secondAttribute="bottom" id="W8H-fW-UoR"/>
                             <constraint firstItem="9cz-uP-18k" firstAttribute="top" secondItem="nzI-sp-woL" secondAttribute="bottom" id="WfN-VF-95M"/>
-                            <constraint firstItem="Rlr-KN-PdF" firstAttribute="top" secondItem="gL3-gj-hif" secondAttribute="bottom" id="XXh-le-km3"/>
+                            <constraint firstItem="Rlr-KN-PdF" firstAttribute="top" secondItem="gL3-gj-hif" secondAttribute="bottom" constant="-1" id="XXh-le-km3"/>
                             <constraint firstAttribute="trailing" secondItem="oF0-bt-AAc" secondAttribute="trailing" id="adH-g5-k3c"/>
                             <constraint firstItem="oF0-bt-AAc" firstAttribute="top" secondItem="gL3-gj-hif" secondAttribute="bottom" constant="-20" id="qjL-Qc-9MF"/>
                             <constraint firstItem="FGd-u4-m2f" firstAttribute="top" secondItem="gL3-gj-hif" secondAttribute="bottom" id="slx-MZ-mwY"/>
@@ -4419,23 +4419,22 @@
                                 </items>
                                 <color key="tintColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chrono" translatesAutoresizingMaskIntoConstraints="NO" id="Zol-cU-Wmx">
-                                <rect key="frame" x="20" y="20" width="44" height="44"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="timer" translatesAutoresizingMaskIntoConstraints="NO" id="Zol-cU-Wmx">
+                                <rect key="frame" x="20" y="19" width="40" height="40"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="en0-9D-G5D"/>
-                                    <constraint firstAttribute="width" constant="44" id="ogm-fd-5IY"/>
+                                    <constraint firstAttribute="height" constant="40" id="en0-9D-G5D"/>
+                                    <constraint firstAttribute="width" constant="40" id="ogm-fd-5IY"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i5f-fs-Bwe">
-                                <rect key="frame" x="20" y="20" width="44" height="44"/>
+                                <rect key="frame" x="20" y="20" width="40" height="40"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="Jlr-Yr-xy5"/>
-                                    <constraint firstAttribute="width" constant="44" id="c1Y-3N-WK2"/>
+                                    <constraint firstAttribute="height" constant="40" id="Jlr-Yr-xy5"/>
+                                    <constraint firstAttribute="width" constant="40" id="c1Y-3N-WK2"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Digital-7" family="Digital-7" pointSize="25"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q2s-sb-xGa">
@@ -4474,12 +4473,12 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="C2C-Xw-Xmh" firstAttribute="leading" secondItem="Fpt-oD-Ukz" secondAttribute="leading" id="2fe-ws-2PB"/>
-                            <constraint firstItem="Zol-cU-Wmx" firstAttribute="top" secondItem="5pG-N0-SqU" secondAttribute="bottom" id="9SL-7u-cg6"/>
+                            <constraint firstItem="Zol-cU-Wmx" firstAttribute="top" secondItem="5pG-N0-SqU" secondAttribute="bottom" constant="-1" id="9SL-7u-cg6"/>
                             <constraint firstItem="C2C-Xw-Xmh" firstAttribute="top" secondItem="5pG-N0-SqU" secondAttribute="bottom" constant="-20" id="AwZ-hg-brP"/>
                             <constraint firstItem="q5E-pD-VFH" firstAttribute="top" secondItem="5pG-N0-SqU" secondAttribute="bottom" id="FQK-nW-LZ9"/>
                             <constraint firstItem="LCT-xA-IM7" firstAttribute="top" secondItem="q5E-pD-VFH" secondAttribute="bottom" id="QvC-Nj-eIB"/>
                             <constraint firstItem="Q2s-sb-xGa" firstAttribute="trailing" secondItem="Fpt-oD-Ukz" secondAttribute="trailingMargin" id="Rf7-Jy-SYe"/>
-                            <constraint firstItem="q5E-pD-VFH" firstAttribute="leading" secondItem="i5f-fs-Bwe" secondAttribute="trailing" constant="8" id="SoA-kD-Fvj"/>
+                            <constraint firstItem="q5E-pD-VFH" firstAttribute="leading" secondItem="i5f-fs-Bwe" secondAttribute="trailing" constant="12" id="SoA-kD-Fvj"/>
                             <constraint firstItem="i5f-fs-Bwe" firstAttribute="leading" secondItem="Fpt-oD-Ukz" secondAttribute="leadingMargin" id="VcZ-0E-2az"/>
                             <constraint firstItem="Zol-cU-Wmx" firstAttribute="leading" secondItem="Fpt-oD-Ukz" secondAttribute="leadingMargin" id="Y8x-vv-ztF"/>
                             <constraint firstItem="LCT-xA-IM7" firstAttribute="leading" secondItem="Fpt-oD-Ukz" secondAttribute="leading" id="a49-aV-tRH"/>
@@ -5009,7 +5008,6 @@
         <image name="calc" width="22" height="22"/>
         <image name="chat" width="22" height="22"/>
         <image name="che" width="512" height="512"/>
-        <image name="chrono" width="44" height="44"/>
         <image name="contest" width="22" height="22"/>
         <image name="duo" width="22" height="22"/>
         <image name="feedback" width="22" height="22"/>
@@ -5033,16 +5031,17 @@
         <image name="solo" width="22" height="22"/>
         <image name="stats" width="22" height="22"/>
         <image name="target" width="775" height="775"/>
+        <image name="timer" width="33" height="33"/>
         <image name="training" width="22" height="22"/>
         <image name="trimaskgreen" width="1317" height="1254"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="C5u-vB-9sx"/>
-        <segue reference="KwL-6O-QQR"/>
         <segue reference="Mzc-wZ-R5Z"/>
-        <segue reference="4dk-zf-p2A"/>
-        <segue reference="FJi-Sh-npJ"/>
-        <segue reference="F9M-0G-DBV"/>
+        <segue reference="Pp1-nw-Dh8"/>
+        <segue reference="2YI-rS-dTL"/>
+        <segue reference="z3b-Ap-bLN"/>
+        <segue reference="KwL-6O-QQR"/>
+        <segue reference="C5u-vB-9sx"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.086274509803921567" green="0.62745098039215685" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
 </document>

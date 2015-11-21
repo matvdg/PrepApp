@@ -140,18 +140,20 @@ class ScoreSoloViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     private func animateAwardPoint() {
-        self.awardPointImage.alpha = 1
-        self.awardPointImage.hidden = false
-        self.awardPointImage.layer.zPosition = 100
-        UIView.animateWithDuration(1, animations: { () -> Void in
-            self.awardPointImage.alpha = 0
-        })
-        let animation = CABasicAnimation(keyPath: "transform.scale")
-        animation.toValue = NSNumber(float: 10)
-        animation.duration = 1
-        animation.repeatCount = 0
-        animation.autoreverses = true
-        self.awardPointImage.layer.addAnimation(animation, forKey: nil)
+        if !self.reviewMode {
+            self.awardPointImage.alpha = 1
+            self.awardPointImage.hidden = false
+            self.awardPointImage.layer.zPosition = 100
+            UIView.animateWithDuration(1, animations: { () -> Void in
+                self.awardPointImage.alpha = 0
+            })
+            let animation = CABasicAnimation(keyPath: "transform.scale")
+            animation.toValue = NSNumber(float: 10)
+            animation.duration = 1
+            animation.repeatCount = 0
+            animation.autoreverses = true
+            self.awardPointImage.layer.addAnimation(animation, forKey: nil)
+        }
     }
     
     private func grammarQuestionString(int: Int) -> String {

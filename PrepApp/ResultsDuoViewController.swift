@@ -174,13 +174,6 @@ class ResultsDuoViewController: UIViewController {
         self.scorePlayerA = resultA.score*20/questionsNumber
         self.scorePlayerB = resultB.score*20/questionsNumber
         
-        print("resultA.id = \(resultA.id)")
-        print("resultB.id = \(resultB.id)")
-        print("you're ID N° \(User.currentUser!.id)")
-        print("resultA = \(self.scorePlayerA)")
-        print("resultB = \(self.scorePlayerB)")
-        
-        
         if resultA.id == User.currentUser!.id {
             //you're player A
             if resultA.score == resultB.score {

@@ -10,6 +10,7 @@ import UIKit
 
 class ScoreContestViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     
+    //properties
     var emptyAnswers = 0
     var reviewMode = false
     var score: Int = 0
@@ -25,6 +26,7 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
     var statsPics = ["true", "empty", "false", "check","stars","puzzle","awardPoint"]
     var scoreTimer = NSTimer()
     
+    //@IBOutlets
     @IBOutlet weak var stats: UITableView!
     @IBOutlet weak var dismissButton: UIButton!
     @IBOutlet weak var scoreLabel: UILabel!
@@ -33,6 +35,7 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var awardPointImage: UIImageView!
     
+    //app methods
     override func viewDidLoad() {
         super.viewDidLoad()
         //sync
@@ -47,6 +50,8 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
         self.animateAwardPoint()
     }
     
+    
+    //methods
     @IBAction func dismiss(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -96,18 +101,20 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     private func animateAwardPoint() {
-        self.awardPointImage.alpha = 1
-        self.awardPointImage.hidden = false
-        self.awardPointImage.layer.zPosition = 100
-        UIView.animateWithDuration(1, animations: { () -> Void in
-            self.awardPointImage.alpha = 0
-        })
-        let animation = CABasicAnimation(keyPath: "transform.scale")
-        animation.toValue = NSNumber(float: 10)
-        animation.duration = 1
-        animation.repeatCount = 0
-        animation.autoreverses = true
-        self.awardPointImage.layer.addAnimation(animation, forKey: nil)
+        if !self.reviewMode {
+            self.awardPointImage.alpha = 1
+            self.awardPointImage.hidden = false
+            self.awardPointImage.layer.zPosition = 100
+            UIView.animateWithDuration(1, animations: { () -> Void in
+                self.awardPointImage.alpha = 0
+            })
+            let animation = CABasicAnimation(keyPath: "transform.scale")
+            animation.toValue = NSNumber(float: 10)
+            animation.duration = 1
+            animation.repeatCount = 0
+            animation.autoreverses = true
+            self.awardPointImage.layer.addAnimation(animation, forKey: nil)
+        }
     }
     
     private func grammarQuestionString(int: Int) -> String {
@@ -179,10 +186,7 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.statsTopics.count
     }
-    
-    // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
-    // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
-    
+   
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("stat", forIndexPath: indexPath)
         let image = self.statsPics[indexPath.row]

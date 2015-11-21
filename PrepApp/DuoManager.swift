@@ -130,9 +130,7 @@ class DuoManager {
                     let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
                         let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
-                        
                         if let result = jsonResult {
-                            print(result)
                             callback(result)
                         } else {
                             print("error : NSArray nil in retrieveResultsDuo")
@@ -161,7 +159,6 @@ class DuoManager {
                         callback(nil)
                     }
                 }
-                
                 callback(resultDuoArray)
             } else {
                 callback(nil)
