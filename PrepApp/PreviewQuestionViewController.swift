@@ -37,7 +37,6 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
         //sync
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
-        self.designButton.layer.cornerRadius = 6
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshQuestion", name: "portrait", object: nil)
@@ -58,9 +57,14 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
         default :
             color = UIColor.clearColor()
         }
-        self.colorLabel.backgroundColor = color
+        self.navigationController?.navigationBar.barTintColor = color
+        self.navigationController?.navigationBar.translucent = true
         let type = self.selectedIsTrainingQuestion! ? 0 : self.currentQuestion!.type
-        self.titleLabel.text = "\(self.getModeByType(type))\(self.currentSubject!.name.capitalizedString)"
+        if let _ = self.navigationController {
+            self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
+            self.navigationController!.navigationBar.tintColor = colorGreen
+        }
+        self.title = "\(self.getModeByType(type))\(self.currentSubject!.name.capitalizedString)"
         //display the chapter
         self.chapterLabel.text = "Chapitre \(self.currentChapter!.number) : \(self.currentChapter!.name)"
         //display the question
@@ -68,15 +72,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
     }
     
     //@IBOutlets properties
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var chapterLabel: UILabel!
-    @IBOutlet weak var colorLabel: UILabel!
-    @IBOutlet weak var designButton: UIButton!
-    
-    //@IBAction method
-    @IBAction func dismiss(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
     
     //methods
     private func loadQuestion() {

@@ -128,9 +128,6 @@
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
-            <string>SegoeUI-Regular</string>
-            <string>SegoeUI-Regular</string>
-            <string>SegoeUI-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -457,11 +454,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mathieu" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25000000000000006" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qQ6-sy-vhF">
-                                                    <rect key="frame" x="25" y="9" width="122" height="31"/>
+                                                    <rect key="frame" x="25" y="9" width="200" height="31"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="31" id="5rM-R1-QOr"/>
-                                                        <constraint firstAttribute="width" constant="122" id="fJ6-YB-Y6h"/>
+                                                        <constraint firstAttribute="width" constant="200" id="fJ6-YB-Y6h"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="20"/>
                                                     <color key="textColor" red="0.086274509803921567" green="0.62745098039215685" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
@@ -2598,7 +2595,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="menuButton" destination="rXK-ff-543" id="ZuV-qT-Gnt"/>
-                        <segue destination="2Ya-qQ-PHm" kind="presentation" identifier="showPreviewQuestion" id="QdQ-Ba-xLi"/>
+                        <segue destination="2Ya-qQ-PHm" kind="show" identifier="showPreviewQuestion" id="QdQ-Ba-xLi"/>
                         <segue destination="spP-v5-DZw" kind="show" identifier="showComment" id="l9E-8Q-iM9"/>
                     </connections>
                 </tableViewController>
@@ -2700,7 +2697,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.49999999999999994" translatesAutoresizingMaskIntoConstraints="NO" id="kcU-Xr-7QP">
-                                <rect key="frame" x="20" y="64" width="560" height="60"/>
+                                <rect key="frame" x="20" y="72" width="560" height="60"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="NFQ-HY-pYI"/>
@@ -2711,7 +2708,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="VFC-co-lCN">
-                                <rect key="frame" x="20" y="252" width="560" height="236"/>
+                                <rect key="frame" x="20" y="260" width="560" height="228"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -2722,7 +2719,7 @@
                                 </connections>
                             </textView>
                             <pickerView contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="5PE-3y-D0T">
-                                <rect key="frame" x="20" y="132" width="560" height="112"/>
+                                <rect key="frame" x="20" y="140" width="560" height="112"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="112" id="06E-8G-lAI"/>
@@ -2742,7 +2739,7 @@
                             <constraint firstItem="kcU-Xr-7QP" firstAttribute="trailing" secondItem="K7F-6f-k0p" secondAttribute="trailingMargin" id="Dey-Z6-bgN"/>
                             <constraint firstItem="5PE-3y-D0T" firstAttribute="top" secondItem="kcU-Xr-7QP" secondAttribute="bottom" constant="8" id="HCH-ac-DdG"/>
                             <constraint firstItem="5PE-3y-D0T" firstAttribute="leading" secondItem="K7F-6f-k0p" secondAttribute="leadingMargin" id="Jzp-8n-9O7"/>
-                            <constraint firstItem="kcU-Xr-7QP" firstAttribute="top" secondItem="ZAQ-L6-Qo8" secondAttribute="bottom" id="bWl-O0-qsa"/>
+                            <constraint firstItem="kcU-Xr-7QP" firstAttribute="top" secondItem="ZAQ-L6-Qo8" secondAttribute="bottom" constant="8" id="bWl-O0-qsa"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5PE-3y-D0T" secondAttribute="trailing" id="o6s-d3-kpl"/>
                             <constraint firstItem="VFC-co-lCN" firstAttribute="top" secondItem="5PE-3y-D0T" secondAttribute="bottom" constant="8" id="olN-mX-nxe"/>
                             <constraint firstItem="kcU-Xr-7QP" firstAttribute="leading" secondItem="K7F-6f-k0p" secondAttribute="leadingMargin" id="pYd-Mt-Bpf"/>
@@ -3383,7 +3380,7 @@
         <!--PreviewQuestionVC-->
         <scene sceneID="d13-oc-OAA">
             <objects>
-                <viewController title="PreviewQuestionVC" id="2Ya-qQ-PHm" customClass="PreviewQuestionViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PreviewVC" title="PreviewQuestionVC" id="2Ya-qQ-PHm" customClass="PreviewQuestionViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3Y4-ZH-239"/>
                         <viewControllerLayoutGuide type="bottom" id="7qr-Vg-T67"/>
@@ -3392,23 +3389,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="0ht-Dr-N9A" userLabel="titleBar">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.60000002384185791" green="0.89019608497619629" blue="0.52549022436141968" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="xEb-AE-2cF"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="22"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Entraînement - Biologie" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="odr-u5-ez2" userLabel="titleLabel">
-                                <rect key="frame" x="72" y="20" width="420" height="44"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="20"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chapitre 1 : nom du chapitre" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="vUW-yk-PNL">
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <animations/>
@@ -3421,52 +3401,19 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z3R-zN-LB5">
-                                <rect key="frame" x="500" y="26" width="80" height="30"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="0Un-Zf-POO"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="Ycf-xA-8om"/>
-                                    <constraint firstAttribute="height" constant="30" id="cXv-nJ-XuG"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="x2F-HU-8uv"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="17"/>
-                                <state key="normal" title="OK">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="dismiss:" destination="2Ya-qQ-PHm" eventType="touchUpInside" id="gaI-4r-FSD"/>
-                                    <action selector="endChallenge:" destination="uY8-EO-oOx" eventType="touchUpInside" id="EAB-v4-EZe"/>
-                                    <action selector="runChallenge:" destination="Cpx-Ts-0mG" eventType="touchUpInside" id="QVR-9d-0Bn"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.086274509803921567" green="0.62745098039215685" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="0ht-Dr-N9A" firstAttribute="leading" secondItem="FRN-bD-sZB" secondAttribute="leading" id="0GR-HO-V1H"/>
-                            <constraint firstItem="0ht-Dr-N9A" firstAttribute="top" secondItem="3Y4-ZH-239" secondAttribute="bottom" constant="-20" id="Fhc-TQ-hBG"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="odr-u5-ez2" secondAttribute="trailing" constant="88" id="Hmn-m5-45R"/>
-                            <constraint firstAttribute="trailing" secondItem="0ht-Dr-N9A" secondAttribute="trailing" id="Hss-HS-YnX"/>
+                            <constraint firstItem="vUW-yk-PNL" firstAttribute="top" secondItem="3Y4-ZH-239" secondAttribute="bottom" id="ZiJ-TT-hmv"/>
                             <constraint firstAttribute="trailing" secondItem="vUW-yk-PNL" secondAttribute="trailing" id="Ztm-iz-IeI"/>
-                            <constraint firstItem="odr-u5-ez2" firstAttribute="top" secondItem="3Y4-ZH-239" secondAttribute="bottom" id="k1I-1s-oMZ"/>
-                            <constraint firstItem="odr-u5-ez2" firstAttribute="bottom" secondItem="0ht-Dr-N9A" secondAttribute="bottom" id="nHe-Vd-Kt6"/>
-                            <constraint firstItem="odr-u5-ez2" firstAttribute="leading" secondItem="FRN-bD-sZB" secondAttribute="leadingMargin" constant="52" id="pdy-Nl-K7O"/>
-                            <constraint firstItem="Z3R-zN-LB5" firstAttribute="top" secondItem="3Y4-ZH-239" secondAttribute="bottom" constant="6" id="qWG-bU-8zW"/>
-                            <constraint firstItem="vUW-yk-PNL" firstAttribute="top" secondItem="0ht-Dr-N9A" secondAttribute="bottom" id="tqP-pH-pDS"/>
-                            <constraint firstItem="Z3R-zN-LB5" firstAttribute="trailing" secondItem="FRN-bD-sZB" secondAttribute="trailingMargin" id="wjA-JK-wZ6"/>
                             <constraint firstItem="vUW-yk-PNL" firstAttribute="leading" secondItem="FRN-bD-sZB" secondAttribute="leading" id="xyh-MM-pfd"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="chapterLabel" destination="vUW-yk-PNL" id="RNs-mR-UKr"/>
-                        <outlet property="colorLabel" destination="0ht-Dr-N9A" id="rGU-3t-hHh"/>
-                        <outlet property="designButton" destination="Z3R-zN-LB5" id="7Mc-CS-QCI"/>
-                        <outlet property="titleLabel" destination="odr-u5-ez2" id="8Wh-oZ-G2V"/>
                         <segue destination="wd7-J6-c5g" kind="presentation" identifier="showCorrection" modalTransitionStyle="partialCurl" id="4dk-zf-p2A"/>
                     </connections>
                 </viewController>
@@ -5092,10 +5039,10 @@
     <inferredMetricsTieBreakers>
         <segue reference="C5u-vB-9sx"/>
         <segue reference="KwL-6O-QQR"/>
-        <segue reference="cGO-nn-N46"/>
+        <segue reference="Mzc-wZ-R5Z"/>
+        <segue reference="4dk-zf-p2A"/>
+        <segue reference="FJi-Sh-npJ"/>
         <segue reference="F9M-0G-DBV"/>
-        <segue reference="z3b-Ap-bLN"/>
-        <segue reference="Pp1-nw-Dh8"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.086274509803921567" green="0.62745098039215685" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
 </document>

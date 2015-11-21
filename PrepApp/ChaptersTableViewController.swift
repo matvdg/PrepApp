@@ -39,7 +39,6 @@ class ChaptersTableViewController: UITableViewController {
             self.color = UIColor.clearColor()
         }
         self.navigationController?.navigationBar.barTintColor = self.color
-        
         self.navigationController?.navigationBar.translucent = true
 
     }

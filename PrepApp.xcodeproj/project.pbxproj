@@ -343,11 +343,11 @@
 			children = (
 				9555BBC81BA836EF00BED5A2 /* StatsViewController.swift */,
 				F68202C01BFFFD4F00B1799D /* ColorCollectionViewController.swift */,
-				9555BBCA1BA836FB00BED5A2 /* FeedbackViewController.swift */,
 				9555BBCC1BA8371600BED5A2 /* LeaderboardTableViewController.swift */,
 				9555BBCE1BA8372500BED5A2 /* MarkedQuestionsTableViewController.swift */,
-				F60739E11BB216BE004DEC32 /* CommentViewController.swift */,
 				F60739E31BB216CB004DEC32 /* PreviewQuestionViewController.swift */,
+				F60739E11BB216BE004DEC32 /* CommentViewController.swift */,
+				9555BBCA1BA836FB00BED5A2 /* FeedbackViewController.swift */,
 				F667EC4F1BE5371100F98DA5 /* HelpViewController.swift */,
 				F6CB05CF1BBC927200289CEA /* SettingsTableViewController.swift */,
 				F61499CE1BFE2F3900B6F719 /* ChatViewController.swift */,

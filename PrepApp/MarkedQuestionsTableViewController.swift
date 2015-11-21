@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MarkedQuestionsTableViewController: UITableViewController {
+class MarkedQuestionsTableViewController: UITableViewController, UIViewControllerPreviewingDelegate {
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     var questions = [Question]()
@@ -18,6 +18,9 @@ class MarkedQuestionsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if( traitCollection.forceTouchCapability == .Available){
+            self.registerForPreviewingWithDelegate(self, sourceView: self.tableView)
+        }
         //sync
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
@@ -29,7 +32,6 @@ class MarkedQuestionsTableViewController: UITableViewController {
         self.title = "Questions marquées"
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.navigationController!.navigationBar.tintColor = colorGreen
-        
         self.loadData()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
@@ -38,6 +40,8 @@ class MarkedQuestionsTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         SwiftSpinner.hide()
+        self.navigationController!.navigationBar.barTintColor = nil
+        self.navigationController!.navigationBar.translucent = true
     }
     
     private func loadData() {
@@ -192,6 +196,26 @@ class MarkedQuestionsTableViewController: UITableViewController {
         } else {
             return UITableViewCellEditingStyle.Delete
         }
+    }
+    
+    //peek&pop
+    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        let indexPath = self.tableView!.indexPathForRowAtPoint(location)
+        let cell = self.tableView!.cellForRowAtIndexPath(indexPath!)
+        let previewVC = storyboard?.instantiateViewControllerWithIdentifier("PreviewVC") as? PreviewQuestionViewController
+        self.selectedQuestion = self.questions[indexPath!.row]
+        self.selectedIsTrainingQuestion = self.isTrainingQuestions[indexPath!.row]
+        previewVC!.currentQuestion = self.selectedQuestion
+        previewVC!.currentChapter = self.selectedQuestion!.chapter
+        previewVC!.currentSubject = self.selectedQuestion!.chapter!.subject
+        previewVC!.selectedIsTrainingQuestion = self.selectedIsTrainingQuestion
+        previewVC!.preferredContentSize = CGSize(width: 0.0, height: 0.0)
+        previewingContext.sourceRect = cell!.frame
+        return previewVC
+    }
+    
+    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+        self.showViewController(viewControllerToCommit, sender: self)
     }
     
     // MARK: - Navigation
