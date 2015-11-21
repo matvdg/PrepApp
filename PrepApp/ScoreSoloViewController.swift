@@ -2,7 +2,7 @@
 //  ScoreSoloViewController.swift
 //  PrepApp
 //
-//  Created by Mikael Vandeginste on 06/09/2015.
+//  Created by Mathieu Vandeginste on 06/09/2015.
 //  Copyright (c) 2015 PrepApp. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  FeedbackViewController.swift
 //  PrepApp
 //
-//  Created by Mikael Vandeginste on 15/09/2015.
+//  Created by Mathieu Vandeginste on 15/09/2015.
 //  Copyright (c) 2015 PrepApp. All rights reserved.
 //
 
@@ -20,13 +20,43 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
     @IBAction func send(sender: AnyObject) {
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
         SwiftSpinner.show("Envoi en cours...")
-        self.sendFeedback()
+        if self.feedback.text == "Taper votre feedback ici :" || self.feedback.text == "" {
+            SwiftSpinner.hide()
+            // create alert controller
+            let myAlert = UIAlertController(title: "Erreur", message: "Votre message est vide !", preferredStyle: UIAlertControllerStyle.Alert)
+            myAlert.view.tintColor = colorGreen
+            // add "OK" button
+            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            // show the alert
+            self.presentViewController(myAlert, animated: true, completion: nil)
+            self.designButton.setTitle("Réessayer", forState: UIControlState.Normal)
+        } else {
+            User.currentUser!.sendFeedback(self.topics[self.topicsPicker.selectedRowInComponent(0)], feedback: self.feedback.text) { (title, message, result) -> Void in
+                SwiftSpinner.hide()
+                // create alert controller
+                let myAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                myAlert.view.tintColor = colorGreen
+                // add "OK" button
+                myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                // show the alert
+                self.presentViewController(myAlert, animated: true, completion: nil)
+                if result { //message sent
+                    self.designButton.enabled = false
+                    self.designButton.backgroundColor = colorDarkGrey
+                } else { //error
+                    self.designButton.setTitle("Réessayer", forState: UIControlState.Normal)
+                }
+                
+            }
+        }
+
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //sync
         FactoryHistory.getHistory().sync()
+        self.designButton.setTitle("Envoyé", forState: UIControlState.Disabled)
         self.view!.backgroundColor = colorGreyBackground
         self.title = "Envoyer un feedback"
         self.feedback.text = "Taper votre feedback ici :"
@@ -66,30 +96,6 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
-    }
-
-    func sendFeedback() {
-        if self.feedback.text == "Taper votre feedback ici :" || self.feedback.text == "" {
-            SwiftSpinner.hide()
-            // create alert controller
-            let myAlert = UIAlertController(title: "Erreur", message: "Votre message est vide !", preferredStyle: UIAlertControllerStyle.Alert)
-            myAlert.view.tintColor = colorGreen
-            // add "OK" button
-            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            // show the alert
-            self.presentViewController(myAlert, animated: true, completion: nil)
-        } else {
-            User.currentUser!.sendFeedback(self.topics[self.topicsPicker.selectedRowInComponent(0)], feedback: self.feedback.text) { (title, message, result) -> Void in
-                SwiftSpinner.hide()
-                // create alert controller
-                let myAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
-                // add "OK" button
-                myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                // show the alert
-                self.presentViewController(myAlert, animated: true, completion: nil)
-            }
-        }
     }
     
     //UIPickerViewDataSource/Delegate Methods

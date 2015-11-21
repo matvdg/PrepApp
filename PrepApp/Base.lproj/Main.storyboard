@@ -131,7 +131,6 @@
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
-            <string>SegoeUI-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -3504,24 +3503,8 @@
                                     <action selector="send:" destination="spP-v5-DZw" eventType="touchUpInside" id="cUh-9T-tGH"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pa2-4n-Giw">
-                                <rect key="frame" x="20" y="20" width="77" height="40"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="bCL-C9-ZfS"/>
-                                    <constraint firstAttribute="width" constant="77" id="e8k-fD-xMR"/>
-                                </constraints>
-                                <state key="normal" title="Retour" image="previous">
-                                    <color key="titleColor" red="0.3058823645" green="0.6549019814" blue="0.53725492949999998" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="dismiss:" destination="spP-v5-DZw" eventType="touchUpInside" id="twP-Ba-1kk"/>
-                                    <action selector="send:" destination="spP-v5-DZw" eventType="touchUpInside" id="82M-3H-if5"/>
-                                </connections>
-                            </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="ZWL-2Y-puZ">
-                                <rect key="frame" x="20" y="118" width="560" height="414"/>
+                                <rect key="frame" x="20" y="96" width="560" height="436"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -3532,23 +3515,14 @@
                                 </connections>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000298023224" translatesAutoresizingMaskIntoConstraints="NO" id="k9l-Oc-DZJ">
-                                <rect key="frame" x="20" y="68" width="560" height="42"/>
+                                <rect key="frame" x="20" y="28" width="560" height="60"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="ig2-PZ-EfT"/>
+                                    <constraint firstAttribute="height" constant="60" id="ig2-PZ-EfT"/>
                                 </constraints>
-                                <string key="text">Contacter ici directement votre professeur qui a créé cette question pour lui demander des explications, lui faire part d'une erreur ou pour toute aide dont vous avez besoin.</string>
-                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="17"/>
+                                <string key="text">Contactez directement votre professeur qui a créé cette question pour lui demander des explications ou lui faire part d'une erreur.</string>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="16"/>
                                 <color key="textColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Envoyer un commentaire" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fjU-Cf-djz">
-                                <rect key="frame" x="105" y="20" width="475" height="40"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Qh4-Ws-aMw"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="20"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -3557,25 +3531,18 @@
                         <constraints>
                             <constraint firstItem="ZWL-2Y-puZ" firstAttribute="leading" secondItem="hto-3Z-dUF" secondAttribute="leadingMargin" id="19a-tC-1v4"/>
                             <constraint firstItem="k9l-Oc-DZJ" firstAttribute="leading" secondItem="hto-3Z-dUF" secondAttribute="leadingMargin" id="8ji-07-W02"/>
-                            <constraint firstItem="fjU-Cf-djz" firstAttribute="leading" secondItem="pa2-4n-Giw" secondAttribute="trailing" constant="8" id="9Vl-tr-hrX"/>
-                            <constraint firstItem="pa2-4n-Giw" firstAttribute="leading" secondItem="hto-3Z-dUF" secondAttribute="leadingMargin" id="Dwm-lN-QmS"/>
                             <constraint firstItem="ZWL-2Y-puZ" firstAttribute="trailing" secondItem="hto-3Z-dUF" secondAttribute="trailingMargin" id="EzT-yX-knc"/>
-                            <constraint firstItem="fjU-Cf-djz" firstAttribute="top" secondItem="iaX-Rg-p09" secondAttribute="bottom" id="iBo-1H-Pgm"/>
                             <constraint firstItem="ZWL-2Y-puZ" firstAttribute="top" secondItem="k9l-Oc-DZJ" secondAttribute="bottom" constant="8" id="jBX-zj-Ay6"/>
                             <constraint firstItem="F9a-jI-It7" firstAttribute="top" secondItem="UlF-kS-X6A" secondAttribute="bottom" constant="20" id="o6r-Mb-e2e"/>
                             <constraint firstItem="k9l-Oc-DZJ" firstAttribute="trailing" secondItem="hto-3Z-dUF" secondAttribute="trailingMargin" id="rBr-NU-KmZ"/>
                             <constraint firstAttribute="centerX" secondItem="UlF-kS-X6A" secondAttribute="centerX" id="rDZ-sm-WWj"/>
-                            <constraint firstItem="k9l-Oc-DZJ" firstAttribute="top" secondItem="iaX-Rg-p09" secondAttribute="bottom" constant="48" id="rgi-TR-gOA"/>
-                            <constraint firstItem="pa2-4n-Giw" firstAttribute="top" secondItem="iaX-Rg-p09" secondAttribute="bottom" id="utg-IC-PDw"/>
+                            <constraint firstItem="k9l-Oc-DZJ" firstAttribute="top" secondItem="iaX-Rg-p09" secondAttribute="bottom" constant="8" id="rgi-TR-gOA"/>
                             <constraint firstItem="UlF-kS-X6A" firstAttribute="top" secondItem="ZWL-2Y-puZ" secondAttribute="bottom" constant="8" id="xvS-rI-5T7"/>
-                            <constraint firstItem="fjU-Cf-djz" firstAttribute="trailing" secondItem="hto-3Z-dUF" secondAttribute="trailingMargin" id="zmg-9w-18u"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="comment" destination="ZWL-2Y-puZ" id="sfK-XD-576"/>
                         <outlet property="designButton" destination="UlF-kS-X6A" id="c3u-l4-vRX"/>
-                        <outlet property="dismissButton" destination="pa2-4n-Giw" id="veq-4z-oT1"/>
-                        <outlet property="titleLabel" destination="fjU-Cf-djz" id="3Tv-hn-1s6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZzJ-xt-hep" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -5123,9 +5090,9 @@
         <image name="trimaskgreen" width="1317" height="1254"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cGO-nn-N46"/>
-        <segue reference="KwL-6O-QQR"/>
         <segue reference="C5u-vB-9sx"/>
+        <segue reference="KwL-6O-QQR"/>
+        <segue reference="cGO-nn-N46"/>
         <segue reference="F9M-0G-DBV"/>
         <segue reference="z3b-Ap-bLN"/>
         <segue reference="Pp1-nw-Dh8"/>

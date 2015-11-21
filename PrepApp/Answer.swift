@@ -2,7 +2,7 @@
 //  Answer.swift
 //  PrepApp
 //
-//  Created by Mikael Vandeginste on 31/08/2015.
+//  Created by Mathieu Vandeginste on 31/08/2015.
 //  Copyright (c) 2015 PrepApp. All rights reserved.
 //
 

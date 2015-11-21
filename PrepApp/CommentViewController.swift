@@ -10,32 +10,84 @@ import UIKit
 
 class CommentViewController: UIViewController, UITextViewDelegate {
     
+    //properties
     var selectedId = 0
+    var messageSent = false
+    var isNavBar = false
 
+    //@IBOutlets
     @IBOutlet weak var designButton: UIButton!
     @IBOutlet weak var comment: UITextView!
-    @IBOutlet weak var dismissButton: UIButton!
-    @IBOutlet weak var titleLabel: UILabel!
     
+    //@IBAction
     @IBAction func send(sender: AnyObject) {
-        SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-        SwiftSpinner.show("Envoi en cours...")
-        self.sendComment()
+        if !self.messageSent {
+            SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
+            SwiftSpinner.show("Envoi en cours...")
+            if self.comment.text == "Taper votre commentaire ici :" || self.comment.text == "" {
+                SwiftSpinner.hide()
+                // create alert controller
+                let myAlert = UIAlertController(title: "Erreur", message: "Votre message est vide !", preferredStyle: UIAlertControllerStyle.Alert)
+                myAlert.view.tintColor = colorGreen
+                // add "OK" button
+                myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                if !self.isNavBar {
+                    //we're in a modal view, we need an option to cancel (in navMode, we use the back button)
+                    myAlert.addAction(UIAlertAction(title: "Quitter", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    }))
+                }
+                // show the alert
+                self.presentViewController(myAlert, animated: true, completion: nil)
+                self.designButton.setTitle("Réessayer", forState: UIControlState.Normal)
+            } else {
+                User.currentUser!.sendComment(self.selectedId, comment: self.comment.text, callback: { (title, message, result) -> Void in
+                    SwiftSpinner.hide()
+                    // create alert controller
+                    let myAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                    myAlert.view.tintColor = colorGreen
+                    // add "OK" button
+                    myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                    // show the alert
+                    self.presentViewController(myAlert, animated: true, completion: nil)
+                    if result { //message sent
+                        self.messageSent = true
+                        if self.isNavBar {
+                            //we are in a navigation controller, we use back button to leave so we disable the button
+                            self.designButton.enabled = false
+                            self.designButton.backgroundColor = colorDarkGrey
+                        } else {
+                            //we're in a modal view, we use this button to dismiss
+                            self.designButton.setTitle("OK", forState: UIControlState.Normal)
+                        }
+                    } else { //error
+                        self.messageSent = false
+                        self.designButton.setTitle("Réessayer", forState: UIControlState.Normal)
+                        if !self.isNavBar {
+                            //we're in a modal view, we need an option to cancel (in navMode, we use the back button)
+                            myAlert.addAction(UIAlertAction(title: "Quitter", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+                                self.dismissViewControllerAnimated(true, completion: nil)
+                            }))
+                        }
+                    }
+                })
+            }
+        } else {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
-    @IBAction func dismiss(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
+    //app methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.messageSent = false
+        if let _ = self.navigationController {
+            self.isNavBar = true
+        }
         //sync
         FactoryHistory.getHistory().sync()
+        self.designButton.setTitle("Envoyé", forState: UIControlState.Disabled)
         self.view!.backgroundColor = colorGreyBackground
-        if let _ = self.navigationController {
-            self.dismissButton.hidden = true
-            self.titleLabel.hidden = true
-        }
         self.title = "Envoyer un commentaire"
         self.comment.text = "Taper votre commentaire ici :"
         self.comment.textColor = UIColor.lightGrayColor()
@@ -66,30 +118,6 @@ class CommentViewController: UIViewController, UITextViewDelegate {
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
-    }
-    
-    func sendComment() {
-        if self.comment.text == "Taper votre commentaire ici :" || self.comment.text == "" {
-            SwiftSpinner.hide()
-            // create alert controller
-            let myAlert = UIAlertController(title: "Erreur", message: "Votre message est vide !", preferredStyle: UIAlertControllerStyle.Alert)
-            myAlert.view.tintColor = colorGreen
-            // add "OK" button
-            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            // show the alert
-            self.presentViewController(myAlert, animated: true, completion: nil)
-        } else {
-            User.currentUser!.sendComment(self.selectedId, comment: self.comment.text, callback: { (title, message, result) -> Void in
-                SwiftSpinner.hide()
-                // create alert controller
-                let myAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
-                // add "OK" button
-                myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                // show the alert
-                self.presentViewController(myAlert, animated: true, completion: nil)
-            })
-        }
     }
     
     //UITextViewDelegate Methods

@@ -2,7 +2,7 @@
 //  LeaderboardTableViewController.swift
 //  PrepApp
 //
-//  Created by Mikael Vandeginste on 15/09/2015.
+//  Created by Mathieu Vandeginste on 15/09/2015.
 //  Copyright (c) 2015 PrepApp. All rights reserved.
 //
 
