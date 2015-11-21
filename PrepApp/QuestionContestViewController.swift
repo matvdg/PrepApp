@@ -59,16 +59,24 @@ class QuestionContestViewController: UIViewController,
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
         self.markButton.image = nil
-        self.chrono.text = ""
         self.chrono.textAlignment = NSTextAlignment.Center
+        self.timeLeft = NSTimeInterval(60 * self.contest!.duration)
+        let seconds = Int(floor(self.timeLeft % 60))
+        let minutes = Int(floor(self.timeLeft / 60))
+        var string = ""
+        if minutes < 1 {
+            string = String(format: "%02d", seconds)
+        } else {
+            string = String(format: "%02d", minutes)
+        }
+        self.chrono.text = string
+        self.timeChallengeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("countdown"), userInfo: nil, repeats: true)
         self.markButton.enabled = false
         self.titleLabel.text = self.contest!.name
         self.endChallengeButton.layer.cornerRadius = 6
         self.titleLabel.textColor = UIColor.blackColor()
         self.titleBar.backgroundColor = colorGreenLogo
-        self.timeLeft = NSTimeInterval(60 * self.contest!.duration)
-        self.timeChallengeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("countdown"), userInfo: nil, repeats: true)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshQuestion", name: "portrait", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshQuestion", name: "landscape", object: nil)
@@ -76,7 +84,6 @@ class QuestionContestViewController: UIViewController,
         let swipeRight = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipeRight.direction = UISwipeGestureRecognizerDirection.Right
         self.view.addGestureRecognizer(swipeRight)
-        
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
         self.view.addGestureRecognizer(swipeLeft)

@@ -58,11 +58,19 @@ class QuestionSoloViewController: UIViewController,
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = colorGreyBackground
         self.markButton.image = nil
-        self.chrono.text = ""
-        self.chrono.textAlignment = NSTextAlignment.Center
         self.markButton.enabled = false
         self.designSoloChallengeTitleBar()
+        self.chrono.textAlignment = NSTextAlignment.Center
         self.timeLeft = NSTimeInterval(60 * FactorySync.getConfigManager().loadDuration())
+        let seconds = Int(floor(self.timeLeft % 60))
+        let minutes = Int(floor(self.timeLeft / 60))
+        var string = ""
+        if minutes < 1 {
+            string = String(format: "%02d", seconds)
+        } else {
+            string = String(format: "%02d", minutes)
+        }
+        self.chrono.text = string
         self.timeChallengeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("countdown"), userInfo: nil, repeats: true)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
@@ -72,11 +80,9 @@ class QuestionSoloViewController: UIViewController,
         let swipeRight = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipeRight.direction = UISwipeGestureRecognizerDirection.Right
         self.view.addGestureRecognizer(swipeRight)
-        
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
         self.view.addGestureRecognizer(swipeLeft)
-        
         //display the subject
         self.numberOfAnswers = 0
         self.sizeAnswerCells.removeAll(keepCapacity: false)
@@ -84,8 +90,6 @@ class QuestionSoloViewController: UIViewController,
         self.loadQuestions()
         //display the first question
         self.loadQuestion()
-        
-        
     }
     
     //@IBOutlets properties
@@ -482,12 +486,12 @@ class QuestionSoloViewController: UIViewController,
 
         case 6: //chePhy
             self.titleLabel.text = "Défi solo Chimie/Physique"
-            self.titleLabel.textColor = UIColor.whiteColor()
+            self.titleLabel.textColor = UIColor.blackColor()
             self.titleBar.backgroundColor = colorChePhy
 
         case 7: //all
             self.titleLabel.text = "Défi solo Biologie/Physique/Chimie"
-            self.titleLabel.textColor = UIColor.whiteColor()
+            self.titleLabel.textColor = UIColor.blackColor()
             self.titleBar.backgroundColor = colorGreenLogo
 
         default:

@@ -68,14 +68,22 @@ class QuestionDuoViewController: UIViewController,
         }
         self.titleLabel.text = "Défi duo VS\(textTodisplay)"
         self.titleLabel.adjustsFontSizeToFitWidth = true
-        self.titleLabel.textColor = UIColor.whiteColor()
+        self.titleLabel.textColor = UIColor.blackColor()
         self.titleBar.backgroundColor = colorGreenLogo
         self.endChallengeButton.layer.cornerRadius = 6
         self.markButton.image = nil
-        self.chrono.text = ""
-        self.chrono.textAlignment = NSTextAlignment.Center
         self.markButton.enabled = false
+        self.chrono.textAlignment = NSTextAlignment.Center
         self.timeLeft = NSTimeInterval(60 * FactorySync.getConfigManager().loadDuration())
+        let seconds = Int(floor(self.timeLeft % 60))
+        let minutes = Int(floor(self.timeLeft / 60))
+        var string = ""
+        if minutes < 1 {
+            string = String(format: "%02d", seconds)
+        } else {
+            string = String(format: "%02d", minutes)
+        }
+        self.chrono.text = string
         self.timeChallengeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("countdown"), userInfo: nil, repeats: true)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
