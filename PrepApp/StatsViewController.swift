@@ -97,8 +97,8 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.badge.titleLabel!.font = UIFont(name: "Times New Roman", size: 50)!
         self.badge.backgroundColor = colors[User.currentUser!.color]
         self.badge.layer.zPosition = 100
-        self.badge.layer.borderColor = UIColor.whiteColor().CGColor
-        self.badge.layer.borderWidth = 6
+        //self.badge.layer.borderColor = UIColor.whiteColor().CGColor
+        //self.badge.layer.borderWidth = 6
         let firstName = User.currentUser!.firstName
         let lastName = User.currentUser!.lastName
         let firstChar = firstName[firstName.startIndex.advancedBy(0)]
