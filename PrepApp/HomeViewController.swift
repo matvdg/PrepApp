@@ -2,7 +2,7 @@
 import UIKit
 import Charts
 
-class HomeViewController: UIViewController, ChartViewDelegate {
+class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerPreviewingDelegate {
     
     //properties
     enum subject: Int {
@@ -133,6 +133,9 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     //app methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        if( traitCollection.forceTouchCapability == .Available){
+            registerForPreviewingWithDelegate(self, sourceView: self.view)
+        }
         //sync
         FactoryHistory.getHistory().sync()
         //rendering
@@ -223,8 +226,6 @@ class HomeViewController: UIViewController, ChartViewDelegate {
 
     
     //methods
-    
-
     private func retrieveData() {
         
         var (percent,answers,todo) = FactoryHistory.getScoring().getScore(1)
@@ -791,6 +792,19 @@ class HomeViewController: UIViewController, ChartViewDelegate {
     
     func hidePieCharts(bool: Bool) {
         self.chePieChart.hidden = bool
-    }	
+    }
+    
+    //peek&pop
+    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        let statsVC = storyboard?.instantiateViewControllerWithIdentifier("StatsVC") as? StatsViewController
+        statsVC!.preferredContentSize = CGSize(width: 0.0, height: 400)
+        previewingContext.sourceRect = self.view!.frame
+        return statsVC
+    }
+    
+    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+        self.showViewController(viewControllerToCommit, sender: self)
+    }
+
 
 }

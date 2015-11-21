@@ -38,6 +38,7 @@ class NewsViewController: UIViewController {
         self.details.text = "\(self.news.firstName) \(self.news.lastName) - \(dateInString)"
         self.details.font = UIFont(name: "Segoe UI", size: 16)
         self.content.text = self.news.content
+        self.content.textAlignment = NSTextAlignment.Justified
     }
     
     func logout() {

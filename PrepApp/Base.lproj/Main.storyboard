@@ -1840,15 +1840,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLo-r1-Bvq">
-                                <rect key="frame" x="20" y="116" width="560" height="416"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" link="YES" address="YES"/>
-                            </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Professeur - le mercredi 25 mars 2015 à 13:22" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vE0-la-Sa1">
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <animations/>
@@ -1862,21 +1853,29 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="pxt-Cy-sWV">
+                                <rect key="frame" x="20" y="116" width="560" height="464"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.94901961089999998" green="0.94901961089999998" blue="0.94901961089999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.94901961089999998" green="0.94901961089999998" blue="0.94901961089999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="vE0-la-Sa1" firstAttribute="leading" secondItem="bnf-yi-Vqf" secondAttribute="leading" id="DfL-O1-shu"/>
+                            <constraint firstItem="NQL-Yh-mS6" firstAttribute="top" secondItem="pxt-Cy-sWV" secondAttribute="bottom" constant="20" id="HZY-e7-BFV"/>
                             <constraint firstAttribute="trailing" secondItem="vE0-la-Sa1" secondAttribute="trailing" id="Ns3-aS-wOK"/>
-                            <constraint firstItem="dLo-r1-Bvq" firstAttribute="leading" secondItem="bnf-yi-Vqf" secondAttribute="leadingMargin" id="W8K-dB-e6A"/>
-                            <constraint firstItem="dLo-r1-Bvq" firstAttribute="trailing" secondItem="bnf-yi-Vqf" secondAttribute="trailingMargin" id="Xdf-Eu-Mfp"/>
+                            <constraint firstItem="pxt-Cy-sWV" firstAttribute="leading" secondItem="bnf-yi-Vqf" secondAttribute="leadingMargin" id="VyZ-ZM-6rK"/>
+                            <constraint firstItem="pxt-Cy-sWV" firstAttribute="top" secondItem="vE0-la-Sa1" secondAttribute="bottom" constant="8" id="XWm-x5-n9A"/>
                             <constraint firstItem="vE0-la-Sa1" firstAttribute="top" secondItem="MUf-oW-RYL" secondAttribute="bottom" id="avY-ip-WAI"/>
-                            <constraint firstItem="NQL-Yh-mS6" firstAttribute="top" secondItem="dLo-r1-Bvq" secondAttribute="bottom" constant="68" id="ekH-9R-wvL"/>
-                            <constraint firstItem="dLo-r1-Bvq" firstAttribute="top" secondItem="vE0-la-Sa1" secondAttribute="bottom" constant="8" id="skI-cH-SHP"/>
+                            <constraint firstItem="pxt-Cy-sWV" firstAttribute="trailing" secondItem="bnf-yi-Vqf" secondAttribute="trailingMargin" id="kzd-Pt-DT7"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="content" destination="dLo-r1-Bvq" id="x7L-YJ-ZaG"/>
+                        <outlet property="content" destination="pxt-Cy-sWV" id="Zds-VX-xBw"/>
                         <outlet property="details" destination="vE0-la-Sa1" id="RpT-Sx-lDd"/>
                     </connections>
                 </viewController>
@@ -2773,7 +2772,7 @@
         <!--StatsVC-->
         <scene sceneID="ooX-nM-UDI">
             <objects>
-                <viewController title="StatsVC" id="byH-XQ-Yj9" customClass="StatsViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StatsVC" title="StatsVC" id="byH-XQ-Yj9" customClass="StatsViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JWF-bq-RPe"/>
                         <viewControllerLayoutGuide type="bottom" id="sx1-1k-dBI"/>

@@ -329,13 +329,13 @@
 			name = Start;
 			sourceTree = "<group>";
 		};
-		F6322A0F1B61572C0074549E /* View */ = {
+		F6322A0F1B61572C0074549E /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				F6AAE6E01AF433E100195E11 /* LaunchScreen.xib */,
 				F6AAE6DB1AF433E100195E11 /* Main.storyboard */,
 			);
-			name = View;
+			name = Views;
 			sourceTree = "<group>";
 		};
 		F6322A101B61574F0074549E /* Profile */ = {
@@ -488,6 +488,7 @@
 				F61A1CDC1B003F8100777584 /* SWRevealViewController */,
 				F6FBFAB91AFA1F6E0020B074 /* Models */,
 				F6FBFAB61AFA1F490020B074 /* ViewControllers */,
+				F6322A0F1B61572C0074549E /* Views */,
 				F62D40931AF443170051DE83 /* Fonts */,
 				F6AAE6D31AF433E100195E11 /* Supporting Files */,
 			);
@@ -529,7 +530,6 @@
 				F6322A121B61578B0074549E /* Duo */,
 				F6322A141B6157A70074549E /* Contest */,
 				F6322A101B61574F0074549E /* Profile */,
-				F6322A0F1B61572C0074549E /* View */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";

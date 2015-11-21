@@ -41,8 +41,10 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
             self.nickname.hidden = true
         }
         self.email.text = "\(User.currentUser!.email)"
-        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreen
+        if let _ = self.navigationController {
+            self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
+            self.navigationController!.navigationBar.tintColor = colorGreen
+        }
         self.title = "Statistiques"
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
@@ -51,7 +53,15 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
             self.menuButton.target = self.revealViewController()
             self.menuButton.action = "revealToggle:"
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        } else {
+            self.menuButton.image = UIImage(named: "home")
+            self.menuButton.target = self
+            self.menuButton.action = "dismiss"
         }
+    }
+    
+    func dismiss() {
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
     override func viewDidAppear(animated: Bool) {
