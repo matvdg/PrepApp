@@ -98,6 +98,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     //app methods
     override func viewDidLoad() {
+        print("viewDidLoad")
         super.viewDidLoad()
         self.pullToRefresh.attributedTitle = NSAttributedString(string: "▼ Glisser vers le bas pour actualiser ▼")
         self.pullToRefresh.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
@@ -122,10 +123,19 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
             self.menuButton.target = self.revealViewController()
             self.menuButton.action = "revealToggle:"
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        } else {
+            self.menuButton.image = UIImage(named: "home")
+            self.menuButton.target = self
+            self.menuButton.action = "dismiss"
         }
     }
     
+    func dismiss() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func viewDidAppear(animated: Bool) {
+        print("viewDidAppear")
         if self.refreshIsNeeded {
             SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
             SwiftSpinner.show("Mise à jour des défis...")

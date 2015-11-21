@@ -32,6 +32,41 @@
 		<string>segoe.ttf</string>
 		<string>timer.ttf</string>
 	</array>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemType</key>
+			<string>training</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Entraînement</string>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>training</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemType</key>
+			<string>solo</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Défi solo</string>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>solo</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemType</key>
+			<string>duo</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Défi duo</string>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>duo</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemType</key>
+			<string>contest</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Concours</string>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>contest</string>
+		</dict>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

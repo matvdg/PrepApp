@@ -11,12 +11,18 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    var shortcutItem: UIApplicationShortcutItem?
 	var window: UIWindow?
     var portrait: Bool = true
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
-		return true
+        var performShortcutDelegate = true
+        if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsShortcutItemKey] as? UIApplicationShortcutItem {
+            self.shortcutItem = shortcutItem
+            performShortcutDelegate = false
+        }
+		return performShortcutDelegate
 	}
     
     func rotated(){
@@ -83,13 +89,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        
+        guard let shortcut = shortcutItem else { return }
+        handleShortcut(shortcut)
+        self.shortcutItem = nil
 	}
 
 	func applicationWillTerminate(application: UIApplication) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
     
+    
+    //Quick Actions
+    enum quickActions: String {
+        case Training = "training"
+        case Solo = "solo"
+        case Duo = "duo"
+        case Contest = "contest"
+    }
+    
+    func handleShortcut( shortcutItem:UIApplicationShortcutItem ) -> Bool {
+        var succeeded = false
+        switch shortcutItem.type {
+        case quickActions.Training.rawValue:
+            NSNotificationCenter.defaultCenter().postNotificationName("goTraining", object: nil)
+            succeeded = true
+        case quickActions.Solo.rawValue:
+            NSNotificationCenter.defaultCenter().postNotificationName("goSolo", object: nil)
+            succeeded = true
+        case quickActions.Duo.rawValue:
+            NSNotificationCenter.defaultCenter().postNotificationName("goDuo", object: nil)
+
+            succeeded = true
+        case quickActions.Contest.rawValue:
+            NSNotificationCenter.defaultCenter().postNotificationName("goContest", object: nil)
+            succeeded = true
+        default:
+            print("error")
+        }
+        return succeeded
+    }
+    
+    func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+        //print("Application performActionForShortcutItem")
+        completionHandler( handleShortcut(shortcutItem) )
+    }
     
 }
 

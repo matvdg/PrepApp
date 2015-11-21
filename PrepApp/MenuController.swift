@@ -2,9 +2,11 @@ import UIKit
 
 class MenuController: UITableViewController {
     
+    //properties
     let proportionMenuBar: CGFloat = 0.7
     let sreenSize : CGRect = UIScreen.mainScreen().bounds
 	
+    //app method
     override func viewDidLoad() {
         self.revealViewController().rearViewRevealWidth = 220
         let name = "\(User.currentUser!.firstName) \(User.currentUser!.lastName)"
@@ -25,11 +27,9 @@ class MenuController: UITableViewController {
         self.separatorC.backgroundColor = colorDarkGrey
         self.logoutCell.backgroundColor = colorDarkGrey
     }
-
-    @IBOutlet var menu: UITableView!
-    @IBOutlet weak var name: UILabel!
-	@IBAction func logout(sender: AnyObject) {
-        
+    
+    //@IBAction
+    @IBAction func logout(sender: AnyObject) {
         // create alert controller
         let myAlert = UIAlertController(title: "Déconnexion", message: "Voulez-vous vraiment vous déconnecter ?", preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
@@ -43,11 +43,11 @@ class MenuController: UITableViewController {
         
         // show the alert
         self.presentViewController(myAlert, animated: true, completion: nil)
+    }
 
-        
-        
-			}
-    
+    //@IBOutlets
+    @IBOutlet var menu: UITableView!
+    @IBOutlet weak var name: UILabel!
     @IBOutlet weak var topCell: UITableViewCell!
     @IBOutlet weak var homeCell: UITableViewCell!
     @IBOutlet weak var separatorA: UITableViewCell!
@@ -64,7 +64,7 @@ class MenuController: UITableViewController {
     @IBOutlet weak var logoutCell: UITableViewCell!
     
     
-    
+    //methods
     func syncNclearHistory(){
         FactoryHistory.getHistory().syncHistory({ (result) -> Void in
             SwiftSpinner.hide()
@@ -98,5 +98,5 @@ class MenuController: UITableViewController {
         })
 
     }
-
+    
 }

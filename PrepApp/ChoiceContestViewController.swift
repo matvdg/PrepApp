@@ -46,7 +46,15 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
             self.menuButton.target = self.revealViewController()
             self.menuButton.action = "revealToggle:"
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        } else {
+            self.menuButton.image = UIImage(named: "home")
+            self.menuButton.target = self
+            self.menuButton.action = "dismiss"
         }
+    }
+    
+    func dismiss() {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     override func viewDidAppear(animated: Bool) {

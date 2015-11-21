@@ -96,12 +96,19 @@ class SoloViewController: UIViewController {
 			self.menuButton.target = self.revealViewController()
 			self.menuButton.action = "revealToggle:"
 			self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-		}
+        } else {
+            self.menuButton.image = UIImage(named: "home")
+            self.menuButton.target = self
+            self.menuButton.action = "dismiss"
+        }
         self.trigram.image = UIImage(named: "triunselected")
         self.buttonChallenge.layer.cornerRadius = 6
         self.renderButtons()
     }
     
+    func dismiss() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 
     func logout() {
         print("logging out")

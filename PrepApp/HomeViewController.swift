@@ -23,6 +23,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
     var questionsAnswered: [Double] = []
     var weeksBeforeExam : [String] = []
     
+// Demo data:
 //    var bioPerf: [Double] = [60, 66, 70, 75, 72, 70, 73, 80, 82, 84, 86]
 //    var phyPerf: [Double] = [70, 68, 65, 57, 43, 62, 66, 64, 66, 70, 72]
 //    var chePerf: [Double] = [40, 43, 45, 48, 48, 51, 55, 62, 73, 80, 92]
@@ -136,6 +137,25 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         if( traitCollection.forceTouchCapability == .Available){
             registerForPreviewingWithDelegate(self, sourceView: self.view)
         }
+        //notifications
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showGraph", name: "landscape", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "hideGraph", name: "portrait", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "goTraining", name: "goTraining", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "goSolo", name: "goSolo", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "goDuo", name: "goDuo", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "goContest", name: "goContest", object: nil)
+        
+        //handling swipe gestures
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: "swiped:")
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
+        self.view.addGestureRecognizer(swipeLeft)
+        if self.revealViewController() != nil {
+            self.menuButton.target = self.revealViewController()
+            self.menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
         //sync
         FactoryHistory.getHistory().sync()
         //rendering
@@ -182,21 +202,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
             self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("showNotification"), userInfo: nil, repeats: true)
             self.hideTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: Selector("hideNotification"), userInfo: nil, repeats: false)
         }
-        //notifications
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showGraph", name: "landscape", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "hideGraph", name: "portrait", object: nil)
-
-        //handling swipe gestures
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: "swiped:")
-        swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
-        self.view.addGestureRecognizer(swipeLeft)
-		if self.revealViewController() != nil {
-			self.menuButton.target = self.revealViewController()
-			self.menuButton.action = "revealToggle:"
-			self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        }
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -793,6 +799,28 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
     func hidePieCharts(bool: Bool) {
         self.chePieChart.hidden = bool
     }
+    
+    //quickActions methods
+    func goTraining() {
+        self.hidePieCharts(true)
+        self.performSegueWithIdentifier("goTraining", sender: self)
+    }
+    
+    func goSolo() {
+        self.hidePieCharts(true)
+        self.performSegueWithIdentifier("goSolo", sender: self)
+    }
+    
+    func goDuo() {
+        self.hidePieCharts(true)
+        self.performSegueWithIdentifier("goDuo", sender: self)
+    }
+    
+    func goContest() {
+        self.hidePieCharts(true)
+        self.performSegueWithIdentifier("goContest", sender: self)
+    }
+
     
     //peek&pop
     func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {

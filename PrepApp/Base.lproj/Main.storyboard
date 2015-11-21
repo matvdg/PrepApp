@@ -548,7 +548,7 @@
                                         <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <segue destination="Q20-H2-akI" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="dOb-Hk-MCF"/>
+                                            <segue destination="Q20-H2-akI" kind="custom" identifier="training" customClass="SWRevealViewControllerSeguePushController" id="dOb-Hk-MCF"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="Pdb-Um-RUK">
@@ -576,7 +576,7 @@
                                         <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <segue destination="Z5P-zY-itP" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="X6A-Qp-egL"/>
+                                            <segue destination="Z5P-zY-itP" kind="custom" identifier="solo" customClass="SWRevealViewControllerSeguePushController" id="X6A-Qp-egL"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="gIe-5N-50d">
@@ -604,7 +604,7 @@
                                         <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <segue destination="lmf-3H-IB0" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="9Zt-vc-ZPx"/>
+                                            <segue destination="lmf-3H-IB0" kind="custom" identifier="duo" customClass="SWRevealViewControllerSeguePushController" id="9Zt-vc-ZPx"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="6UC-uP-T2p">
@@ -632,7 +632,7 @@
                                         <color key="backgroundColor" red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <segue destination="w8h-D0-bRK" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="pkL-Jx-0og"/>
+                                            <segue destination="w8h-D0-bRK" kind="custom" identifier="contest" customClass="SWRevealViewControllerSeguePushController" id="pkL-Jx-0og"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="10" id="3tw-fW-9Oe">
@@ -1218,6 +1218,10 @@
                         <outlet property="target" destination="WEF-WD-hnQ" id="h1h-Iw-eKp"/>
                         <segue destination="hmY-5I-27E" kind="show" identifier="showNews" id="kkr-JM-FGR"/>
                         <segue destination="byH-XQ-Yj9" kind="show" identifier="showStats" id="KwL-6O-QQR"/>
+                        <segue destination="Q20-H2-akI" kind="show" identifier="goTraining" id="4qo-Th-Hym"/>
+                        <segue destination="Z5P-zY-itP" kind="show" identifier="goSolo" id="OfB-Vj-V6r"/>
+                        <segue destination="lmf-3H-IB0" kind="show" identifier="goDuo" id="dAY-Nr-cf6"/>
+                        <segue destination="w8h-D0-bRK" kind="show" identifier="goContest" id="SFf-rR-efT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gjf-EP-dOD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -5034,12 +5038,16 @@
         <image name="trimaskgreen" width="1317" height="1254"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="dAY-Nr-cf6"/>
         <segue reference="Mzc-wZ-R5Z"/>
-        <segue reference="Pp1-nw-Dh8"/>
+        <segue reference="4qo-Th-Hym"/>
+        <segue reference="KwL-6O-QQR"/>
+        <segue reference="OfB-Vj-V6r"/>
+        <segue reference="SFf-rR-efT"/>
+        <segue reference="C5u-vB-9sx"/>
         <segue reference="2YI-rS-dTL"/>
         <segue reference="z3b-Ap-bLN"/>
-        <segue reference="KwL-6O-QQR"/>
-        <segue reference="C5u-vB-9sx"/>
+        <segue reference="Pp1-nw-Dh8"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.086274509803921567" green="0.62745098039215685" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
 </document>
