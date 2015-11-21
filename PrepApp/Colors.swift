@@ -46,11 +46,7 @@ let colors = [
     UIColor(red: 0/255, green: 145/255, blue: 147/255, alpha: 1),
     UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1),
     UIColor(red: 205/255, green: 127/255, blue: 50/255, alpha: 1),
-    UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 1),
-    UIColor(red: 100/255, green: 204/255, blue: 180/255, alpha: 1),
-    UIColor(red: 196/255, green: 65/255, blue: 51/255, alpha: 1),
-    UIColor(red: 79/255, green: 167/255, blue: 137/255, alpha: 1),
-    UIColor(red: 1, green: 189/255, blue: 46/255, alpha: 1)
+    UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 1)
 ]
 
 
