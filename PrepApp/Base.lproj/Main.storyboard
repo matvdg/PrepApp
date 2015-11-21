@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="segoe.ttf">
@@ -1224,6 +1225,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gjf-EP-dOD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2939" y="266"/>
+        </scene>
+        <!--ColorVC-->
+        <scene sceneID="wba-lZ-Na4">
+            <objects>
+                <collectionViewController title="ColorVC" id="zS3-8g-9m7" customClass="ColorCollectionViewController" customModule="PrepApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" indicatorStyle="white" dataMode="prototypes" id="DsA-aU-phv">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" red="0.94901961089999998" green="0.94901961089999998" blue="0.94901961089999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="30" minimumInteritemSpacing="10" id="vct-ie-oIz">
+                            <size key="itemSize" width="70" height="70"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="10" minY="30" maxX="10" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="color" id="1Uh-Y3-bIM">
+                                <rect key="frame" x="10" y="30" width="70" height="70"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <animations/>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="zS3-8g-9m7" id="BUx-K1-YYn"/>
+                            <outlet property="delegate" destination="zS3-8g-9m7" id="KIh-n2-8zY"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nZX-1K-HHr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3634" y="-4842"/>
         </scene>
         <!--NewsfeedVC-->
         <scene sceneID="oi8-va-zhy">
@@ -2743,18 +2782,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Level" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bTf-1J-G1j">
-                                <rect key="frame" x="460" y="72" width="120" height="120"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.30980393290519714" green="0.65490198135375977" blue="0.5372549295425415" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="Cci-55-kRY"/>
-                                    <constraint firstAttribute="width" constant="120" id="IDi-7y-fMH"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Name Last Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gNL-bU-xPE">
                                 <rect key="frame" x="35" y="72" width="417" height="40"/>
                                 <animations/>
@@ -2828,26 +2855,49 @@
                                 <color key="textColor" red="0.30980393290000002" green="0.6549019814" blue="0.53725492949999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iLJ-qv-hBf">
+                                <rect key="frame" x="458" y="72" width="122" height="122"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.30980393290000002" green="0.6549019814" blue="0.53725492949999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="122" id="5Zc-Y8-uUc"/>
+                                    <constraint firstAttribute="height" constant="122" id="61e-6b-FzD"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="122" id="Lzo-sE-qR4"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="122" id="YDm-3M-5ur"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="20"/>
+                                <state key="normal" title="MV">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showStats:" destination="C6n-Re-BNF" eventType="touchUpInside" id="JMI-TE-9lX"/>
+                                    <segue destination="zS3-8g-9m7" kind="presentation" modalTransitionStyle="flipHorizontal" id="C5u-vB-9sx">
+                                        <segue key="commit" inheritsFrom="parent" id="9Mf-E3-vk3"/>
+                                        <segue key="preview" inheritsFrom="commit" id="0F1-GQ-Lpd"/>
+                                    </segue>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.92549020049999997" green="0.92549020049999997" blue="0.92549020049999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="4De-NM-cvq" firstAttribute="leading" secondItem="tCj-6O-2F3" secondAttribute="leadingMargin" id="1Ag-ij-PnD"/>
-                            <constraint firstItem="bTf-1J-G1j" firstAttribute="leading" secondItem="LQV-cO-8F2" secondAttribute="trailing" constant="8" id="4QY-st-flN"/>
+                            <constraint firstItem="4De-NM-cvq" firstAttribute="trailing" secondItem="tCj-6O-2F3" secondAttribute="trailingMargin" id="1lc-fO-MUH"/>
                             <constraint firstItem="gNL-bU-xPE" firstAttribute="top" secondItem="JWF-bq-RPe" secondAttribute="bottom" constant="8" id="4m9-yr-7TN"/>
                             <constraint firstItem="FRT-kF-Y8Q" firstAttribute="top" secondItem="LQV-cO-8F2" secondAttribute="bottom" constant="-80" id="B6g-PM-7I0"/>
-                            <constraint firstItem="4De-NM-cvq" firstAttribute="top" secondItem="bTf-1J-G1j" secondAttribute="top" constant="140" id="H5A-yG-ZGd"/>
-                            <constraint firstItem="4De-NM-cvq" firstAttribute="trailing" secondItem="tCj-6O-2F3" secondAttribute="trailingMargin" id="LJZ-P6-pxR"/>
+                            <constraint firstItem="iLJ-qv-hBf" firstAttribute="trailing" secondItem="tCj-6O-2F3" secondAttribute="trailingMargin" id="EDG-fi-Wrr"/>
+                            <constraint firstItem="iLJ-qv-hBf" firstAttribute="leading" secondItem="FRT-kF-Y8Q" secondAttribute="trailing" constant="6" id="F7o-lc-JRU"/>
                             <constraint firstItem="LQV-cO-8F2" firstAttribute="leading" secondItem="tCj-6O-2F3" secondAttribute="leadingMargin" constant="15" id="QVF-6g-7LH"/>
-                            <constraint firstItem="sx1-1k-dBI" firstAttribute="top" secondItem="4De-NM-cvq" secondAttribute="bottom" constant="20" id="ZJY-qW-wlG"/>
-                            <constraint firstItem="bTf-1J-G1j" firstAttribute="trailing" secondItem="tCj-6O-2F3" secondAttribute="trailingMargin" id="ccC-wL-Dgp"/>
+                            <constraint firstItem="4De-NM-cvq" firstAttribute="leading" secondItem="tCj-6O-2F3" secondAttribute="leadingMargin" id="bDr-cl-ElO"/>
                             <constraint firstItem="gNL-bU-xPE" firstAttribute="leading" secondItem="tCj-6O-2F3" secondAttribute="leadingMargin" constant="15" id="cot-Js-VRQ"/>
-                            <constraint firstItem="bTf-1J-G1j" firstAttribute="top" secondItem="JWF-bq-RPe" secondAttribute="bottom" constant="8" id="e6q-SI-TJb"/>
                             <constraint firstItem="4De-NM-cvq" firstAttribute="top" secondItem="FRT-kF-Y8Q" secondAttribute="bottom" constant="17" id="eIo-cZ-92L"/>
                             <constraint firstItem="FRT-kF-Y8Q" firstAttribute="leading" secondItem="tCj-6O-2F3" secondAttribute="leadingMargin" constant="15" id="g3e-Cv-3a7"/>
+                            <constraint firstItem="iLJ-qv-hBf" firstAttribute="leading" secondItem="gNL-bU-xPE" secondAttribute="trailing" constant="6" id="lca-e9-aSR"/>
                             <constraint firstItem="LQV-cO-8F2" firstAttribute="top" secondItem="gNL-bU-xPE" secondAttribute="bottom" constant="40" id="lrt-zy-7Zj"/>
-                            <constraint firstItem="bTf-1J-G1j" firstAttribute="leading" secondItem="gNL-bU-xPE" secondAttribute="trailing" constant="8" id="qWr-Jm-8yJ"/>
-                            <constraint firstItem="bTf-1J-G1j" firstAttribute="leading" secondItem="FRT-kF-Y8Q" secondAttribute="trailing" constant="8" id="y6o-Yl-4pb"/>
+                            <constraint firstItem="iLJ-qv-hBf" firstAttribute="leading" secondItem="LQV-cO-8F2" secondAttribute="trailing" constant="6" id="nJY-4r-xdS"/>
+                            <constraint firstItem="iLJ-qv-hBf" firstAttribute="top" secondItem="JWF-bq-RPe" secondAttribute="bottom" constant="8" id="rsd-4x-35K"/>
+                            <constraint firstItem="4De-NM-cvq" firstAttribute="top" secondItem="iLJ-qv-hBf" secondAttribute="bottom" constant="18" id="sgt-FA-4DS"/>
+                            <constraint firstItem="sx1-1k-dBI" firstAttribute="top" secondItem="4De-NM-cvq" secondAttribute="bottom" constant="20" id="zJV-ez-1nm"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -2863,8 +2913,8 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="badge" destination="iLJ-qv-hBf" id="SAk-71-9tB"/>
                         <outlet property="email" destination="FRT-kF-Y8Q" id="MJD-2h-vuo"/>
-                        <outlet property="level" destination="bTf-1J-G1j" id="IWm-Fn-RRW"/>
                         <outlet property="menuButton" destination="7Ia-ji-iGZ" id="4Tb-Cf-I7t"/>
                         <outlet property="name" destination="gNL-bU-xPE" id="pTf-PX-BRj"/>
                         <outlet property="nickname" destination="LQV-cO-8F2" id="a3m-qM-q3N"/>
@@ -5074,8 +5124,9 @@
         <image name="trimaskgreen" width="1317" height="1254"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Mzc-wZ-R5Z"/>
+        <segue reference="cGO-nn-N46"/>
         <segue reference="KwL-6O-QQR"/>
+        <segue reference="C5u-vB-9sx"/>
         <segue reference="F9M-0G-DBV"/>
         <segue reference="z3b-Ap-bLN"/>
         <segue reference="Pp1-nw-Dh8"/>

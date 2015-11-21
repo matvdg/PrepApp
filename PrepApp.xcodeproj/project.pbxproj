@@ -62,6 +62,7 @@
 		F667EC501BE5371100F98DA5 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F667EC4F1BE5371100F98DA5 /* HelpViewController.swift */; };
 		F67436301BEEC36E003E798B /* ResultDuo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F674362F1BEEC36E003E798B /* ResultDuo.swift */; };
 		F67436321BEEDEAD003E798B /* ResultsDuoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67436311BEEDEAD003E798B /* ResultsDuoViewController.swift */; };
+		F68202C11BFFFD4F00B1799D /* ColorCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68202C01BFFFD4F00B1799D /* ColorCollectionViewController.swift */; };
 		F68320DA1B03C6F1006B974E /* TrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68320D91B03C6F1006B974E /* TrainingViewController.swift */; };
 		F687CA261BF69B8000556754 /* ContestHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F687CA251BF69B8000556754 /* ContestHistory.swift */; };
 		F6987A6D1B16321B002989C6 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6987A6C1B16321B002989C6 /* ImageManager.swift */; };
@@ -205,6 +206,7 @@
 		F667EC4F1BE5371100F98DA5 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		F674362F1BEEC36E003E798B /* ResultDuo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultDuo.swift; sourceTree = "<group>"; };
 		F67436311BEEDEAD003E798B /* ResultsDuoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsDuoViewController.swift; sourceTree = "<group>"; };
+		F68202C01BFFFD4F00B1799D /* ColorCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewController.swift; sourceTree = "<group>"; };
 		F68320D91B03C6F1006B974E /* TrainingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TrainingViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F687CA251BF69B8000556754 /* ContestHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContestHistory.swift; sourceTree = "<group>"; };
 		F6987A6C1B16321B002989C6 /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 			isa = PBXGroup;
 			children = (
 				9555BBC81BA836EF00BED5A2 /* StatsViewController.swift */,
+				F68202C01BFFFD4F00B1799D /* ColorCollectionViewController.swift */,
 				9555BBCA1BA836FB00BED5A2 /* FeedbackViewController.swift */,
 				9555BBCC1BA8371600BED5A2 /* LeaderboardTableViewController.swift */,
 				9555BBCE1BA8372500BED5A2 /* MarkedQuestionsTableViewController.swift */,
@@ -717,6 +720,7 @@
 				F6C02C461B762A810021ABE1 /* UITableViewCellAnswer.swift in Sources */,
 				F6C3095C1B0365B100B8FAC9 /* HomeViewController.swift in Sources */,
 				F60ED4851BEFA1E800825A0E /* NewsfeedManager.swift in Sources */,
+				F68202C11BFFFD4F00B1799D /* ColorCollectionViewController.swift in Sources */,
 				F60ED4811BEFA04F00825A0E /* News.swift in Sources */,
 				F6AAE6D61AF433E100195E11 /* AppDelegate.swift in Sources */,
 				F67436321BEEDEAD003E798B /* ResultsDuoViewController.swift in Sources */,

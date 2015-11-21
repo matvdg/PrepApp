@@ -2,7 +2,7 @@
 //  StatsViewController.swift
 //  PrepApp
 //
-//  Created by Mikael Vandeginste on 15/09/2015.
+//  Created by Mathieu Vandeginste on 15/09/2015.
 //  Copyright (c) 2015 PrepApp. All rights reserved.
 //
 
@@ -10,19 +10,22 @@ import UIKit
 
 class StatsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    @IBOutlet weak var menuButton: UIBarButtonItem!
-    
+    //properties
     var statsTopics = ["Niveau", "Assiduité", "Questions réussies", "Echéance", "AwardPoints"]
     var statsData: [String] = []
     var statsDetails: [String] = []
     var statsPics = ["level","puzzle","check","term","awardPoint"]
+    var refreshIsNeeded = false
     
+    //@IBOutlets
+    @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var nickname: UILabel!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var email: UILabel!
-    @IBOutlet weak var level: UILabel!
+    @IBOutlet weak var badge: UIButton!
     @IBOutlet weak var statsTable: UITableView!
     
+    //app methods
     override func viewDidLoad() {
         super.viewDidLoad()
         //sync
@@ -30,7 +33,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.view!.backgroundColor = colorGreyBackground
         self.loadData()
         self.statsTable.backgroundColor = colorGreyBackground
-        self.renderLevel()
+        self.renderBadge()
         self.name.text = "\(User.currentUser!.firstName) \(User.currentUser!.lastName)"
         if FactorySync.getConfigManager().loadNicknamePreference() {
             self.nickname.text = User.currentUser!.nickname
@@ -48,6 +51,14 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
             self.menuButton.target = self.revealViewController()
             self.menuButton.action = "revealToggle:"
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        if self.refreshIsNeeded {
+            self.renderBadge()
+        } else {
+            self.refreshIsNeeded = true
         }
     }
     
@@ -71,24 +82,29 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.presentViewController(myAlert, animated: true, completion: nil)
     }
     
-    func renderLevel(){
-        self.level.font = UIFont(name: "Times New Roman", size: 70)
-        self.level.backgroundColor = colorGreenLogo
-        self.level.layer.zPosition = 100
-        self.level.layer.borderColor = UIColor.whiteColor().CGColor
-        self.level.layer.borderWidth = 6
-        self.level.text = User.currentUser!.level.levelPrepApp()
-        self.level.adjustsFontSizeToFitWidth = true
-        self.level.numberOfLines = 1
-        self.level.baselineAdjustment = UIBaselineAdjustment.AlignCenters
-        self.level.layer.cornerRadius = self.level.frame.width / 2
-        self.level.layer.masksToBounds = true
+    //methods
+    func renderBadge(){
+        self.badge.titleLabel!.font = UIFont(name: "Times New Roman", size: 50)!
+        self.badge.backgroundColor = colors[User.currentUser!.color]
+        self.badge.layer.zPosition = 100
+        self.badge.layer.borderColor = UIColor.whiteColor().CGColor
+        self.badge.layer.borderWidth = 6
+        let firstName = User.currentUser!.firstName
+        let lastName = User.currentUser!.lastName
+        let firstChar = firstName[firstName.startIndex.advancedBy(0)]
+        let secondChar = lastName[lastName.startIndex.advancedBy(0)]
+        let initials = String(stringInterpolationSegment: firstChar).uppercaseString + String(stringInterpolationSegment: secondChar).uppercaseString
+        self.badge.setTitle(initials, forState: .Normal)
+        self.badge.titleLabel!.adjustsFontSizeToFitWidth = true
+        self.badge.titleLabel!.numberOfLines = 1
+        self.badge.titleLabel!.baselineAdjustment = UIBaselineAdjustment.AlignCenters
+        self.badge.layer.cornerRadius = self.badge.frame.width / 2
     }
     
     func loadData() {
         //level
-        self.statsData.append("\(User.currentUser!.level )")
-        self.statsDetails.append("Niveau \(User.currentUser!.level.levelPrepApp()) (\(User.currentUser!.level)). Le niveau est calculé à partir des questions réussies dans chaque matière et ce dans les proportions de l'examen final. Dans l'accueil, le graphe vous indique la progression du niveau en cours pour chaque matière.")
+        self.statsData.append(User.currentUser!.level.levelPrepApp())
+        self.statsDetails.append("Niveau \(User.currentUser!.level). Le niveau est calculé à partir des questions réussies dans chaque matière et ce dans les proportions de l'examen final. Dans l'accueil, le graphe vous indique la progression du niveau en cours pour chaque matière.")
         //assiduity
         self.statsData.append(FactoryHistory.getScoring().getAssiduity().toStringPoints())
         self.statsDetails.append("L'assiduité est récompensée ! 1 AwardPoint par question faite = \((FactoryHistory.getScoring().getFailed() + FactoryHistory.getScoring().getSucceeded()).toStringPoints())  Les questions basculées dans entraînement (provenant des défis solo/duo ou d’un concours) que vous avez revues vous ont rapporté \((FactoryHistory.getScoring().getAssiduity()-(FactoryHistory.getScoring().getFailed() + FactoryHistory.getScoring().getSucceeded())).toStringPoints()) d'assiduité double en bonus. Soit un total de \(FactoryHistory.getScoring().getAssiduity().toStringPoints())")
@@ -142,9 +158,6 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.statsTopics.count
     }
-    
-    // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
-    // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("stat", forIndexPath: indexPath) 

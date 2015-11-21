@@ -28,5 +28,21 @@ let colorSilver = UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 1)
 
 
 
+//badges colors
+let colors = [
+    UIColor(red: 153/255, green: 227/255, blue: 134/255, alpha: 1),
+    UIColor(red: 243/255, green: 122/255, blue: 111/255, alpha: 1),
+    UIColor(red: 137/255, green: 191/255, blue: 224/255, alpha: 1),
+    UIColor(red: 135/255, green: 46/255, blue: 63/255, alpha: 1),
+    UIColor(red: 242/255, green: 135/255, blue: 48/255, alpha: 1),
+    UIColor(red: 160/255, green: 135/255, blue: 216/255, alpha: 1),
+    UIColor(red: 254/255, green: 202/255, blue: 111/255, alpha: 1),
+    UIColor(red: 255/255, green: 200/255, blue: 216/255, alpha: 1),
+    UIColor(red: 154/255, green: 244/255, blue: 190/255, alpha: 1),
+    UIColor(red: 52/255, green: 73/255, blue: 94/255, alpha: 1),
+    UIColor(red: 0/255, green: 84/255, blue: 147/255, alpha: 1),
+    UIColor(red: 0/255, green: 145/255, blue: 147/255, alpha: 1),
+]
+
 
 

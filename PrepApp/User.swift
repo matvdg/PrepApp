@@ -22,6 +22,7 @@ class User {
     var level: Int
     var awardPoints: Int
     var nickname: String
+    var color: Int
     
     init(
         id: Int,
@@ -31,7 +32,8 @@ class User {
         encryptedPassword: String,
         level: Int,
         awardPoints: Int,
-        nickname: String) {
+        nickname: String,
+        color: Int ) {
             
         self.id = id
         self.firstName = firstName
@@ -41,6 +43,7 @@ class User {
         self.level = level
         self.awardPoints = awardPoints
         self.nickname = nickname
+        self.color = color
     }
 	
 	func changePassword(newPass: String, callback: (String?) -> Void){
@@ -115,6 +118,16 @@ class User {
         task.resume()
     }
     
+    func updateColor(newColor: Int){
+        let request = NSMutableURLRequest(URL: FactorySync.colorUrl!)
+        request.HTTPMethod = "POST"
+        request.timeoutInterval = NSTimeInterval(5)
+        let postString = "mail=\(User.currentUser!.email)&pass=\(User.currentUser!.encryptedPassword)&color=\(newColor)"
+        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request)
+        task.resume()
+    }
+    
     func sendComment(id: Int, comment: String, callback: (String, String, Bool) -> Void){
         let url = NSURL(string: "\(FactorySync.questionMarkedUrl!)\(id)")
         let request = NSMutableURLRequest(URL: url!)
@@ -175,7 +188,8 @@ class User {
             self.encryptedPassword,
             String(self.level),
             String(self.awardPoints),
-            self.nickname
+            self.nickname,
+            String(self.color)
         ]
 		NSUserDefaults.standardUserDefaults().setObject(savedUser, forKey: "user")
 		NSUserDefaults.standardUserDefaults().synchronize()
@@ -227,7 +241,9 @@ class User {
 			encryptedPassword: pass.sha1() as String,
 			level: data["level"] as! Int,
             awardPoints: data["awardPoints"] as! Int,
-            nickname: data["nickname"] as! String
+            nickname: data["nickname"] as! String,
+            color: Int(rand())%colors.count
+            ///TODO when Julien send colors color: data["color"] as! Int
         )
         
         User.authenticated = true
@@ -243,14 +259,15 @@ class User {
 			}
             
             User.currentUser = User(
-                id: Int((data[0] as String))!,
+                id: Int(data[0] as String)!,
                 firstName: data[1] as String,
                 lastName: data[2] as String,
                 email: data[3] as String,
                 encryptedPassword: data[4] as String,
                 level: Int((data[5] as String))!,
                 awardPoints: Int((data[6] as String))!,
-                nickname: data[7] as String
+                nickname: data[7] as String,
+                color: Int(data[8] as String)!
             )
 			return true
 		} else {

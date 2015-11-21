@@ -245,6 +245,5 @@ extension String {
     
     var html2String:String {
             return (try! NSAttributedString(data: dataUsingEncoding(NSUTF8StringEncoding)!, options: [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType,NSCharacterEncodingDocumentAttribute:NSUTF8StringEncoding], documentAttributes: nil)).string
-    }   
-    
+    }    
 }

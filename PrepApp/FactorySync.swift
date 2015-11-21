@@ -80,6 +80,7 @@ class FactorySync {
     static let nicknameUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/nickname/")
     static let levelUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/level/")
     static let awardPointsUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/awardPoints/")
+    static let colorUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/color/")
     static let updateHistoryUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/update/history/")
     static let retrieveHistoryUrl = NSURL(string: "\(FactorySync.apiUrl!)/user/retrieve/history/")
     
