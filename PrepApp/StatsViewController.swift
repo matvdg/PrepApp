@@ -11,17 +11,14 @@ import UIKit
 class StatsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //properties
-    var statsTopics = ["Niveau", "Assiduité", "Questions réussies", "Echéance", "AwardPoints"]
+    var statsTopics = ["Niveau", "Questions réussies", "Assiduité", "Echéance", "AwardPoints"]
     var statsData: [String] = []
     var statsDetails: [String] = []
-    var statsPics = ["level","puzzle","check","term","awardPoint"]
+    var statsPics = ["level","check","puzzle","term","awardPoint"]
     var refreshIsNeeded = false
     
     //@IBOutlets
     @IBOutlet weak var menuButton: UIBarButtonItem!
-    @IBOutlet weak var nickname: UILabel!
-    @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var email: UILabel!
     @IBOutlet weak var badge: UIButton!
     @IBOutlet weak var statsTable: UITableView!
     
@@ -34,13 +31,6 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.loadData()
         self.statsTable.backgroundColor = colorGreyBackground
         self.renderBadge()
-        self.name.text = "\(User.currentUser!.firstName) \(User.currentUser!.lastName)"
-        if FactorySync.getConfigManager().loadNicknamePreference() {
-            self.nickname.text = User.currentUser!.nickname
-        } else {
-            self.nickname.hidden = true
-        }
-        self.email.text = "\(User.currentUser!.email)"
         if let _ = self.navigationController {
             self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
             self.navigationController!.navigationBar.tintColor = colorGreen
@@ -113,12 +103,12 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         //level
         self.statsData.append(User.currentUser!.level.levelPrepApp())
         self.statsDetails.append("Niveau \(User.currentUser!.level). Le niveau est calculé à partir des questions réussies dans chaque matière et ce dans les proportions de l'examen final. Dans l'accueil, le graphe vous indique la progression du niveau en cours pour chaque matière.")
-        //assiduity
-        self.statsData.append(FactoryHistory.getScoring().getAssiduity().toStringPoints())
-        self.statsDetails.append("L'assiduité est récompensée ! 1 AwardPoint par question faite = \((FactoryHistory.getScoring().getFailed() + FactoryHistory.getScoring().getSucceeded()).toStringPoints())  Les questions basculées dans entraînement (provenant des défis solo/duo ou d’un concours) que vous avez revues vous ont rapporté \((FactoryHistory.getScoring().getAssiduity()-(FactoryHistory.getScoring().getFailed() + FactoryHistory.getScoring().getSucceeded())).toStringPoints()) d'assiduité double en bonus. Soit un total de \(FactoryHistory.getScoring().getAssiduity().toStringPoints())")
         //questions succeeded
         self.statsData.append("\(FactoryHistory.getScoring().getSucceeded())/\(FactoryHistory.getScoring().getSucceeded() + FactoryHistory.getScoring().getFailed())")
         self.statsDetails.append("\(FactoryHistory.getScoring().getSucceeded()) \(self.grammarQuestionString(FactoryHistory.getScoring().getSucceeded())) \(self.grammarSucceededString(FactoryHistory.getScoring().getSucceeded())), \(FactoryHistory.getScoring().getFailed()) \(self.grammarQuestionString(FactoryHistory.getScoring().getFailed())) \(self.grammarFailedString(FactoryHistory.getScoring().getFailed())) sur un total de \(FactoryHistory.getScoring().getFailed()+FactoryHistory.getScoring().getSucceeded()) \(self.grammarQuestionString(FactoryHistory.getScoring().getFailed()+FactoryHistory.getScoring().getSucceeded())).")
+        //assiduity
+        self.statsData.append(FactoryHistory.getScoring().getAssiduity().toStringPoints())
+        self.statsDetails.append("L'assiduité est récompensée ! 1 AwardPoint par question faite = \((FactoryHistory.getScoring().getFailed() + FactoryHistory.getScoring().getSucceeded()).toStringPoints())  Les questions basculées dans entraînement (provenant des défis solo/duo ou d’un concours) que vous avez revues vous ont rapporté \((FactoryHistory.getScoring().getAssiduity()-(FactoryHistory.getScoring().getFailed() + FactoryHistory.getScoring().getSucceeded())).toStringPoints()) d'assiduité double en bonus. Soit un total de \(FactoryHistory.getScoring().getAssiduity().toStringPoints())")
         //term
         self.statsData.append("\(FactorySync.getConfigManager().loadWeeksBeforeExam()) \(self.grammarWeekString(FactorySync.getConfigManager().loadWeeksBeforeExam()))")
         self.statsDetails.append("Vous avez \(FactorySync.getConfigManager().loadWeeksBeforeExam()) \(self.grammarWeekString(FactorySync.getConfigManager().loadWeeksBeforeExam())) avant l'échéance fixée par votre établissement (concours/examen/partiels) le \(FactorySync.getConfigManager().loadDate())")

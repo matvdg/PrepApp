@@ -35,9 +35,6 @@ UIAdaptivePresentationControllerDelegate  {
     var numberOfAnswers = 0
     var animatingAwardPointTimer = NSTimer()
     var stateAnimationAwardPoint = 0
-    var animatingCorrectionTimer = NSTimer()
-    var stopAnimationCorrectionTimer = NSTimer()
-    var senseAnimationCorrection: Bool = true
     var waitBeforeNextQuestion: Bool = false
     var choiceFilter = 0 // 0=ALL 1=FAILED 2=SUCCEEDED 3=NEW 4=MARKED
     let baseUrl = NSURL(fileURLWithPath: FactorySync.path, isDirectory: true)
@@ -384,7 +381,6 @@ UIAdaptivePresentationControllerDelegate  {
     }
     
     private func cleanView() {
-        self.animatingCorrectionTimer.invalidate()
         self.submitButton.hidden = false
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
@@ -537,49 +533,18 @@ UIAdaptivePresentationControllerDelegate  {
                         self.animateAwardPoint(1)
                     }
                 }
-
             }
             //saving the question result in history
             FactoryHistory.getHistory().addQuestionToHistory(historyQuestion)
-            
-            //displaying and animating the correction button IF AVAILABLE
+            //displaying the correction button IF AVAILABLE
             if self.currentQuestion!.correction != "" {
                 self.submitButton.setTitle("Correction", forState: UIControlState.Normal)
                 self.submitButton.removeTarget(self, action: "submit", forControlEvents: UIControlEvents.TouchUpInside)
                 self.submitButton.addTarget(self, action: "showCorrection", forControlEvents: UIControlEvents.TouchUpInside)
-                self.animatingCorrectionTimer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: Selector("animateButton"), userInfo: nil, repeats: true)
-                self.stopAnimationCorrectionTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "stopAnimation", userInfo: nil, repeats: false)
             } else {
                 self.submitButton.hidden = true
             }
-            
         }
-        
-    }
-    
-    func animateButton(){
-        if self.senseAnimationCorrection {
-            self.submitButton.frame.size.width = self.submitButton.frame.size.width + 1
-            self.submitButton.frame.size.height = self.submitButton.frame.size.height + 1
-            self.submitButton.frame.origin.x = self.submitButton.frame.origin.x - 0.5
-            self.submitButton.frame.origin.y = self.submitButton.frame.origin.y - 0.5
-            self.submitButton.backgroundColor = colorGreen
-            if self.submitButton.frame.size.width > 110 {
-                self.senseAnimationCorrection = false
-            }
-            
-        } else {
-            self.submitButton.frame.size.width = self.submitButton.frame.size.width - 1
-            self.submitButton.frame.size.height = self.submitButton.frame.size.height - 1
-            self.submitButton.frame.origin.x = self.submitButton.frame.origin.x + 0.5
-            self.submitButton.frame.origin.y = self.submitButton.frame.origin.y + 0.5
-            self.submitButton.backgroundColor = colorGreen
-            if self.submitButton.frame.size.width < 100 {
-                self.senseAnimationCorrection = true
-            }
-        }
-        
-        
     }
     
     func animateAwardPoint(awardPoints: Int) {
@@ -607,16 +572,8 @@ UIAdaptivePresentationControllerDelegate  {
         self.awardPointImage.layer.addAnimation(animation, forKey: nil)
     }
     
-    func stopAnimation(){
-        self.animatingCorrectionTimer.invalidate()
-        self.submitButton.frame.size.width = 100
-        self.submitButton.frame.size.height = 40
-        self.submitButton.backgroundColor = colorGreen
-    }
-    
     func showCorrection() {
         //show the correction sheet
-        self.animatingCorrectionTimer.invalidate()
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
         self.submitButton.backgroundColor = colorGreen

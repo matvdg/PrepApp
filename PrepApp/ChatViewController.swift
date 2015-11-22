@@ -30,12 +30,11 @@ class ChatViewController: UIViewController, UIWebViewDelegate {
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         self.loadChat()
-        
     }
     
     func loadChat() {
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-        SwiftSpinner.show("Chargement de Chat...")
+        SwiftSpinner.show("Chargement du chat...")
         let request = NSMutableURLRequest(URL: FactorySync.pchatUrl!)
         request.HTTPMethod = "POST"
         request.timeoutInterval = NSTimeInterval(5)

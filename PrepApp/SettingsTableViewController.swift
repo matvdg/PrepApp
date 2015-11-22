@@ -27,7 +27,6 @@ class SettingsTableViewController: UITableViewController {
         FactoryHistory.getHistory().sync()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
-        
         if self.revealViewController() != nil {
             self.menuButton.target = self.revealViewController()
             self.menuButton.action = "revealToggle:"
@@ -35,9 +34,7 @@ class SettingsTableViewController: UITableViewController {
         }
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.navigationController!.navigationBar.tintColor = colorGreen
-        self.title = "Préférences"
-        
-        
+        self.title = "Réglages"
     }
 
     // MARK: - Table view data source

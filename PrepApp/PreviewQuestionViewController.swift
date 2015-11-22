@@ -197,7 +197,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
             cell.number.backgroundColor = colorRightAnswer
             //green
         }
-        //displaying and animating the correction button IF AVAILABLE
+        //displaying the correction button IF AVAILABLE
         if self.currentQuestion!.correction != "" {
             self.submitButton = UIButton(frame: CGRectMake(self.view.bounds.width/2 - 50, self.wording.bounds.size.height + tableHeight + 50 , 100, 40))
             self.submitButton.layer.cornerRadius = 6
@@ -215,7 +215,6 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
         self.submitButton.backgroundColor = colorGreen
-        
         Sound.playPage()
         self.performSegueWithIdentifier("showCorrection", sender: self)
     }

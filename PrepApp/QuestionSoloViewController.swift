@@ -36,10 +36,7 @@ class QuestionSoloViewController: UIViewController,
     var sizeAnswerCells: [Int:CGFloat] = [:]
     var numberOfAnswers = 0
     var timeChallengeTimer = NSTimer()
-    var animatingCorrectionTimer = NSTimer()
-    var stopAnimationCorrectionTimer = NSTimer()
     var timeLeft = NSTimeInterval(1)
-    var senseAnimationCorrection: Bool = true
     var waitBeforeNextQuestion: Bool = false
     let baseUrl = NSURL(fileURLWithPath: FactorySync.path, isDirectory: true)
     var reviewMode = false
@@ -217,7 +214,6 @@ class QuestionSoloViewController: UIViewController,
                 // add "OK" button
                 myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
                     //challenge finished! switch to results mode
-                    
                     self.cleanView()
                     self.displayResultsMode()
                 }))
@@ -231,7 +227,6 @@ class QuestionSoloViewController: UIViewController,
                 // add "OK" button
                 myAlert.addAction(UIAlertAction(title: "Oui, terminer", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
                     //challenge finished! switch to results mode
-                    
                     self.cleanView()
                     self.displayResultsMode()
                 }))
@@ -588,7 +583,6 @@ class QuestionSoloViewController: UIViewController,
     }
     
     private func cleanView() {
-        self.animatingCorrectionTimer.invalidate()
         self.submitButton.hidden = false
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
@@ -705,12 +699,10 @@ class QuestionSoloViewController: UIViewController,
             }
         }
         
-        //displaying and animating the correction button IF AVAILABLE
+        //displaying the correction button IF AVAILABLE
         if self.currentQuestion!.correction != "" {
             self.submitButton.setTitle("Correction", forState: UIControlState.Normal)
             self.submitButton.addTarget(self, action: "showCorrection", forControlEvents: UIControlEvents.TouchUpInside)
-            self.animatingCorrectionTimer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: Selector("animateButton"), userInfo: nil, repeats: true)
-            self.stopAnimationCorrectionTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "stopAnimation", userInfo: nil, repeats: false)
         } else {
             self.submitButton.hidden = true
         }
@@ -751,45 +743,11 @@ class QuestionSoloViewController: UIViewController,
         self.score = Int(succeeded * 20 / self.questions.count)
     }
     
-    func animateButton(){
-        if self.senseAnimationCorrection {
-            self.submitButton.frame.size.width = self.submitButton.frame.size.width + 1
-            self.submitButton.frame.size.height = self.submitButton.frame.size.height + 1
-            self.submitButton.frame.origin.x = self.submitButton.frame.origin.x - 0.5
-            self.submitButton.frame.origin.y = self.submitButton.frame.origin.y - 0.5
-            self.submitButton.backgroundColor = colorGreen
-            if self.submitButton.frame.size.width > 110 {
-                self.senseAnimationCorrection = false
-            }
-            
-        } else {
-            self.submitButton.frame.size.width = self.submitButton.frame.size.width - 1
-            self.submitButton.frame.size.height = self.submitButton.frame.size.height - 1
-            self.submitButton.frame.origin.x = self.submitButton.frame.origin.x + 0.5
-            self.submitButton.frame.origin.y = self.submitButton.frame.origin.y + 0.5
-            self.submitButton.backgroundColor = colorGreen
-            if self.submitButton.frame.size.width < 100 {
-                self.senseAnimationCorrection = true
-            }
-        }
-        
-        
-    }
-    
-    func stopAnimation(){
-        self.animatingCorrectionTimer.invalidate()
-        self.submitButton.frame.size.width = 100
-        self.submitButton.frame.size.height = 40
-        self.submitButton.backgroundColor = colorGreen
-    }
-    
     func showCorrection() {
         //show the correction sheet
-        self.animatingCorrectionTimer.invalidate()
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
         self.submitButton.backgroundColor = colorGreen
-        
         Sound.playPage()
         self.performSegueWithIdentifier("showCorrection", sender: self)
     }
@@ -850,6 +808,7 @@ class QuestionSoloViewController: UIViewController,
             }
             self.chrono.text = string
         } else {
+            self.timeChallengeTimer.invalidate()
             //challenge finished! switch to results mode
             self.allAnswers[self.currentNumber] = self.selectedAnswers
             let myAlert = UIAlertController(title: "Temps écoulé", message: "Le défi solo est à présent terminé.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -857,11 +816,11 @@ class QuestionSoloViewController: UIViewController,
             // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 //challenge finished! switch to results mode
+                self.cleanView()
                 self.displayResultsMode()
             }))
             // show the alert
             self.presentViewController(myAlert, animated: true, completion: nil)
-            self.displayResultsMode()
         }
         
     }
@@ -877,7 +836,6 @@ class QuestionSoloViewController: UIViewController,
         self.titleLabel.text = "Correction du défi duo"
         self.markButton.enabled = true
         self.markButton.image = UIImage(named: "markedBar")
-        self.timeChallengeTimer.invalidate()
         let myAlert = UIAlertController(title: "Défi solo terminé", message: "Vous pouvez à présent voir les réponses et les corrections si disponibles et éventuellement mettre certaines questions de côté en les marquant à l'aide du drapeau." , preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = colorGreen
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in

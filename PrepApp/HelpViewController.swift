@@ -13,7 +13,7 @@ class HelpViewController: UIViewController {
     
     var selectedHelp = 0
     var helpPics = ["home", "training",  "solo", "duo", "contest", "stats", "marked", "leaderboard", "feedback", "settings", "credits"]
-    var helpTopics = ["Aide Accueil","Aide Entraînement","Aide Défi solo","Aide Défi duo","Aide Concours","Aide Statistiques","Aide Questions marquées", "Aide Classement", "Aide Suggestions", "Aide Réglages","Mentions légales"]
+    var helpTopics = ["Accueil","Entraînement","Défi solo","Défi duo","Concours","Statistiques","Questions marquées", "Classement", "Suggestions", "Réglages","Mentions légales"]
     var helpTexts = [
         //0- Aide accueil
         "Consultez d’un coup d’oeil votre diagramme de niveau et ciblez vos révisions. Obtenez le détail de votre progression pour chaque matière en touchant les boutons de la légende.\n\nTournez votre appareil en mode paysage pour accéder à votre graphique Performances. Votre performance est l’indice mesurant votre taux de réponses justes par matière et ce toutes les semaines. Le graphe en bâtons représente quant à lui le nombre de questions répondues (plus le bâton est haut, plus votre performance est significative.)\n\nGlissez vers la droite pour avoir accès au fil d’actualités de votre établissement. Vous pouvez glisser vers le bas dans le fil d'actualités pour actualiser la page.",
@@ -53,6 +53,7 @@ class HelpViewController: UIViewController {
     @IBOutlet weak var roundCircle: UILabel!
     @IBOutlet weak var helpImage: UIImageView!
     @IBOutlet weak var helpText: UITextView!
+    @IBOutlet weak var helpTitle: UILabel!
     @IBOutlet weak var pageControl: UIPageControl!
     
     @IBAction func changePage(sender: AnyObject) {
@@ -64,8 +65,8 @@ class HelpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if( traitCollection.forceTouchCapability == .Available){
-            self.helpTexts[0] += "\n\nVous disposez d'un iPhone 6S ou 6S+ avec 3D Touch ? Vous pouvez utilisez Peek & Pop ! Dans l'accueil et le fil d'actualités, appuyez d’une légère pression (Peek) pour afficher l’aperçu de vos statistiques ou d’une actualité. Relachez pour faire disparaître l'aperçu ou appuyez plus fermement (Pop) pour rentrer dans les statisques ou dans l'actualité sélectionnée."
-            self.helpTexts[6] += "\n\nVous disposez d'un iPhone 6S ou 6S+ avec 3D Touch ? Vous pouvez utilisez Peek & Pop ! Appuyez d’une légère pression (Peek) pour afficher l’aperçu de la question marquée. Relachez pour faire disparaître l'aperçu ou appuyez plus fermement (Pop) pour rentrer dans la question marquée et accèder à sa correction si disponible."
+            self.helpTexts[0] += "\n\nUtilisez 3D Touch sur votre iPhone 6S avec Peek & Pop ! Dans l'accueil et le fil d'actualités, appuyez d’une légère pression (Peek) pour afficher l’aperçu de vos statistiques ou d’une actualité. Relachez pour faire disparaître l'aperçu ou appuyez plus fermement (Pop) pour rentrer dans les statisques ou dans l'actualité sélectionnée."
+            self.helpTexts[6] += "\n\nUtilisez 3D Touch sur votre iPhone 6S avec Peek & Pop ! Appuyez d’une légère pression (Peek) pour afficher l’aperçu de la question marquée. Relachez pour faire disparaître l'aperçu ou appuyez plus fermement (Pop) pour rentrer dans la question marquée et accèder à sa correction si disponible."
         }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
@@ -82,18 +83,16 @@ class HelpViewController: UIViewController {
         self.view!.backgroundColor = colorGreyBackground
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
-
         //handling swipe gestures
         let swipeRight = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipeRight.direction = UISwipeGestureRecognizerDirection.Right
         self.view.addGestureRecognizer(swipeRight)
-
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
         self.view.addGestureRecognizer(swipeLeft)
-
+        //load help
         self.displayHelp()
-
+        //designing...
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.navigationController!.navigationBar.tintColor = colorGreen
         self.roundCircle.layer.cornerRadius = 50
@@ -153,7 +152,7 @@ class HelpViewController: UIViewController {
         self.pageControl.currentPage = self.selectedHelp
         self.pageControl.updateCurrentPageDisplay()
         self.helpImage.image = UIImage(named: self.helpPics[self.selectedHelp])
-        self.title = self.helpTopics[self.selectedHelp]
+        self.helpTitle.text = self.helpTopics[self.selectedHelp]
         self.helpText.text = self.helpTexts[self.selectedHelp]
         self.helpText.textColor = UIColor.blackColor()
         self.helpText.font = UIFont(name: "Segoe UI", size: 16)

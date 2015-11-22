@@ -58,7 +58,7 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
         FactoryHistory.getHistory().sync()
         self.designButton.setTitle("Envoyé", forState: UIControlState.Disabled)
         self.view!.backgroundColor = colorGreyBackground
-        self.title = "Envoyer un feedback"
+        self.title = "Feedback"
         self.feedback.text = "Taper votre feedback ici :"
         self.feedback.textColor = UIColor.lightGrayColor()
         self.designButton.layer.cornerRadius = 6

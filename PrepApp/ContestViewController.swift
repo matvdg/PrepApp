@@ -113,7 +113,7 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.performSegueWithIdentifier("showScore", sender: self)
         } else {
             // create alert controller
-            let myAlert = UIAlertController(title: "Lancer le concours ?", message: "Vous devez disposer de \(self.contest.duration) minutes devant vous !", preferredStyle: UIAlertControllerStyle.Alert)
+            let myAlert = UIAlertController(title: "Lancer le concours ?", message: "Vous devez disposer de \(self.contest.duration) minutes devant vous. Attention ! Vous devrez disposer d'une connexion internet pour envoyer vos résultats.", preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = colorGreen
             // add buttons
             myAlert.addAction(UIAlertAction(title: "NON", style: UIAlertActionStyle.Cancel, handler: nil))

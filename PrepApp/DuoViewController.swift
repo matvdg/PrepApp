@@ -74,7 +74,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 }
                 print("Shuffled friendId = \(shuffledFriend.id)")
                 // create alert controller
-                let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous êtes sur le point de lancer un défi à\(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de \(FactorySync.getConfigManager().loadDuration()) minutes. ", preferredStyle: UIAlertControllerStyle.Alert)
+                let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous êtes sur le point de lancer un défi à\(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de \(FactorySync.getConfigManager().loadDuration()) minutes. Attention ! Vous devrez disposer d'une connexion internet pour envoyer vos résultats.", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
                 // add buttons
                 myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
@@ -447,7 +447,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
                     textTodisplay += "\(pendingDuo.firstName) \(pendingDuo.lastName)"
                 }
                 // create alert controller
-                let myAlert = UIAlertController(title: "Répondre au défi ?", message: "Vous êtes sur le point de répondre au défi de\(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de \(FactorySync.getConfigManager().loadDuration()) minutes. ", preferredStyle: UIAlertControllerStyle.Alert)
+                let myAlert = UIAlertController(title: "Répondre au défi ?", message: "Vous êtes sur le point de répondre au défi de\(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de \(FactorySync.getConfigManager().loadDuration()) minutes. Attention ! Vous devrez disposer d'une connexion internet pour envoyer vos résultats. ", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = colorGreen
                 // add buttons
                 myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
