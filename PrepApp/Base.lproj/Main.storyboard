@@ -4166,7 +4166,7 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="awardPointHD" translatesAutoresizingMaskIntoConstraints="NO" id="gca-GU-rPI">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AP" translatesAutoresizingMaskIntoConstraints="NO" id="gca-GU-rPI">
                                 <rect key="frame" x="129" y="295" width="50" height="50"/>
                                 <animations/>
                                 <constraints>
@@ -4182,7 +4182,7 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="awardPointHD" translatesAutoresizingMaskIntoConstraints="NO" id="TXX-Tf-Ezk">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AP" translatesAutoresizingMaskIntoConstraints="NO" id="TXX-Tf-Ezk">
                                 <rect key="frame" x="421" y="295" width="50" height="50"/>
                                 <animations/>
                                 <constraints>
@@ -4968,6 +4968,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="AP" width="50" height="50"/>
         <image name="add" width="100" height="100"/>
         <image name="awardPointHD" width="500" height="500"/>
         <image name="bio" width="512" height="512"/>
