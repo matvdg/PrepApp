@@ -60,7 +60,7 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
         self.dismissButton.layer.cornerRadius = 6
         self.view!.backgroundColor = colorGreyBackground
         self.titleLabel.text = "Résultats du concours"
-        self.titleLabel.textColor = UIColor.whiteColor()
+        self.titleLabel.textColor = UIColor.blackColor()
         self.titleBar.backgroundColor = colorGreenLogo
         self.greenRound.layer.cornerRadius = self.greenRound.layer.bounds.width / 2
         self.greenRound.backgroundColor = UIColor.whiteColor()

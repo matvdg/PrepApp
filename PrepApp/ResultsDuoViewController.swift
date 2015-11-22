@@ -69,7 +69,7 @@ class ResultsDuoViewController: UIViewController {
         self.designButtonDismiss.layer.cornerRadius = 6
         self.designScore()
         self.titleLabel.text = "Résultat du défi duo n°\(self.resultDuo!.idDuo)"
-        self.titleLabel.textColor = UIColor.whiteColor()
+        self.titleLabel.textColor = UIColor.blackColor()
         self.titleBar.backgroundColor = colorGreenLogo
     }
     

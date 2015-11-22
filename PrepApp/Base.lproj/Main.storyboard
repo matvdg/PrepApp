@@ -2060,7 +2060,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Défi duo aléatoire" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Vt-rs-Sec">
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Défi aléatoire" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Vt-rs-Sec">
                                 <rect key="frame" x="140" y="97" width="100" height="20"/>
                                 <animations/>
                                 <constraints>
@@ -2479,7 +2479,7 @@
                                 </constraints>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7mT-xo-xpy">
-                                <rect key="frame" x="20" y="251" width="560" height="296"/>
+                                <rect key="frame" x="20" y="251" width="560" height="252"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -2488,11 +2488,11 @@
                                 <dataDetectorType key="dataDetectorTypes" link="YES" address="YES"/>
                             </textView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="11" currentPage="1" translatesAutoresizingMaskIntoConstraints="NO" id="0DO-tr-Epc">
-                                <rect key="frame" x="199" y="556" width="202" height="37"/>
+                                <rect key="frame" x="199" y="511" width="202" height="37"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="37" id="AI3-9f-alq"/>
-                                    <constraint firstAttribute="width" constant="202" id="mk3-IZ-Gws"/>
+                                    <constraint firstAttribute="width" constant="202" id="Q2Z-Zx-ONX"/>
+                                    <constraint firstAttribute="height" constant="37" id="TVf-tb-YbF"/>
                                 </constraints>
                                 <color key="pageIndicatorTintColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="currentPageIndicatorTintColor" red="0.76862746477127075" green="0.25490197539329529" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
@@ -2501,7 +2501,7 @@
                                 </connections>
                             </pageControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TITRE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZNR-GC-JBf">
-                                <rect key="frame" x="20" y="213" width="560" height="30"/>
+                                <rect key="frame" x="20" y="201" width="560" height="30"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="oBh-QD-zhR"/>
@@ -2514,20 +2514,20 @@
                         <animations/>
                         <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="HsN-Tk-yZp" firstAttribute="top" secondItem="7mT-xo-xpy" secondAttribute="bottom" constant="9" id="Dh1-Fb-xDC"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="0DO-tr-Epc" secondAttribute="bottom" constant="7" id="GAt-j9-AO4"/>
+                            <constraint firstItem="7mT-xo-xpy" firstAttribute="trailing" secondItem="5vf-9E-kd4" secondAttribute="trailingMargin" id="6SQ-uw-h9C"/>
+                            <constraint firstItem="HsN-Tk-yZp" firstAttribute="top" secondItem="0DO-tr-Epc" secondAttribute="bottom" constant="8" id="B3d-ZZ-W3N"/>
                             <constraint firstItem="HsN-Tk-yZp" firstAttribute="top" secondItem="7mT-xo-xpy" secondAttribute="bottom" constant="1" id="Oi1-8j-jcE"/>
-                            <constraint firstItem="7mT-xo-xpy" firstAttribute="top" secondItem="ZNR-GC-JBf" secondAttribute="bottom" constant="8" id="QY1-21-5iW"/>
+                            <constraint firstItem="0DO-tr-Epc" firstAttribute="centerX" secondItem="5vf-9E-kd4" secondAttribute="centerX" id="Oz4-l2-WuR"/>
                             <constraint firstItem="a1j-s0-adZ" firstAttribute="centerY" secondItem="jas-65-EGC" secondAttribute="centerY" id="T6R-ne-fp3"/>
-                            <constraint firstItem="7mT-xo-xpy" firstAttribute="leading" secondItem="5vf-9E-kd4" secondAttribute="leadingMargin" id="XGX-a2-eMc"/>
                             <constraint firstItem="a1j-s0-adZ" firstAttribute="centerX" secondItem="jas-65-EGC" secondAttribute="centerX" id="e4g-bO-Rio"/>
                             <constraint firstItem="jas-65-EGC" firstAttribute="centerX" secondItem="5vf-9E-kd4" secondAttribute="centerX" id="jLA-Yv-ywM"/>
                             <constraint firstItem="ZNR-GC-JBf" firstAttribute="trailing" secondItem="5vf-9E-kd4" secondAttribute="trailingMargin" id="lcB-bg-1IJ"/>
-                            <constraint firstItem="0DO-tr-Epc" firstAttribute="centerX" secondItem="5vf-9E-kd4" secondAttribute="centerX" id="nNB-NR-8sA"/>
+                            <constraint firstItem="7mT-xo-xpy" firstAttribute="leading" secondItem="5vf-9E-kd4" secondAttribute="leadingMargin" id="mlU-H7-0XX"/>
                             <constraint firstItem="jas-65-EGC" firstAttribute="top" secondItem="sC5-Ch-dnX" secondAttribute="bottom" constant="29" id="tkT-hU-5qx"/>
-                            <constraint firstItem="ZNR-GC-JBf" firstAttribute="top" secondItem="jas-65-EGC" secondAttribute="bottom" constant="20" id="wCP-sR-gld"/>
-                            <constraint firstItem="7mT-xo-xpy" firstAttribute="trailing" secondItem="5vf-9E-kd4" secondAttribute="trailingMargin" id="wCl-ad-ZpB"/>
+                            <constraint firstItem="ZNR-GC-JBf" firstAttribute="top" secondItem="jas-65-EGC" secondAttribute="bottom" constant="8" id="wCP-sR-gld"/>
+                            <constraint firstItem="7mT-xo-xpy" firstAttribute="top" secondItem="ZNR-GC-JBf" secondAttribute="bottom" constant="20" id="wYU-n5-cwN"/>
                             <constraint firstItem="ZNR-GC-JBf" firstAttribute="leading" secondItem="5vf-9E-kd4" secondAttribute="leadingMargin" id="xjL-R7-WYG"/>
+                            <constraint firstItem="0DO-tr-Epc" firstAttribute="top" secondItem="7mT-xo-xpy" secondAttribute="bottom" constant="8" id="yNS-54-1Io"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -4842,7 +4842,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sbZ-T6-fcd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2949" y="-2628"/>
+            <point key="canvasLocation" x="2931" y="-2628"/>
         </scene>
         <!--ContestLeaderboardVC-->
         <scene sceneID="nhp-o4-hve">
@@ -5004,14 +5004,14 @@
     <inferredMetricsTieBreakers>
         <segue reference="dAY-Nr-cf6"/>
         <segue reference="Mzc-wZ-R5Z"/>
-        <segue reference="4qo-Th-Hym"/>
-        <segue reference="KwL-6O-QQR"/>
         <segue reference="OfB-Vj-V6r"/>
         <segue reference="SFf-rR-efT"/>
-        <segue reference="C5u-vB-9sx"/>
-        <segue reference="2YI-rS-dTL"/>
+        <segue reference="KwL-6O-QQR"/>
+        <segue reference="4qo-Th-Hym"/>
+        <segue reference="F9M-0G-DBV"/>
         <segue reference="z3b-Ap-bLN"/>
         <segue reference="Pp1-nw-Dh8"/>
+        <segue reference="C5u-vB-9sx"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.086274509803921567" green="0.62745098039215685" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
 </document>

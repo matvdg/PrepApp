@@ -152,7 +152,7 @@ class HelpViewController: UIViewController {
         self.pageControl.currentPage = self.selectedHelp
         self.pageControl.updateCurrentPageDisplay()
         self.helpImage.image = UIImage(named: self.helpPics[self.selectedHelp])
-        self.helpTitle.text = self.helpTopics[self.selectedHelp]
+        self.helpTitle.text = self.helpTopics[self.selectedHelp].uppercaseString
         self.helpText.text = self.helpTexts[self.selectedHelp]
         self.helpText.textColor = UIColor.blackColor()
         self.helpText.font = UIFont(name: "Segoe UI", size: 16)

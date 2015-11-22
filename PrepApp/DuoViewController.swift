@@ -498,7 +498,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
         headerLabel.textColor = UIColor.whiteColor()
         headerLabel.font = UIFont(name: "Segoe UI", size: 20)
         if section == 0 {
-            headerLabel.text = "Défis en attente"
+            headerLabel.text = "En attente"
         } else {
             headerLabel.text = "Amis"
         }

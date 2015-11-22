@@ -91,12 +91,12 @@ class ScoreSoloViewController: UIViewController, UITableViewDataSource, UITableV
             
         case 6: //chePhy
             self.titleLabel.text = "Défi solo Chimie/Physique"
-            self.titleLabel.textColor = UIColor.whiteColor()
+            self.titleLabel.textColor = UIColor.blackColor()
             self.titleBar.backgroundColor = colorChePhy
             
         case 7: //all
             self.titleLabel.text = "Défi solo Biologie/Physique/Chimie"
-            self.titleLabel.textColor = UIColor.whiteColor()
+            self.titleLabel.textColor = UIColor.blackColor()
             self.titleBar.backgroundColor = colorGreenLogo
             
         default:
