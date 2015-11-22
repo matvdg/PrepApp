@@ -2479,7 +2479,7 @@
                                 </constraints>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7mT-xo-xpy">
-                                <rect key="frame" x="20" y="251" width="560" height="252"/>
+                                <rect key="frame" x="20" y="247" width="560" height="256"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -2501,12 +2501,12 @@
                                 </connections>
                             </pageControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TITRE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZNR-GC-JBf">
-                                <rect key="frame" x="20" y="201" width="560" height="30"/>
+                                <rect key="frame" x="20" y="197" width="560" height="30"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="oBh-QD-zhR"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="25"/>
                                 <color key="textColor" red="0.086274512112140656" green="0.62745100259780884" blue="0.5215686559677124" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -2524,7 +2524,7 @@
                             <constraint firstItem="ZNR-GC-JBf" firstAttribute="trailing" secondItem="5vf-9E-kd4" secondAttribute="trailingMargin" id="lcB-bg-1IJ"/>
                             <constraint firstItem="7mT-xo-xpy" firstAttribute="leading" secondItem="5vf-9E-kd4" secondAttribute="leadingMargin" id="mlU-H7-0XX"/>
                             <constraint firstItem="jas-65-EGC" firstAttribute="top" secondItem="sC5-Ch-dnX" secondAttribute="bottom" constant="29" id="tkT-hU-5qx"/>
-                            <constraint firstItem="ZNR-GC-JBf" firstAttribute="top" secondItem="jas-65-EGC" secondAttribute="bottom" constant="8" id="wCP-sR-gld"/>
+                            <constraint firstItem="ZNR-GC-JBf" firstAttribute="top" secondItem="jas-65-EGC" secondAttribute="bottom" constant="4" id="wCP-sR-gld"/>
                             <constraint firstItem="7mT-xo-xpy" firstAttribute="top" secondItem="ZNR-GC-JBf" secondAttribute="bottom" constant="20" id="wYU-n5-cwN"/>
                             <constraint firstItem="ZNR-GC-JBf" firstAttribute="leading" secondItem="5vf-9E-kd4" secondAttribute="leadingMargin" id="xjL-R7-WYG"/>
                             <constraint firstItem="0DO-tr-Epc" firstAttribute="top" secondItem="7mT-xo-xpy" secondAttribute="bottom" constant="8" id="yNS-54-1Io"/>
@@ -4016,7 +4016,6 @@
                                     <constraint firstAttribute="height" constant="44" id="6uc-gI-rXQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="playerA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MBu-WA-Huh">
