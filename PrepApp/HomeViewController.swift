@@ -22,17 +22,6 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
     var chePerf: [Double] = []
     var questionsAnswered: [Double] = []
     var weeksBeforeExam : [String] = []
-    
-// Demo data:
-//    var bioPerf: [Double] = [60, 66, 70, 75, 72, 70, 73, 80, 82, 84, 86]
-//    var phyPerf: [Double] = [70, 68, 65, 57, 43, 62, 66, 64, 66, 70, 72]
-//    var chePerf: [Double] = [40, 43, 45, 48, 48, 51, 55, 62, 73, 80, 92]
-//    var questionsAnswered: [Double] = [25, 34, 22, 3, 10, 50, 63, 57, 69, 80, 98]
-//    var weeksBeforeExam : [String] = ["10", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0"]
-
-    var hideTimer = NSTimer()
-    var animationTimer = NSTimer()
-    var counterAnimationNotification = 0
     var statsPanelDisplayed: Bool = false
     var currentStatsPanelDisplayed: Int = 0
     var type: subject = .biology
@@ -41,10 +30,10 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
     var legendRightAxis = UILabel()
     var legendXAxis = UILabel()
     var noDataLabel = UILabel()
+    var notification = UILabel()
     
     //@IBOutlets properties
     @IBOutlet weak var menuButton:UIBarButtonItem!
-    @IBOutlet weak var notificationMessage: UILabel!
     @IBOutlet weak var chePieChart: PieChartView!
     @IBOutlet weak var phyPieChart: PieChartView!
     @IBOutlet weak var bioPieChart: PieChartView!
@@ -160,7 +149,6 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         FactoryHistory.getHistory().sync()
         //rendering
         self.view!.backgroundColor = colorGreyBackground
-        self.showNotification()
         self.bioPieChart.noDataText = ""
         self.bioPieChart.noDataTextDescription = ""
         self.chePieChart.noDataText = ""
@@ -186,27 +174,25 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         self.perfChart.layer.zPosition = 7
         self.legend.layer.zPosition = 0
         self.noDataLabel.layer.zPosition = 8
-        self.notificationMessage.layer.zPosition = 5
         //other customization
         self.legend.text = "Inclinez en mode paysage pour voir votre graphe performance. Glissez à droite pour voir le fil d'actualités Prep'App."
         self.stats.hidden = true
         self.view.backgroundColor = colorGreyBackground
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
+        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.renderPieCharts()
         let date = NSDate()
         let calendar = NSCalendar.currentCalendar()
         let components = calendar.components(.Day, fromDate: date)
         let currentDay = components.day
         if  FactorySync.getConfigManager().loadCurrentDay() != currentDay {
             FactorySync.getConfigManager().saveCurrentDay(currentDay)
-            self.notificationMessage.text = self.loadNotificationMessage()
-            self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("showNotification"), userInfo: nil, repeats: true)
-            self.hideTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: Selector("hideNotification"), userInfo: nil, repeats: false)
+            self.displayNotification(self.loadHelloMessage())
         }
-        
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        self.renderPieCharts()
+
     }
     
     func logout() {
@@ -283,7 +269,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         }
     }
     
-    func loadNotificationMessage() -> String {
+    func loadHelloMessage() -> String {
         if UserPreferences.welcome {
             UserPreferences.welcome = false
             UserPreferences.saveUserPreferences()
@@ -298,7 +284,6 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
             } else {
                 return "Bonjour \(User.currentUser!.firstName) !"
             }
-            
         }
     }
     
@@ -359,19 +344,14 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
     
     func swiped(gesture : UIGestureRecognizer) {
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-            
             switch swipeGesture.direction {
-                
             case UISwipeGestureRecognizerDirection.Left:
                 self.hidePieCharts(true)
+                self.notification.removeFromSuperview()
                 self.performSegueWithIdentifier("showNews", sender: self)
-            
             default:
                 print("other")
-                break
-                
             }
-    
         }
     }
     
@@ -707,53 +687,6 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         
     }
     
-    func showNotification() {
-        self.counterAnimationNotification++
-        if self.counterAnimationNotification <= 25 {
-            self.notificationMessage.center = CGPointMake(self.notificationMessage.center.x, self.notificationMessage.center.y + 2)
-        } else {
-            self.animationTimer.invalidate()
-        }
-    }
-
-    func hideNotification() {
-        if self.counterAnimationNotification > 0 {
-            self.counterAnimationNotification = 0
-            self.hideTimer.invalidate()
-            self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("hideNotification"), userInfo: nil, repeats: true)
-            
-        } else {
-            self.counterAnimationNotification--
-            if self.counterAnimationNotification >= -25 {
-                self.notificationMessage.center = CGPointMake(self.notificationMessage.center.x, self.notificationMessage.center.y - 2)
-            } else {
-                self.animationTimer.invalidate()
-                self.notificationMessage.center = CGPointMake(self.notificationMessage.center.x, 42)
-            }
-        }
-        
-    }
-    
-    func hideNotificationLevel() {
-        if self.counterAnimationNotification > 0 {
-            
-            self.renderPieCharts()
-            self.counterAnimationNotification = 0
-            self.hideTimer.invalidate()
-            self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("hideNotification"), userInfo: nil, repeats: true)
-            
-        } else {
-            self.counterAnimationNotification--
-            if self.counterAnimationNotification >= -25 {
-                self.notificationMessage.center = CGPointMake(self.notificationMessage.center.x, self.notificationMessage.center.y - 2)
-            } else {
-                self.animationTimer.invalidate()
-                self.notificationMessage.center = CGPointMake(self.notificationMessage.center.x, 42)
-            }
-        }
-        
-    }
-    
     func animatePieCharts() {
         self.hidePieCharts(false)
         let animation = ChartEasingOption.Linear
@@ -766,12 +699,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
             //everything at 100%, one level up!
             var win = ["Le travail est la clef du succès !","Félicitations ! Vous avez gagné un niveau !","Le succès naît de la persévérance.","L'obstination est le chemin de la réussite !","Un travail constant vient à bout de tout.","Le mérite résulte de la persévérance.","La persévérance est la mère des succès.","La persévérance fait surmonter bien des obstacles."]
             win.shuffle()
-            self.animationTimer.invalidate()
-            self.hideTimer.invalidate()
-            self.counterAnimationNotification = 0
-            self.notificationMessage.text = win[0]
-            self.animationTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("showNotification"), userInfo: nil, repeats: true)
-            self.hideTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: Selector("hideNotificationLevel"), userInfo: nil, repeats: false)
+            self.displayNotification(win[0])
             User.currentUser!.level = User.currentUser!.level + 1
             User.currentUser!.saveUser()
             User.currentUser!.updateLevel(User.currentUser!.level)
@@ -783,6 +711,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
     func showGraph() {
         self.renderPerfChart()
         self.hidePieCharts(true)
+        self.notification.removeFromSuperview()
         self.perfChart.hidden = false
         self.title = "Performances"
     }
@@ -798,6 +727,29 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
     
     func hidePieCharts(bool: Bool) {
         self.chePieChart.hidden = bool
+    }
+    
+    func displayNotification(text: String) {
+        self.notification = UILabel(frame: CGRectMake(0, 0, self.view!.frame.width, 50))
+        self.notification.text = text
+        self.notification.backgroundColor = colorGreen
+        self.notification.textColor = UIColor.whiteColor()
+        self.notification.textAlignment = NSTextAlignment.Center
+        self.notification.font = UIFont(name: "Segoe UI", size: 16)
+        self.notification.layer.zPosition = 100
+        self.notification.alpha = 0
+        self.view!.addSubview(self.notification)
+        UIView.animateWithDuration(2, delay: 0, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
+            self.notification.frame.origin.y = self.notification.frame.origin.y + 60
+            self.notification.alpha = 1
+            }) { (success) -> Void in
+                UIView.animateWithDuration(2, delay: 2, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
+                    self.notification.frame.origin.y = self.notification.frame.origin.y - 60
+                    self.notification.alpha = 0
+                    }) { (success) -> Void in
+                        self.notification.removeFromSuperview()
+                }
+        }
     }
     
     //quickActions methods

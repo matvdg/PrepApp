@@ -122,7 +122,6 @@
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
-            <string>SegoeUI-Regular</string>
         </mutableArray>
         <mutableArray key="timer.ttf">
             <string>Digital-7</string>
@@ -975,17 +974,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bienvenue !" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="I14-K1-5eU" userLabel="notificationMessage">
-                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.1058823529" green="0.50588235290000005" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="lrA-Sn-425"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="legend" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a1Q-Pf-IXI" userLabel="legend">
                                 <rect key="frame" x="150" y="529" width="300" height="49"/>
                                 <animations/>
@@ -1165,7 +1153,6 @@
                             <constraint firstAttribute="centerX" secondItem="Hyq-jX-Cjm" secondAttribute="centerX" id="6Vc-Za-SI9"/>
                             <constraint firstItem="R38-k6-ir2" firstAttribute="centerY" secondItem="FxA-OF-tna" secondAttribute="centerY" id="9da-JX-SuM"/>
                             <constraint firstAttribute="centerX" secondItem="y4y-U5-ty2" secondAttribute="centerX" id="AGu-yz-oHX"/>
-                            <constraint firstAttribute="trailing" secondItem="I14-K1-5eU" secondAttribute="trailing" id="ASO-YB-6xb"/>
                             <constraint firstAttribute="centerX" secondItem="WEF-WD-hnQ" secondAttribute="centerX" id="Bte-uc-r00"/>
                             <constraint firstItem="McV-LS-4gj" firstAttribute="centerY" secondItem="C5Q-72-rXL" secondAttribute="centerY" constant="-0.5" id="E4D-jc-4MF"/>
                             <constraint firstItem="FxA-OF-tna" firstAttribute="leading" secondItem="C5Q-72-rXL" secondAttribute="trailing" constant="-20" id="E83-E1-nze"/>
@@ -1177,12 +1164,10 @@
                             <constraint firstAttribute="trailing" secondItem="CfO-OI-T9T" secondAttribute="trailing" id="aSZ-kl-ybh"/>
                             <constraint firstItem="CfO-OI-T9T" firstAttribute="leading" secondItem="jbV-ds-2ZK" secondAttribute="leading" id="bdI-nN-nKU"/>
                             <constraint firstAttribute="centerX" secondItem="FxA-OF-tna" secondAttribute="centerX" id="cP1-jB-EE1"/>
-                            <constraint firstItem="I14-K1-5eU" firstAttribute="leading" secondItem="jbV-ds-2ZK" secondAttribute="leading" id="mRZ-O0-5yH"/>
                             <constraint firstAttribute="centerX" secondItem="a1Q-Pf-IXI" secondAttribute="centerX" id="oTH-IA-Bvx"/>
                             <constraint firstItem="R38-k6-ir2" firstAttribute="centerY" secondItem="6Vw-hv-UMs" secondAttribute="centerY" constant="0.5" id="qud-rh-05m"/>
                             <constraint firstItem="FxA-OF-tna" firstAttribute="centerY" secondItem="2Mu-Mk-Mg7" secondAttribute="centerY" constant="0.5" id="sTm-IT-um9"/>
                             <constraint firstItem="2Mu-Mk-Mg7" firstAttribute="leading" secondItem="C5Q-72-rXL" secondAttribute="trailing" id="u4C-lr-jlO"/>
-                            <constraint firstItem="I14-K1-5eU" firstAttribute="top" secondItem="XPQ-IA-AV7" secondAttribute="bottom" constant="-44" id="uQO-qB-5dp"/>
                             <constraint firstItem="a1Q-Pf-IXI" firstAttribute="top" secondItem="C5Q-72-rXL" secondAttribute="bottom" constant="8" symbolic="YES" id="xnB-xv-VUi"/>
                             <constraint firstItem="2Ug-11-N59" firstAttribute="top" secondItem="CfO-OI-T9T" secondAttribute="bottom" id="zP7-vW-EPi"/>
                         </constraints>
@@ -1207,7 +1192,6 @@
                         <outlet property="legend" destination="a1Q-Pf-IXI" id="Y1v-qm-TEm"/>
                         <outlet property="levelButton" destination="9Yt-xV-MI6" id="bbF-aw-oOh"/>
                         <outlet property="menuButton" destination="WXL-5v-uEP" id="FAB-bz-ArX"/>
-                        <outlet property="notificationMessage" destination="I14-K1-5eU" id="ERe-fk-Kto"/>
                         <outlet property="perfChart" destination="CfO-OI-T9T" id="2k6-TZ-Zju"/>
                         <outlet property="phyButton" destination="FxA-OF-tna" id="CSj-JV-LgA"/>
                         <outlet property="phyLogo" destination="2Mu-Mk-Mg7" id="zxd-Cv-9bC"/>

@@ -38,9 +38,9 @@ class MenuController: UITableViewController {
             SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
             SwiftSpinner.show("Déconnexion...")
             self.syncNclearHistory()
+            FactorySync.getConfigManager().saveCurrentDay(-1)
         }))
         myAlert.addAction(UIAlertAction(title: "NON", style: UIAlertActionStyle.Cancel, handler: nil))
-        
         // show the alert
         self.presentViewController(myAlert, animated: true, completion: nil)
     }
