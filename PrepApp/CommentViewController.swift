@@ -28,7 +28,7 @@ class CommentViewController: UIViewController, UITextViewDelegate {
                 SwiftSpinner.hide()
                 // create alert controller
                 let myAlert = UIAlertController(title: "Erreur", message: "Votre message est vide !", preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 // add "OK" button
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 if !self.isNavBar {
@@ -45,7 +45,7 @@ class CommentViewController: UIViewController, UITextViewDelegate {
                     SwiftSpinner.hide()
                     // create alert controller
                     let myAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                    myAlert.view.tintColor = colorGreen
+                    myAlert.view.tintColor = Colors.green
                     // add "OK" button
                     myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                     // show the alert
@@ -55,7 +55,7 @@ class CommentViewController: UIViewController, UITextViewDelegate {
                         if self.isNavBar {
                             //we are in a navigation controller, we use back button to leave so we disable the button
                             self.designButton.enabled = false
-                            self.designButton.backgroundColor = colorDarkGrey
+                            self.designButton.backgroundColor = Colors.darkGrey
                         } else {
                             //we're in a modal view, we use this button to dismiss
                             self.designButton.setTitle("OK", forState: UIControlState.Normal)
@@ -87,7 +87,7 @@ class CommentViewController: UIViewController, UITextViewDelegate {
         //sync
         FactoryHistory.getHistory().sync()
         self.designButton.setTitle("Envoyé", forState: UIControlState.Disabled)
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         self.title = "Envoyer un commentaire"
         self.comment.text = "Taper votre commentaire ici :"
         self.comment.textColor = UIColor.lightGrayColor()
@@ -104,7 +104,7 @@ class CommentViewController: UIViewController, UITextViewDelegate {
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Destructive, handler: nil))
         // add "update" button
@@ -124,7 +124,7 @@ class CommentViewController: UIViewController, UITextViewDelegate {
     func textViewDidBeginEditing(textView: UITextView) {
         if textView.textColor == UIColor.lightGrayColor() {
             textView.text = nil
-            textView.textColor = colorGreen
+            textView.textColor = Colors.green
         }
     }
     

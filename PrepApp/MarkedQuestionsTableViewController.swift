@@ -23,7 +23,7 @@ class MarkedQuestionsTableViewController: UITableViewController, UIViewControlle
         }
         //sync
         FactoryHistory.getHistory().sync()
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         if self.revealViewController() != nil {
             self.menuButton.target = self.revealViewController()
             self.menuButton.action = "revealToggle:"
@@ -31,7 +31,7 @@ class MarkedQuestionsTableViewController: UITableViewController, UIViewControlle
         }
         self.title = "Questions marquées"
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreen
+        self.navigationController!.navigationBar.tintColor = Colors.greenLogo
         self.loadData()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
@@ -74,7 +74,7 @@ class MarkedQuestionsTableViewController: UITableViewController, UIViewControlle
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button
@@ -134,14 +134,14 @@ class MarkedQuestionsTableViewController: UITableViewController, UIViewControlle
         cell.imageView!.image = image
         cell.textLabel?.textColor = UIColor.blackColor()
         cell.textLabel!.text = "\(self.getModeByType(type))\(question.chapter!.name)"
-        cell.backgroundColor = colorGreyBackground
+        cell.backgroundColor = Colors.greyBackground
         cell.detailTextLabel!.text = question.wording.html2String
         cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 12)
-        cell.detailTextLabel!.textColor = colorGreen
+        cell.detailTextLabel!.textColor = Colors.green
         cell.textLabel!.adjustsFontSizeToFitWidth = false
         cell.detailTextLabel!.adjustsFontSizeToFitWidth = false
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
-        cell.tintColor = colorGreen
+        cell.tintColor = Colors.green
         if question.type == -1 {
             cell.accessoryType = UITableViewCellAccessoryType.None
         }

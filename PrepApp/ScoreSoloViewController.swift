@@ -40,7 +40,7 @@ class ScoreSoloViewController: UIViewController, UITableViewDataSource, UITableV
         super.viewDidLoad()
         //sync
         FactoryHistory.getHistory().sync()
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         self.loadData()
         self.dismissButton.layer.cornerRadius = 6
         self.designScore()
@@ -64,40 +64,40 @@ class ScoreSoloViewController: UIViewController, UITableViewDataSource, UITableV
         case 1: //biology
             self.titleLabel.text = "Défi solo Biologie"
             self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorBio
+            self.titleBar.backgroundColor = Colors.bio
             
         case 2: //physics
             self.titleLabel.text = "Défi solo Physique"
             self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorPhy
+            self.titleBar.backgroundColor = Colors.phy
             
             
         case 3: //chemistry
             self.titleLabel.text = "Défi solo Chimie"
             self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorChe
+            self.titleBar.backgroundColor = Colors.che
             
             
         case 4: //bioPhy
             self.titleLabel.text = "Défi solo Biologie/Physique"
             self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorBioPhy
+            self.titleBar.backgroundColor = Colors.bioPhy
             
             
         case 5: //bioChe
             self.titleLabel.text = "Défi solo Biologie/Chimie"
             self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorBioChe
+            self.titleBar.backgroundColor = Colors.bioChe
             
         case 6: //chePhy
             self.titleLabel.text = "Défi solo Chimie/Physique"
             self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorChePhy
+            self.titleBar.backgroundColor = Colors.chePhy
             
         case 7: //all
             self.titleLabel.text = "Défi solo Biologie/Physique/Chimie"
             self.titleLabel.textColor = UIColor.blackColor()
-            self.titleBar.backgroundColor = colorGreenLogo
+            self.titleBar.backgroundColor = Colors.greenLogo
             
         default:
             print("default")
@@ -108,10 +108,10 @@ class ScoreSoloViewController: UIViewController, UITableViewDataSource, UITableV
     private func designScore() {
         self.greenRound.layer.cornerRadius = self.greenRound.layer.bounds.width / 2
         self.greenRound.backgroundColor = UIColor.whiteColor()
-        self.greenRound.layer.borderColor = colorGreenLogo.CGColor
+        self.greenRound.layer.borderColor = Colors.greenLogo.CGColor
         self.greenRound.layer.borderWidth = 6
         self.greenRound.layer.masksToBounds = true
-        self.scoreLabel.textColor = colorWrongAnswer
+        self.scoreLabel.textColor = Colors.wrongAnswer
         self.scoreLabel.text = "\(self.animationScore)"
         self.scoreTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("animateScore"), userInfo: nil, repeats: true)
     }
@@ -120,17 +120,17 @@ class ScoreSoloViewController: UIViewController, UITableViewDataSource, UITableV
         if self.animationScore != self.score {
             self.scoreLabel.text = "\(self.animationScore)"
             if self.animationScore < 10 {
-                self.scoreLabel.textColor = colorWrongAnswer
+                self.scoreLabel.textColor = Colors.wrongAnswer
             } else {
-                self.scoreLabel.textColor = colorGreenLogo
+                self.scoreLabel.textColor = Colors.greenLogo
             }
             self.animationScore++
         } else {
             self.scoreLabel.text = "\(self.animationScore)"
             if self.animationScore < 10 {
-                self.scoreLabel.textColor = colorWrongAnswer
+                self.scoreLabel.textColor = Colors.wrongAnswer
             } else {
-                self.scoreLabel.textColor = colorGreenLogo
+                self.scoreLabel.textColor = Colors.greenLogo
             }
             self.animationScore = 0
             self.scoreTimer.invalidate()
@@ -218,14 +218,14 @@ class ScoreSoloViewController: UIViewController, UITableViewDataSource, UITableV
         cell.textLabel?.textColor = UIColor.blackColor()
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 18)
         cell.textLabel!.text = self.statsTopics[indexPath.row]
-        cell.backgroundColor = colorGreyBackground
+        cell.backgroundColor = Colors.greyBackground
         cell.detailTextLabel!.text = statsData[indexPath.row]
         cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 18)
-        cell.detailTextLabel!.textColor = colorGreen
+        cell.detailTextLabel!.textColor = Colors.green
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.detailTextLabel!.adjustsFontSizeToFitWidth = true
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 12)
-        cell.tintColor = colorGreen
+        cell.tintColor = Colors.green
         return cell
     }
     
@@ -236,7 +236,7 @@ class ScoreSoloViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
         let myAlert = UIAlertController(title: self.statsTopics[indexPath.row], message: self.statsDetails[indexPath.row] , preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         // show the alert
         self.presentViewController(myAlert, animated: true, completion: nil)

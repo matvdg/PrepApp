@@ -49,7 +49,7 @@ class ConfigManager {
         if let date : AnyObject = NSUserDefaults.standardUserDefaults().objectForKey("date") {
             if let result = date as? NSDate {
                 let formatter = NSDateFormatter()
-                formatter.dateFormat = "dd/MM/yyyy"
+                formatter.dateFormat = "d/M/yyyy"
                 let dateInString = formatter.stringFromDate(result)
                 return dateInString
             } else {

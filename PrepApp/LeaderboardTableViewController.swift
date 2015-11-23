@@ -17,7 +17,7 @@ class LeaderboardTableViewController: UITableViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.pullToRefresh.tintColor = colorGreen
+        self.pullToRefresh.tintColor = Colors.green
         self.pullToRefresh.attributedTitle = NSAttributedString(string: "▼ Glisser vers le bas pour actualiser le classement ▼")
         self.pullToRefresh.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView?.addSubview(pullToRefresh)
@@ -25,10 +25,10 @@ class LeaderboardTableViewController: UITableViewController  {
         SwiftSpinner.show("Mise à jour du classement...")
         //sync
         FactoryHistory.getHistory().sync()
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         self.loadLeaderboard()
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreen
+        self.navigationController!.navigationBar.tintColor = Colors.greenLogo
         if self.revealViewController() != nil {
             self.menuButton.target = self.revealViewController()
             self.menuButton.action = "revealToggle:"
@@ -59,7 +59,7 @@ class LeaderboardTableViewController: UITableViewController  {
                     self.pullToRefresh.endRefreshing()
                 }
                 let myAlert = UIAlertController(title: "Erreur", message: "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez." , preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
                 myAlert.addAction(UIAlertAction(title: "Réessayer", style: .Default, handler: { (action) -> Void in
                     self.loadLeaderboard()
@@ -78,7 +78,7 @@ class LeaderboardTableViewController: UITableViewController  {
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button
@@ -106,21 +106,21 @@ class LeaderboardTableViewController: UITableViewController  {
         let cell = tableView.dequeueReusableCellWithIdentifier("friend", forIndexPath: indexPath) 
         let friend = self.friends[indexPath.row]
         cell.textLabel?.textColor = UIColor.blackColor()
-        cell.backgroundColor = colorGreyBackground
+        cell.backgroundColor = Colors.greyBackground
         cell.textLabel!.adjustsFontSizeToFitWidth = false
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
-        cell.backgroundColor = colorGreyBackground
+        cell.backgroundColor = Colors.greyBackground
         cell.detailTextLabel!.text = friend.awardPoints.toStringPoints()
         cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 16)
-        cell.detailTextLabel!.textColor = colorGreen
+        cell.detailTextLabel!.textColor = Colors.green
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.detailTextLabel!.adjustsFontSizeToFitWidth = true
-        cell.tintColor = colorGreen
+        cell.tintColor = Colors.green
         var textTodisplay = ""
         switch indexPath.row {
         case 0:
-            //cell.backgroundColor = colorAwardPoints
+            //cell.backgroundColor = Colors.awardPoints
             //cell.textLabel?.textColor = UIColor.whiteColor()
             //cell.detailTextLabel!.textColor = UIColor.whiteColor()
             cell.imageView?.image = UIImage(named: "goldcup")
@@ -146,7 +146,7 @@ class LeaderboardTableViewController: UITableViewController  {
         cell.textLabel!.text = textTodisplay
         cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 10)
         if friend.id == User.currentUser!.id {
-            cell.backgroundColor = colorGreenLogo
+            cell.backgroundColor = Colors.greenLogo
             cell.detailTextLabel!.textColor = UIColor.whiteColor()
             cell.textLabel?.textColor = UIColor.whiteColor()
         }

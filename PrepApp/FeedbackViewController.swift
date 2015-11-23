@@ -24,7 +24,7 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
             SwiftSpinner.hide()
             // create alert controller
             let myAlert = UIAlertController(title: "Erreur", message: "Votre message est vide !", preferredStyle: UIAlertControllerStyle.Alert)
-            myAlert.view.tintColor = colorGreen
+            myAlert.view.tintColor = Colors.green
             // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert
@@ -35,14 +35,14 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
                 SwiftSpinner.hide()
                 // create alert controller
                 let myAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 // add "OK" button
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
                 if result { //message sent
                     self.designButton.enabled = false
-                    self.designButton.backgroundColor = colorDarkGrey
+                    self.designButton.backgroundColor = Colors.darkGrey
                 } else { //error
                     self.designButton.setTitle("Réessayer", forState: UIControlState.Normal)
                 }
@@ -57,7 +57,7 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
         //sync
         FactoryHistory.getHistory().sync()
         self.designButton.setTitle("Envoyé", forState: UIControlState.Disabled)
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         self.title = "Feedback"
         self.feedback.text = "Taper votre feedback ici :"
         self.feedback.textColor = UIColor.lightGrayColor()
@@ -65,7 +65,7 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreen
+        self.navigationController!.navigationBar.tintColor = Colors.greenLogo
         if self.revealViewController() != nil {
             self.menuButton.target = self.revealViewController()
             self.menuButton.action = "revealToggle:"
@@ -82,7 +82,7 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button
@@ -117,7 +117,7 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
     func textViewDidBeginEditing(textView: UITextView) {
         if textView.textColor == UIColor.lightGrayColor() {
             textView.text = nil
-            textView.textColor = colorGreen
+            textView.textColor = Colors.green
         }
     }
     

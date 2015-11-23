@@ -20,7 +20,7 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var menuButton: UIBarButtonItem!
 
     override func viewDidLoad() {
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         super.viewDidLoad()
         self.loadSettings()
         //sync
@@ -33,7 +33,7 @@ class SettingsTableViewController: UITableViewController {
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreen
+        self.navigationController!.navigationBar.tintColor = Colors.greenLogo
         self.title = "Réglages"
     }
 
@@ -53,18 +53,18 @@ class SettingsTableViewController: UITableViewController {
         cell.backgroundColor = UIColor.clearColor()
         cell.textLabel!.adjustsFontSizeToFitWidth = false
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
-        cell.tintColor = colorGreen
+        cell.tintColor = Colors.green
         cell.switcher.layer.zPosition = 10
-        cell.switcher.tintColor = colorGreen
+        cell.switcher.tintColor = Colors.green
         
         switch self.settings[indexPath.row] {
             case "Modifier votre pseudo":
                 cell.switcher.hidden = true
-                cell.tintColor = colorGreen
+                cell.tintColor = Colors.green
                 cell.accessoryView = UIImageView(image: UIImage(named: "identity"))
             case "Modifier votre mot de passe":
                 cell.switcher.hidden = true
-                cell.tintColor = colorGreen
+                cell.tintColor = Colors.green
                 cell.accessoryView = UIImageView(image: UIImage(named: "lock"))
             case "Touch ID":
                 cell.switcher.setOn(UserPreferences.touchId, animated: true)
@@ -104,7 +104,7 @@ class SettingsTableViewController: UITableViewController {
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button
@@ -144,7 +144,7 @@ class SettingsTableViewController: UITableViewController {
     func changeNickname() {
         // create alert controller
         let myAlert = UIAlertController(title: "Modifier votre pseudo", message: "Taper votre nouveau pseudonyme ou votre prénom/nom, si vous le souhaitez.", preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add buttons
         myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
         myAlert.addAction(UIAlertAction(title: "Modifier", style: UIAlertActionStyle.Destructive, handler: self.sendNickname))
@@ -162,7 +162,7 @@ class SettingsTableViewController: UITableViewController {
             User.currentUser!.changeNickname(self.nickname.text!, callback: { (message) -> Void in
                 // create alert controller
                 let myAlert = UIAlertController(title: message!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 // add "OK" button
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
@@ -173,7 +173,7 @@ class SettingsTableViewController: UITableViewController {
         } else {
             // create alert controller
             let myAlert = UIAlertController(title: "Oups !", message: "Le pseudo ne peut être vide.", preferredStyle: UIAlertControllerStyle.Alert)
-            myAlert.view.tintColor = colorGreen
+            myAlert.view.tintColor = Colors.green
             // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert
@@ -188,7 +188,7 @@ class SettingsTableViewController: UITableViewController {
         // add the text field and make the result global
         textField.placeholder = "Nouveau mot de passe"
         textField.secureTextEntry = true
-        textField.textColor = colorGreen
+        textField.textColor = Colors.green
         self.password = textField
     }
     
@@ -196,14 +196,14 @@ class SettingsTableViewController: UITableViewController {
         // add the text field and make the result global
         textField.placeholder = "Confirmation"
         textField.secureTextEntry = true
-        textField.textColor = colorGreen
+        textField.textColor = Colors.green
         self.confirmationPassword = textField
     }
     
     func changePassword() {
         // create alert controller
         let myAlert = UIAlertController(title: "Modifier votre mot de passe", message: "Minimum huit caractères dont une majuscule et deux chiffres.", preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add buttons
         myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
         myAlert.addAction(UIAlertAction(title: "Modifier", style: .Destructive, handler: self.sendPassword))
@@ -223,7 +223,7 @@ class SettingsTableViewController: UITableViewController {
                 User.currentUser?.changePassword(self.password.text!.sha1(), callback: { (message) -> Void in
                     // create alert controller
                     let myAlert = UIAlertController(title: message!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-                    myAlert.view.tintColor = colorGreen
+                    myAlert.view.tintColor = Colors.green
                     // add "OK" button
                     myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                     // show the alert
@@ -234,7 +234,7 @@ class SettingsTableViewController: UITableViewController {
             } else {
                 // create alert controller
                 let myAlert = UIAlertController(title: "Oups !", message: "Le nouveau mot de passe et la confirmation ne correspondent pas.", preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 // add "OK" button
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
@@ -243,7 +243,7 @@ class SettingsTableViewController: UITableViewController {
         } else {
             // create alert controller
             let myAlert = UIAlertController(title: "Le mot de passe est trop faible !", message: "Minimum huit caractères dont une majuscule et deux chiffres.", preferredStyle: UIAlertControllerStyle.Alert)
-            myAlert.view.tintColor = colorGreen
+            myAlert.view.tintColor = Colors.green
             // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert
@@ -259,7 +259,7 @@ class SettingsTableViewController: UITableViewController {
             UserPreferences.saveUserPreferences()
             // create alert controller
             let myAlert = UIAlertController(title: "Touch ID activé", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-            myAlert.view.tintColor = colorGreen
+            myAlert.view.tintColor = Colors.green
             // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert
@@ -270,7 +270,7 @@ class SettingsTableViewController: UITableViewController {
             UserPreferences.saveUserPreferences()
             // create alert controller
             let myAlert = UIAlertController(title: "Touch ID désactivé", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-            myAlert.view.tintColor = colorGreen
+            myAlert.view.tintColor = Colors.green
             // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert

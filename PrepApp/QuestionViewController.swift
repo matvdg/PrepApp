@@ -51,7 +51,7 @@ UIAdaptivePresentationControllerDelegate  {
     override func viewDidLoad() {
         //sync
         FactoryHistory.getHistory().sync()
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshQuestion", name: "portrait", object: nil)
@@ -70,7 +70,7 @@ UIAdaptivePresentationControllerDelegate  {
         self.sizeAnswerCells.removeAll(keepCapacity: false)
         self.title = "Entraînement - \(self.currentSubject!.name.capitalizedString)"
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreen
+        self.navigationController!.navigationBar.tintColor = Colors.greenLogo
         //display the chapter
         self.chapter.text = "Chapitre \(self.currentChapter!.number) : \(self.currentChapter!.name)"
         //load the questions
@@ -104,7 +104,7 @@ UIAdaptivePresentationControllerDelegate  {
         self.questions[self.currentNumber].calculator ? Sound.playTrack("notif") : Sound.playTrack("nocalc")
         // create alert controller
         let myAlert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "OK" button
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         // show the alert
@@ -121,7 +121,7 @@ UIAdaptivePresentationControllerDelegate  {
             title = "Question déjà marquée !"
             message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\""
             let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
-            myAlert.view.tintColor = colorGreen
+            myAlert.view.tintColor = Colors.green
             myAlert.addAction(UIAlertAction(title: "Supprimer le marquage", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
                 let historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
@@ -129,7 +129,7 @@ UIAdaptivePresentationControllerDelegate  {
                 FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
                 Sound.playTrack("notif")
                 let myAlert = UIAlertController(title: "Marquage supprimé", message: nil , preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
@@ -148,7 +148,7 @@ UIAdaptivePresentationControllerDelegate  {
                 title = "Question marquée"
                 message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\""
                 let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 let historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
                 historyQuestion.marked = true
@@ -160,7 +160,7 @@ UIAdaptivePresentationControllerDelegate  {
                     FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
                     Sound.playTrack("notif")
                     let myAlert = UIAlertController(title: "Marquage supprimé", message: nil , preferredStyle: UIAlertControllerStyle.Alert)
-                    myAlert.view.tintColor = colorGreen
+                    myAlert.view.tintColor = Colors.green
                     myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
                     // show the alert
                     self.presentViewController(myAlert, animated: true, completion: nil)
@@ -178,7 +178,7 @@ UIAdaptivePresentationControllerDelegate  {
                 title = "Oups !"
                 message = "Vous devez d'abord répondre à la question pour pouvoir la marquer"
                 let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
@@ -259,7 +259,7 @@ UIAdaptivePresentationControllerDelegate  {
         //applying grey mask
         let frame = CGRect(x: 0, y: 152, width: self.view.bounds.width, height: self.view.bounds.height-152)
         self.greyMask = UIView(frame: frame)
-        self.greyMask.backgroundColor = colorGreyBackground
+        self.greyMask.backgroundColor = Colors.greyBackground
         self.greyMask.layer.zPosition = 100
         self.view.addSubview(self.greyMask)
 
@@ -362,7 +362,7 @@ UIAdaptivePresentationControllerDelegate  {
         let y: CGFloat = UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation) ? 132 : 152
         let scrollFrame = CGRect(x: 0, y: y, width: self.view.bounds.width, height: self.view.bounds.height-y)
         self.scrollView = UIScrollView(frame: scrollFrame)
-        self.scrollView.backgroundColor = colorGreyBackground
+        self.scrollView.backgroundColor = Colors.greyBackground
         self.scrollView.addSubview(self.wording)
         self.view.addSubview(self.scrollView)
         
@@ -384,7 +384,7 @@ UIAdaptivePresentationControllerDelegate  {
         self.submitButton.hidden = false
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
-        self.submitButton.backgroundColor = colorGreen
+        self.submitButton.backgroundColor = Colors.green
         self.submitButton.removeFromSuperview()
         self.infos.removeFromSuperview()
         self.wording.removeFromSuperview()
@@ -411,7 +411,7 @@ UIAdaptivePresentationControllerDelegate  {
         self.greyMask.removeFromSuperview()
         let frame = CGRect(x: 0, y: 152, width: self.view.bounds.width, height: self.view.bounds.height)
         self.greyMask = UIView(frame: frame)
-        self.greyMask.backgroundColor = colorGreyBackground
+        self.greyMask.backgroundColor = Colors.greyBackground
         self.greyMask.layer.zPosition = 100
         self.view.addSubview(self.greyMask)
         self.cleanView()
@@ -442,7 +442,7 @@ UIAdaptivePresentationControllerDelegate  {
         self.submitButton.layer.cornerRadius = 6
         self.submitButton.titleLabel?.font = UIFont(name: "Segoe UI", size: 15)
         self.submitButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        self.submitButton.backgroundColor = colorGreen
+        self.submitButton.backgroundColor = Colors.green
         
         //resizing the scroll view in order to fit all the elements
         let scrollSize = CGSizeMake(self.view.bounds.width, self.wording.bounds.size.height + tableHeight + 100)
@@ -466,7 +466,7 @@ UIAdaptivePresentationControllerDelegate  {
             self.mode = 1
             // create alert controller
             let myAlert = UIAlertController(title: "Vous devez sélectionner au moins une réponse !", message: "Touchez les cases pour cocher une ou plusieurs réponses", preferredStyle: UIAlertControllerStyle.Alert)
-            myAlert.view.tintColor = colorGreen
+            myAlert.view.tintColor = Colors.green
             // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             // show the alert
@@ -488,7 +488,7 @@ UIAdaptivePresentationControllerDelegate  {
                 for answer in self.goodAnswers {
                     let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                     let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
-                    cell.number.backgroundColor = colorRightAnswer
+                    cell.number.backgroundColor = Colors.rightAnswer
                     //green
                 }
                 //generating AwardPoint 5 + 1 assiduity = +6
@@ -504,13 +504,13 @@ UIAdaptivePresentationControllerDelegate  {
                 for answer in self.selectedAnswers {
                     let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                     let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
-                    cell.number.backgroundColor = colorWrongAnswer
+                    cell.number.backgroundColor = Colors.wrongAnswer
                     //red
                 }
                 for answer in self.goodAnswers {
                     let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                     if let cell = self.answers.cellForRowAtIndexPath(indexPath) as? UITableViewCellAnswer {
-                        cell.number.backgroundColor = colorRightAnswer
+                        cell.number.backgroundColor = Colors.rightAnswer
                         //green
                         var notSelected = true
                         for selectedAnswer in self.selectedAnswers {
@@ -519,7 +519,7 @@ UIAdaptivePresentationControllerDelegate  {
                             }
                         }
                         if notSelected {
-                            cell.number.backgroundColor = colorWrongAnswer
+                            cell.number.backgroundColor = Colors.wrongAnswer
                             //red
                         }
                     }
@@ -576,7 +576,7 @@ UIAdaptivePresentationControllerDelegate  {
         //show the correction sheet
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
-        self.submitButton.backgroundColor = colorGreen
+        self.submitButton.backgroundColor = Colors.green
 
         Sound.playPage()
         self.performSegueWithIdentifier("showCorrection", sender: self)
@@ -613,7 +613,7 @@ UIAdaptivePresentationControllerDelegate  {
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button
@@ -667,7 +667,7 @@ UIAdaptivePresentationControllerDelegate  {
         let answerNumber = indexPath.row
         
         cell.selectionStyle = UITableViewCellSelectionStyle.None
-        cell.number.backgroundColor = colorUnanswered
+        cell.number.backgroundColor = Colors.unanswered
         cell.answer.scrollView.scrollEnabled = false
         cell.answer.userInteractionEnabled = false
         cell.answer.frame = CGRectMake(40, 0, self.view.bounds.width - 80, 40)
@@ -761,7 +761,7 @@ UIAdaptivePresentationControllerDelegate  {
                 if !self.didLoadInfos {
                     self.didLoadInfos = true
                     //we have just loaded the Infos webview
-                    self.infos.backgroundColor = colorGreyBackground
+                    self.infos.backgroundColor = Colors.greyBackground
                     self.greyMask.layer.zPosition = 0
                 }
             } else {

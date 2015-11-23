@@ -242,7 +242,7 @@ class User {
 			level: data["level"] as! Int,
             awardPoints: data["awardPoints"] as! Int,
             nickname: data["nickname"] as! String,
-            color: Int(rand())%colors.count
+            color: Int(rand())%Colors.badges.count
             ///TODO when Julien send colors color: data["color"] as! Int
         )
         

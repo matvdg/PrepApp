@@ -34,7 +34,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBAction func shareCode(sender: AnyObject) {
         // create alert controller
         let myAlert = UIAlertController(title: "\(String(User.currentUser!.id).sha1())", message: "Partagez votre code à vos amis en leur envoyant un message !", preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
                 // add buttons
         myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
         myAlert.addAction(UIAlertAction(title: "Partager", style: .Default, handler: { (action) -> Void in
@@ -50,7 +50,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBAction func addFriend(sender: AnyObject) {
         // create alert controller
         let myAlert = UIAlertController(title: "Ajouter un ami", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add buttons
         myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
         myAlert.addAction(UIAlertAction(title: "Ajouter", style: .Default, handler: self.add))
@@ -75,7 +75,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 print("Shuffled friendId = \(shuffledFriend.id)")
                 // create alert controller
                 let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous êtes sur le point de lancer un défi à\(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de \(FactorySync.getConfigManager().loadDuration()) minutes. Attention ! Vous devrez disposer d'une connexion internet pour envoyer vos résultats.", preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 // add buttons
                 myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
                 myAlert.addAction(UIAlertAction(title: "GO !", style: .Default, handler: { (action) -> Void in
@@ -87,7 +87,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
             } else {
                 // create alert controller
                 let myAlert = UIAlertController(title: "Oups !", message: error, preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 // add buttons
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
@@ -102,20 +102,20 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
         super.viewDidLoad()
         self.pullToRefresh.attributedTitle = NSAttributedString(string: "▼ Glisser vers le bas pour actualiser ▼")
         self.pullToRefresh.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        self.pullToRefresh.tintColor = colorGreen
+        self.pullToRefresh.tintColor = Colors.green
         self.friendsTable?.addSubview(pullToRefresh)
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
         SwiftSpinner.show("Mise à jour des défis...")
         //sync
         FactoryHistory.getHistory().sync()
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         self.loadData()
-        self.friendsTable.backgroundColor = colorGreyBackground
+        self.friendsTable.backgroundColor = Colors.greyBackground
         self.designShare.layer.cornerRadius = 6
         self.designAdd.layer.cornerRadius = 6
         self.designShuffle.layer.cornerRadius = 6
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreen
+        self.navigationController!.navigationBar.tintColor = Colors.greenLogo
         self.title = "Défi duo"
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
@@ -153,7 +153,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button
@@ -249,7 +249,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 if counter == self.friends.count {
                     // create alert controller
                     let myAlert = UIAlertController(title: "Oups !", message: "L'ami a déjà été ajouté... Entrez un autre code.", preferredStyle: UIAlertControllerStyle.Alert)
-                    myAlert.view.tintColor = colorGreen
+                    myAlert.view.tintColor = Colors.green
                     // add OK button
                     myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                     // show the alert
@@ -257,7 +257,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 } else {
                     // create alert controller
                     let myAlert = UIAlertController(title: "Ami ajouté", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                    myAlert.view.tintColor = colorGreen
+                    myAlert.view.tintColor = Colors.green
                     // add OK button
                     myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                     // show the alert
@@ -268,7 +268,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
             } else {
                 // create alert controller
                 let myAlert = UIAlertController(title: "Erreur", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 // add OK button
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
@@ -292,7 +292,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
         FactoryDuo.getDuoManager().requestDuo(friend.id, callback: { (result, error) -> Void in
             if error != nil {
                 let myAlert = UIAlertController(title: "Oups !", message: error, preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 // add "OK" button
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
@@ -345,7 +345,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
             }
             cell.textLabel!.text = text
             cell.textLabel?.textColor = UIColor.blackColor()
-            cell.backgroundColor = colorGreyBackground
+            cell.backgroundColor = Colors.greyBackground
             cell.textLabel!.adjustsFontSizeToFitWidth = false
             cell.textLabel!.adjustsFontSizeToFitWidth = true
             
@@ -366,7 +366,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 cell.accessoryView = UIImageView(image: UIImage(named: "challenge"))
             }
             cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
-            cell.tintColor = colorGreen
+            cell.tintColor = Colors.green
             return cell
 
         } else {
@@ -385,11 +385,11 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 cell.textLabel!.text = "\(friend.firstName) \(friend.lastName)"
             }
             cell.textLabel?.textColor = UIColor.blackColor()
-            cell.backgroundColor = colorGreyBackground
+            cell.backgroundColor = Colors.greyBackground
             cell.textLabel!.adjustsFontSizeToFitWidth = false
             cell.textLabel!.adjustsFontSizeToFitWidth = true
             cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
-            cell.tintColor = colorGreen
+            cell.tintColor = Colors.green
             return cell
 
         }
@@ -448,7 +448,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 }
                 // create alert controller
                 let myAlert = UIAlertController(title: "Répondre au défi ?", message: "Vous êtes sur le point de répondre au défi de\(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de \(FactorySync.getConfigManager().loadDuration()) minutes. Attention ! Vous devrez disposer d'une connexion internet pour envoyer vos résultats. ", preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 // add buttons
                 myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
                 myAlert.addAction(UIAlertAction(title: "GO !", style: .Default, handler: { (action) -> Void in
@@ -476,7 +476,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 }
                 // create alert controller
                 let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous êtes sur le point de lancer un défi à votre ami(e)\(textTodisplay), le défi va commencer tout de suite, vous aurez besoin de \(FactorySync.getConfigManager().loadDuration()) minutes. ", preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 // add buttons
                 myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
                 myAlert.addAction(UIAlertAction(title: "GO !", style: .Default, handler: { (action) -> Void in
@@ -490,7 +490,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRectMake(0, 0, tableView.bounds.size.width, 44))
-        headerView.backgroundColor = colorGreen
+        headerView.backgroundColor = Colors.green
         
         let headerLabel = UILabel(frame: CGRectMake(15, 0, tableView.bounds.size.width, 44))
         headerLabel.backgroundColor = UIColor.clearColor()

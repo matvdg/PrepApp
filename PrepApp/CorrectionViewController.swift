@@ -22,7 +22,7 @@ class CorrectionViewController: UIViewController, UIWebViewDelegate {
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
-        webView.backgroundColor = colorGreyBackground
+        webView.backgroundColor = Colors.greyBackground
     }
     
     func logout() {
@@ -33,7 +33,7 @@ class CorrectionViewController: UIViewController, UIWebViewDelegate {
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button
@@ -49,13 +49,13 @@ class CorrectionViewController: UIViewController, UIWebViewDelegate {
         super.viewDidLoad()
         //sync
         FactoryHistory.getHistory().sync()
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         self.correction.opaque = false
         self.dismissButton.layer.cornerRadius = 6
         self.correction.delegate = self
-        self.correction.backgroundColor = colorGreyBackground
+        self.correction.backgroundColor = Colors.greyBackground
         
         self.correction.loadHTMLString(self.correctionHTML, baseURL: self.baseUrl)
     }

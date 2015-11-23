@@ -64,17 +64,17 @@ class ScoreDuoViewController: UIViewController, UITableViewDataSource, UITableVi
         } else {
             textTodisplay += "\(self.firstName) \(self.lastName)"
         }
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         self.titleLabel.text = "Défi duo VS\(textTodisplay)"
         self.titleLabel.textColor = UIColor.blackColor()
-        self.titleBar.backgroundColor = colorGreenLogo
+        self.titleBar.backgroundColor = Colors.greenLogo
         self.infoLabel.text = "Si\(textTodisplay) a répondu au défi, vous recevrez une notification pour voir son score et recevoir les AwardPoints bonus."
         self.greenRound.layer.cornerRadius = self.greenRound.layer.bounds.width / 2
         self.greenRound.backgroundColor = UIColor.whiteColor()
-        self.greenRound.layer.borderColor = colorGreenLogo.CGColor
+        self.greenRound.layer.borderColor = Colors.greenLogo.CGColor
         self.greenRound.layer.borderWidth = 6
         self.greenRound.layer.masksToBounds = true
-        self.scoreLabel.textColor = colorWrongAnswer
+        self.scoreLabel.textColor = Colors.wrongAnswer
         self.scoreLabel.text = "\(self.animationScore)"
         self.scoreTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("animateScore"), userInfo: nil, repeats: true)
     }
@@ -84,17 +84,17 @@ class ScoreDuoViewController: UIViewController, UITableViewDataSource, UITableVi
             if self.animationScore != self.score {
                 self.scoreLabel.text = "\(self.animationScore)"
                 if self.animationScore < 10 {
-                    self.scoreLabel.textColor = colorWrongAnswer
+                    self.scoreLabel.textColor = Colors.wrongAnswer
                 } else {
-                    self.scoreLabel.textColor = colorGreenLogo
+                    self.scoreLabel.textColor = Colors.greenLogo
                 }
                 self.animationScore++
             } else {
                 self.scoreLabel.text = "\(self.animationScore)"
                 if self.animationScore < 10 {
-                    self.scoreLabel.textColor = colorWrongAnswer
+                    self.scoreLabel.textColor = Colors.wrongAnswer
                 } else {
-                    self.scoreLabel.textColor = colorGreenLogo
+                    self.scoreLabel.textColor = Colors.greenLogo
                 }
                 self.animationScore = 0
                 self.scoreTimer.invalidate()
@@ -178,14 +178,14 @@ class ScoreDuoViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.textLabel?.textColor = UIColor.blackColor()
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 18)
         cell.textLabel!.text = self.statsTopics[indexPath.row]
-        cell.backgroundColor = colorGreyBackground
+        cell.backgroundColor = Colors.greyBackground
         cell.detailTextLabel!.text = statsData[indexPath.row]
         cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 18)
-        cell.detailTextLabel!.textColor = colorGreen
+        cell.detailTextLabel!.textColor = Colors.green
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.detailTextLabel!.adjustsFontSizeToFitWidth = true
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 12)
-        cell.tintColor = colorGreen
+        cell.tintColor = Colors.green
         return cell
     }
     
@@ -196,7 +196,7 @@ class ScoreDuoViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
         let myAlert = UIAlertController(title: self.statsTopics[indexPath.row], message: self.statsDetails[indexPath.row] , preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         // show the alert
         self.presentViewController(myAlert, animated: true, completion: nil)

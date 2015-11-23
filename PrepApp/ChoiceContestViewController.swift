@@ -31,14 +31,14 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
         self.loadData()
         self.pullToRefresh.attributedTitle = NSAttributedString(string: "▼ Glisser vers le bas pour actualiser ▼")
         self.pullToRefresh.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        self.pullToRefresh.tintColor = colorGreen
+        self.pullToRefresh.tintColor = Colors.green
         self.contestTable?.addSubview(pullToRefresh)
         //sync
         FactoryHistory.getHistory().sync()
-        self.view!.backgroundColor = colorGreyBackground
-        self.contestTable.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
+        self.contestTable.backgroundColor = Colors.greyBackground
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreen
+        self.navigationController!.navigationBar.tintColor = Colors.greenLogo
         self.title = "Concours"
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
@@ -73,7 +73,7 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button
@@ -159,12 +159,12 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
             let contest = self.contests[indexPath.row]
             cell.textLabel!.text = contest.name
             cell.textLabel?.textColor = UIColor.blackColor()
-            cell.backgroundColor = colorGreyBackground
+            cell.backgroundColor = Colors.greyBackground
             cell.textLabel!.adjustsFontSizeToFitWidth = true
             cell.textLabel!.adjustsFontSizeToFitWidth = true
             //formatting date
             let formatter = NSDateFormatter()
-            formatter.dateFormat = "d/M/yy"
+            formatter.dateFormat = "d/M/yyyy"
             let end = formatter.stringFromDate(contest.end)
             //adding contest details to the table
             if contest.id == -1 {
@@ -175,14 +175,14 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
                 cell.accessoryView = UIImageView(image: UIImage(named: "contest"))
             }
             cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
-            cell.tintColor = colorGreen
+            cell.tintColor = Colors.green
             return cell
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier("contestResult", forIndexPath: indexPath)
             let contestHistory = self.contestsHistory[indexPath.row]
             cell.textLabel!.text = contestHistory.name
             cell.textLabel?.textColor = UIColor.blackColor()
-            cell.backgroundColor = colorGreyBackground
+            cell.backgroundColor = Colors.greyBackground
             cell.textLabel!.adjustsFontSizeToFitWidth = true
             cell.textLabel!.adjustsFontSizeToFitWidth = true
             //adding contest details to the table
@@ -194,14 +194,14 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
                 cell.accessoryView = UIImageView(image: UIImage(named: "results"))
             }
             cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
-            cell.tintColor = colorGreen
+            cell.tintColor = Colors.green
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("contestLeaderboard", forIndexPath: indexPath)
             let contestLeaderboard = self.contestLeaderboards[indexPath.row]
             cell.textLabel!.text = contestLeaderboard.name
             cell.textLabel?.textColor = UIColor.blackColor()
-            cell.backgroundColor = colorGreyBackground
+            cell.backgroundColor = Colors.greyBackground
             cell.textLabel!.adjustsFontSizeToFitWidth = true
             cell.textLabel!.adjustsFontSizeToFitWidth = true
             //adding contest details to the table
@@ -213,7 +213,7 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
                 cell.accessoryView = UIImageView(image: UIImage(named: "leaderboard"))
             }
             cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
-            cell.tintColor = colorGreen
+            cell.tintColor = Colors.green
             return cell
         }
     }
@@ -247,7 +247,7 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRectMake(0, 0, tableView.bounds.size.width, 44))
-        headerView.backgroundColor = colorGreen
+        headerView.backgroundColor = Colors.green
         let headerLabel = UILabel(frame: CGRectMake(15, 0, tableView.bounds.size.width, 44))
         headerLabel.backgroundColor = UIColor.clearColor()
         headerLabel.shadowOffset = CGSizeMake(0,2)

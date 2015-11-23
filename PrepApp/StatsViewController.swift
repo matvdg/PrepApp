@@ -16,6 +16,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     var statsDetails: [String] = []
     var statsPics = ["level","check","puzzle","term","awardPoint"]
     var refreshIsNeeded = false
+    var badgeColor = Colors.badges[User.currentUser!.color]
     
     //@IBOutlets
     @IBOutlet weak var menuButton: UIBarButtonItem!
@@ -27,13 +28,13 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         super.viewDidLoad()
         //sync
         FactoryHistory.getHistory().sync()
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         self.loadData()
-        self.statsTable.backgroundColor = colorGreyBackground
+        self.statsTable.backgroundColor = Colors.greyBackground
         self.renderBadge()
         if let _ = self.navigationController {
             self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-            self.navigationController!.navigationBar.tintColor = colorGreen
+            self.navigationController!.navigationBar.tintColor = Colors.greenLogo
         }
         self.title = "Statistiques"
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
@@ -56,7 +57,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewDidAppear(animated: Bool) {
         if self.refreshIsNeeded {
-            self.renderBadge()
+            self.animateBadge()
         } else {
             self.refreshIsNeeded = true
         }
@@ -70,7 +71,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button
@@ -85,7 +86,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     //methods
     func renderBadge(){
         self.badge.titleLabel!.font = UIFont.systemFontOfSize(50)
-        self.badge.backgroundColor = colors[User.currentUser!.color]
+        self.badge.backgroundColor = self.badgeColor
         self.badge.layer.zPosition = 100
         let firstName = User.currentUser!.firstName
         let lastName = User.currentUser!.lastName
@@ -97,6 +98,24 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.badge.titleLabel!.numberOfLines = 1
         self.badge.titleLabel!.baselineAdjustment = UIBaselineAdjustment.AlignCenters
         self.badge.layer.cornerRadius = self.badge.frame.width / 2
+    }
+    
+    func animateBadge() {
+        // Create CAAnimation
+        let animation = CABasicAnimation(keyPath: "transform.rotation.y")
+        animation.fromValue = 0
+        animation.toValue = NSNumber(float: Float(M_PI)/2)
+        animation.duration = 1
+        animation.repeatCount = 0
+        animation.autoreverses = true
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        animation.fillMode = kCAFillModeForwards
+        animation.removedOnCompletion = false
+        self.badge.layer.addAnimation(animation, forKey: nil)
+        UIView.animateWithDuration(2) { () -> Void in
+            self.badge.backgroundColor = Colors.badges[User.currentUser!.color]
+            self.badgeColor = Colors.badges[User.currentUser!.color]
+        }
     }
     
     func loadData() {
@@ -163,14 +182,14 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.imageView!.image = UIImage(named: image)
         cell.textLabel?.textColor = UIColor.blackColor()
         cell.textLabel!.text = self.statsTopics[indexPath.row]
-        cell.backgroundColor = colorGreyBackground
+        cell.backgroundColor = Colors.greyBackground
         cell.detailTextLabel!.text = statsData[indexPath.row]
         cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 16)
-        cell.detailTextLabel!.textColor = colorGreen
+        cell.detailTextLabel!.textColor = Colors.green
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.detailTextLabel!.adjustsFontSizeToFitWidth = true
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
-        cell.tintColor = colorGreen
+        cell.tintColor = Colors.green
         return cell
     }
     
@@ -181,7 +200,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
         let myAlert = UIAlertController(title: self.statsTopics[indexPath.row], message: self.statsDetails[indexPath.row] , preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         // show the alert
         self.presentViewController(myAlert, animated: true, completion: nil)

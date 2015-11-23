@@ -40,7 +40,7 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
         super.viewDidLoad()
         //sync
         FactoryHistory.getHistory().sync()
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         self.loadData()
         self.dismissButton.layer.cornerRadius = 6
         self.designScoreVC()
@@ -58,16 +58,16 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
     
     private func designScoreVC() {
         self.dismissButton.layer.cornerRadius = 6
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         self.titleLabel.text = "Résultats du concours"
         self.titleLabel.textColor = UIColor.blackColor()
-        self.titleBar.backgroundColor = colorGreenLogo
+        self.titleBar.backgroundColor = Colors.greenLogo
         self.greenRound.layer.cornerRadius = self.greenRound.layer.bounds.width / 2
         self.greenRound.backgroundColor = UIColor.whiteColor()
-        self.greenRound.layer.borderColor = colorGreenLogo.CGColor
+        self.greenRound.layer.borderColor = Colors.greenLogo.CGColor
         self.greenRound.layer.borderWidth = 6
         self.greenRound.layer.masksToBounds = true
-        self.scoreLabel.textColor = colorWrongAnswer
+        self.scoreLabel.textColor = Colors.wrongAnswer
         let maxPoints = Float(self.numberOfQuestions) * abs(self.contest!.goodAnswer)
         let min = -abs(self.contest!.wrongAnswer) * Float(self.numberOfQuestions) * Float(20) / maxPoints
         self.animationScore = Int(floor(min))
@@ -83,17 +83,17 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
             
             self.scoreLabel.text = "\(self.animationScore)"
             if self.animationScore < 10 {
-                self.scoreLabel.textColor = colorWrongAnswer
+                self.scoreLabel.textColor = Colors.wrongAnswer
             } else {
-                self.scoreLabel.textColor = colorGreenLogo
+                self.scoreLabel.textColor = Colors.greenLogo
             }
             self.animationScore++
         } else {
             self.scoreLabel.text = "\(self.animationScore)"
             if self.animationScore < 10 {
-                self.scoreLabel.textColor = colorWrongAnswer
+                self.scoreLabel.textColor = Colors.wrongAnswer
             } else {
-                self.scoreLabel.textColor = colorGreenLogo
+                self.scoreLabel.textColor = Colors.greenLogo
             }
             self.animationScore = 0
             self.scoreTimer.invalidate()
@@ -194,14 +194,14 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
         cell.textLabel?.textColor = UIColor.blackColor()
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 18)
         cell.textLabel!.text = self.statsTopics[indexPath.row]
-        cell.backgroundColor = colorGreyBackground
+        cell.backgroundColor = Colors.greyBackground
         cell.detailTextLabel!.text = statsData[indexPath.row]
         cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 18)
-        cell.detailTextLabel!.textColor = colorGreen
+        cell.detailTextLabel!.textColor = Colors.green
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.detailTextLabel!.adjustsFontSizeToFitWidth = true
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 12)
-        cell.tintColor = colorGreen
+        cell.tintColor = Colors.green
         return cell
     }
     
@@ -212,7 +212,7 @@ class ScoreContestViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
         let myAlert = UIAlertController(title: self.statsTopics[indexPath.row], message: self.statsDetails[indexPath.row] , preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         // show the alert
         self.presentViewController(myAlert, animated: true, completion: nil)

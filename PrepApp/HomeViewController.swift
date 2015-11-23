@@ -60,14 +60,14 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
             } else {
                 self.currentStatsPanelDisplayed = 1
                 self.stats.text = "\(Int(self.bioPercent))%    -    \(self.bioNumber) \(self.singularOrPlural(1, type: 0))    Niveau suivant : \(self.bioNumberToDo) \(self.singularOrPlural(1, type: 1))"
-                self.stats.backgroundColor = colorBio
+                self.stats.backgroundColor = Colors.bio
                 self.stats.hidden = false
             }
         } else {
             self.statsPanelDisplayed = true
             self.currentStatsPanelDisplayed = 1
             self.stats.text = "\(Int(self.bioPercent))%    -    \(self.bioNumber) \(self.singularOrPlural(1, type: 0))    Niveau suivant : \(self.bioNumberToDo) \(self.singularOrPlural(1, type: 1))"
-            self.stats.backgroundColor = colorBio
+            self.stats.backgroundColor = Colors.bio
             self.stats.hidden = false
         }
     }
@@ -81,14 +81,14 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
             } else {
                 self.currentStatsPanelDisplayed = 2
                 self.stats.text = "\(Int(self.phyPercent))%    -    \(self.phyNumber) \(self.singularOrPlural(2, type: 0))    Niveau suivant : \(self.phyNumberToDo) \(self.singularOrPlural(2, type: 1))"
-                self.stats.backgroundColor = colorPhy
+                self.stats.backgroundColor = Colors.phy
                 self.stats.hidden = false
             }
         } else {
             self.statsPanelDisplayed = true
             self.currentStatsPanelDisplayed = 2
             self.stats.text = "\(Int(self.phyPercent))%    -    \(self.phyNumber) \(self.singularOrPlural(2, type: 0))    Niveau suivant : \(self.phyNumberToDo) \(self.singularOrPlural(2, type: 1))"
-            self.stats.backgroundColor = colorPhy
+            self.stats.backgroundColor = Colors.phy
             self.stats.hidden = false
         }
     }
@@ -102,14 +102,14 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
             } else {
                 self.currentStatsPanelDisplayed = 3
                 self.stats.text = "\(Int(self.chePercent))%    -    \(self.cheNumber) \(self.singularOrPlural(3, type: 0))    Niveau suivant : \(self.cheNumberToDo) \(self.singularOrPlural(3, type: 1))"
-                self.stats.backgroundColor = colorChe
+                self.stats.backgroundColor = Colors.che
                 self.stats.hidden = false
             }
         } else {
             self.statsPanelDisplayed = true
             self.currentStatsPanelDisplayed = 3
             self.stats.text = "\(Int(self.chePercent))%    -    \(self.cheNumber) \(self.singularOrPlural(3, type: 0))    Niveau suivant : \(self.cheNumberToDo) \(self.singularOrPlural(3, type: 1))"
-            self.stats.backgroundColor = colorChe
+            self.stats.backgroundColor = Colors.che
             self.stats.hidden = false
         }
     }
@@ -148,7 +148,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         //sync
         FactoryHistory.getHistory().sync()
         //rendering
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         self.bioPieChart.noDataText = ""
         self.bioPieChart.noDataTextDescription = ""
         self.chePieChart.noDataText = ""
@@ -177,7 +177,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         //other customization
         self.legend.text = "Inclinez en mode paysage pour voir votre graphe performance. Glissez à droite pour voir le fil d'actualités Prep'App."
         self.stats.hidden = true
-        self.view.backgroundColor = colorGreyBackground
+        self.view.backgroundColor = Colors.greyBackground
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         
     }
@@ -204,7 +204,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button
@@ -443,7 +443,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
     
     func renderLevel(){
         self.levelButton.titleLabel!.font = UIFont(name: "Times New Roman", size: 70)
-        self.levelButton.backgroundColor = colorGreenLogo
+        self.levelButton.backgroundColor = Colors.greenLogo
         self.levelButton.layer.zPosition = 100
         self.levelButton.layer.borderColor = UIColor.whiteColor().CGColor
         self.levelButton.layer.borderWidth = 6
@@ -471,7 +471,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         self.perfChart.drawBarShadowEnabled = false
         self.perfChart.drawGridBackgroundEnabled = false
         self.perfChart.drawOrder = [CombinedChartDrawOrder.Bar.rawValue, CombinedChartDrawOrder.Line.rawValue]
-        self.perfChart.backgroundColor = colorGreyBackground
+        self.perfChart.backgroundColor = Colors.greyBackground
         self.perfChart.drawMarkers = true
         self.perfChart.highlightPerDragEnabled = false
         self.perfChart.scaleYEnabled = false
@@ -481,12 +481,12 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
     
         self.perfChart.autoScaleMinMaxEnabled = true
         self.perfChart.rightAxis.drawGridLinesEnabled = false
-        self.perfChart.rightAxis.axisLineColor = colorGreen
+        self.perfChart.rightAxis.axisLineColor = Colors.green
         self.perfChart.rightAxis.startAtZeroEnabled = true
         self.perfChart.rightAxis.axisLineWidth = 4
         self.perfChart.rightAxis.labelFont = UIFont(name: "Segoe UI", size: 12)!
         self.perfChart.rightAxis.labelCount = 10
-        self.perfChart.rightAxis.labelTextColor = colorGreen
+        self.perfChart.rightAxis.labelTextColor = Colors.green
         let formatter = NSNumberFormatter()
         formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
         formatter.minimumIntegerDigits = 1
@@ -498,12 +498,12 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         
         self.perfChart.leftAxis.drawGridLinesEnabled = false
         self.perfChart.leftAxis.customAxisMax = 100
-        self.perfChart.leftAxis.axisLineColor = colorGreen
+        self.perfChart.leftAxis.axisLineColor = Colors.green
         self.perfChart.leftAxis.startAtZeroEnabled = true
         self.perfChart.leftAxis.axisLineWidth = 4
         self.perfChart.leftAxis.labelCount = 10
         self.perfChart.leftAxis.labelFont = UIFont(name: "Segoe UI", size: 10)!
-        self.perfChart.leftAxis.labelTextColor = colorGreen
+        self.perfChart.leftAxis.labelTextColor = Colors.green
 
         formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
         formatter.minimumIntegerDigits = 3
@@ -517,7 +517,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         
         self.perfChart.xAxis.labelPosition = ChartXAxis.XAxisLabelPosition.Bottom
         self.perfChart.xAxis.drawGridLinesEnabled = false
-        self.perfChart.xAxis.axisLineColor = colorGreen
+        self.perfChart.xAxis.axisLineColor = Colors.green
         self.perfChart.xAxis.axisLineWidth = 4
         
         //data
@@ -539,8 +539,8 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         self.legendLeftAxis.text = "Questions réussies (%)"
         self.legendRightAxis.text = "Nombre de questions répondues"
         self.legendXAxis.text = "Semaines avant le concours"
-        self.legendLeftAxis.textColor = colorGreen
-        self.legendRightAxis.textColor = colorGreen
+        self.legendLeftAxis.textColor = Colors.green
+        self.legendRightAxis.textColor = Colors.green
         self.legendXAxis.textColor = UIColor.blackColor()
         self.legendLeftAxis.font = UIFont(name: "Segoe UI", size: 15)
         self.legendRightAxis.font = UIFont(name: "Segoe UI", size: 15)
@@ -581,17 +581,17 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         }
         let dataSet : PieChartDataSet = PieChartDataSet(yVals: yVals)
         dataSet.sliceSpace = 0.0
-        var colors: [UIColor] = [colorBio,colorPhy,colorChe]
+        var colors: [UIColor] = [Colors.bio,Colors.phy,Colors.che]
         
         switch subject {
         case 1 :
-            colors = [colorBio,UIColor.clearColor()]
+            colors = [Colors.bio,UIColor.clearColor()]
         case 2 :
-            colors = [colorPhy,UIColor.clearColor()]
+            colors = [Colors.phy,UIColor.clearColor()]
         case 3 :
-            colors = [colorChe,UIColor.clearColor()]
+            colors = [Colors.che,UIColor.clearColor()]
         default :
-            colors = [colorGreyBackground]
+            colors = [Colors.greyBackground]
         }
         dataSet.colors = colors
         dataSet.valueTextColor = UIColor.clearColor()
@@ -606,7 +606,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
             self.noDataLabel.font = UIFont(name: "Segoe UI", size: 20)
             self.noDataLabel.numberOfLines = 4
             self.noDataLabel.textAlignment = NSTextAlignment.Center
-            self.noDataLabel.textColor = colorGreen
+            self.noDataLabel.textColor = Colors.green
             self.noDataLabel.layer.zPosition = 8
             self.view.addSubview(self.noDataLabel)
         } else {
@@ -617,11 +617,11 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
                 dataEntries.append(dataEntry)
             }
             let bioLineChartDataSet = LineChartDataSet(yVals: dataEntries, label: "Biologie")
-            bioLineChartDataSet.colors = [colorBio]
+            bioLineChartDataSet.colors = [Colors.bio]
             bioLineChartDataSet.lineWidth = 5.0
             bioLineChartDataSet
-            bioLineChartDataSet.circleColors = [colorBio]
-            bioLineChartDataSet.circleHoleColor = colorBio
+            bioLineChartDataSet.circleColors = [Colors.bio]
+            bioLineChartDataSet.circleHoleColor = Colors.bio
             bioLineChartDataSet.circleRadius = 2
             bioLineChartDataSet.valueTextColor = UIColor.clearColor()
             bioLineChartDataSet.drawCubicEnabled = true
@@ -635,10 +635,10 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
                 dataEntries.append(dataEntry)
             }
             let phyLineChartDataSet = LineChartDataSet(yVals: dataEntries, label: "Physique")
-            phyLineChartDataSet.colors = [colorPhy]
+            phyLineChartDataSet.colors = [Colors.phy]
             phyLineChartDataSet.lineWidth = 5.0
-            phyLineChartDataSet.circleColors = [colorPhy]
-            phyLineChartDataSet.circleHoleColor = colorPhy
+            phyLineChartDataSet.circleColors = [Colors.phy]
+            phyLineChartDataSet.circleHoleColor = Colors.phy
             phyLineChartDataSet.circleRadius = 2
             phyLineChartDataSet.valueTextColor = UIColor.clearColor()
             phyLineChartDataSet.drawCubicEnabled = true
@@ -652,10 +652,10 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
                 dataEntries.append(dataEntry)
             }
             let cheLineChartDataSet = LineChartDataSet(yVals: dataEntries, label: "Chimie")
-            cheLineChartDataSet.colors = [colorChe]
+            cheLineChartDataSet.colors = [Colors.che]
             cheLineChartDataSet.lineWidth = 5.0
-            cheLineChartDataSet.circleColors = [colorChe]
-            cheLineChartDataSet.circleHoleColor = colorChe
+            cheLineChartDataSet.circleColors = [Colors.che]
+            cheLineChartDataSet.circleHoleColor = Colors.che
             cheLineChartDataSet.circleRadius = 2
             cheLineChartDataSet.valueTextColor = UIColor.clearColor()
             cheLineChartDataSet.drawCubicEnabled = true
@@ -669,7 +669,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
                 dataEntries.append(dataEntry)
             }
             let barDataSet = BarChartDataSet(yVals: dataEntries, label: "Nombre de questions répondues")
-            barDataSet.colors = [colorGreenLogo.colorWithAlphaComponent(0.5)]
+            barDataSet.colors = [Colors.greenLogo.colorWithAlphaComponent(0.5)]
             barDataSet.valueTextColor = UIColor.clearColor()
             barDataSet.drawValuesEnabled = false
             barDataSet.axisDependency = ChartYAxis.AxisDependency.Right
@@ -732,7 +732,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
     func displayNotification(text: String) {
         self.notification = UILabel(frame: CGRectMake(0, 0, self.view!.frame.width, 50))
         self.notification.text = text
-        self.notification.backgroundColor = colorGreen
+        self.notification.backgroundColor = Colors.green
         self.notification.textColor = UIColor.whiteColor()
         self.notification.textAlignment = NSTextAlignment.Center
         self.notification.font = UIFont(name: "Segoe UI", size: 16)

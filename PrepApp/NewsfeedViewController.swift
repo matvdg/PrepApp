@@ -20,7 +20,7 @@ class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableVi
         if( traitCollection.forceTouchCapability == .Available){
             registerForPreviewingWithDelegate(self, sourceView: self.newsfeedTable)
         }
-        self.pullToRefresh.tintColor = colorGreen
+        self.pullToRefresh.tintColor = Colors.green
         self.pullToRefresh.attributedTitle = NSAttributedString(string: "▼ Glisser vers le bas pour actualiser le fil d'actualités ▼")
         self.pullToRefresh.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.newsfeedTable?.addSubview(pullToRefresh)
@@ -34,9 +34,9 @@ class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         //sync history
         FactoryHistory.getHistory().sync()
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreen
+        self.navigationController!.navigationBar.tintColor = Colors.greenLogo
         self.title = "Fil d'actualités"
         let swipeRight = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipeRight.direction = UISwipeGestureRecognizerDirection.Right
@@ -85,20 +85,20 @@ class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableVi
         let news = self.newsfeed[indexPath.row]
         cell.textLabel!.text = news.title
         cell.textLabel?.textColor = UIColor.blackColor()
-        cell.backgroundColor = colorGreyBackground
+        cell.backgroundColor = Colors.greyBackground
         cell.textLabel!.adjustsFontSizeToFitWidth = false
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 12)
-        cell.detailTextLabel!.textColor = colorGreen
+        cell.detailTextLabel!.textColor = Colors.green
         cell.detailTextLabel!.adjustsFontSizeToFitWidth = false
-        cell.tintColor = colorGreen
+        cell.tintColor = Colors.green
         //formatting date
         let formatter = NSDateFormatter()
         formatter.dateFormat = "EEEE d MMMM yyy à H:mm"
         let dateInString = formatter.stringFromDate(news.date)
         cell.detailTextLabel!.text = "\(news.firstName) \(news.lastName) - \(dateInString)"
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
-        cell.tintColor = colorGreen
+        cell.tintColor = Colors.green
         return cell
         
     }
@@ -125,7 +125,7 @@ class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableVi
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button

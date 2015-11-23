@@ -25,7 +25,7 @@ class NewsViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         if let _ = self.navigationController {
             self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-            self.navigationController!.navigationBar.tintColor = colorGreen
+            self.navigationController!.navigationBar.tintColor = Colors.greenLogo
         }
     }
     
@@ -49,7 +49,7 @@ class NewsViewController: UIViewController {
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button

@@ -56,7 +56,7 @@ class QuestionDuoViewController: UIViewController,
     override func viewDidLoad() {
         //sync
         FactoryHistory.getHistory().sync()
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         var textTodisplay = " "
         if FactorySync.getConfigManager().loadNicknamePreference() {
             textTodisplay += "\(self.nickname)"
@@ -66,7 +66,7 @@ class QuestionDuoViewController: UIViewController,
         self.titleLabel.text = "Défi duo VS\(textTodisplay)"
         self.titleLabel.adjustsFontSizeToFitWidth = true
         self.titleLabel.textColor = UIColor.blackColor()
-        self.titleBar.backgroundColor = colorGreenLogo
+        self.titleBar.backgroundColor = Colors.greenLogo
         self.endChallengeButton.layer.cornerRadius = 6
         self.markButton.image = nil
         self.markButton.enabled = false
@@ -136,7 +136,7 @@ class QuestionDuoViewController: UIViewController,
             self.questions[self.currentNumber].calculator ? Sound.playTrack("notif") : Sound.playTrack("nocalc")
             // create alert controller
             let myAlert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-            myAlert.view.tintColor = colorGreen
+            myAlert.view.tintColor = Colors.green
             // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
             // show the alert
@@ -156,7 +156,7 @@ class QuestionDuoViewController: UIViewController,
             title = "Question déjà marquée !"
             message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\""
             let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
-            myAlert.view.tintColor = colorGreen
+            myAlert.view.tintColor = Colors.green
             myAlert.addAction(UIAlertAction(title: "Supprimer le marquage", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
                 let historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
@@ -164,7 +164,7 @@ class QuestionDuoViewController: UIViewController,
                 FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
                 Sound.playTrack("notif")
                 let myAlert = UIAlertController(title: "Marquage supprimé", message: nil , preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
@@ -183,7 +183,7 @@ class QuestionDuoViewController: UIViewController,
                 title = "Question marquée"
                 message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\""
                 let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 let historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
                 historyQuestion.marked = true
@@ -195,7 +195,7 @@ class QuestionDuoViewController: UIViewController,
                     FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
                     Sound.playTrack("notif")
                     let myAlert = UIAlertController(title: "Marquage supprimé", message: nil , preferredStyle: UIAlertControllerStyle.Alert)
-                    myAlert.view.tintColor = colorGreen
+                    myAlert.view.tintColor = Colors.green
                     myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
                     // show the alert
                     self.presentViewController(myAlert, animated: true, completion: nil)
@@ -213,7 +213,7 @@ class QuestionDuoViewController: UIViewController,
                 title = "Oups !"
                 message = "Vous devez d'abord répondre à la question pour pouvoir la marquer"
                 let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
@@ -227,7 +227,7 @@ class QuestionDuoViewController: UIViewController,
             self.allAnswers[self.currentNumber] = self.selectedAnswers
             if !self.checkUnanswered() {
                 let myAlert = UIAlertController(title: "Voulez-vous vraiment terminer le défi duo ?", message: "Vous ne pourrez plus modifier vos réponses. Vous devez disposer d'une connexion internet pour envoyer vos résultats au serveur.", preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 // add "OK" button
                 myAlert.addAction(UIAlertAction(title: "Oui, envoyer mes résultats", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
                     self.sendResults()
@@ -247,7 +247,7 @@ class QuestionDuoViewController: UIViewController,
             }
         } else { //correction mode
             let myAlert = UIAlertController(title: "Voulez-vous vraiment quitter ce défi duo ?", message: "Vous ne pourrez plus revoir vos réponses, mais vous pourrez retrouver les questions et leur correction dans entraînement.", preferredStyle: UIAlertControllerStyle.Alert)
-            myAlert.view.tintColor = colorGreen
+            myAlert.view.tintColor = Colors.green
             // add "OK" button
             myAlert.addAction(UIAlertAction(title: "Oui, quitter", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
                 self.dismissViewControllerAnimated(true, completion: nil)
@@ -310,7 +310,7 @@ class QuestionDuoViewController: UIViewController,
         //applying grey mask
         let frame = CGRect(x: 0, y: 152, width: self.view.bounds.width, height: self.view.bounds.height)
         self.greyMask = UIView(frame: frame)
-        self.greyMask.backgroundColor = colorGreyBackground
+        self.greyMask.backgroundColor = Colors.greyBackground
         self.greyMask.layer.zPosition = 100
         self.view.addSubview(self.greyMask)
         
@@ -371,19 +371,19 @@ class QuestionDuoViewController: UIViewController,
             if self.mode == 0 {
                 self.markButton.image = UIImage(named: "bioBar")
             }
-            self.chapter.backgroundColor = colorBio
+            self.chapter.backgroundColor = Colors.bio
         case 2 : //physics
             if self.mode == 0 {
                 self.markButton.image = UIImage(named: "phyBar")
             }
             
-            self.chapter.backgroundColor = colorPhy
+            self.chapter.backgroundColor = Colors.phy
         case 3 : //chemistry
             if self.mode == 0 {
                 self.markButton.image = UIImage(named: "cheBar")
             }
             
-            self.chapter.backgroundColor = colorChe
+            self.chapter.backgroundColor = Colors.che
         default:
             self.markButton.image = nil
         }
@@ -398,7 +398,7 @@ class QuestionDuoViewController: UIViewController,
         let y: CGFloat = UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation) ? 132 : 152
         let scrollFrame = CGRect(x: 0, y: y, width: self.view.bounds.width, height: self.view.bounds.height-y)
         self.scrollView = UIScrollView(frame: scrollFrame)
-        self.scrollView.backgroundColor = colorGreyBackground
+        self.scrollView.backgroundColor = Colors.greyBackground
         self.scrollView.addSubview(self.wording)
         self.view.addSubview(self.scrollView)
         
@@ -420,7 +420,7 @@ class QuestionDuoViewController: UIViewController,
         self.submitButton.hidden = false
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
-        self.submitButton.backgroundColor = colorGreen
+        self.submitButton.backgroundColor = Colors.green
         self.submitButton.removeFromSuperview()
         self.infos.removeFromSuperview()
         self.wording.removeFromSuperview()
@@ -434,7 +434,7 @@ class QuestionDuoViewController: UIViewController,
         self.greyMask.removeFromSuperview()
         let frame = CGRect(x: 0, y: 152, width: self.view.bounds.width, height: self.view.bounds.height)
         self.greyMask = UIView(frame: frame)
-        self.greyMask.backgroundColor = colorGreyBackground
+        self.greyMask.backgroundColor = Colors.greyBackground
         self.greyMask.layer.zPosition = 100
         self.view.addSubview(self.greyMask)
         self.cleanView()
@@ -467,7 +467,7 @@ class QuestionDuoViewController: UIViewController,
             self.submitButton.layer.cornerRadius = 6
             self.submitButton.titleLabel?.font = UIFont(name: "Segoe UI", size: 15)
             self.submitButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-            self.submitButton.backgroundColor = colorGreen
+            self.submitButton.backgroundColor = Colors.green
             // displaying results & correction if available
             self.showAnswers()
             //resizing the scroll view in order to fit all the elements
@@ -496,7 +496,7 @@ class QuestionDuoViewController: UIViewController,
             for answer in self.goodAnswers {
                 let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                 let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
-                cell.number.backgroundColor = colorRightAnswer
+                cell.number.backgroundColor = Colors.rightAnswer
                 //green
             }
             
@@ -511,13 +511,13 @@ class QuestionDuoViewController: UIViewController,
             for answer in self.selectedAnswers {
                 let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                 let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
-                cell.number.backgroundColor = colorWrongAnswer
+                cell.number.backgroundColor = Colors.wrongAnswer
                 //red
             }
             for answer in self.goodAnswers {
                 let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                 if let cell = self.answers.cellForRowAtIndexPath(indexPath) as? UITableViewCellAnswer {
-                    cell.number.backgroundColor = colorRightAnswer
+                    cell.number.backgroundColor = Colors.rightAnswer
                     //green
                     var notSelected = true
                     for selectedAnswer in self.selectedAnswers {
@@ -526,7 +526,7 @@ class QuestionDuoViewController: UIViewController,
                         }
                     }
                     if notSelected {
-                        cell.number.backgroundColor = colorWrongAnswer
+                        cell.number.backgroundColor = Colors.wrongAnswer
                         //red
                     }
                 }
@@ -581,7 +581,7 @@ class QuestionDuoViewController: UIViewController,
         //show the correction sheet
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
-        self.submitButton.backgroundColor = colorGreen
+        self.submitButton.backgroundColor = Colors.green
         
         Sound.playPage()
         self.performSegueWithIdentifier("showCorrection", sender: self)
@@ -618,7 +618,7 @@ class QuestionDuoViewController: UIViewController,
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button
@@ -647,7 +647,7 @@ class QuestionDuoViewController: UIViewController,
             //challenge finished! switch to results mode
             self.allAnswers[self.currentNumber] = self.selectedAnswers
             let myAlert = UIAlertController(title: "Temps écoulé", message: "Le défi duo est à présent terminé.", preferredStyle: UIAlertControllerStyle.Alert)
-            myAlert.view.tintColor = colorGreen
+            myAlert.view.tintColor = Colors.green
             // add "OK" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 //challenge finished! now we need to send the results
@@ -667,7 +667,7 @@ class QuestionDuoViewController: UIViewController,
             SwiftSpinner.hide()
             if answer {
                 let myAlert = UIAlertController(title: "Envoi des résultats", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 //add an "OK" button
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
                     //results sent: duo challenge finished! switch to results mode
@@ -678,7 +678,7 @@ class QuestionDuoViewController: UIViewController,
                 self.presentViewController(myAlert, animated: true, completion: nil)
             } else {
                 let myAlert = UIAlertController(title: "Oups !", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 //add an "try again" button
                 myAlert.addAction(UIAlertAction(title: "Réessayer", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                     self.sendResults()
@@ -700,7 +700,7 @@ class QuestionDuoViewController: UIViewController,
         self.markButton.enabled = true
         self.markButton.image = UIImage(named: "markedBar")
         let myAlert = UIAlertController(title: "Défi duo terminé", message: "Vous pouvez à présent voir les réponses et les corrections si disponibles et éventuellement mettre certaines questions de côté en les marquant à l'aide du drapeau." , preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             self.loadQuestion()
             self.performSegueWithIdentifier("showScore", sender: self)
@@ -758,7 +758,7 @@ class QuestionDuoViewController: UIViewController,
         let answerNumber = indexPath.row
         
         cell.selectionStyle = UITableViewCellSelectionStyle.None
-        cell.number.backgroundColor = colorUnanswered
+        cell.number.backgroundColor = Colors.unanswered
         cell.answer.scrollView.scrollEnabled = false
         cell.answer.userInteractionEnabled = false
         cell.answer.frame = CGRectMake(40, 0, self.view.bounds.width - 80, 40)
@@ -853,7 +853,7 @@ class QuestionDuoViewController: UIViewController,
                 if !self.didLoadInfos {
                     self.didLoadInfos = true
                     //we have just loaded the Infos webview
-                    self.infos.backgroundColor = colorGreyBackground
+                    self.infos.backgroundColor = Colors.greyBackground
                     self.greyMask.layer.zPosition = 0
                 }
             } else {

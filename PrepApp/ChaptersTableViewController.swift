@@ -20,21 +20,21 @@ class ChaptersTableViewController: UITableViewController {
     //app methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         self.title = "Chapitres"
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         self.loadChapters()
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreen
+        self.navigationController!.navigationBar.tintColor = Colors.greenLogo
 
         switch (self.subject!.name) {
         case "physique" :
-            self.color = colorPhy
+            self.color = Colors.phy
         case "chimie" :
-            self.color = colorChe
+            self.color = Colors.che
         case "biologie" :
-            self.color = colorBio
+            self.color = Colors.bio
         default :
             self.color = UIColor.clearColor()
         }
@@ -116,7 +116,7 @@ class ChaptersTableViewController: UITableViewController {
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button

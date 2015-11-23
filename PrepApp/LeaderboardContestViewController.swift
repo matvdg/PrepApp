@@ -16,9 +16,9 @@ class LeaderboardContestViewController: UITableViewController {
         super.viewDidLoad()
         //sync
         FactoryHistory.getHistory().sync()
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreen        
+        self.navigationController!.navigationBar.tintColor = Colors.greenLogo        
         self.title = self.leaderboard.name
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
@@ -32,7 +32,7 @@ class LeaderboardContestViewController: UITableViewController {
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button
@@ -57,21 +57,21 @@ class LeaderboardContestViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("contestPlayer", forIndexPath: indexPath)
         let contestPlayer = self.leaderboard.players[indexPath.row]
         cell.textLabel?.textColor = UIColor.blackColor()
-        cell.backgroundColor = colorGreyBackground
+        cell.backgroundColor = Colors.greyBackground
         cell.textLabel!.adjustsFontSizeToFitWidth = false
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
-        cell.backgroundColor = colorGreyBackground
+        cell.backgroundColor = Colors.greyBackground
         cell.detailTextLabel!.text = contestPlayer.points.toStringPoints()
         cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 16)
-        cell.detailTextLabel!.textColor = colorGreen
+        cell.detailTextLabel!.textColor = Colors.green
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.detailTextLabel!.adjustsFontSizeToFitWidth = true
-        cell.tintColor = colorGreen
+        cell.tintColor = Colors.green
         var textTodisplay = ""
         switch indexPath.row {
         case 0:
-            //cell.backgroundColor = colorAwardPoints
+            //cell.backgroundColor = Colors.awardPoints
             //cell.textLabel?.textColor = UIColor.whiteColor()
             //cell.detailTextLabel!.textColor = UIColor.whiteColor()
             cell.imageView?.image = UIImage(named: "goldcup")
@@ -98,7 +98,7 @@ class LeaderboardContestViewController: UITableViewController {
         cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 10)
         //TODO : ask Julien to send me ContestPlayer unique IDs to avoid potential confusing nickname matching
         if contestPlayer.nickname == User.currentUser!.nickname {
-            cell.backgroundColor = colorGreenLogo
+            cell.backgroundColor = Colors.greenLogo
             cell.detailTextLabel!.textColor = UIColor.whiteColor()
             cell.textLabel?.textColor = UIColor.whiteColor()
         }

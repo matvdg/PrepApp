@@ -36,7 +36,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
     override func viewDidLoad() {
         //sync
         FactoryHistory.getHistory().sync()
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshQuestion", name: "portrait", object: nil)
@@ -49,11 +49,11 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
         var color = UIColor()
         switch (self.currentSubject!.name) {
         case "physique" :
-            color = colorPhy
+            color = Colors.phy
         case "chimie" :
-            color = colorChe
+            color = Colors.che
         case "biologie" :
-            color = colorBio
+            color = Colors.bio
         default :
             color = UIColor.clearColor()
         }
@@ -62,7 +62,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
         let type = self.selectedIsTrainingQuestion! ? 0 : self.currentQuestion!.type
         if let _ = self.navigationController {
             self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-            self.navigationController!.navigationBar.tintColor = colorGreen
+            self.navigationController!.navigationBar.tintColor = Colors.greenLogo
         }
         self.title = "\(self.getModeByType(type))\(self.currentSubject!.name.capitalizedString)"
         //display the chapter
@@ -80,7 +80,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
         //applying grey mask
         let frame = CGRect(x: 0, y: 152, width: self.view.bounds.width, height: self.view.bounds.height-152)
         self.greyMask = UIView(frame: frame)
-        self.greyMask.backgroundColor = colorGreyBackground
+        self.greyMask.backgroundColor = Colors.greyBackground
         self.greyMask.layer.zPosition = 100
         self.view.addSubview(self.greyMask)
 
@@ -107,7 +107,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
         let y: CGFloat = UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation) ? 86 : 108
         let scrollFrame = CGRect(x: 0, y: y, width: self.view.bounds.width, height: self.view.bounds.height-y)
         self.scrollView = UIScrollView(frame: scrollFrame)
-        self.scrollView.backgroundColor = colorGreyBackground
+        self.scrollView.backgroundColor = Colors.greyBackground
         self.scrollView.addSubview(self.wording)
         self.view.addSubview(self.scrollView)
     }
@@ -128,7 +128,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
         self.submitButton.hidden = false
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
-        self.submitButton.backgroundColor = colorGreen
+        self.submitButton.backgroundColor = Colors.green
         self.submitButton.removeFromSuperview()
         self.infos.removeFromSuperview()
         self.wording.removeFromSuperview()
@@ -156,7 +156,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
         self.greyMask.removeFromSuperview()
         let frame = CGRect(x: 0, y: 152, width: self.view.bounds.width, height: self.view.bounds.height)
         self.greyMask = UIView(frame: frame)
-        self.greyMask.backgroundColor = colorGreyBackground
+        self.greyMask.backgroundColor = Colors.greyBackground
         self.greyMask.layer.zPosition = 100
         self.view.addSubview(self.greyMask)
         self.cleanView()
@@ -194,7 +194,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
         for answer in self.goodAnswers {
             let indexPath = NSIndexPath(forRow: answer, inSection: 0)
             let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
-            cell.number.backgroundColor = colorRightAnswer
+            cell.number.backgroundColor = Colors.rightAnswer
             //green
         }
         //displaying the correction button IF AVAILABLE
@@ -203,7 +203,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
             self.submitButton.layer.cornerRadius = 6
             self.submitButton.titleLabel?.font = UIFont(name: "Segoe UI", size: 15)
             self.submitButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-            self.submitButton.backgroundColor = colorGreen
+            self.submitButton.backgroundColor = Colors.green
             self.submitButton.setTitle("Correction", forState: UIControlState.Normal)
             self.scrollView.addSubview(self.submitButton)
             self.submitButton.addTarget(self, action: "showCorrection", forControlEvents: UIControlEvents.TouchUpInside)
@@ -214,7 +214,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
         //show the correction sheet
         self.submitButton.frame.size.width = 100
         self.submitButton.frame.size.height = 40
-        self.submitButton.backgroundColor = colorGreen
+        self.submitButton.backgroundColor = Colors.green
         Sound.playPage()
         self.performSegueWithIdentifier("showCorrection", sender: self)
     }
@@ -227,7 +227,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button
@@ -255,7 +255,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
         let answerNumber = indexPath.row
         
         cell.selectionStyle = UITableViewCellSelectionStyle.None
-        cell.number.backgroundColor = colorUnanswered
+        cell.number.backgroundColor = Colors.unanswered
         cell.answer.scrollView.scrollEnabled = false
         cell.answer.userInteractionEnabled = false
         cell.answer.frame = CGRectMake(40, 0, self.view.bounds.width - 80, 40)
@@ -330,7 +330,7 @@ class PreviewQuestionViewController: UIViewController, UITableViewDataSource, UI
                 if !self.didLoadInfos {
                     self.didLoadInfos = true
                     //we have just loaded the Infos webview
-                    self.infos.backgroundColor = colorGreyBackground
+                    self.infos.backgroundColor = Colors.greyBackground
                     self.greyMask.layer.zPosition = 0
                 }
             } else {

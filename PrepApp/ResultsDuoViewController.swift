@@ -39,7 +39,7 @@ class ResultsDuoViewController: UIViewController {
     //@IBAction
     @IBAction func dismiss(sender: AnyObject) {
         let myAlert = UIAlertController(title: "Voulez-vous vraiment quitter ?", message: "Cette page ne pourra plus être consultée", preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add buttons
         myAlert.addAction(UIAlertAction(title: "NON", style: UIAlertActionStyle.Cancel, handler: nil))
         myAlert.addAction(UIAlertAction(title: "OUI", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
@@ -64,30 +64,30 @@ class ResultsDuoViewController: UIViewController {
         self.resultDuo = self.resultsDuo![0]
         //sync
         FactoryHistory.getHistory().sync()
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         self.loadData()
         self.designButtonDismiss.layer.cornerRadius = 6
         self.designScore()
         self.titleLabel.text = "Résultat du défi duo n°\(self.resultDuo!.idDuo)"
         self.titleLabel.textColor = UIColor.blackColor()
-        self.titleBar.backgroundColor = colorGreenLogo
+        self.titleBar.backgroundColor = Colors.greenLogo
     }
     
     //methods
     private func designScore() {
         self.greenRoundA.layer.cornerRadius = self.greenRoundA.layer.bounds.width / 2
         self.greenRoundA.backgroundColor = UIColor.whiteColor()
-        self.greenRoundA.layer.borderColor = colorGreenLogo.CGColor
+        self.greenRoundA.layer.borderColor = Colors.greenLogo.CGColor
         self.greenRoundA.layer.borderWidth = 6
         self.greenRoundA.layer.masksToBounds = true
         self.greenRoundB.layer.cornerRadius = self.greenRoundB.layer.bounds.width / 2
         self.greenRoundB.backgroundColor = UIColor.whiteColor()
-        self.greenRoundB.layer.borderColor = colorGreenLogo.CGColor
+        self.greenRoundB.layer.borderColor = Colors.greenLogo.CGColor
         self.greenRoundB.layer.borderWidth = 6
         self.greenRoundB.layer.masksToBounds = true
-        self.scoreA.textColor = colorWrongAnswer
+        self.scoreA.textColor = Colors.wrongAnswer
         self.scoreA.text = "\(self.animationScoreA)"
-        self.scoreB.textColor = colorWrongAnswer
+        self.scoreB.textColor = Colors.wrongAnswer
         self.scoreB.text = "\(self.animationScoreB)"
         self.scoreTimerA = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("animateScoreA"), userInfo: nil, repeats: true)
         self.scoreTimerB = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("animateScoreB"), userInfo: nil, repeats: true)
@@ -97,17 +97,17 @@ class ResultsDuoViewController: UIViewController {
         if self.animationScoreA != self.scorePlayerA {
             self.scoreA.text = "\(self.animationScoreA)"
             if self.animationScoreA < 10 {
-                self.scoreA.textColor = colorWrongAnswer
+                self.scoreA.textColor = Colors.wrongAnswer
             } else {
-                self.scoreA.textColor = colorGreenLogo
+                self.scoreA.textColor = Colors.greenLogo
             }
             self.animationScoreA++
         } else {
             self.scoreA.text = "\(self.animationScoreA)"
             if self.animationScoreA < 10 {
-                self.scoreA.textColor = colorWrongAnswer
+                self.scoreA.textColor = Colors.wrongAnswer
             } else {
-                self.scoreA.textColor = colorGreenLogo
+                self.scoreA.textColor = Colors.greenLogo
             }
             self.animationScoreA = 0
             self.scoreTimerA.invalidate()
@@ -118,17 +118,17 @@ class ResultsDuoViewController: UIViewController {
         if self.animationScoreB != self.scorePlayerB {
             self.scoreB.text = "\(self.animationScoreB)"
             if self.animationScoreB < 10 {
-                self.scoreB.textColor = colorWrongAnswer
+                self.scoreB.textColor = Colors.wrongAnswer
             } else {
-                self.scoreB.textColor = colorGreenLogo
+                self.scoreB.textColor = Colors.greenLogo
             }
             self.animationScoreB++
         } else {
             self.scoreB.text = "\(self.animationScoreB)"
             if self.animationScoreB < 10 {
-                self.scoreB.textColor = colorWrongAnswer
+                self.scoreB.textColor = Colors.wrongAnswer
             } else {
-                self.scoreB.textColor = colorGreenLogo
+                self.scoreB.textColor = Colors.greenLogo
             }
             self.animationScoreB = 0
             self.scoreTimerB.invalidate()
@@ -183,8 +183,8 @@ class ResultsDuoViewController: UIViewController {
                 self.animateAwardPoint()
                 self.playerA.text! += " - Égalité"
                 self.playerB.text! += " - Égalité"
-                self.playerA.textColor = colorAwardPoints
-                self.playerB.textColor = colorAwardPoints
+                self.playerA.textColor = Colors.awardPoints
+                self.playerB.textColor = Colors.awardPoints
                 self.bonusA.text = self.awardPoints.toStringPoints()
                 self.bonusB.text = self.awardPoints.toStringPoints()
             } else {
@@ -195,8 +195,8 @@ class ResultsDuoViewController: UIViewController {
                     self.animateAwardPoint()
                     self.playerA.text! += " - Gagnant"
                     self.playerB.text! += " - Perdant"
-                    self.playerA.textColor = colorGreen
-                    self.playerB.textColor = colorWrongAnswer
+                    self.playerA.textColor = Colors.green
+                    self.playerB.textColor = Colors.wrongAnswer
                     self.bonusA.text = self.awardPoints.toStringPoints()
                     self.bonusB.text = "0pt"
 
@@ -206,8 +206,8 @@ class ResultsDuoViewController: UIViewController {
                     self.awardPoints = 0
                     self.playerA.text! += " - Perdant"
                     self.playerB.text! += " - Gagnant"
-                    self.playerA.textColor = colorWrongAnswer
-                    self.playerB.textColor = colorGreen
+                    self.playerA.textColor = Colors.wrongAnswer
+                    self.playerB.textColor = Colors.green
                     self.bonusA.text = self.awardPoints.toStringPoints()
                     self.bonusB.text = "10pts"
                 }
@@ -221,8 +221,8 @@ class ResultsDuoViewController: UIViewController {
                 self.animateAwardPoint()
                 self.playerA.text! += " - Égalité"
                 self.playerB.text! += " - Égalité"
-                self.playerA.textColor = colorAwardPoints
-                self.playerB.textColor = colorAwardPoints
+                self.playerA.textColor = Colors.awardPoints
+                self.playerB.textColor = Colors.awardPoints
                 self.bonusA.text = self.awardPoints.toStringPoints()
                 self.bonusB.text = self.awardPoints.toStringPoints()
             } else {
@@ -233,8 +233,8 @@ class ResultsDuoViewController: UIViewController {
                     self.animateAwardPoint()
                     self.playerB.text! += " - Gagnant"
                     self.playerA.text! += " - Perdant"
-                    self.playerB.textColor = colorGreen
-                    self.playerA.textColor = colorWrongAnswer
+                    self.playerB.textColor = Colors.green
+                    self.playerA.textColor = Colors.wrongAnswer
                     self.bonusB.text = self.awardPoints.toStringPoints()
                     self.bonusA.text = "0pt"
                     
@@ -244,8 +244,8 @@ class ResultsDuoViewController: UIViewController {
                     self.awardPoints = 0
                     self.playerB.text! += " - Perdant"
                     self.playerA.text! += " - Gagnant"
-                    self.playerB.textColor = colorWrongAnswer
-                    self.playerA.textColor = colorGreen
+                    self.playerB.textColor = Colors.wrongAnswer
+                    self.playerA.textColor = Colors.green
                     self.bonusB.text = self.awardPoints.toStringPoints()
                     self.bonusA.text = "10pts"
                 }

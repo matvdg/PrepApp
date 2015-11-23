@@ -55,9 +55,9 @@ class TrainingViewController: UIViewController {
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreen
+        self.navigationController!.navigationBar.tintColor = Colors.greenLogo
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         if self.revealViewController() != nil {
@@ -69,9 +69,9 @@ class TrainingViewController: UIViewController {
             self.menuButton.target = self
             self.menuButton.action = "dismiss"
         }
-        self.bioButton.backgroundColor = colorBio
-        self.phyButton.backgroundColor = colorPhy
-        self.chiButton.backgroundColor = colorChe
+        self.bioButton.backgroundColor = Colors.bio
+        self.phyButton.backgroundColor = Colors.phy
+        self.chiButton.backgroundColor = Colors.che
     }
     
     func dismiss() {
@@ -86,7 +86,7 @@ class TrainingViewController: UIViewController {
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button

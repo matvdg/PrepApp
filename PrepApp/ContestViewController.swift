@@ -28,7 +28,7 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.loadData()
         //sync
         FactoryHistory.getHistory().sync()
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         self.contestContent.backgroundColor = UIColor.clearColor()
         self.contestContent.opaque = false
         self.launchButton.layer.cornerRadius = 6
@@ -36,7 +36,7 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreen
+        self.navigationController!.navigationBar.tintColor = Colors.greenLogo
         self.title = self.contest.name
 	}
     
@@ -57,7 +57,7 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button
@@ -73,7 +73,7 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
     func loadData() {
         //formatting date
         let formatter = NSDateFormatter()
-        formatter.dateFormat = "d/M/yy"
+        formatter.dateFormat = "d/M/yyyy"
         let begin = formatter.stringFromDate(self.contest.begin)
         let end = formatter.stringFromDate(self.contest.end)
         //adding contest details to the table
@@ -101,7 +101,7 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
                 //no results to display
                 self.launchButton.enabled = false
                 self.launchButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Disabled)
-                self.launchButton.backgroundColor = colorDarkGrey
+                self.launchButton.backgroundColor = Colors.darkGrey
                 self.launchButton.setTitle("Concours terminé", forState: UIControlState.Disabled)
             }
         }
@@ -114,7 +114,7 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
         } else {
             // create alert controller
             let myAlert = UIAlertController(title: "Lancer le concours ?", message: "Vous devez disposer de \(self.contest.duration) minutes devant vous. Attention ! Vous devrez disposer d'une connexion internet pour envoyer vos résultats.", preferredStyle: UIAlertControllerStyle.Alert)
-            myAlert.view.tintColor = colorGreen
+            myAlert.view.tintColor = Colors.green
             // add buttons
             myAlert.addAction(UIAlertAction(title: "NON", style: UIAlertActionStyle.Cancel, handler: nil))
             myAlert.addAction(UIAlertAction(title: "OUI", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
@@ -137,14 +137,14 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.textLabel?.textColor = UIColor.blackColor()
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 18)
         cell.textLabel!.text = self.elements[indexPath.row]
-        cell.backgroundColor = colorGreyBackground
+        cell.backgroundColor = Colors.greyBackground
         cell.detailTextLabel!.text = self.details![indexPath.row]
         cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 18)
-        cell.detailTextLabel!.textColor = colorGreen
+        cell.detailTextLabel!.textColor = Colors.green
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.detailTextLabel!.adjustsFontSizeToFitWidth = true
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 12)
-        cell.tintColor = colorGreen
+        cell.tintColor = Colors.green
         return cell
     }
     

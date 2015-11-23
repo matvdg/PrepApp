@@ -71,7 +71,7 @@ class HelpViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreen
+        self.navigationController!.navigationBar.tintColor = Colors.greenLogo
         self.title = "Aide"
         if self.revealViewController() != nil {
             self.menuButton.target = self.revealViewController()
@@ -80,7 +80,7 @@ class HelpViewController: UIViewController {
         }
         //sync
         FactoryHistory.getHistory().sync()
-        self.view!.backgroundColor = colorGreyBackground
+        self.view!.backgroundColor = Colors.greyBackground
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         //handling swipe gestures
@@ -94,10 +94,10 @@ class HelpViewController: UIViewController {
         self.displayHelp()
         //designing...
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
-        self.navigationController!.navigationBar.tintColor = colorGreen
+        self.navigationController!.navigationBar.tintColor = Colors.greenLogo
         self.roundCircle.layer.cornerRadius = 50
         self.roundCircle.backgroundColor = UIColor.clearColor()
-        self.roundCircle.layer.borderColor = colorGreenLogo.CGColor
+        self.roundCircle.layer.borderColor = Colors.greenLogo.CGColor
         self.roundCircle.layer.borderWidth = 3.0
 
     }
@@ -115,7 +115,7 @@ class HelpViewController: UIViewController {
     func update() {
         // create alert controller
         let myAlert = UIAlertController(title: "Une mise à jour des questions est disponible", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "later" button
         myAlert.addAction(UIAlertAction(title: "Plus tard", style: UIAlertActionStyle.Cancel, handler: nil))
         // add "update" button

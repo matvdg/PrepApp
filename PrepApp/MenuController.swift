@@ -11,28 +11,28 @@ class MenuController: UITableViewController {
         self.revealViewController().rearViewRevealWidth = 220
         let name = "\(User.currentUser!.firstName) \(User.currentUser!.lastName)"
         self.name.text = name
-        self.menu.backgroundColor = colorDarkGrey
-        self.topCell.backgroundColor = colorDarkGrey
-        self.homeCell.backgroundColor = colorDarkGrey
-        self.separatorA.backgroundColor = colorDarkGrey
-        self.trainingCell.backgroundColor = colorDarkGrey
-        self.soloCell.backgroundColor = colorDarkGrey
-        self.duoCell.backgroundColor = colorDarkGrey
-        self.contestCell.backgroundColor = colorDarkGrey
-        self.separatorB.backgroundColor = colorDarkGrey
-        self.statsCell.backgroundColor = colorDarkGrey
-        self.markedCell.backgroundColor = colorDarkGrey
-        self.leaderboardCell.backgroundColor = colorDarkGrey
-        self.feedbackCell.backgroundColor = colorDarkGrey
-        self.separatorC.backgroundColor = colorDarkGrey
-        self.logoutCell.backgroundColor = colorDarkGrey
+        self.menu.backgroundColor = Colors.darkGrey
+        self.topCell.backgroundColor = Colors.darkGrey
+        self.homeCell.backgroundColor = Colors.darkGrey
+        self.separatorA.backgroundColor = Colors.darkGrey
+        self.trainingCell.backgroundColor = Colors.darkGrey
+        self.soloCell.backgroundColor = Colors.darkGrey
+        self.duoCell.backgroundColor = Colors.darkGrey
+        self.contestCell.backgroundColor = Colors.darkGrey
+        self.separatorB.backgroundColor = Colors.darkGrey
+        self.statsCell.backgroundColor = Colors.darkGrey
+        self.markedCell.backgroundColor = Colors.darkGrey
+        self.leaderboardCell.backgroundColor = Colors.darkGrey
+        self.feedbackCell.backgroundColor = Colors.darkGrey
+        self.separatorC.backgroundColor = Colors.darkGrey
+        self.logoutCell.backgroundColor = Colors.darkGrey
     }
     
     //@IBAction
     @IBAction func logout(sender: AnyObject) {
         // create alert controller
         let myAlert = UIAlertController(title: "Déconnexion", message: "Voulez-vous vraiment vous déconnecter ?", preferredStyle: UIAlertControllerStyle.Alert)
-        myAlert.view.tintColor = colorGreen
+        myAlert.view.tintColor = Colors.green
         // add "OK" button
         myAlert.addAction(UIAlertAction(title: "OUI", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
             SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
@@ -80,7 +80,7 @@ class MenuController: UITableViewController {
                         FactoryRealm.clearUserDB()
                     } else {
                         let myAlert = UIAlertController(title: "Erreur de connexion", message: "Prep'App n'a pas pu sauvegarder vos données sur le cloud, cette opération est nécessaire avant la déconnexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
-                        myAlert.view.tintColor = colorGreen
+                        myAlert.view.tintColor = Colors.green
                         // add "OK" button
                         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                         // show the alert
@@ -89,7 +89,7 @@ class MenuController: UITableViewController {
                 })
             } else {
                 let myAlert = UIAlertController(title: "Erreur de connexion", message: "Prep'App n'a pas pu sauvegarder vos données sur le cloud, cette opération est nécessaire avant la déconnexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = colorGreen
+                myAlert.view.tintColor = Colors.green
                 // add "OK" button
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 // show the alert
