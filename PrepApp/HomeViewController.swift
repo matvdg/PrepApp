@@ -192,6 +192,16 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
             FactorySync.getConfigManager().saveCurrentDay(currentDay)
             self.displayNotification(self.getWelcomeMessage())
         }
+        
+        let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
+        let notification = UILocalNotification()
+        notification.fireDate = NSDate(timeIntervalSinceNow: 5)
+        notification.alertBody = "Hey you! Yeah you! Swipe to unlock!"
+        notification.alertAction = "be awesome!"
+        notification.soundName = UILocalNotificationDefaultSoundName
+        notification.userInfo = ["CustomField1": "w00t"]
+        UIApplication.sharedApplication().scheduleLocalNotification(notification)
     }
     
     func logout() {
