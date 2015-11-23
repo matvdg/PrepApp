@@ -105,14 +105,14 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         let animation = CABasicAnimation(keyPath: "transform.rotation.y")
         animation.fromValue = 0
         animation.toValue = NSNumber(float: Float(M_PI)/2)
-        animation.duration = 1
+        animation.duration = 0.5
         animation.repeatCount = 0
         animation.autoreverses = true
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
         animation.fillMode = kCAFillModeForwards
         animation.removedOnCompletion = false
         self.badge.layer.addAnimation(animation, forKey: nil)
-        UIView.animateWithDuration(2) { () -> Void in
+        UIView.animateWithDuration(1) { () -> Void in
             self.badge.backgroundColor = Colors.badges[User.currentUser!.color]
             self.badgeColor = Colors.badges[User.currentUser!.color]
         }
