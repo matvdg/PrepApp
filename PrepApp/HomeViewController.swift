@@ -197,10 +197,9 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
         let notification = UILocalNotification()
         notification.fireDate = NSDate(timeIntervalSinceNow: 5)
-        notification.alertBody = "Hey you! Yeah you! Swipe to unlock!"
-        notification.alertAction = "be awesome!"
+        notification.alertBody = "Préparez-vous à réussir!"
+        notification.alertAction = "démarrer Prep'App Kiné !"
         notification.soundName = UILocalNotificationDefaultSoundName
-        notification.userInfo = ["CustomField1": "w00t"]
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
     }
     
