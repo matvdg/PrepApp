@@ -190,9 +190,8 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         let currentDay = components.day
         if  FactorySync.getConfigManager().loadCurrentDay() != currentDay {
             FactorySync.getConfigManager().saveCurrentDay(currentDay)
-            self.displayNotification(self.loadHelloMessage())
+            self.displayNotification(self.getWelcomeMessage())
         }
-
     }
     
     func logout() {
@@ -269,7 +268,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         }
     }
     
-    func loadHelloMessage() -> String {
+    func getWelcomeMessage() -> String {
         if UserPreferences.welcome {
             UserPreferences.welcome = false
             UserPreferences.saveUserPreferences()
@@ -347,7 +346,6 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
             switch swipeGesture.direction {
             case UISwipeGestureRecognizerDirection.Left:
                 self.hidePieCharts(true)
-                self.notification.removeFromSuperview()
                 self.performSegueWithIdentifier("showNews", sender: self)
             default:
                 print("other")
