@@ -198,7 +198,6 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         let notification = UILocalNotification()
         notification.fireDate = NSDate(timeIntervalSinceNow: 5)
         notification.alertBody = "Préparez-vous à réussir!"
-        notification.alertAction = "démarrer Prep'App Kiné !"
         notification.soundName = UILocalNotificationDefaultSoundName
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
     }
