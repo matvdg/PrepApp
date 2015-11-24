@@ -147,14 +147,6 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         }
         //sync
         FactoryHistory.getHistory().sync()
-        //rendering
-        self.view!.backgroundColor = Colors.greyBackground
-        self.bioPieChart.noDataText = ""
-        self.bioPieChart.noDataTextDescription = ""
-        self.chePieChart.noDataText = ""
-        self.chePieChart.noDataTextDescription = ""
-        self.phyPieChart.noDataText = ""
-        self.phyPieChart.noDataTextDescription = ""
         //retrieving data
         self.renderLevel()
         self.retrieveData()
@@ -175,6 +167,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         self.legend.layer.zPosition = 0
         self.noDataLabel.layer.zPosition = 8
         //other customization
+        self.view!.backgroundColor = Colors.greyBackground
         self.legend.text = "Inclinez en mode paysage pour voir votre graphe performance. Glissez à droite pour voir le fil d'actualités Prep'App."
         self.stats.hidden = true
         self.view.backgroundColor = Colors.greyBackground
@@ -190,7 +183,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         let currentDay = components.day
         if  FactorySync.getConfigManager().loadCurrentDay() != currentDay {
             FactorySync.getConfigManager().saveCurrentDay(currentDay)
-            self.displayNotification(self.getWelcomeMessage())
+            self.displayNotification(self.getWelcomeMessage(), refreshGraph: false)
         }
         
         let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
@@ -365,6 +358,8 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         
         //pie settings
         self.bioPieChart.delegate = self
+        self.bioPieChart.noDataText = ""
+        self.bioPieChart.noDataTextDescription = ""
         self.bioPieChart.backgroundColor = UIColor.clearColor()
         self.bioPieChart.usePercentValuesEnabled = false
         self.bioPieChart.holeTransparent = true
@@ -394,6 +389,8 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
     func renderPhysicsPieChart(){
         //pie settings
         self.phyPieChart.delegate = self
+        self.phyPieChart.noDataText = ""
+        self.phyPieChart.noDataTextDescription = ""
         self.phyPieChart.backgroundColor = UIColor.clearColor()
         self.phyPieChart.usePercentValuesEnabled = true
         self.phyPieChart.holeTransparent = true
@@ -422,6 +419,8 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
     func renderChemistryPieChart(){
         //pie settings
         self.chePieChart.delegate = self
+        self.chePieChart.noDataText = ""
+        self.chePieChart.noDataTextDescription = ""
         self.chePieChart.backgroundColor = UIColor.clearColor()
         self.chePieChart.usePercentValuesEnabled = true
         self.chePieChart.holeTransparent = true
@@ -461,11 +460,11 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
     }
     
     func renderPieCharts() {
+        self.hidePieCharts(true)
         self.renderLevel()
         self.renderChemistryPieChart()
         self.renderPhysicsPieChart()
         self.renderBiologyPieChart()
-        self.hidePieCharts(false)
         self.animatePieCharts()
     }
     
@@ -705,7 +704,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
             //everything at 100%, one level up!
             var win = ["Le travail est la clef du succès !","Félicitations ! Vous avez gagné un niveau !","Le succès naît de la persévérance.","L'obstination est le chemin de la réussite !","Un travail constant vient à bout de tout.","Le mérite résulte de la persévérance.","La persévérance est la mère des succès.","La persévérance fait surmonter bien des obstacles."]
             win.shuffle()
-            self.displayNotification(win[0])
+            self.displayNotification(win[0], refreshGraph: true)
             User.currentUser!.level = User.currentUser!.level + 1
             User.currentUser!.saveUser()
             User.currentUser!.updateLevel(User.currentUser!.level)
@@ -735,7 +734,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         self.chePieChart.hidden = bool
     }
     
-    func displayNotification(text: String) {
+    func displayNotification(text: String, refreshGraph: Bool) {
         self.notification = UILabel(frame: CGRectMake(0, 0, self.view!.frame.width, 50))
         self.notification.text = text
         self.notification.backgroundColor = Colors.green
@@ -754,6 +753,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
                     self.notification.alpha = 0
                     }) { (success) -> Void in
                         self.notification.removeFromSuperview()
+                        if refreshGraph {self.renderPieCharts()}
                 }
         }
     }

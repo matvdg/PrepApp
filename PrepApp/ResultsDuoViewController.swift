@@ -35,6 +35,9 @@ class ResultsDuoViewController: UIViewController {
     @IBOutlet weak var bonusB: UILabel!
     @IBOutlet weak var designButtonDismiss: UIButton!
     @IBOutlet weak var awardPointImage: UIImageView!
+    @IBOutlet weak var badge: UILabel!
+    @IBOutlet weak var backgroundA: UILabel!
+    @IBOutlet weak var backgroundB: UILabel!
     
     //@IBAction
     @IBAction func dismiss(sender: AnyObject) {
@@ -66,15 +69,20 @@ class ResultsDuoViewController: UIViewController {
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = Colors.greyBackground
         self.loadData()
-        self.designButtonDismiss.layer.cornerRadius = 6
         self.designScore()
-        self.titleLabel.text = "Résultat du défi duo n°\(self.resultDuo!.idDuo)"
-        self.titleLabel.textColor = UIColor.blackColor()
-        self.titleBar.backgroundColor = Colors.greenLogo
     }
     
     //methods
     private func designScore() {
+        
+        self.titleLabel.text = "Résultat du défi duo n°\(self.resultDuo!.idDuo)"
+        self.titleLabel.textColor = UIColor.blackColor()
+        self.titleBar.backgroundColor = Colors.greenLogo
+        self.designButtonDismiss.layer.cornerRadius = 6
+        self.badge.layer.cornerRadius = 6
+        self.badge.layer.masksToBounds = true
+        self.badge.layer.borderWidth = 2
+        self.badge.layer.borderColor = Colors.greenLogo.CGColor
         self.greenRoundA.layer.cornerRadius = self.greenRoundA.layer.bounds.width / 2
         self.greenRoundA.backgroundColor = UIColor.whiteColor()
         self.greenRoundA.layer.borderColor = Colors.greenLogo.CGColor
