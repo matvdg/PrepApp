@@ -346,7 +346,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
             switch swipeGesture.direction {
             case UISwipeGestureRecognizerDirection.Left:
-                self.hidePieCharts(true)
+                //self.hidePieCharts(true)
                 self.performSegueWithIdentifier("showNews", sender: self)
             default:
                 print("other")
@@ -459,9 +459,26 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         self.levelButton.layer.cornerRadius = self.levelButton.frame.width / 2
     }
     
+    func animateLevel() {
+        // Create CAAnimation
+        let animation = CABasicAnimation(keyPath: "transform.rotation.y")
+        animation.fromValue = 0
+        animation.toValue = NSNumber(float: Float(M_PI)/2)
+        animation.duration = 0.5
+        animation.repeatCount = 0
+        animation.autoreverses = true
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        
+        animation.fillMode = kCAFillModeForwards
+        animation.removedOnCompletion = false
+        self.levelButton.layer.addAnimation(animation, forKey: nil)
+        UIView.animateWithDuration(0.5) { () -> Void in
+            self.levelButton.setTitle(User.currentUser!.level.levelPrepApp(), forState: .Normal)
+        }
+    }
+    
     func renderPieCharts() {
         self.hidePieCharts(true)
-        self.renderLevel()
         self.renderChemistryPieChart()
         self.renderPhysicsPieChart()
         self.renderBiologyPieChart()
@@ -753,7 +770,10 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
                     self.notification.alpha = 0
                     }) { (success) -> Void in
                         self.notification.removeFromSuperview()
-                        if refreshGraph {self.renderPieCharts()}
+                        if refreshGraph {
+                            self.renderPieCharts()
+                            self.animateLevel()
+                        }
                 }
         }
     }
