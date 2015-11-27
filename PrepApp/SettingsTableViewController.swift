@@ -11,7 +11,7 @@ import LocalAuthentication
 
 class SettingsTableViewController: UITableViewController {
     
-    var settings = ["Modifier votre pseudo", "Modifier votre mot de passe", "Bruitages", "Touch ID"]
+    var settings = ["Modifier votre pseudo", "Modifier votre mot de passe", "Bruitages", "Touch ID", "Notifications"]
     
     var nickname = UITextField()
     var password = UITextField()
@@ -21,6 +21,8 @@ class SettingsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         self.view!.backgroundColor = Colors.greyBackground
+        self.tableView!.backgroundColor = Colors.greyBackground
+        self.tableView!.tintColor = Colors.greenLogo
         super.viewDidLoad()
         self.loadSettings()
         //sync
@@ -61,19 +63,26 @@ class SettingsTableViewController: UITableViewController {
             case "Modifier votre pseudo":
                 cell.switcher.hidden = true
                 cell.tintColor = Colors.green
-                cell.accessoryView = UIImageView(image: UIImage(named: "identity"))
+                cell.imageView!.image = UIImage(named: "identity")
             case "Modifier votre mot de passe":
                 cell.switcher.hidden = true
                 cell.tintColor = Colors.green
-                cell.accessoryView = UIImageView(image: UIImage(named: "lock"))
+                cell.imageView!.image = UIImage(named: "lock")
             case "Touch ID":
                 cell.switcher.setOn(UserPreferences.touchId, animated: true)
                 cell.accessoryType = UITableViewCellAccessoryType.None
+                cell.imageView!.image = UIImage(named: "touchID")
                 cell.switcher.addTarget(self, action: "touchIDSwitch", forControlEvents: UIControlEvents.TouchUpInside)
             case "Bruitages":
                 cell.switcher.setOn(UserPreferences.sounds, animated: true)
+                cell.imageView!.image = UIImage(named: "sounds")
                 cell.accessoryType = UITableViewCellAccessoryType.None
                 cell.switcher.addTarget(self, action: "soundSwitch", forControlEvents: UIControlEvents.TouchUpInside)
+            case "Notifications":
+                cell.switcher.setOn(UserPreferences.notifications, animated: true)
+                cell.imageView!.image = UIImage(named: "notifications")
+                cell.accessoryType = UITableViewCellAccessoryType.None
+                cell.switcher.addTarget(self, action: "notificationsSwitch", forControlEvents: UIControlEvents.TouchUpInside)
 
             default:
                 print("error")
@@ -251,7 +260,7 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     
-    //Touch ID Methods
+    //Touch ID Method
     func touchIDSwitch() {
         let cell = self.tableView!.cellForRowAtIndexPath(NSIndexPath(forRow: self.settings.indexOf("Touch ID")!, inSection: 0)) as! UITableViewCellSetting
         if cell.switcher!.on {
@@ -279,7 +288,7 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     
-    //Sounds Methods
+    //Sounds Method
     func soundSwitch() {
         let cell = self.tableView!.cellForRowAtIndexPath(NSIndexPath(forRow: self.settings.indexOf("Bruitages")!, inSection: 0)) as! UITableViewCellSetting
         if cell.switcher!.on {
@@ -287,6 +296,20 @@ class SettingsTableViewController: UITableViewController {
             UserPreferences.saveUserPreferences()
             Sound.playTrack("notif")
         } else {
+            UserPreferences.sounds = false
+            UserPreferences.saveUserPreferences()
+        }
+    }
+    
+    //Notifications Method
+    func notificationsSwitch() {
+        let cell = self.tableView!.cellForRowAtIndexPath(NSIndexPath(forRow: self.settings.indexOf("Notifications")!, inSection: 0)) as! UITableViewCellSetting
+        if cell.switcher!.on {
+            UIApplication.sharedApplication().registerForRemoteNotifications()
+            UserPreferences.notifications = true
+            UserPreferences.saveUserPreferences()
+        } else {
+            UIApplication.sharedApplication().unregisterForRemoteNotifications()
             UserPreferences.sounds = false
             UserPreferences.saveUserPreferences()
         }
