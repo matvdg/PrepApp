@@ -23,7 +23,7 @@ class CommentViewController: UIViewController, UITextViewDelegate {
     @IBAction func send(sender: AnyObject) {
         if !self.messageSent {
             SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-            SwiftSpinner.show("Envoi en cours...")
+            SwiftSpinner.show("")
             if self.comment.text == "Taper votre commentaire ici :" || self.comment.text == "" {
                 SwiftSpinner.hide()
                 // create alert controller

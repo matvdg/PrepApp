@@ -22,7 +22,7 @@ class LeaderboardTableViewController: UITableViewController  {
         self.pullToRefresh.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView?.addSubview(pullToRefresh)
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-        SwiftSpinner.show("Mise à jour du classement...")
+        SwiftSpinner.show("")
         //sync
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = Colors.greyBackground

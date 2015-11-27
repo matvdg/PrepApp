@@ -167,6 +167,12 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         self.legend.layer.zPosition = 0
         self.noDataLabel.layer.zPosition = 8
         //other customization
+        self.bioPieChart.noDataText = ""
+        self.bioPieChart.noDataTextDescription = ""
+        self.phyPieChart.noDataText = ""
+        self.phyPieChart.noDataTextDescription = ""
+        self.chePieChart.noDataText = ""
+        self.chePieChart.noDataTextDescription = ""
         self.view!.backgroundColor = Colors.greyBackground
         self.legend.text = "Inclinez en mode paysage pour voir votre graphe performance. Glissez à droite pour voir le fil d'actualités Prep'App."
         self.stats.hidden = true
@@ -358,8 +364,6 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         
         //pie settings
         self.bioPieChart.delegate = self
-        self.bioPieChart.noDataText = ""
-        self.bioPieChart.noDataTextDescription = ""
         self.bioPieChart.backgroundColor = UIColor.clearColor()
         self.bioPieChart.usePercentValuesEnabled = false
         self.bioPieChart.holeTransparent = true
@@ -389,8 +393,6 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
     func renderPhysicsPieChart(){
         //pie settings
         self.phyPieChart.delegate = self
-        self.phyPieChart.noDataText = ""
-        self.phyPieChart.noDataTextDescription = ""
         self.phyPieChart.backgroundColor = UIColor.clearColor()
         self.phyPieChart.usePercentValuesEnabled = true
         self.phyPieChart.holeTransparent = true
@@ -419,8 +421,6 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
     func renderChemistryPieChart(){
         //pie settings
         self.chePieChart.delegate = self
-        self.chePieChart.noDataText = ""
-        self.chePieChart.noDataTextDescription = ""
         self.chePieChart.backgroundColor = UIColor.clearColor()
         self.chePieChart.usePercentValuesEnabled = true
         self.chePieChart.holeTransparent = true
@@ -468,7 +468,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         animation.repeatCount = 0
         animation.autoreverses = true
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-        
+        Sound.playTrack("levelup")
         animation.fillMode = kCAFillModeForwards
         animation.removedOnCompletion = false
         self.levelButton.layer.addAnimation(animation, forKey: nil)

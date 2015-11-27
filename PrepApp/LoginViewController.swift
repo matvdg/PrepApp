@@ -125,7 +125,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.resignFirstResponder()
         self.view.endEditing(true)
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-        SwiftSpinner.show("Connexion...")
+        SwiftSpinner.show("")
         self.connect()
 	}
     

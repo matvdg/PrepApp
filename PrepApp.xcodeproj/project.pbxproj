@@ -73,7 +73,6 @@
 		F6AAE6EE1AF433E100195E11 /* PrepAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AAE6ED1AF433E100195E11 /* PrepAppTests.swift */; };
 		F6AC7B4D1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AC7B4C1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift */; };
 		F6B0E3A51BF551E100FEB3D0 /* ContestLeaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B0E3A41BF551E100FEB3D0 /* ContestLeaderboard.swift */; };
-		F6B0E3A71BF5522800FEB3D0 /* ContestPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B0E3A61BF5522800FEB3D0 /* ContestPlayer.swift */; };
 		F6B0E3A91BF557A200FEB3D0 /* LeaderboardContestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B0E3A81BF557A200FEB3D0 /* LeaderboardContestViewController.swift */; };
 		F6C02C421B760B960021ABE1 /* ChoiceQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C02C411B760B960021ABE1 /* ChoiceQuestionViewController.swift */; };
 		F6C02C461B762A810021ABE1 /* UITableViewCellAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C02C451B762A810021ABE1 /* UITableViewCellAnswer.swift */; };
@@ -222,7 +221,6 @@
 		F6AAE6ED1AF433E100195E11 /* PrepAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepAppTests.swift; sourceTree = "<group>"; };
 		F6AC7B4C1B788D090096243D /* ChoiceQuestionViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceQuestionViewControllerDelegate.swift; sourceTree = "<group>"; };
 		F6B0E3A41BF551E100FEB3D0 /* ContestLeaderboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContestLeaderboard.swift; sourceTree = "<group>"; };
-		F6B0E3A61BF5522800FEB3D0 /* ContestPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContestPlayer.swift; sourceTree = "<group>"; };
 		F6B0E3A81BF557A200FEB3D0 /* LeaderboardContestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardContestViewController.swift; sourceTree = "<group>"; };
 		F6C02C411B760B960021ABE1 /* ChoiceQuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ChoiceQuestionViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F6C02C451B762A810021ABE1 /* UITableViewCellAnswer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellAnswer.swift; sourceTree = "<group>"; };
@@ -271,7 +269,6 @@
 			isa = PBXGroup;
 			children = (
 				F60739E51BB2EAE6004DEC32 /* FriendManager.swift */,
-				F674362F1BEEC36E003E798B /* ResultDuo.swift */,
 				F60CA2311BBEBC1200C83DDE /* DuoManager.swift */,
 				F60739EA1BB3E6E9004DEC32 /* FactoryDuo.swift */,
 			);
@@ -407,19 +404,19 @@
 		F6322A1D1B615DFF0074549E /* Realm Entities */ = {
 			isa = PBXGroup;
 			children = (
-				F663E3171B7A620800F23294 /* QuestionHistory.swift */,
 				F6322A221B615E460074549E /* Subject.swift */,
 				F6322A1E1B615E360074549E /* Chapter.swift */,
 				F6322A1B1B615DFA0074549E /* Question.swift */,
+				F663E3171B7A620800F23294 /* QuestionHistory.swift */,
 				95C5C48C1B9503F6001DA9B5 /* Answer.swift */,
 				F6322A201B615E3E0074549E /* Image.swift */,
-				F60739E81BB348AB004DEC32 /* Friend.swift */,
 				F60ED4801BEFA04F00825A0E /* News.swift */,
+				F60739E81BB348AB004DEC32 /* Friend.swift */,
 				F6C267FB1BB56BDC00CA462A /* PendingDuo.swift */,
+				F674362F1BEEC36E003E798B /* ResultDuo.swift */,
 				F6E086301BF3C28100B4DB10 /* Contest.swift */,
 				F687CA251BF69B8000556754 /* ContestHistory.swift */,
 				F6B0E3A41BF551E100FEB3D0 /* ContestLeaderboard.swift */,
-				F6B0E3A61BF5522800FEB3D0 /* ContestPlayer.swift */,
 				F66771801B61A31900042145 /* FactoryRealm.swift */,
 			);
 			name = "Realm Entities";
@@ -765,7 +762,6 @@
 				F64630A31B5E663C006A5F71 /* SubjectManager.swift in Sources */,
 				F60082D11B84F9C600F7BCBB /* UserPreferences.swift in Sources */,
 				F61A1CDB1B003F7500777584 /* SWRevealViewController.m in Sources */,
-				F6B0E3A71BF5522800FEB3D0 /* ContestPlayer.swift in Sources */,
 				F6B0E3A91BF557A200FEB3D0 /* LeaderboardContestViewController.swift in Sources */,
 				F604061E1B8E6150006F7F4E /* Colors.swift in Sources */,
 				F605AF121B04151500E90596 /* ContestViewController.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  PendingDuo
+//  PendingDuo.swift
 //  PrepApp
 //
 //  Created by Mathieu Vandeginste on 25/09/15.

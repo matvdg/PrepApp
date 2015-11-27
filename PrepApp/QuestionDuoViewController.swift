@@ -154,7 +154,7 @@ class QuestionDuoViewController: UIViewController,
         if FactoryHistory.getHistory().isQuestionMarked(self.currentQuestion!.id){
             Sound.playTrack("error")
             title = "Question déjà marquée !"
-            message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\""
+            message = "Retrouvez tous les marquages dans la section \"Marquages\""
             let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = Colors.green
             myAlert.addAction(UIAlertAction(title: "Supprimer le marquage", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
@@ -181,7 +181,7 @@ class QuestionDuoViewController: UIViewController,
             if FactoryHistory.getHistory().isQuestionDone(self.currentQuestion!.id) {
                 Sound.playTrack("notif")
                 title = "Question marquée"
-                message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\""
+                message = "Retrouvez tous les marquages dans la section \"Marquages\""
                 let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = Colors.green
                 let historyQuestion = QuestionHistory()
@@ -662,7 +662,7 @@ class QuestionDuoViewController: UIViewController,
         //challenge finished! switch to results mode and sending results (before displaying them to avoid cheating by killing the app)
         self.computeScore()
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-        SwiftSpinner.show("Envoi des résultats")
+        SwiftSpinner.show("")
         FactoryDuo.getDuoManager().sendResultsDuo(self.idDuo, success: self.succeeded, callback: { (answer, message) -> Void in
             SwiftSpinner.hide()
             if answer {

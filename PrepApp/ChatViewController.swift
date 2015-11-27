@@ -34,7 +34,7 @@ class ChatViewController: UIViewController, UIWebViewDelegate {
     
     func loadChat() {
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-        SwiftSpinner.show("Chargement du chat...")
+        SwiftSpinner.show("")
         let request = NSMutableURLRequest(URL: FactorySync.pchatUrl!)
         request.HTTPMethod = "POST"
         request.timeoutInterval = NSTimeInterval(5)

@@ -27,6 +27,11 @@ class FactoryRealm {
                 self.realm.delete(self.realm.objects(Friend))
                 self.realm.delete(self.realm.objects(PendingDuo))
                 self.realm.delete(self.realm.objects(ContestHistory))
+                self.realm.delete(self.realm.objects(ContestLeaderboard))
+                self.realm.delete(self.realm.objects(ContestPlayer))
+                self.realm.delete(self.realm.objects(ResultDuo))
+                self.realm.delete(self.realm.objects(Result))
+                self.realm.delete(self.realm.objects(News))
             }
         } catch {
             print("error in Realm")

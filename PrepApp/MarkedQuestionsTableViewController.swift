@@ -29,7 +29,7 @@ class MarkedQuestionsTableViewController: UITableViewController, UIViewControlle
             self.menuButton.action = "revealToggle:"
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
-        self.title = "Questions marquées"
+        self.title = "Marquages"
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.navigationController!.navigationBar.tintColor = Colors.greenLogo
         self.loadData()
@@ -58,7 +58,7 @@ class MarkedQuestionsTableViewController: UITableViewController, UIViewControlle
         let templateSubject = Subject()
         templateSubject.id = -1
         templateChapter.subject = templateSubject
-        templateChapter.name = "Aucune question marquée"
+        templateChapter.name = "Aucun marquage"
         templateQuestion.wording = "Marquez des questions et revenez ici !"
         templateQuestion.type = -1
         templateQuestion.chapter = templateChapter

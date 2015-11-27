@@ -165,7 +165,7 @@ class User {
                 if error == nil {
                     let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
-                        callback("Envoyé !","Feedback envoyé avec succès.", true)
+                        callback("Merci !","Commentaire envoyé avec succès", true)
                     } else {
                         print(response)
                         callback("Échec de la connexion.","Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", false)

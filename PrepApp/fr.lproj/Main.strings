@@ -83,8 +83,8 @@
 /* Class = "UINavigationController"; title = "Solo"; ObjectID = "Z5P-zY-itP"; */
 "Z5P-zY-itP.title" = "Solo";
 
-/* Class = "UILabel"; text = "Questions marquées"; ObjectID = "ctW-xK-1Rf"; */
-"ctW-xK-1Rf.text" = "Questions marquées";
+/* Class = "UILabel"; text = "Marquages"; ObjectID = "ctW-xK-1Rf"; */
+"ctW-xK-1Rf.text" = "Marquages";
 
 /* Class = "UILabel"; text = "Aide"; ObjectID = "czF-00-8jz"; */
 "czF-00-8jz.text" = "Aide";

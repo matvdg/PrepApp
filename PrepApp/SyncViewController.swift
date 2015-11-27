@@ -36,7 +36,7 @@ class SyncViewController: UIViewController {
         super.viewDidLoad()
         dispatch_async(dispatch_get_main_queue(), {
             SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-            SwiftSpinner.show("Veuillez patienter...")
+            SwiftSpinner.show("")
         })
         self.view!.backgroundColor = Colors.greyBackground
         SyncViewController.widthImage = self.view.frame.width - 20

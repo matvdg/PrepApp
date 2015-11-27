@@ -11,7 +11,7 @@ import UIKit
 
 class DuoManager {
     
-    let realm = FactoryRealm.getRealm()
+    private let realm = FactoryRealm.getRealm()
     
     //API
     func requestDuo(idFriend: Int, callback: (Int?, String?) -> Void) {
@@ -76,7 +76,7 @@ class DuoManager {
         task.resume()
     }
 
-    private func getPendingDuos(callback: (NSArray?) -> Void) {
+    private func retrievePendingDuos(callback: (NSArray?) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.pendingDuoUrl!)
         request.HTTPMethod = "POST"
         request.timeoutInterval = NSTimeInterval(5)
@@ -112,7 +112,7 @@ class DuoManager {
         task.resume()
     }
     
-    private func retrieveResultsDuo(callback: (NSDictionary?) -> Void) {
+    private func retrieveDataResultsDuo(callback: (NSDictionary?, Bool) -> Void) {
         let request = NSMutableURLRequest(URL: FactorySync.retrieveDuoResultsUrl!)
         request.HTTPMethod = "POST"
         request.timeoutInterval = NSTimeInterval(5)
@@ -123,52 +123,65 @@ class DuoManager {
             
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    print("error : no connexion in retrieveResultsDuo")
-                    print(error!)
-                    callback(nil)
+                    print("retrieveDataResultsDuo offline")
+                    callback(nil, false)
                 } else {
                     let statusCode = (response as! NSHTTPURLResponse).statusCode
                     if statusCode == 200 {
                         let jsonResult = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
                         if let result = jsonResult {
-                            callback(result)
+                            callback(result, true)
                         } else {
-                            print("error : NSArray nil in retrieveResultsDuo")
-                            callback(nil)
+                            print("error : NSArray nil in retrieveDataResultsDuo")
+                            callback(nil, false)
                         }
                     } else {
-                        print("header status = \(statusCode) in retrieveResultsDuo")
-                        callback(nil)
+                        callback(nil, false)
                     }
                 }
             }
-            
         }
         task.resume()
     }
     
-    func loadResults(callback: ([ResultDuo]?) -> Void )  {
-        self.retrieveResultsDuo { (data) -> Void in
-            var resultDuoArray = [ResultDuo]()
-            if let result = data {
-                for (key,value) in result {
-                    if let idDuo = key as? String  {
-                        let resultDuo = ResultDuo(idDuo: Int(idDuo)!, resultDuo: ResultDuo.hydrateResultDuo(value as! NSArray))
-                        resultDuoArray.append(resultDuo)
-                    } else {
-                        callback(nil)
+    private func retrieveResultsDuo(callback: ([ResultDuo]?) -> Void) {
+        self.retrieveDataResultsDuo { (data, notification) -> Void in
+            if notification { //online even if empty
+                var result = [ResultDuo]()
+                if let dico = data {
+                    for (id,value) in dico {
+                        let idDuo = Int(id as! String)!
+                        var results = [Result]()
+                        if let array = value as? NSArray {
+                            for element in array {
+                                if let dicoResult = element as? NSDictionary {
+                                    let newResult = Result()
+                                    newResult.id = dicoResult["id"] as! Int
+                                    newResult.firstName = dicoResult["firstName"] as! String
+                                    newResult.lastName = dicoResult["lastName"] as! String
+                                    newResult.nickname = dicoResult["nickname"] as! String
+                                    newResult.score = dicoResult["score"] as! Int
+                                    results.append(newResult)
+                                }
+                            }
+                            result.append(
+                                ResultDuo(value: [
+                                    "idDuo" : idDuo,
+                                    "resultDuo" : results ]))
+                        }
                     }
                 }
-                callback(resultDuoArray)
-            } else {
+                callback(result)
+            } else { //offline or error or nothing new
                 callback(nil)
             }
         }
-    }    
+    }
+
     
     //REALM
-    func savePendingDuos(callback: (Bool) -> Void) {
-        self.getPendingDuos({ (data) -> Void in
+    private func savePendingDuos(callback: (Bool) -> Void) {
+        self.retrievePendingDuos({ (data) -> Void in
             if let pendingDuos = data {
                 try! self.realm.write({ () -> Void in
                     self.realm.delete(self.realm.objects(PendingDuo))
@@ -198,7 +211,7 @@ class DuoManager {
         })
     }
     
-    func getPendingDuos() -> [PendingDuo] {
+    private func getPendingDuosFromDB() -> [PendingDuo] {
         let pendingDuos = self.realm.objects(PendingDuo)
         var result = [PendingDuo]()
         for pendingDuo in pendingDuos {
@@ -215,11 +228,68 @@ class DuoManager {
         return result
     }
     
+    ///callback array of PendingDuo from Realm if offline, from API if online (+backup to RealmDB)
+    func getPendingDuos(callback: ([PendingDuo]) -> Void) {
+        self.savePendingDuos { (result) -> Void in
+            callback(self.getPendingDuosFromDB())
+        }
+    }
+    
+     ///delete a PendingDuo from RealmDB
     func deletePendingDuo(pendindDuoToRemove: PendingDuo) {
         try! self.realm.write({
             self.realm.delete(pendindDuoToRemove)
             print("pendindDuo removed")
         })
+    }
+    
+    ///delete a ResultDuo from RealmDB
+    func deleteResultDuo(resultDuoToRemove: ResultDuo) {
+        try! self.realm.write({
+            let resultA = resultDuoToRemove.resultDuo.first!
+            let resultB = resultDuoToRemove.resultDuo.last!
+            self.realm.delete(resultDuoToRemove)
+            self.realm.delete(resultA)
+            self.realm.delete(resultB)
+            print("resultDuo removed")
+        })
+    }
+    
+    ///callback array of ResultsDuo from Realm if offline, from API if online (+backup to RealmDB) AND Bool if notification needed
+    func getResultsDuo(callback: ([ResultDuo], Bool) -> Void) {
+        self.retrieveResultsDuo { (data) -> Void in
+            var result = [ResultDuo]()
+            if let resultsDuo = data {
+                //new results = notification to send
+                for resultDuo in resultsDuo {
+                    result.append(resultDuo)
+                    try! self.realm.write({
+                        self.realm.add(resultDuo)
+                    })
+                }
+                callback(result, true)
+            } else {
+                //offline or error or nothing new so we fetch old results from Realm DB
+                let resultsDuo = self.realm.objects(ResultDuo)
+                for resultDuo in resultsDuo {
+                    result.append(resultDuo)
+                }
+                callback(result, false)
+            }
+        }
+    }
+    
+    //mark a resultDuo as read to avoid crediting AP again
+    func updateResultDuo(resultDuoToUpdate: ResultDuo) {
+        let resultsDuo = self.realm.objects(ResultDuo)
+        for resultDuo in resultsDuo {
+            if resultDuo.idDuo == resultDuoToUpdate.idDuo {
+                try! self.realm.write {
+                    resultDuo.firstTime = false
+                }
+                break
+            }
+        }
     }
 
 

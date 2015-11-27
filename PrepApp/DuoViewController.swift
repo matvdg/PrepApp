@@ -13,6 +13,8 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
     //properties
     var friends = [Friend]()
     var pendingDuos = [PendingDuo]()
+    var resultsDuo = [ResultDuo]()
+    var selectedResultDuo = ResultDuo()
     let realm = FactoryRealm.getRealm()
     var textField =  UITextField()
     var pullToRefresh =  UIRefreshControl()
@@ -20,7 +22,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
     var lastName = ""
     var firstName = ""
     var nickname = ""
-    var resultsDuo: [ResultDuo]?
+    
     var refreshIsNeeded = false
 
     //@IBOutlet
@@ -28,7 +30,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var designShuffle: UIButton!
     @IBOutlet weak var designAdd: UIButton!
     @IBOutlet weak var designShare: UIButton!
-    @IBOutlet weak var friendsTable: UITableView!
+    @IBOutlet weak var duoTable: UITableView!
     
     //@IBAction
     @IBAction func shareCode(sender: AnyObject) {
@@ -39,7 +41,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
         myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
         myAlert.addAction(UIAlertAction(title: "Partager", style: .Default, handler: { (action) -> Void in
             SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-            SwiftSpinner.show("Un instant S.V.P.")
+            SwiftSpinner.show("")
             self.share()
         }))
         
@@ -62,7 +64,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     @IBAction func shuffleFriend(sender: AnyObject) {
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-        SwiftSpinner.show("Recherche d'un défi aléatoire...")
+        SwiftSpinner.show("")
         FactoryDuo.getFriendManager().shuffleDuo { (friend, error) -> Void in
             SwiftSpinner.hide()
             if let shuffledFriend = friend {
@@ -78,7 +80,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 myAlert.view.tintColor = Colors.green
                 // add buttons
                 myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
-                myAlert.addAction(UIAlertAction(title: "GO !", style: .Default, handler: { (action) -> Void in
+                myAlert.addAction(UIAlertAction(title: "Oui", style: .Destructive, handler: { (action) -> Void in
                     self.challenge(shuffledFriend)
                 }))
                 // show the alert
@@ -98,19 +100,18 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     //app methods
     override func viewDidLoad() {
-        print("viewDidLoad")
         super.viewDidLoad()
         self.pullToRefresh.attributedTitle = NSAttributedString(string: "▼ Glisser vers le bas pour actualiser ▼")
         self.pullToRefresh.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.pullToRefresh.tintColor = Colors.green
-        self.friendsTable?.addSubview(pullToRefresh)
+        self.duoTable?.addSubview(pullToRefresh)
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-        SwiftSpinner.show("Mise à jour des défis...")
+        SwiftSpinner.show("")
         //sync
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = Colors.greyBackground
         self.loadData()
-        self.friendsTable.backgroundColor = Colors.greyBackground
+        self.duoTable.backgroundColor = Colors.greyBackground
         self.designShare.layer.cornerRadius = 6
         self.designAdd.layer.cornerRadius = 6
         self.designShuffle.layer.cornerRadius = 6
@@ -135,10 +136,9 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     override func viewDidAppear(animated: Bool) {
-        print("viewDidAppear")
         if self.refreshIsNeeded {
             SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-            SwiftSpinner.show("Mise à jour des défis...")
+            SwiftSpinner.show("")
             self.loadData()
         } else {
             self.refreshIsNeeded = true
@@ -170,43 +170,34 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
     private func loadData() {
         
         //loading pendingDuos
-        FactoryDuo.getDuoManager().savePendingDuos({ (result) -> Void in
-            if result {
-                self.pendingDuos = FactoryDuo.getDuoManager().getPendingDuos()
-                print("pendingDuos synced")
-            } else {
-                print("offline pendingDuos")
-            }
-            self.pendingDuos = FactoryDuo.getDuoManager().getPendingDuos()
+        FactoryDuo.getDuoManager().getPendingDuos({ (pendingDuos) -> Void in
+            self.pendingDuos = pendingDuos
             //loading friends
-            FactoryDuo.getFriendManager().saveFriends { (result) -> Void in
-                if result {
-                    print("friendsList synced")
-                } else {
-                    print("offline friendsList")
-                    
+            FactoryDuo.getFriendManager().getFriends { (friends) -> Void in
+                self.friends = friends
+                //loading ResultsDuo popup notification
+                FactoryDuo.getDuoManager().getResultsDuo { (resultsDuo, notification) -> Void in
+                    self.resultsDuo = resultsDuo
+                    if notification {
+                        // create alert controller
+                        let myAlert = UIAlertController(title: "Nouveaux résultats disponibles", message: "Consultez la liste des résultats ! Vous pouvez supprimer des résultats de défi en glissant vers la gauche.", preferredStyle: UIAlertControllerStyle.Alert)
+                        myAlert.view.tintColor = Colors.green
+                        // add buttons
+                        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                        // show the alert
+                        self.presentViewController(myAlert, animated: true, completion: nil)
+                    }
+                    self.templating()
+                    self.duoTable.reloadData()
+                    // tell refresh control it can stop showing up now
+                    if self.pullToRefresh.refreshing
+                    {
+                        self.pullToRefresh.endRefreshing()
+                    }
+                    SwiftSpinner.hide()
                 }
-                self.friends = FactoryDuo.getFriendManager().getFriends()
-                self.templating()
-                self.friendsTable.reloadData()
-                // tell refresh control it can stop showing up now
-                if self.pullToRefresh.refreshing
-                {
-                    self.pullToRefresh.endRefreshing()
-                }
-                SwiftSpinner.hide()
             }
         })
-        
-        //loading ResultsDuo popup notification
-        FactoryDuo.getDuoManager().loadResults { (data) -> Void in
-            if let resultsDuo = data {
-                self.resultsDuo = resultsDuo
-                self.performSegueWithIdentifier("showResultsDuo", sender: self)
-            } else {
-                print("no resultsDuo notification to display")
-            }
-        }
     }
     
     func templating(){
@@ -221,9 +212,14 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
         if self.pendingDuos.isEmpty {
             let templateDuo = PendingDuo()
             templateDuo.id = -1
-            templateDuo.firstName = "Aucun défi en attente pour le moment"
-            templateDuo.nickname = "Aucun défi en attente pour le moment"
+            templateDuo.firstName = "Aucun défi pour le moment"
+            templateDuo.nickname = "Aucun défi pour le moment"
             self.pendingDuos.append(templateDuo)
+        }
+        if self.resultsDuo.isEmpty {
+            let templateDuo = ResultDuo()
+            templateDuo.idDuo = -1
+            self.resultsDuo.append(templateDuo)
         }
 
     }
@@ -236,16 +232,16 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     func add(alert: UIAlertAction!) {
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-        SwiftSpinner.show("Veuillez patienter...")
+        SwiftSpinner.show("")
         FactoryDuo.getFriendManager().saveFriend(self.textField.text!, callback: { (result, message) -> Void in
             SwiftSpinner.hide()
             if result {
                 if self.friends[0].id == -1 {
                     self.friends.removeAtIndex(0)
-                    self.friendsTable.deleteRowsAtIndexPaths([NSIndexPath(forItem: 0, inSection: 1)], withRowAnimation: UITableViewRowAnimation.Fade)
+                    self.duoTable.deleteRowsAtIndexPaths([NSIndexPath(forItem: 0, inSection: 1)], withRowAnimation: UITableViewRowAnimation.Fade)
                 }
                 let counter = self.friends.count
-                self.friends = FactoryDuo.getFriendManager().getFriends()
+                self.friends = FactoryDuo.getFriendManager().getFriendsFromDB()
                 if counter == self.friends.count {
                     // create alert controller
                     let myAlert = UIAlertController(title: "Oups !", message: "L'ami a déjà été ajouté... Entrez un autre code.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -263,7 +259,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
                     // show the alert
                     self.presentViewController(myAlert, animated: true, completion: nil)
                     let newIndexPath = NSIndexPath(forRow: self.friends.count-1, inSection: 1)
-                    self.friendsTable.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Left)
+                    self.duoTable.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Left)
                 }
             } else {
                 // create alert controller
@@ -316,14 +312,16 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     // MARK: - Table view data source
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return self.pendingDuos.count
-        } else {
+        } else if section == 1 {
             return self.friends.count
+        } else {
+            return self.resultsDuo.count
         }
         
     }
@@ -332,12 +330,10 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("pendingChallenge", forIndexPath: indexPath) 
             let pendingDuo = self.pendingDuos[indexPath.row]
-            
             var text = ""
             if pendingDuo.id != -1 {
                 text = "Défi de "
             }
-            
             if FactorySync.getConfigManager().loadNicknamePreference() {
                 text += pendingDuo.nickname
             } else {
@@ -348,7 +344,6 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
             cell.backgroundColor = Colors.greyBackground
             cell.textLabel!.adjustsFontSizeToFitWidth = false
             cell.textLabel!.adjustsFontSizeToFitWidth = true
-            
             //fetching expiration
             let offsetComponents = NSDateComponents()
             offsetComponents.minute = 24*60 - FactorySync.getConfigManager().loadDuration()
@@ -368,8 +363,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
             cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
             cell.tintColor = Colors.green
             return cell
-
-        } else {
+        } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier("friend", forIndexPath: indexPath) 
             let friend = self.friends[indexPath.row]
             if friend.id == -1 {
@@ -391,7 +385,38 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
             cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
             cell.tintColor = Colors.green
             return cell
-
+        } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("resultDuo", forIndexPath: indexPath)
+            let resultDuo = self.resultsDuo[indexPath.row]
+            if resultDuo.idDuo == -1 {
+                cell.accessoryType = UITableViewCellAccessoryType.None
+                cell.textLabel!.text = "Aucun résultat pour le moment"
+            } else {
+                cell.accessoryView = UIImageView(image: UIImage(named: "results"))
+                cell.textLabel!.text = "Défi VS "
+                if resultDuo.resultDuo.first!.id == User.currentUser!.id {
+                    //you're player A, we display B
+                    if FactorySync.getConfigManager().loadNicknamePreference() {
+                        cell.textLabel!.text! += resultDuo.resultDuo.last!.nickname
+                    } else {
+                        cell.textLabel!.text! += "\(resultDuo.resultDuo.last!.firstName) \(resultDuo.resultDuo.last!.lastName)"
+                    }
+                } else {
+                    //you're player B, we display A
+                    if FactorySync.getConfigManager().loadNicknamePreference() {
+                        cell.textLabel!.text! += resultDuo.resultDuo.first!.nickname
+                    } else {
+                        cell.textLabel!.text! += "\(resultDuo.resultDuo.first!.firstName) \(resultDuo.resultDuo.first!.lastName)"
+                    }
+                }
+            }
+            cell.textLabel?.textColor = UIColor.blackColor()
+            cell.backgroundColor = Colors.greyBackground
+            cell.textLabel!.adjustsFontSizeToFitWidth = false
+            cell.textLabel!.adjustsFontSizeToFitWidth = true
+            cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
+            cell.tintColor = Colors.green
+            return cell
         }
     }
     
@@ -409,10 +434,21 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
                     //create template
                     self.templating()
                     let newIndexPath = NSIndexPath(forItem: 0, inSection: 1)
-                    self.friendsTable.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Left)
+                    self.duoTable.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Left)
                 }
-                self.friendsTable.reloadData()
-                
+                self.duoTable.reloadData()
+            } else if indexPath.section == 2 {
+                let resultDuoToRemove = self.resultsDuo[indexPath.row]
+                self.resultsDuo.removeAtIndex(indexPath.row)
+                FactoryDuo.getDuoManager().deleteResultDuo(resultDuoToRemove)
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+                if self.resultsDuo.isEmpty {
+                    //create template
+                    self.templating()
+                    let newIndexPath = NSIndexPath(forItem: 0, inSection: 2)
+                    self.duoTable.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Left)
+                }
+                self.duoTable.reloadData()
             }
         }
     }
@@ -420,9 +456,16 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
     func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         if indexPath.section == 0 {
             return UITableViewCellEditingStyle.None
-        } else {
+        } else if indexPath.section == 1 {
             let friend = self.friends[indexPath.row]
             if friend.id == -1 {
+                return UITableViewCellEditingStyle.None
+            } else {
+                return UITableViewCellEditingStyle.Delete
+            }
+        } else {
+            let resultDuo = self.resultsDuo[indexPath.row]
+            if resultDuo.idDuo == -1 {
                 return UITableViewCellEditingStyle.None
             } else {
                 return UITableViewCellEditingStyle.Delete
@@ -451,7 +494,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 myAlert.view.tintColor = Colors.green
                 // add buttons
                 myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
-                myAlert.addAction(UIAlertAction(title: "GO !", style: .Default, handler: { (action) -> Void in
+                myAlert.addAction(UIAlertAction(title: "Oui", style: .Destructive, handler: { (action) -> Void in
                     self.idDuo = pendingDuo.id
                     self.lastName = pendingDuo.lastName
                     self.firstName = pendingDuo.firstName
@@ -465,7 +508,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
             }
-        } else {
+        } else if indexPath.section == 1 {
             let friend = self.friends[indexPath.row]
             if friend.id != -1 {
                 var textTodisplay = " "
@@ -485,6 +528,12 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
             }
+        } else {
+            let resultDuo = self.resultsDuo[indexPath.row]
+            if resultDuo.idDuo != -1 {
+                self.selectedResultDuo = resultDuo
+                self.performSegueWithIdentifier("showResultsDuo", sender: self)
+            }
         }
     }
     
@@ -499,8 +548,10 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
         headerLabel.font = UIFont(name: "Segoe UI", size: 20)
         if section == 0 {
             headerLabel.text = "En attente"
-        } else {
+        } else if section == 1{
             headerLabel.text = "Amis"
+        } else {
+             headerLabel.text = "Résultats"
         }
         headerView.addSubview(headerLabel)
         return headerView
@@ -518,7 +569,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         if let ResultsDuoVC = segue.destinationViewController as? ResultsDuoViewController {
             // Pass the selected object to the new view controller.
-            ResultsDuoVC.resultsDuo = self.resultsDuo
+            ResultsDuoVC.resultDuo = self.selectedResultDuo
         }
     }
 }

@@ -119,7 +119,7 @@ UIAdaptivePresentationControllerDelegate  {
         if FactoryHistory.getHistory().isQuestionMarked(self.currentQuestion!.id){
             Sound.playTrack("error")
             title = "Question déjà marquée !"
-            message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\""
+            message = "Retrouvez tous les marquages dans la section \"Marquages\""
             let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = Colors.green
             myAlert.addAction(UIAlertAction(title: "Supprimer le marquage", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
@@ -146,7 +146,7 @@ UIAdaptivePresentationControllerDelegate  {
             if FactoryHistory.getHistory().isQuestionDone(self.currentQuestion!.id) {
                 Sound.playTrack("notif")
                 title = "Question marquée"
-                message = "Retrouvez toutes les questions marquées dans la section \"Questions marquées\""
+                message = "Retrouvez tous les marquages dans la section \"Marquages\""
                 let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = Colors.green
                 let historyQuestion = QuestionHistory()

@@ -19,7 +19,7 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
 
     @IBAction func send(sender: AnyObject) {
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-        SwiftSpinner.show("Envoi en cours...")
+        SwiftSpinner.show("")
         if self.feedback.text == "Taper votre feedback ici :" || self.feedback.text == "" {
             SwiftSpinner.hide()
             // create alert controller
@@ -58,8 +58,8 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
         FactoryHistory.getHistory().sync()
         self.designButton.setTitle("Envoyé", forState: UIControlState.Disabled)
         self.view!.backgroundColor = Colors.greyBackground
-        self.title = "Feedback"
-        self.feedback.text = "Taper votre feedback ici :"
+        self.title = "Retours"
+        self.feedback.text = "Taper votre retour ici :"
         self.feedback.textColor = UIColor.lightGrayColor()
         self.designButton.layer.cornerRadius = 6
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
@@ -123,7 +123,7 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     func textViewDidEndEditing(textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = "Taper votre feedback ici :"
+            textView.text = "Taper votre retour ici :"
             textView.textColor = UIColor.lightGrayColor()
         }
     }

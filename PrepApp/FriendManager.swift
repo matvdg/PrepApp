@@ -188,6 +188,7 @@ class FriendManager {
 
     
     //REALM
+    ///if code is OK add a new friend to RealmDB -> (success, message)
     func saveFriend(code: String, callback: (Bool, String) -> Void) {
         self.findFriend(code, callback: { (data, message) -> Void in
             if let friend = data {
@@ -207,7 +208,22 @@ class FriendManager {
         })
     }
     
-    func saveFriends(callback: (Bool) -> Void) {
+    //delete friendToRemove from RealmDB
+    func deleteFriend(friendToRemove: Friend) {
+        try! self.realm.write({
+            self.realm.delete(friendToRemove)
+            print("friend removed")
+        })
+        self.syncFriendsList { (result) -> Void in
+            if result {
+                print("friendsList synced")
+            } else {
+                print("error syncing friendsList")
+            }
+        }
+    }
+    
+    private func saveFriends(callback: (Bool) -> Void) {
         self.retrieveFriends({ (data) -> Void in
             if let friendList = data {
                 try! self.realm.write({ () -> Void in
@@ -237,21 +253,8 @@ class FriendManager {
         })
     }
     
-    func deleteFriend(friendToRemove: Friend) {
-        try! self.realm.write({
-            self.realm.delete(friendToRemove)
-            print("friend removed")
-        })
-        self.syncFriendsList { (result) -> Void in
-            if result {
-                print("friendsList synced")
-            } else {
-                print("error syncing friendsList")
-            }
-        }
-    }
-    
-    func getFriends() -> [Friend] {
+    ///return an array of Friend from Realm DB
+    func getFriendsFromDB() -> [Friend] {
         let friends = self.realm.objects(Friend)
         var result = [Friend]()
         for friend in friends {
@@ -260,4 +263,10 @@ class FriendManager {
         return result
     }
     
+    ///callback array of Friend from Realm DB if offline, from API if online (+backup to RealmDB)
+    func getFriends(callback: ([Friend]) -> Void) {
+        self.saveFriends { (result) -> Void in
+            callback(self.getFriendsFromDB())
+        }
+    }
 }

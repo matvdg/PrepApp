@@ -34,13 +34,13 @@ class MenuController: UITableViewController {
         let myAlert = UIAlertController(title: "Déconnexion", message: "Voulez-vous vraiment vous déconnecter ?", preferredStyle: UIAlertControllerStyle.Alert)
         myAlert.view.tintColor = Colors.green
         // add "OK" button
-        myAlert.addAction(UIAlertAction(title: "OUI", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+        myAlert.addAction(UIAlertAction(title: "Oui", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
             SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
-            SwiftSpinner.show("Déconnexion...")
+            SwiftSpinner.show("")
             self.syncNclearHistory()
             FactorySync.getConfigManager().saveCurrentDay(-1)
         }))
-        myAlert.addAction(UIAlertAction(title: "NON", style: UIAlertActionStyle.Cancel, handler: nil))
+        myAlert.addAction(UIAlertAction(title: "Non", style: UIAlertActionStyle.Cancel, handler: nil))
         // show the alert
         self.presentViewController(myAlert, animated: true, completion: nil)
     }

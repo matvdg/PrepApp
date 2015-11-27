@@ -44,13 +44,13 @@ class SoloViewController: UIViewController {
         } else {
             if self.checkQuestions() {
                 // create alert controller
-                let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous devez disposer de \(FactorySync.getConfigManager().loadDuration()) minutes. Un défi lancé ne peut être mis en pause et un défi abandonné fait perdre des points !", preferredStyle: UIAlertControllerStyle.Alert)
+                let myAlert = UIAlertController(title: "Lancer le défi ?", message: "Vous devez disposer de \(FactorySync.getConfigManager().loadDuration()) minutes. Un défi lancé ne peut être mis en pause !", preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = Colors.green
                 // add buttons
-                myAlert.addAction(UIAlertAction(title: "OUI", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+                myAlert.addAction(UIAlertAction(title: "Oui", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
                     self.performSegueWithIdentifier("showSolo", sender: self)
                 }))
-                myAlert.addAction(UIAlertAction(title: "NON", style: UIAlertActionStyle.Cancel, handler: nil))
+                myAlert.addAction(UIAlertAction(title: "Non", style: UIAlertActionStyle.Cancel, handler: nil))
                 // show the alert
                 self.presentViewController(myAlert, animated: true, completion: nil)
             } else {

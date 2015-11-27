@@ -68,7 +68,7 @@ class ScoreDuoViewController: UIViewController, UITableViewDataSource, UITableVi
         self.titleLabel.text = "Défi duo VS\(textTodisplay)"
         self.titleLabel.textColor = UIColor.blackColor()
         self.titleBar.backgroundColor = Colors.greenLogo
-        self.infoLabel.text = "Si\(textTodisplay) a répondu au défi, vous recevrez une notification pour voir son score et recevoir les AwardPoints bonus."
+        self.infoLabel.text = "Si\(textTodisplay) a répondu au défi, vous recevrez une notification pour comparer vos résultats et recevoir des AwardPoints en bonus (10pts si gagné, 5pts si égalité)."
         self.greenRound.layer.cornerRadius = self.greenRound.layer.bounds.width / 2
         self.greenRound.backgroundColor = UIColor.whiteColor()
         self.greenRound.layer.borderColor = Colors.greenLogo.CGColor
