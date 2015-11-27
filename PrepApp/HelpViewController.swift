@@ -43,7 +43,7 @@ class HelpViewController: UIViewController {
         
         
         //9- Aide réglages
-        "Dans cette section vous pouvez changer votre mot de passe, activer la protection Touch ID si disponible et activer/désactiver les bruitages dans Prep'App. Si votre établissement le permet, vous pourrez modifier votre pseudonyme qui paraîtra dans le classement Prep'App et dans les listes d'amis pour le défi duo. Si vous ne voulez pas être anonyme, vous pourrez toujours mettre votre prénom et nom en tant que pseudonyme.",
+        "Dans cette section vous pouvez :\n\n- changer votre mot de passe\n\n- activer la protection Touch ID si disponible\n\n- activer/désactiver les bruitages dans Prep'App\n\n- activer/désactiver les notifications\n\n- si votre établissement le permet, vous pouvez modifier votre pseudonyme qui paraîtra dans le classement Prep'App et dans les listes d'amis pour le défi duo. Si vous ne voulez pas être anonyme, vous pourrez toujours mettre votre prénom et nom en tant que pseudonyme.",
         
         
         //10- Mentions légales

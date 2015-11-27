@@ -52,7 +52,8 @@ class SettingsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("setting", forIndexPath: indexPath) as! UITableViewCellSetting
         cell.textLabel?.textColor = UIColor.blackColor()
         cell.textLabel!.text = self.settings[indexPath.row]
-        cell.backgroundColor = UIColor.clearColor()
+        cell.backgroundColor = Colors.greyBackground
+        cell.switcher.backgroundColor = Colors.greyBackground
         cell.textLabel!.adjustsFontSizeToFitWidth = false
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
         cell.tintColor = Colors.green
@@ -63,9 +64,11 @@ class SettingsTableViewController: UITableViewController {
             case "Modifier votre pseudo":
                 cell.switcher.hidden = true
                 cell.tintColor = Colors.green
+                cell.accessoryType = UITableViewCellAccessoryType.None
                 cell.imageView!.image = UIImage(named: "identity")
             case "Modifier votre mot de passe":
                 cell.switcher.hidden = true
+                cell.accessoryType = UITableViewCellAccessoryType.None
                 cell.tintColor = Colors.green
                 cell.imageView!.image = UIImage(named: "lock")
             case "Touch ID":
