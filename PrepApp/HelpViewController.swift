@@ -13,7 +13,7 @@ class HelpViewController: UIViewController {
     
     var selectedHelp = 0
     var helpPics = ["home", "training",  "solo", "duo", "contest", "stats", "marked", "leaderboard", "feedback", "settings", "credits"]
-    var helpTopics = ["Accueil","Entraînement","Défi solo","Défi duo","Concours","Statistiques","Marquages", "Classement", "Suggestions", "Réglages","Mentions légales"]
+    var helpTopics = ["Accueil","Entraînement","Défi solo","Défi duo","Concours","Statistiques","Marquages", "Classement", "Feed-back", "Réglages","Mentions légales"]
     var helpTexts = [
         //0- Aide accueil
         "Consultez d’un coup d’oeil votre diagramme de niveau et ciblez vos révisions. Obtenez le détail de votre progression pour chaque matière en touchant les boutons de la légende.\n\nTournez votre appareil en mode paysage pour accéder à votre graphique Performances. Votre performance est l’indice mesurant votre taux de réponses justes par matière et ce toutes les semaines. Le graphe en bâtons représente quant à lui le nombre de questions répondues (plus le bâton est haut, plus votre performance est significative.)\n\nGlissez vers la droite pour avoir accès au fil d’actualités de votre établissement. Vous pouvez glisser vers le bas dans le fil d'actualités pour actualiser la page.",
@@ -39,8 +39,8 @@ class HelpViewController: UIViewController {
         //7- Aide classement
         "Situez-vous dans votre établissement avec notre classement Prep'App grâce aux AwardPoints. Glissez vers le bas pour actualiser votre classement.\n\nLes classements des concours sont publiés dans la section \"Concours\" après que l'évènement soit terminé.",
         
-        //8- Aide retours
-        "Faîtes nous directement parvenir vos remarques ou suggestions concernant l'application. Vos retours nous sont précieux afin de proposer un service adapté à votre expérience d’utilisateur. Choisissez un sujet et tapez simplement votre message. Nous récupèrerons votre adresse email afin d’éventuellement  vous répondre  pour des informations complémentaires. Les remarques les plus pertinentes seront récompensées. ",
+        //8- Aide feedback
+        "Faîtes nous directement parvenir vos remarques ou suggestions concernant l'application. Vos retours nous sont précieux afin de vous proposer un service de qualité et une expérience immersive. Choisissez un sujet et tapez simplement votre message. Nous récupèrerons votre adresse email afin d’éventuellement  vous répondre  pour des informations complémentaires. Les remarques les plus pertinentes seront récompensées. ",
         
         
         //9- Aide réglages

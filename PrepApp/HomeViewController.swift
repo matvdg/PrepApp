@@ -59,14 +59,14 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
                 self.stats.hidden = true
             } else {
                 self.currentStatsPanelDisplayed = 1
-                self.stats.text = "\(Int(self.bioPercent))%    -    \(self.bioNumber) \(self.singularOrPlural(1, type: 0))    Niveau suivant : \(self.bioNumberToDo) \(self.singularOrPlural(1, type: 1))"
+                self.stats.text = "Progression : \(Int(self.bioPercent))%    -    \(self.bioNumber) \(self.singularOrPlural(1, type: 0))    Niveau suivant : \(self.bioNumberToDo) \(self.singularOrPlural(1, type: 1))"
                 self.stats.backgroundColor = Colors.bio
                 self.stats.hidden = false
             }
         } else {
             self.statsPanelDisplayed = true
             self.currentStatsPanelDisplayed = 1
-            self.stats.text = "\(Int(self.bioPercent))%    -    \(self.bioNumber) \(self.singularOrPlural(1, type: 0))    Niveau suivant : \(self.bioNumberToDo) \(self.singularOrPlural(1, type: 1))"
+            self.stats.text = "Progression : \(Int(self.bioPercent))%    -    \(self.bioNumber) \(self.singularOrPlural(1, type: 0))    Niveau suivant : \(self.bioNumberToDo) \(self.singularOrPlural(1, type: 1))"
             self.stats.backgroundColor = Colors.bio
             self.stats.hidden = false
         }
@@ -80,14 +80,14 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
                 self.stats.hidden = true
             } else {
                 self.currentStatsPanelDisplayed = 2
-                self.stats.text = "\(Int(self.phyPercent))%    -    \(self.phyNumber) \(self.singularOrPlural(2, type: 0))    Niveau suivant : \(self.phyNumberToDo) \(self.singularOrPlural(2, type: 1))"
+                self.stats.text = "Progression : \(Int(self.phyPercent))%    -    \(self.phyNumber) \(self.singularOrPlural(2, type: 0))    Niveau suivant : \(self.phyNumberToDo) \(self.singularOrPlural(2, type: 1))"
                 self.stats.backgroundColor = Colors.phy
                 self.stats.hidden = false
             }
         } else {
             self.statsPanelDisplayed = true
             self.currentStatsPanelDisplayed = 2
-            self.stats.text = "\(Int(self.phyPercent))%    -    \(self.phyNumber) \(self.singularOrPlural(2, type: 0))    Niveau suivant : \(self.phyNumberToDo) \(self.singularOrPlural(2, type: 1))"
+            self.stats.text = "Progression : \(Int(self.phyPercent))%    -    \(self.phyNumber) \(self.singularOrPlural(2, type: 0))    Niveau suivant : \(self.phyNumberToDo) \(self.singularOrPlural(2, type: 1))"
             self.stats.backgroundColor = Colors.phy
             self.stats.hidden = false
         }
@@ -101,14 +101,14 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
                 self.stats.hidden = true
             } else {
                 self.currentStatsPanelDisplayed = 3
-                self.stats.text = "\(Int(self.chePercent))%    -    \(self.cheNumber) \(self.singularOrPlural(3, type: 0))    Niveau suivant : \(self.cheNumberToDo) \(self.singularOrPlural(3, type: 1))"
+                self.stats.text = "Progression : \(Int(self.chePercent))%    -    \(self.cheNumber) \(self.singularOrPlural(3, type: 0))    Niveau suivant : \(self.cheNumberToDo) \(self.singularOrPlural(3, type: 1))"
                 self.stats.backgroundColor = Colors.che
                 self.stats.hidden = false
             }
         } else {
             self.statsPanelDisplayed = true
             self.currentStatsPanelDisplayed = 3
-            self.stats.text = "\(Int(self.chePercent))%    -    \(self.cheNumber) \(self.singularOrPlural(3, type: 0))    Niveau suivant : \(self.cheNumberToDo) \(self.singularOrPlural(3, type: 1))"
+            self.stats.text = "Progression : \(Int(self.chePercent))%    -    \(self.cheNumber) \(self.singularOrPlural(3, type: 0))    Niveau suivant : \(self.cheNumberToDo) \(self.singularOrPlural(3, type: 1))"
             self.stats.backgroundColor = Colors.che
             self.stats.hidden = false
         }
@@ -191,7 +191,6 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
             FactorySync.getConfigManager().saveCurrentDay(currentDay)
             self.displayNotification(self.getWelcomeMessage(), refreshGraph: false)
         }
-        
         let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
         UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
         let notification = UILocalNotification()
@@ -803,7 +802,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
     //peek&pop
     func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         let statsVC = storyboard?.instantiateViewControllerWithIdentifier("StatsVC") as? StatsViewController
-        statsVC!.preferredContentSize = CGSize(width: 0.0, height: 400)
+        statsVC!.preferredContentSize = CGSize(width: 0.0, height: 600)
         previewingContext.sourceRect = self.view!.frame
         return statsVC
     }
