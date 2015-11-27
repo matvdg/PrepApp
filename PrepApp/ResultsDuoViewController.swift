@@ -60,6 +60,7 @@ class ResultsDuoViewController: UIViewController {
         self.animateBackgroundColors(self.resultPlayerA)
         if self.resultDuo!.firstTime && self.awardPoints != 0 {
             self.animateAwardPoint()
+            FactoryDuo.getDuoManager().updateResultDuo(self.resultDuo!)
         }
     }
     
@@ -186,8 +187,8 @@ class ResultsDuoViewController: UIViewController {
                     self.greenRoundB.layer.borderColor = Colors.awardPoints.CGColor
                 case 1 :
                     //B looses, A wins
-                    self.greenRoundA.layer.borderColor = Colors.wrongAnswer.CGColor
-                    self.greenRoundB.layer.borderColor = Colors.green.CGColor
+                    self.greenRoundA.layer.borderColor = Colors.green.CGColor
+                    self.greenRoundB.layer.borderColor = Colors.wrongAnswer.CGColor
                 default:
                     print("error")
                 }
@@ -320,10 +321,10 @@ class ResultsDuoViewController: UIViewController {
             }
         }
         if self.resultDuo!.firstTime && self.awardPoints != 0 {
+            print("AwardPoints earned = \(self.awardPoints)pts")
             User.currentUser!.awardPoints += self.awardPoints
             User.currentUser!.saveUser()
             User.currentUser!.updateAwardPoints(User.currentUser!.awardPoints)
-            FactoryDuo.getDuoManager().updateResultDuo(self.resultDuo!)
         }
     }
 

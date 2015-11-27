@@ -179,7 +179,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
                     self.resultsDuo = resultsDuo
                     if notification {
                         // create alert controller
-                        let myAlert = UIAlertController(title: "Nouveaux résultats disponibles", message: "Consultez la liste des résultats ! Vous pouvez supprimer des résultats de défi en glissant vers la gauche.", preferredStyle: UIAlertControllerStyle.Alert)
+                        let myAlert = UIAlertController(title: "Nouveaux résultats disponibles !", message: "Consultez la liste des résultats pour comparer vos scores de défi duo et recevroir éventuellement vos AwardPoints en bonus. Vous pouvez supprimer des résultats de défi en glissant vers la gauche.", preferredStyle: UIAlertControllerStyle.Alert)
                         myAlert.view.tintColor = Colors.green
                         // add buttons
                         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
@@ -521,7 +521,7 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 myAlert.view.tintColor = Colors.green
                 // add buttons
                 myAlert.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.Cancel, handler: nil))
-                myAlert.addAction(UIAlertAction(title: "GO !", style: .Default, handler: { (action) -> Void in
+                myAlert.addAction(UIAlertAction(title: "Oui", style: .Destructive, handler: { (action) -> Void in
                     self.challenge(friend)
                 }))
                 // show the alert
