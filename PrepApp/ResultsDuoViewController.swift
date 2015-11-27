@@ -35,7 +35,6 @@ class ResultsDuoViewController: UIViewController {
     @IBOutlet weak var bonusB: UILabel!
     @IBOutlet weak var designButtonDismiss: UIButton!
     @IBOutlet weak var awardPointImage: UIImageView!
-    @IBOutlet weak var badge: UILabel!
     @IBOutlet weak var backgroundA: UILabel!
     @IBOutlet weak var backgroundB: UILabel!
     
@@ -47,14 +46,15 @@ class ResultsDuoViewController: UIViewController {
     //app methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.designScore()
         //sync
         FactoryHistory.getHistory().sync()
         self.view!.backgroundColor = Colors.greyBackground
         self.loadData()
-        self.designScore()
     }
-    
+
     override func viewDidAppear(animated: Bool) {
+        self.designScore()
         self.scoreTimerA = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("animateScoreA"), userInfo: nil, repeats: true)
         self.scoreTimerB = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("animateScoreB"), userInfo: nil, repeats: true)
         self.animateBackgroundColors(self.resultPlayerA)
@@ -63,20 +63,25 @@ class ResultsDuoViewController: UIViewController {
         }
     }
     
+    
     //methods
     private func designScore() {
         self.titleLabel.text = "Résultat du défi duo n°\(self.resultDuo!.idDuo)"
         self.titleLabel.textColor = UIColor.blackColor()
         self.titleBar.backgroundColor = Colors.greenLogo
         self.designButtonDismiss.layer.cornerRadius = 6
-        self.badge.layer.cornerRadius = 6
-        self.badge.layer.masksToBounds = true
-        self.badge.layer.borderWidth = 2
-        self.backgroundA.layer.cornerRadius = 6
-        self.backgroundA.layer.masksToBounds = true
-        self.backgroundB.layer.cornerRadius = 6
-        self.backgroundB.layer.masksToBounds = true
-        self.badge.layer.borderColor = Colors.greenLogo.CGColor
+        let rectShapeA = CAShapeLayer()
+        rectShapeA.bounds = self.backgroundA.frame
+        rectShapeA.position = self.backgroundA.center
+        rectShapeA.path = UIBezierPath(roundedRect: self.backgroundA.bounds, byRoundingCorners: [UIRectCorner.BottomLeft, UIRectCorner.TopLeft], cornerRadii: CGSize(width: 6, height: 6)).CGPath
+        self.backgroundA.layer.backgroundColor = UIColor.whiteColor().CGColor
+        self.backgroundA.layer.mask = rectShapeA
+        let rectShapeB = CAShapeLayer()
+        rectShapeB.bounds = self.backgroundB.frame
+        rectShapeB.position = self.backgroundB.center
+        rectShapeB.path = UIBezierPath(roundedRect: self.backgroundB.bounds, byRoundingCorners: [UIRectCorner.BottomRight, UIRectCorner.TopRight], cornerRadii: CGSize(width: 6, height: 6)).CGPath
+        self.backgroundB.layer.backgroundColor = UIColor.whiteColor().CGColor
+        self.backgroundB.layer.mask = rectShapeB
         self.greenRoundA.layer.cornerRadius = self.greenRoundA.layer.bounds.width / 2
         self.greenRoundA.backgroundColor = UIColor.whiteColor()
         self.greenRoundA.layer.borderColor = UIColor.blackColor().CGColor
@@ -152,7 +157,7 @@ class ResultsDuoViewController: UIViewController {
     }
     
     private func animateBackgroundColors(resultPlayerA: Int) {
-        UIView.animateWithDuration(2, animations: { () -> Void in
+        UIView.animateWithDuration(1.9, animations: { () -> Void in
             switch resultPlayerA {
             case -1 :
                 //A looses, B wins
@@ -169,7 +174,24 @@ class ResultsDuoViewController: UIViewController {
             default:
                 print("error")
             }
-        })
+            }) { (success) -> Void in
+                switch resultPlayerA {
+                case -1 :
+                    //A looses, B wins
+                    self.greenRoundA.layer.borderColor = Colors.wrongAnswer.CGColor
+                    self.greenRoundB.layer.borderColor = Colors.green.CGColor
+                case 0 :
+                    //it's a draw!
+                    self.greenRoundA.layer.borderColor = Colors.awardPoints.CGColor
+                    self.greenRoundB.layer.borderColor = Colors.awardPoints.CGColor
+                case 1 :
+                    //B looses, A wins
+                    self.greenRoundA.layer.borderColor = Colors.wrongAnswer.CGColor
+                    self.greenRoundB.layer.borderColor = Colors.green.CGColor
+                default:
+                    print("error")
+                }
+        }
         switch resultPlayerA {
         case -1 :
             //A looses, B wins
@@ -178,7 +200,7 @@ class ResultsDuoViewController: UIViewController {
             animationGreenRoundA.toValue = Colors.wrongAnswer.CGColor
             animationGreenRoundA.duration = 2
             animationGreenRoundA.repeatCount = 1
-            self.greenRoundB.layer.addAnimation(animationGreenRoundA, forKey: "color and width")
+            self.greenRoundA.layer.addAnimation(animationGreenRoundA, forKey: "color and width")
             let animationGreenRoundB = CABasicAnimation(keyPath: "borderColor")
             animationGreenRoundB.fromValue = UIColor.blackColor().CGColor
             animationGreenRoundB.toValue = Colors.green.CGColor
@@ -192,7 +214,7 @@ class ResultsDuoViewController: UIViewController {
             animationGreenRoundA.toValue = Colors.awardPoints.CGColor
             animationGreenRoundA.duration = 2
             animationGreenRoundA.repeatCount = 1
-            self.greenRoundB.layer.addAnimation(animationGreenRoundA, forKey: "color and width")
+            self.greenRoundA.layer.addAnimation(animationGreenRoundA, forKey: "color and width")
             let animationGreenRoundB = CABasicAnimation(keyPath: "borderColor")
             animationGreenRoundB.fromValue = UIColor.blackColor().CGColor
             animationGreenRoundB.toValue = Colors.awardPoints.CGColor
@@ -206,7 +228,7 @@ class ResultsDuoViewController: UIViewController {
             animationGreenRoundA.toValue = Colors.green.CGColor
             animationGreenRoundA.duration = 2
             animationGreenRoundA.repeatCount = 1
-            self.greenRoundB.layer.addAnimation(animationGreenRoundA, forKey: "color and width")
+            self.greenRoundA.layer.addAnimation(animationGreenRoundA, forKey: "color and width")
             let animationGreenRoundB = CABasicAnimation(keyPath: "borderColor")
             animationGreenRoundB.fromValue = UIColor.blackColor().CGColor
             animationGreenRoundB.toValue = Colors.wrongAnswer.CGColor

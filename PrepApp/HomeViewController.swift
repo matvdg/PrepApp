@@ -57,16 +57,30 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
             if self.currentStatsPanelDisplayed == 1 {
                 self.statsPanelDisplayed = false
                 self.stats.hidden = true
+                self.cheButton.layer.cornerRadius = 6
+                self.bioButton.layer.cornerRadius = 6
             } else {
+                let shape = CAShapeLayer()
+                shape.bounds = self.cheButton.frame
+                shape.position = self.cheButton.center
+                shape.path = UIBezierPath(roundedRect: self.cheButton.bounds, byRoundingCorners: UIRectCorner.TopRight, cornerRadii: CGSize(width: 6, height: 6)).CGPath
+                self.cheButton.layer.cornerRadius = 0
+                self.cheButton.layer.mask = shape
                 self.currentStatsPanelDisplayed = 1
-                self.stats.text = "Progression : \(Int(self.bioPercent))%    -    \(self.bioNumber) \(self.singularOrPlural(1, type: 0))    Niveau suivant : \(self.bioNumberToDo) \(self.singularOrPlural(1, type: 1))"
+                self.stats.text = "Progression : \(Int(self.bioPercent))%   -   \(self.bioNumber) \(self.singularOrPlural(1, type: 0))    Niveau suivant : \(self.bioNumberToDo) \(self.singularOrPlural(1, type: 1))"
                 self.stats.backgroundColor = Colors.bio
                 self.stats.hidden = false
             }
         } else {
+            let shape = CAShapeLayer()
+            shape.bounds = self.cheButton.frame
+            shape.position = self.cheButton.center
+            shape.path = UIBezierPath(roundedRect: self.cheButton.bounds, byRoundingCorners: UIRectCorner.TopRight, cornerRadii: CGSize(width: 6, height: 6)).CGPath
+            self.cheButton.layer.cornerRadius = 0
+            self.cheButton.layer.mask = shape
             self.statsPanelDisplayed = true
             self.currentStatsPanelDisplayed = 1
-            self.stats.text = "Progression : \(Int(self.bioPercent))%    -    \(self.bioNumber) \(self.singularOrPlural(1, type: 0))    Niveau suivant : \(self.bioNumberToDo) \(self.singularOrPlural(1, type: 1))"
+            self.stats.text = "Progression : \(Int(self.bioPercent))%   -   \(self.bioNumber) \(self.singularOrPlural(1, type: 0))    Niveau suivant : \(self.bioNumberToDo) \(self.singularOrPlural(1, type: 1))"
             self.stats.backgroundColor = Colors.bio
             self.stats.hidden = false
         }
@@ -78,16 +92,43 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
             if self.currentStatsPanelDisplayed == 2 {
                 self.statsPanelDisplayed = false
                 self.stats.hidden = true
+                self.bioButton.layer.cornerRadius = 6
+                self.cheButton.layer.cornerRadius = 6
             } else {
+                let shapeBio = CAShapeLayer()
+                shapeBio.bounds = self.bioButton.frame
+                shapeBio.position = self.bioButton.center
+                shapeBio.path = UIBezierPath(roundedRect: self.bioButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSize(width: 6, height: 6)).CGPath
+                self.bioButton.layer.cornerRadius = 0
+                self.bioButton.layer.mask = shapeBio
+                let shapeChe = CAShapeLayer()
+                shapeChe.bounds = self.cheButton.frame
+                shapeChe.position = self.cheButton.center
+                shapeChe.path = UIBezierPath(roundedRect: self.cheButton.bounds, byRoundingCorners: UIRectCorner.TopRight, cornerRadii: CGSize(width: 6, height: 6)).CGPath
+                self.cheButton.layer.cornerRadius = 0
+                self.cheButton.layer.mask = shapeChe
                 self.currentStatsPanelDisplayed = 2
-                self.stats.text = "Progression : \(Int(self.phyPercent))%    -    \(self.phyNumber) \(self.singularOrPlural(2, type: 0))    Niveau suivant : \(self.phyNumberToDo) \(self.singularOrPlural(2, type: 1))"
+                self.stats.text = "Progression : \(Int(self.phyPercent))%   -   \(self.phyNumber) \(self.singularOrPlural(2, type: 0))    Niveau suivant : \(self.phyNumberToDo) \(self.singularOrPlural(2, type: 1))"
                 self.stats.backgroundColor = Colors.phy
                 self.stats.hidden = false
             }
         } else {
+            let shapeBio = CAShapeLayer()
+            shapeBio.bounds = self.bioButton.frame
+            shapeBio.position = self.bioButton.center
+            shapeBio.path = UIBezierPath(roundedRect: self.bioButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSize(width: 6, height: 6)).CGPath
+            self.bioButton.layer.cornerRadius = 0
+            self.bioButton.layer.mask = shapeBio
+            let shapeChe = CAShapeLayer()
+            shapeChe.bounds = self.cheButton.frame
+            shapeChe.position = self.cheButton.center
+            shapeChe.path = UIBezierPath(roundedRect: self.cheButton.bounds, byRoundingCorners: UIRectCorner.TopRight, cornerRadii: CGSize(width: 6, height: 6)).CGPath
+            self.cheButton.layer.cornerRadius = 0
+            self.cheButton.layer.mask = shapeChe
+
             self.statsPanelDisplayed = true
             self.currentStatsPanelDisplayed = 2
-            self.stats.text = "Progression : \(Int(self.phyPercent))%    -    \(self.phyNumber) \(self.singularOrPlural(2, type: 0))    Niveau suivant : \(self.phyNumberToDo) \(self.singularOrPlural(2, type: 1))"
+            self.stats.text = "Progression : \(Int(self.phyPercent))%   -   \(self.phyNumber) \(self.singularOrPlural(2, type: 0))    Niveau suivant : \(self.phyNumberToDo) \(self.singularOrPlural(2, type: 1))"
             self.stats.backgroundColor = Colors.phy
             self.stats.hidden = false
         }
@@ -99,16 +140,30 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
             if self.currentStatsPanelDisplayed == 3 {
                 self.statsPanelDisplayed = false
                 self.stats.hidden = true
+                self.bioButton.layer.cornerRadius = 6
+                self.cheButton.layer.cornerRadius = 6
             } else {
+                let shape = CAShapeLayer()
+                shape.bounds = self.bioButton.frame
+                shape.position = self.bioButton.center
+                shape.path = UIBezierPath(roundedRect: self.bioButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSize(width: 6, height: 6)).CGPath
+                self.bioButton.layer.cornerRadius = 0
+                self.bioButton.layer.mask = shape
                 self.currentStatsPanelDisplayed = 3
-                self.stats.text = "Progression : \(Int(self.chePercent))%    -    \(self.cheNumber) \(self.singularOrPlural(3, type: 0))    Niveau suivant : \(self.cheNumberToDo) \(self.singularOrPlural(3, type: 1))"
+                self.stats.text = "Progression : \(Int(self.chePercent))%   -   \(self.cheNumber) \(self.singularOrPlural(3, type: 0))    Niveau suivant : \(self.cheNumberToDo) \(self.singularOrPlural(3, type: 1))"
                 self.stats.backgroundColor = Colors.che
                 self.stats.hidden = false
             }
         } else {
+            let shape = CAShapeLayer()
+            shape.bounds = self.bioButton.frame
+            shape.position = self.bioButton.center
+            shape.path = UIBezierPath(roundedRect: self.bioButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSize(width: 6, height: 6)).CGPath
+            self.bioButton.layer.cornerRadius = 0
+            self.bioButton.layer.mask = shape
             self.statsPanelDisplayed = true
             self.currentStatsPanelDisplayed = 3
-            self.stats.text = "Progression : \(Int(self.chePercent))%    -    \(self.cheNumber) \(self.singularOrPlural(3, type: 0))    Niveau suivant : \(self.cheNumberToDo) \(self.singularOrPlural(3, type: 1))"
+            self.stats.text = "Progression : \(Int(self.chePercent))%   -   \(self.cheNumber) \(self.singularOrPlural(3, type: 0))    Niveau suivant : \(self.cheNumberToDo) \(self.singularOrPlural(3, type: 1))"
             self.stats.backgroundColor = Colors.che
             self.stats.hidden = false
         }
