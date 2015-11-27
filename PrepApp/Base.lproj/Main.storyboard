@@ -122,6 +122,9 @@
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
         </mutableArray>
         <mutableArray key="timer.ttf">
             <string>Digital-7</string>
@@ -1579,7 +1582,7 @@
                         <viewControllerLayoutGuide type="bottom" id="7tI-Hk-gLE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dEg-nT-YxD">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="240"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CeN-Rz-hNK">
@@ -1650,7 +1653,7 @@
                                     <constraint firstAttribute="height" constant="30" id="BFc-tA-n5A"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
-                                <state key="normal" title="Marquées">
+                                <state key="normal" title="Marquages">
                                     <color key="titleColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1658,19 +1661,72 @@
                                     <action selector="filterMarked:" destination="D9q-9L-dR2" eventType="touchUpInside" id="vpD-gX-fym"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="voO-lr-cCU" userLabel="Solo">
+                                <rect key="frame" x="-4" y="150" width="208" height="30"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="p1N-5o-ajN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
+                                <state key="normal" title="Défi solo">
+                                    <color key="titleColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="filterSolo:" destination="D9q-9L-dR2" eventType="touchUpInside" id="Nud-KW-j5H"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GJm-uo-az1" userLabel="Duo">
+                                <rect key="frame" x="0.0" y="180" width="200" height="30"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="yCG-LQ-3pf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
+                                <state key="normal" title="Défi duo">
+                                    <color key="titleColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="filterDuo:" destination="D9q-9L-dR2" eventType="touchUpInside" id="OyS-DS-ZG1"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ei4-aV-1Cl" userLabel="Challenge">
+                                <rect key="frame" x="-4" y="210" width="208" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="15"/>
+                                <state key="normal" title="Concours">
+                                    <color key="titleColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="filterContest:" destination="D9q-9L-dR2" eventType="touchUpInside" id="ZPl-6A-SS3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="FSu-g0-2bi" firstAttribute="top" secondItem="jBC-VL-S2b" secondAttribute="bottom" id="2pl-0g-pYt"/>
                             <constraint firstItem="FSu-g0-2bi" firstAttribute="leading" secondItem="dEg-nT-YxD" secondAttribute="leading" id="4wC-2z-I4H"/>
                             <constraint firstItem="dq2-m0-iNb" firstAttribute="leading" secondItem="dEg-nT-YxD" secondAttribute="leading" id="6ie-14-G7n"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ei4-aV-1Cl" secondAttribute="trailing" constant="-20" id="9Ge-Ke-h6H"/>
                             <constraint firstItem="dq2-m0-iNb" firstAttribute="top" secondItem="cq5-6P-w7A" secondAttribute="bottom" id="Cmi-If-8hz"/>
+                            <constraint firstItem="GJm-uo-az1" firstAttribute="top" secondItem="voO-lr-cCU" secondAttribute="bottom" id="DLR-EF-wgA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="voO-lr-cCU" secondAttribute="trailing" constant="-20" id="Guq-Ql-uka"/>
                             <constraint firstItem="CeN-Rz-hNK" firstAttribute="top" secondItem="dq2-m0-iNb" secondAttribute="bottom" id="HFh-Y1-48K"/>
+                            <constraint firstAttribute="trailing" secondItem="GJm-uo-az1" secondAttribute="trailing" id="Puw-GC-hbt"/>
+                            <constraint firstItem="voO-lr-cCU" firstAttribute="leading" secondItem="dEg-nT-YxD" secondAttribute="leadingMargin" constant="-20" id="T1q-q3-4Zf"/>
                             <constraint firstAttribute="trailing" secondItem="FSu-g0-2bi" secondAttribute="trailing" id="VGN-O8-HC8"/>
+                            <constraint firstItem="GJm-uo-az1" firstAttribute="leading" secondItem="dEg-nT-YxD" secondAttribute="leading" id="VS4-67-zRt"/>
                             <constraint firstItem="Wrv-5u-lfq" firstAttribute="top" secondItem="FSu-g0-2bi" secondAttribute="bottom" id="X1g-iN-rcK"/>
+                            <constraint firstItem="voO-lr-cCU" firstAttribute="top" secondItem="Wrv-5u-lfq" secondAttribute="bottom" id="aI5-Oh-sal"/>
                             <constraint firstItem="jBC-VL-S2b" firstAttribute="top" secondItem="CeN-Rz-hNK" secondAttribute="bottom" id="avb-zn-0O4"/>
+                            <constraint firstItem="Ei4-aV-1Cl" firstAttribute="top" secondItem="GJm-uo-az1" secondAttribute="bottom" id="bNX-1c-veV"/>
                             <constraint firstAttribute="trailing" secondItem="CeN-Rz-hNK" secondAttribute="trailing" id="cLZ-RM-SvL"/>
                             <constraint firstItem="jBC-VL-S2b" firstAttribute="leading" secondItem="dEg-nT-YxD" secondAttribute="leading" id="dTh-bc-3Bi"/>
+                            <constraint firstItem="Ei4-aV-1Cl" firstAttribute="leading" secondItem="dEg-nT-YxD" secondAttribute="leadingMargin" constant="-20" id="frB-pT-I4o"/>
+                            <constraint firstItem="7tI-Hk-gLE" firstAttribute="top" secondItem="Ei4-aV-1Cl" secondAttribute="bottom" id="gHJ-Dd-NFE"/>
                             <constraint firstItem="CeN-Rz-hNK" firstAttribute="leading" secondItem="dEg-nT-YxD" secondAttribute="leading" id="jG7-2I-aRs"/>
                             <constraint firstItem="Wrv-5u-lfq" firstAttribute="leading" secondItem="dEg-nT-YxD" secondAttribute="leading" id="kbb-MF-DDS"/>
                             <constraint firstAttribute="trailing" secondItem="Wrv-5u-lfq" secondAttribute="trailing" id="qHH-xN-Fpo"/>
@@ -1683,10 +1739,13 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="200" height="150"/>
+                    <size key="freeformSize" width="200" height="240"/>
                     <connections>
                         <outlet property="all" destination="dq2-m0-iNb" id="uC4-VD-RoC"/>
                         <outlet property="failed" destination="CeN-Rz-hNK" id="cwf-Zr-bqd"/>
+                        <outlet property="fromContest" destination="Ei4-aV-1Cl" id="Hq7-Vk-a4b"/>
+                        <outlet property="fromDuo" destination="GJm-uo-az1" id="erA-sW-qLY"/>
+                        <outlet property="fromSolo" destination="voO-lr-cCU" id="H9C-U7-wuK"/>
                         <outlet property="marked" destination="Wrv-5u-lfq" id="sTy-l1-d1g"/>
                         <outlet property="new" destination="FSu-g0-2bi" id="6HB-VP-Vwy"/>
                         <outlet property="succeeded" destination="jBC-VL-S2b" id="aFT-1d-Rwp"/>
@@ -3423,7 +3482,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="ZWL-2Y-puZ">
-                                <rect key="frame" x="20" y="96" width="560" height="436"/>
+                                <rect key="frame" x="20" y="140" width="560" height="392"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -3434,7 +3493,7 @@
                                 </connections>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000298023224" translatesAutoresizingMaskIntoConstraints="NO" id="k9l-Oc-DZJ">
-                                <rect key="frame" x="20" y="28" width="560" height="60"/>
+                                <rect key="frame" x="20" y="72" width="560" height="60"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="ig2-PZ-EfT"/>
@@ -5053,8 +5112,8 @@
         <segue reference="dAY-Nr-cf6"/>
         <segue reference="F9M-0G-DBV"/>
         <segue reference="C5u-vB-9sx"/>
-        <segue reference="lqZ-eW-hiS"/>
-        <segue reference="EuL-Gj-hVY"/>
+        <segue reference="78B-T2-OOj"/>
+        <segue reference="FJi-Sh-npJ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.086274509803921567" green="0.62745098039215685" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
 </document>

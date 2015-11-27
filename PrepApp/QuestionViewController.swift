@@ -36,7 +36,8 @@ UIAdaptivePresentationControllerDelegate  {
     var animatingAwardPointTimer = NSTimer()
     var stateAnimationAwardPoint = 0
     var waitBeforeNextQuestion: Bool = false
-    var choiceFilter = 0 // 0=ALL 1=FAILED 2=SUCCEEDED 3=NEW 4=MARKED
+    var choiceFilter = 0 // 0=ALL 1=FAILED 2=SUCCEEDED 3=NEW 4=MARKED 5=SOLO 6=DUO 7=CONTEST
+
     let baseUrl = NSURL(fileURLWithPath: FactorySync.path, isDirectory: true)
     
     //graphics properties
@@ -193,7 +194,7 @@ UIAdaptivePresentationControllerDelegate  {
             bundle: nil)
         let choiceQuestion: ChoiceQuestionViewController = storyboard.instantiateViewControllerWithIdentifier("ChoiceQuestionViewController") as! ChoiceQuestionViewController
         choiceQuestion.modalPresentationStyle = .Popover
-        choiceQuestion.preferredContentSize = CGSizeMake(200, 150)
+        choiceQuestion.preferredContentSize = CGSizeMake(200, 240)
         choiceQuestion.delegate = self
         choiceQuestion.choiceFilter = self.choiceFilter
         choiceQuestion.currentChapter = self.currentChapter
@@ -291,6 +292,7 @@ UIAdaptivePresentationControllerDelegate  {
             }
         }
         //now applying the filter choosen by user
+        // 0=ALL 1=FAILED 2=SUCCEEDED 3=NEW 4=MARKED 5=SOLO 6=DUO 7=CONTEST
         switch self.choiceFilter {
         case 0: //ALL
             self.questions = tempQuestions
@@ -308,13 +310,31 @@ UIAdaptivePresentationControllerDelegate  {
             }
         case 3: //NEW
             for question in tempQuestions {
-                if FactoryHistory.getHistory().isQuestionNewInTraining(question.id){
+                if FactoryHistory.getHistory().isQuestionNew(question.id){
                     self.questions.append(question)
                 }
             }
         case 4: //MARKED
             for question in tempQuestions {
                 if FactoryHistory.getHistory().isQuestionMarked(question.id){
+                    self.questions.append(question)
+                }
+            }
+        case 5: //SOLO
+            for question in tempQuestions {
+                if FactoryHistory.getHistory().isQuestionFromSolo(question.id){
+                    self.questions.append(question)
+                }
+            }
+        case 6: //DUO
+            for question in tempQuestions {
+                if FactoryHistory.getHistory().isQuestionFromDuo(question.id){
+                    self.questions.append(question)
+                }
+            }
+        case 7: //CONTEST
+            for question in tempQuestions {
+                if FactoryHistory.getHistory().isQuestionFromContest(question.id){
                     self.questions.append(question)
                 }
             }

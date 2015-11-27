@@ -143,6 +143,60 @@ class History {
         return result
     }
     
+    func isQuestionFromSolo(id: Int)-> Bool {
+        let questionsHistory = self.realm.objects(QuestionHistory)
+        let questions = self.realm.objects(Question)
+        var result = false
+        for questionHistory in questionsHistory {
+            if result {
+                break
+            }
+            for question in questions {
+                if question.id == questionHistory.id && question.type == 1 {
+                    result = true
+                    break
+                }
+            }
+        }
+        return (result)
+    }
+    
+    func isQuestionFromDuo(id: Int)-> Bool {
+        let questionsHistory = self.realm.objects(QuestionHistory)
+        let questions = self.realm.objects(Question)
+        var result = false
+        for questionHistory in questionsHistory {
+            if result {
+                break
+            }
+            for question in questions {
+                if question.id == questionHistory.id && question.type == 2 {
+                    result = true
+                    break
+                }
+            }
+        }
+        return (result)
+    }
+    
+    func isQuestionFromContest(id: Int)-> Bool {
+        let questionsHistory = self.realm.objects(QuestionHistory)
+        let questions = self.realm.objects(Question)
+        var result = false
+        for questionHistory in questionsHistory {
+            if result {
+                break
+            }
+            for question in questions {
+                if question.id == questionHistory.id && question.type == 3 {
+                    result = true
+                    break
+                }
+            }
+        }
+        return (result)
+    }
+    
     func getMarkedQuestions() -> ([Question],[Bool]) {
         let questionsHistory = self.realm.objects(QuestionHistory)
         let questions = self.realm.objects(Question)

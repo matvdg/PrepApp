@@ -10,7 +10,7 @@ import UIKit
 
 class ChoiceQuestionViewController: UIViewController {
     
-    var choiceFilter = 0 // 0=ALL 1=FAILED 2=SUCCEEDED 3=NEW 4=MARKED
+    var choiceFilter = 0 // 0=ALL 1=FAILED 2=SUCCEEDED 3=NEW 4=MARKED 5=SOLO 6=DUO 7=CONTEST
     var delegate: ChoiceQuestionViewControllerDelegate?
     let realm = FactoryRealm.getRealm()
     var currentChapter: Chapter?
@@ -22,42 +22,67 @@ class ChoiceQuestionViewController: UIViewController {
     @IBOutlet weak var succeeded: UIButton!
     @IBOutlet weak var new: UIButton!
     @IBOutlet weak var marked: UIButton!
+    @IBOutlet weak var fromSolo: UIButton!
+    @IBOutlet weak var fromDuo: UIButton!
+    @IBOutlet weak var fromContest: UIButton!
     
     //@IBActions
     @IBAction func filterAll(sender: AnyObject) {
         self.choiceFilter = 0
         self.delegate?.applyChoice(self.choiceFilter)
-        self.dismissViewControllerAnimated(true, completion: nil )
         self.designButtons()
+        self.dismissViewControllerAnimated(true, completion: nil )
     }
     
     @IBAction func filterFailed(sender: AnyObject) {
         self.choiceFilter = 1
         self.delegate?.applyChoice(self.choiceFilter)
-        self.dismissViewControllerAnimated(true, completion: nil )
         self.designButtons()
+        self.dismissViewControllerAnimated(true, completion: nil )
     }
     
     @IBAction func filterSucceeded(sender: AnyObject) {
         self.choiceFilter = 2
         self.delegate?.applyChoice(self.choiceFilter)
-        self.dismissViewControllerAnimated(true, completion: nil )
         self.designButtons()
+        self.dismissViewControllerAnimated(true, completion: nil )
     }
     
     @IBAction func filterNew(sender: AnyObject) {
         self.choiceFilter = 3
         self.delegate?.applyChoice(self.choiceFilter)
-        self.dismissViewControllerAnimated(true, completion: nil )
         self.designButtons()
+        self.dismissViewControllerAnimated(true, completion: nil )
     }
     
     @IBAction func filterMarked(sender: AnyObject) {
         self.choiceFilter = 4
         self.delegate?.applyChoice(self.choiceFilter)
-        self.dismissViewControllerAnimated(true, completion: nil )
         self.designButtons()
+        self.dismissViewControllerAnimated(true, completion: nil )
     }
+    
+    @IBAction func filterSolo(sender: AnyObject) {
+        self.choiceFilter = 5
+        self.delegate?.applyChoice(self.choiceFilter)
+        self.designButtons()
+        self.dismissViewControllerAnimated(true, completion: nil )
+    }
+    
+    @IBAction func filterDuo(sender: AnyObject) {
+        self.choiceFilter = 6
+        self.delegate?.applyChoice(self.choiceFilter)
+        self.designButtons()
+        self.dismissViewControllerAnimated(true, completion: nil )
+    }
+    
+    @IBAction func filterContest(sender: AnyObject) {
+        self.choiceFilter = 7
+        self.delegate?.applyChoice(self.choiceFilter)
+        self.designButtons()
+        self.dismissViewControllerAnimated(true, completion: nil )
+    }
+    
     
     //app method
     override func viewDidLoad() {
@@ -101,6 +126,12 @@ class ChoiceQuestionViewController: UIViewController {
         new.setTitleColor(Colors.green, forState: .Normal)
         marked.backgroundColor = UIColor.whiteColor()
         marked.setTitleColor(Colors.green, forState: .Normal)
+        fromSolo.backgroundColor = UIColor.whiteColor()
+        fromSolo.setTitleColor(Colors.green, forState: .Normal)
+        fromDuo.backgroundColor = UIColor.whiteColor()
+        fromDuo.setTitleColor(Colors.green, forState: .Normal)
+        fromContest.backgroundColor = UIColor.whiteColor()
+        fromContest.setTitleColor(Colors.green, forState: .Normal)
         
         switch(self.choiceFilter) {
             case 0 : //All
@@ -118,6 +149,15 @@ class ChoiceQuestionViewController: UIViewController {
             case 4 : //Marked
                 marked.backgroundColor = Colors.green
                 marked.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            case 5 : //fromSolo
+                fromSolo.backgroundColor = Colors.green
+                fromSolo.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            case 6 : //fromDuo
+                fromDuo.backgroundColor = Colors.green
+                fromDuo.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            case 7 : //fromContest
+                fromContest.backgroundColor = Colors.green
+                fromContest.setTitleColor(UIColor.whiteColor(), forState: .Normal)
             default :
                 all.backgroundColor = Colors.green
                 all.setTitleColor(UIColor.whiteColor(), forState: .Normal)
@@ -149,6 +189,16 @@ class ChoiceQuestionViewController: UIViewController {
         
         //fetching duo questions already DONE
         questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 2", currentChapter!)
+        for question in questionsRealm {
+            if FactoryHistory.getHistory().isQuestionDone(question.id){
+                tempQuestions.append(question)
+                counter++
+            }
+            
+        }
+        
+        //fetching contest questions already DONE
+        questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 3", currentChapter!)
         for question in questionsRealm {
             if FactoryHistory.getHistory().isQuestionDone(question.id){
                 tempQuestions.append(question)
@@ -197,7 +247,7 @@ class ChoiceQuestionViewController: UIViewController {
         available = false
         counter = 0
         for question in tempQuestions {
-            if FactoryHistory.getHistory().isQuestionNewInTraining(question.id){
+            if FactoryHistory.getHistory().isQuestionNew(question.id){
                 available = true
                 counter++
             }
@@ -226,6 +276,60 @@ class ChoiceQuestionViewController: UIViewController {
             marked.setTitleColor(UIColor.grayColor(), forState: .Normal)
         }
         self.marked.setTitle("Marquées (\(counter))", forState: .Normal)
+        
+        //SOLO
+        available = false
+        counter = 0
+        for question in tempQuestions {
+            if FactoryHistory.getHistory().isQuestionFromSolo(question.id){
+                available = true
+                counter++
+            }
+        }
+        if available {
+            self.fromSolo.enabled = true
+        } else {
+            self.fromSolo.enabled = false
+            fromSolo.setTitleColor(UIColor.grayColor(), forState: .Normal)
+        }
+        self.fromSolo.setTitle("Défi solo (\(counter))", forState: .Normal)
+        
+        //DUO
+        available = false
+        counter = 0
+        for question in tempQuestions {
+            if FactoryHistory.getHistory().isQuestionFromDuo(question.id){
+                available = true
+                counter++
+            }
+        }
+        if available {
+            self.fromDuo.enabled = true
+        } else {
+            self.fromDuo.enabled = false
+            fromDuo.setTitleColor(UIColor.grayColor(), forState: .Normal)
+        }
+        self.fromDuo.setTitle("Défi duo (\(counter))", forState: .Normal)
+
+        
+        //CONTEST
+        available = false
+        counter = 0
+        for question in tempQuestions {
+            if FactoryHistory.getHistory().isQuestionFromContest(question.id){
+                available = true
+                counter++
+            }
+        }
+        if available {
+            self.fromContest.enabled = true
+        } else {
+            self.fromContest.enabled = false
+            fromContest.setTitleColor(UIColor.grayColor(), forState: .Normal)
+        }
+        self.fromContest.setTitle("Concours (\(counter))", forState: .Normal)
+
+
     }
     
 

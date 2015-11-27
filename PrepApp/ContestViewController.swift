@@ -90,7 +90,7 @@ class ContestViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.contestContent.loadHTMLString(self.contest.content, baseURL: nil)
         
         if !FactoryHistory.getHistory().isContestNew(self.contest.id) {
-            /*the contest isn't new -> fetched from QuestionHistory - we couldn't have checked into ContestHistory -although it'd have been an easier check- because this local data isn't saved into PrepApp servers, just in local Realm DB, so we loose it after a new install of the app... So we could do the contest twice and cheating just by reinstalling the app or logging out. So we checked into QuestionHistory which is stored locally and remotely, the check is 100% sure :D */
+            /*the contest isn't new -> fetched from QuestionHistory - we couldn't have checked into ContestHistory -although it'd have been an easier check- because this local data isn't saved into PrepApp servers, just in local Realm DB, so we loose it after a new install/log out of the app... So we could do the contest twice and cheating just by reinstalling the app or logging out. So we checked into QuestionHistory which is stored locally and remotely, the check is 100% sure :D */
             //now we check into the local only ContestHistory to let display the score again or not (only if available)
             if let resultContest = FactorySync.getContestManager().getResultContest(self.contest.id) {
                 //results available!
