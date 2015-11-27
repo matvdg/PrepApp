@@ -169,23 +169,52 @@ class ResultsDuoViewController: UIViewController {
             default:
                 print("error")
             }
-            }) { (success) -> Void in
-                switch resultPlayerA {
-                case -1 :
-                    //A looses, B wins
-                    self.greenRoundA.layer.borderColor = Colors.wrongAnswer.CGColor
-                    self.greenRoundB.layer.borderColor = Colors.green.CGColor
-                case 0 :
-                    //it's a draw!
-                    self.greenRoundA.layer.borderColor = Colors.awardPoints.CGColor
-                    self.greenRoundB.layer.borderColor = Colors.awardPoints.CGColor
-                case 1 :
-                    //B looses, A wins
-                    self.greenRoundB.layer.borderColor = Colors.wrongAnswer.CGColor
-                    self.greenRoundA.layer.borderColor = Colors.green.CGColor
-                default:
-                    print("error")
-                }
+        })
+        switch resultPlayerA {
+        case -1 :
+            //A looses, B wins
+            let animationGreenRoundA = CABasicAnimation(keyPath: "borderColor")
+            animationGreenRoundA.fromValue = UIColor.blackColor().CGColor
+            animationGreenRoundA.toValue = Colors.wrongAnswer.CGColor
+            animationGreenRoundA.duration = 2
+            animationGreenRoundA.repeatCount = 1
+            self.greenRoundB.layer.addAnimation(animationGreenRoundA, forKey: "color and width")
+            let animationGreenRoundB = CABasicAnimation(keyPath: "borderColor")
+            animationGreenRoundB.fromValue = UIColor.blackColor().CGColor
+            animationGreenRoundB.toValue = Colors.green.CGColor
+            animationGreenRoundB.duration = 2
+            animationGreenRoundB.repeatCount = 1
+            self.greenRoundB.layer.addAnimation(animationGreenRoundB, forKey: "color and width")
+        case 0 :
+            //it's a draw!
+            let animationGreenRoundA = CABasicAnimation(keyPath: "borderColor")
+            animationGreenRoundA.fromValue = UIColor.blackColor().CGColor
+            animationGreenRoundA.toValue = Colors.awardPoints.CGColor
+            animationGreenRoundA.duration = 2
+            animationGreenRoundA.repeatCount = 1
+            self.greenRoundB.layer.addAnimation(animationGreenRoundA, forKey: "color and width")
+            let animationGreenRoundB = CABasicAnimation(keyPath: "borderColor")
+            animationGreenRoundB.fromValue = UIColor.blackColor().CGColor
+            animationGreenRoundB.toValue = Colors.awardPoints.CGColor
+            animationGreenRoundB.duration = 2
+            animationGreenRoundB.repeatCount = 1
+            self.greenRoundB.layer.addAnimation(animationGreenRoundB, forKey: "color and width")
+        case 1 :
+            //B looses, A wins
+            let animationGreenRoundA = CABasicAnimation(keyPath: "borderColor")
+            animationGreenRoundA.fromValue = UIColor.blackColor().CGColor
+            animationGreenRoundA.toValue = Colors.green.CGColor
+            animationGreenRoundA.duration = 2
+            animationGreenRoundA.repeatCount = 1
+            self.greenRoundB.layer.addAnimation(animationGreenRoundA, forKey: "color and width")
+            let animationGreenRoundB = CABasicAnimation(keyPath: "borderColor")
+            animationGreenRoundB.fromValue = UIColor.blackColor().CGColor
+            animationGreenRoundB.toValue = Colors.wrongAnswer.CGColor
+            animationGreenRoundB.duration = 2
+            animationGreenRoundB.repeatCount = 1
+            self.greenRoundB.layer.addAnimation(animationGreenRoundB, forKey: "color and width")
+        default:
+            print("error")
         }
     }
 
