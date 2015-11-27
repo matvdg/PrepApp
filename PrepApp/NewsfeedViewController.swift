@@ -21,7 +21,6 @@ class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableVi
             registerForPreviewingWithDelegate(self, sourceView: self.newsfeedTable)
         }
         self.pullToRefresh.tintColor = Colors.green
-        self.pullToRefresh.attributedTitle = NSAttributedString(string: "▼ Glisser vers le bas pour actualiser le fil d'actualités ▼")
         self.pullToRefresh.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.newsfeedTable?.addSubview(pullToRefresh)
         //sync newsfeed

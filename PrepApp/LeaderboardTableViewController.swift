@@ -18,7 +18,6 @@ class LeaderboardTableViewController: UITableViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.pullToRefresh.tintColor = Colors.green
-        self.pullToRefresh.attributedTitle = NSAttributedString(string: "▼ Glisser vers le bas pour actualiser le classement ▼")
         self.pullToRefresh.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView?.addSubview(pullToRefresh)
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))

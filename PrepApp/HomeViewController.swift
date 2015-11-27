@@ -802,7 +802,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
     //peek&pop
     func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         let statsVC = storyboard?.instantiateViewControllerWithIdentifier("StatsVC") as? StatsViewController
-        statsVC!.preferredContentSize = CGSize(width: 0.0, height: 600)
+        statsVC!.preferredContentSize = CGSize(width: 0.0, height: 400)
         previewingContext.sourceRect = self.view!.frame
         return statsVC
     }

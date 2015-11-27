@@ -29,7 +29,6 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadData()
-        self.pullToRefresh.attributedTitle = NSAttributedString(string: "▼ Glisser vers le bas pour actualiser ▼")
         self.pullToRefresh.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.pullToRefresh.tintColor = Colors.green
         self.contestTable?.addSubview(pullToRefresh)

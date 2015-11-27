@@ -101,7 +101,6 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
     //app methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.pullToRefresh.attributedTitle = NSAttributedString(string: "▼ Glisser vers le bas pour actualiser ▼")
         self.pullToRefresh.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.pullToRefresh.tintColor = Colors.green
         self.duoTable?.addSubview(pullToRefresh)
