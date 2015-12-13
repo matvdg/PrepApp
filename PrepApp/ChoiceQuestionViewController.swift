@@ -168,14 +168,12 @@ class ChoiceQuestionViewController: UIViewController {
         
         var tempQuestions = [Question]()
         var counter: Int = 0
-        var available: Bool = false
         
         //fetching training questions
         var questionsRealm = realm.objects(Question).filter("chapter = %@ AND type = 0", currentChapter!)
         for question in questionsRealm {
             tempQuestions.append(question)
             counter++
-
         }
         
         //fetching solo questions already DONE
@@ -194,7 +192,6 @@ class ChoiceQuestionViewController: UIViewController {
                 tempQuestions.append(question)
                 counter++
             }
-            
         }
         
         //fetching contest questions already DONE
@@ -204,11 +201,12 @@ class ChoiceQuestionViewController: UIViewController {
                 tempQuestions.append(question)
                 counter++
             }
-            
         }
         self.all.setTitle("Toutes (\(counter))", forState: .Normal)
         
+        
         //Now we check if each option it's available
+        var available: Bool = false
         counter = 0
         
         //FAILED

@@ -667,6 +667,7 @@ UIAdaptivePresentationControllerDelegate  {
     //ChoiceQuestionViewControllerDelegate method
     func applyChoice(choice: Int){
         self.choiceFilter = choice
+        self.mode = 0
         self.refreshView()
         Sound.playTrack("next")
     }

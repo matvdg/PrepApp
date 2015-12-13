@@ -1,5 +1,5 @@
 //
-//  PChatViewController.swift
+//  ChatViewController.swift
 //  PrepApp
 //
 //  Created by Mathieu Vandeginste on 19/11/2015.
