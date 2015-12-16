@@ -1876,6 +1876,15 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trimaskgreen" translatesAutoresizingMaskIntoConstraints="NO" id="Zzb-lp-PO7" userLabel="trigram">
+                                <rect key="frame" x="140" y="140" width="320" height="320"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="320" id="0Yq-np-yUb"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="320" id="ZGA-hu-316"/>
+                                    <constraint firstAttribute="height" constant="320" id="wBg-sL-Sia"/>
+                                    <constraint firstAttribute="width" constant="320" id="wgG-gx-kae"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.1058823529" green="0.50588235290000005" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -1883,6 +1892,8 @@
                             <constraint firstAttribute="centerX" secondItem="kyr-lb-Wzp" secondAttribute="centerX" id="7Hi-na-jme"/>
                             <constraint firstItem="99E-de-qXW" firstAttribute="top" secondItem="kyr-lb-Wzp" secondAttribute="bottom" constant="8" id="C9j-3E-cwK"/>
                             <constraint firstAttribute="centerX" secondItem="bTk-Ye-eNf" secondAttribute="centerX" id="V6C-jN-RZv"/>
+                            <constraint firstItem="Zzb-lp-PO7" firstAttribute="centerX" secondItem="bTk-Ye-eNf" secondAttribute="centerX" id="XP6-IR-sCR"/>
+                            <constraint firstItem="Zzb-lp-PO7" firstAttribute="centerY" secondItem="bTk-Ye-eNf" secondAttribute="centerY" id="aQk-Xv-mnX"/>
                             <constraint firstAttribute="centerX" secondItem="99E-de-qXW" secondAttribute="centerX" id="ca7-jH-vbW"/>
                             <constraint firstAttribute="centerY" secondItem="bTk-Ye-eNf" secondAttribute="centerY" id="l7r-kO-yla"/>
                             <constraint firstItem="syj-5W-bOg" firstAttribute="top" secondItem="99E-de-qXW" secondAttribute="bottom" constant="20" id="yGJ-zM-fw1"/>
@@ -1897,7 +1908,7 @@
                         <outlet property="buttonChallenge" destination="99E-de-qXW" id="qY7-9g-09n"/>
                         <outlet property="label" destination="kyr-lb-Wzp" id="RfZ-4A-vtK"/>
                         <outlet property="menuButton" destination="M1M-oP-5eO" id="A1i-al-r6f"/>
-                        <outlet property="trigram" destination="bTk-Ye-eNf" id="0c5-sq-C98"/>
+                        <outlet property="trigram" destination="Zzb-lp-PO7" id="BNV-63-cEH"/>
                         <segue destination="uY8-EO-oOx" kind="presentation" identifier="showSolo" modalTransitionStyle="coverVertical" id="t3U-eH-Q7h"/>
                     </connections>
                 </viewController>
