@@ -101,7 +101,7 @@ class SoloViewController: UIViewController {
             self.menuButton.target = self
             self.menuButton.action = "dismiss"
         }
-        self.trigram.image = UIImage(named: "triunselected")
+        self.trigram.image = UIImage(named: "default")
         self.buttonChallenge.layer.cornerRadius = 6
         self.renderButtons()
     }

@@ -1897,6 +1897,7 @@
                         <outlet property="buttonChallenge" destination="99E-de-qXW" id="qY7-9g-09n"/>
                         <outlet property="label" destination="kyr-lb-Wzp" id="RfZ-4A-vtK"/>
                         <outlet property="menuButton" destination="M1M-oP-5eO" id="A1i-al-r6f"/>
+                        <outlet property="trigram" destination="bTk-Ye-eNf" id="0c5-sq-C98"/>
                         <segue destination="uY8-EO-oOx" kind="presentation" identifier="showSolo" modalTransitionStyle="coverVertical" id="t3U-eH-Q7h"/>
                     </connections>
                 </viewController>
