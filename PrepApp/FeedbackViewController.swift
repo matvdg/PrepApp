@@ -20,7 +20,7 @@ class FeedbackViewController: UIViewController, UIPickerViewDataSource, UIPicker
     @IBAction func send(sender: AnyObject) {
         SwiftSpinner.setTitleFont(UIFont(name: "Segoe UI", size: 22.0))
         SwiftSpinner.show("")
-        if self.feedback.text == "Taper votre feedback ici :" || self.feedback.text == "" {
+        if self.feedback.text == "Taper votre retour ici :" || self.feedback.text == "" {
             SwiftSpinner.hide()
             // create alert controller
             let myAlert = UIAlertController(title: "Erreur", message: "Votre message est vide !", preferredStyle: UIAlertControllerStyle.Alert)
