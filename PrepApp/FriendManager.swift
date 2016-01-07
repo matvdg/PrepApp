@@ -240,13 +240,9 @@ class FriendManager {
                         try! self.realm.write({
                             self.realm.add(newFriend, update: true)
                         })
-                        
-                    } else {
-                        callback(false)
                     }
                 }
                 callback(true)
-
             } else {
                 callback(false)
             }
