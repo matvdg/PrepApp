@@ -160,7 +160,6 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
             cell.textLabel?.textColor = UIColor.blackColor()
             cell.backgroundColor = Colors.greyBackground
             cell.textLabel!.adjustsFontSizeToFitWidth = true
-            cell.textLabel!.adjustsFontSizeToFitWidth = true
             //formatting date
             let formatter = NSDateFormatter()
             formatter.dateFormat = "d/M/yyyy"
@@ -183,7 +182,6 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
             cell.textLabel?.textColor = UIColor.blackColor()
             cell.backgroundColor = Colors.greyBackground
             cell.textLabel!.adjustsFontSizeToFitWidth = true
-            cell.textLabel!.adjustsFontSizeToFitWidth = true
             //adding contest details to the table
             if contestHistory.id == -1 {
                 cell.accessoryType = UITableViewCellAccessoryType.None
@@ -201,7 +199,6 @@ class ChoiceContestViewController: UIViewController, UITableViewDataSource, UITa
             cell.textLabel!.text = contestLeaderboard.name
             cell.textLabel?.textColor = UIColor.blackColor()
             cell.backgroundColor = Colors.greyBackground
-            cell.textLabel!.adjustsFontSizeToFitWidth = true
             cell.textLabel!.adjustsFontSizeToFitWidth = true
             //adding contest details to the table
             if contestLeaderboard.id == -1 {

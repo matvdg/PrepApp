@@ -341,7 +341,6 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
             cell.textLabel!.text = text
             cell.textLabel?.textColor = UIColor.blackColor()
             cell.backgroundColor = Colors.greyBackground
-            cell.textLabel!.adjustsFontSizeToFitWidth = false
             cell.textLabel!.adjustsFontSizeToFitWidth = true
             //fetching expiration
             let offsetComponents = NSDateComponents()
@@ -379,7 +378,6 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
             }
             cell.textLabel?.textColor = UIColor.blackColor()
             cell.backgroundColor = Colors.greyBackground
-            cell.textLabel!.adjustsFontSizeToFitWidth = false
             cell.textLabel!.adjustsFontSizeToFitWidth = true
             cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
             cell.tintColor = Colors.green
@@ -411,7 +409,6 @@ class DuoViewController: UIViewController, UITableViewDataSource, UITableViewDel
             }
             cell.textLabel?.textColor = UIColor.blackColor()
             cell.backgroundColor = Colors.greyBackground
-            cell.textLabel!.adjustsFontSizeToFitWidth = false
             cell.textLabel!.adjustsFontSizeToFitWidth = true
             cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
             cell.tintColor = Colors.green

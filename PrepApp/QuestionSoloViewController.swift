@@ -454,38 +454,38 @@ class QuestionSoloViewController: UIViewController,
         switch self.choice {
             
         case 1: //biology
-            self.titleLabel.text = "Défi solo Biologie"
+            self.titleLabel.text = "Défi Biologie"
             self.titleLabel.textColor = UIColor.blackColor()
             self.titleBar.backgroundColor = Colors.bio
             
         case 2: //physics
-            self.titleLabel.text = "Défi solo Physique"
+            self.titleLabel.text = "Défi Physique"
             self.titleLabel.textColor = UIColor.blackColor()
             self.titleBar.backgroundColor = Colors.phy
 
         case 3: //chemistry
-            self.titleLabel.text = "Défi solo Chimie"
+            self.titleLabel.text = "Défi Chimie"
             self.titleLabel.textColor = UIColor.blackColor()
             self.titleBar.backgroundColor = Colors.che
 
 
         case 4: //bioPhy
-            self.titleLabel.text = "Défi solo Biologie/Physique"
+            self.titleLabel.text = "Défi Biologie/Physique"
             self.titleLabel.textColor = UIColor.blackColor()
             self.titleBar.backgroundColor = Colors.bioPhy
             
         case 5: //bioChe
-            self.titleLabel.text = "Défi solo Biologie/Chimie"
+            self.titleLabel.text = "Défi Biologie/Chimie"
             self.titleLabel.textColor = UIColor.blackColor()
             self.titleBar.backgroundColor = Colors.bioChe
 
         case 6: //chePhy
-            self.titleLabel.text = "Défi solo Chimie/Physique"
+            self.titleLabel.text = "Défi Chimie/Physique"
             self.titleLabel.textColor = UIColor.blackColor()
             self.titleBar.backgroundColor = Colors.chePhy
 
         case 7: //all
-            self.titleLabel.text = "Défi solo Biologie/Physique/Chimie"
+            self.titleLabel.text = "Défi Biologie/Physique/Chimie"
             self.titleLabel.textColor = UIColor.blackColor()
             self.titleBar.backgroundColor = Colors.greenLogo
 

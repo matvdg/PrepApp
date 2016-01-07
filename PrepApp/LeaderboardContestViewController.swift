@@ -58,8 +58,6 @@ class LeaderboardContestViewController: UITableViewController {
         let contestPlayer = self.leaderboard.players[indexPath.row]
         cell.textLabel?.textColor = UIColor.blackColor()
         cell.backgroundColor = Colors.greyBackground
-        cell.textLabel!.adjustsFontSizeToFitWidth = false
-        cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.textLabel!.font = UIFont(name: "Segoe UI", size: 16)
         cell.backgroundColor = Colors.greyBackground
         cell.detailTextLabel!.text = contestPlayer.points.toStringPoints()

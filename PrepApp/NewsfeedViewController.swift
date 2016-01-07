@@ -85,7 +85,6 @@ class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.textLabel!.text = news.title
         cell.textLabel?.textColor = UIColor.blackColor()
         cell.backgroundColor = Colors.greyBackground
-        cell.textLabel!.adjustsFontSizeToFitWidth = false
         cell.textLabel!.adjustsFontSizeToFitWidth = true
         cell.detailTextLabel!.font = UIFont(name: "Segoe UI", size: 12)
         cell.detailTextLabel!.textColor = Colors.green
