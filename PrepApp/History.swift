@@ -304,8 +304,6 @@ class History {
                             print(error.localizedDescription)
                             print("error : couldn't serialize JSON in getHistory")
                         }
-                        
-                        
                     } else {
                         print("header status = \(statusCode) in getHistory")
                         callback(nil)

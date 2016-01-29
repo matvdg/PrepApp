@@ -496,8 +496,7 @@ class QuestionDuoViewController: UIViewController,
             for answer in self.goodAnswers {
                 let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                 let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
-                cell.number.backgroundColor = Colors.rightAnswer
-                //green
+                cell.number.backgroundColor = Colors.rightAnswer //green
             }
             
         } else {
@@ -511,24 +510,12 @@ class QuestionDuoViewController: UIViewController,
             for answer in self.selectedAnswers {
                 let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                 let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
-                cell.number.backgroundColor = Colors.wrongAnswer
-                //red
+                cell.number.backgroundColor = Colors.wrongAnswer //red
             }
             for answer in self.goodAnswers {
                 let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                 if let cell = self.answers.cellForRowAtIndexPath(indexPath) as? UITableViewCellAnswer {
-                    cell.number.backgroundColor = Colors.rightAnswer
-                    //green
-                    var notSelected = true
-                    for selectedAnswer in self.selectedAnswers {
-                        if selectedAnswer == answer {
-                            notSelected = false
-                        }
-                    }
-                    if notSelected {
-                        cell.number.backgroundColor = Colors.wrongAnswer
-                        //red
-                    }
+                    cell.number.backgroundColor = Colors.rightAnswer //green
                 }
             }
         }

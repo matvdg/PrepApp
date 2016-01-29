@@ -36,7 +36,7 @@ class QuestionSoloViewController: UIViewController,
     var sizeAnswerCells: [Int:CGFloat] = [:]
     var numberOfAnswers = 0
     var timeChallengeTimer = NSTimer()
-    var timeLeft = NSTimeInterval(1)
+    var timeLeft = NSTimeInterval(60)
     var waitBeforeNextQuestion: Bool = false
     let baseUrl = NSURL(fileURLWithPath: FactorySync.path, isDirectory: true)
     var reviewMode = false
@@ -58,7 +58,7 @@ class QuestionSoloViewController: UIViewController,
         self.markButton.enabled = false
         self.designSoloChallengeTitleBar()
         self.chrono.textAlignment = NSTextAlignment.Center
-        self.timeLeft = NSTimeInterval(60 * FactorySync.getConfigManager().loadDuration())
+        //self.timeLeft = NSTimeInterval(60 * FactorySync.getConfigManager().loadDuration())
         let seconds = Int(floor(self.timeLeft % 60))
         let minutes = Int(floor(self.timeLeft / 60))
         var string = ""
@@ -662,8 +662,7 @@ class QuestionSoloViewController: UIViewController,
             for answer in self.goodAnswers {
                 let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                 let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
-                cell.number.backgroundColor = Colors.rightAnswer
-                //green
+                cell.number.backgroundColor = Colors.rightAnswer //green
             }
             
         } else {
@@ -677,24 +676,12 @@ class QuestionSoloViewController: UIViewController,
             for answer in self.selectedAnswers {
                 let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                 let cell = self.answers.cellForRowAtIndexPath(indexPath) as! UITableViewCellAnswer
-                cell.number.backgroundColor = Colors.wrongAnswer
-                //red
+                cell.number.backgroundColor = Colors.wrongAnswer //red
             }
             for answer in self.goodAnswers {
                 let indexPath = NSIndexPath(forRow: answer, inSection: 0)
                 if let cell = self.answers.cellForRowAtIndexPath(indexPath) as? UITableViewCellAnswer {
-                    cell.number.backgroundColor = Colors.rightAnswer
-                    //green
-                    var notSelected = true
-                    for selectedAnswer in self.selectedAnswers {
-                        if selectedAnswer == answer {
-                            notSelected = false
-                        }
-                    }
-                    if notSelected {
-                        cell.number.backgroundColor = Colors.wrongAnswer
-                        //red
-                    }
+                    cell.number.backgroundColor = Colors.rightAnswer //green
                 }
             }
         }
