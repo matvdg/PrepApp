@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Dek-1z-2AB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15E33e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Dek-1z-2AB">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -1593,7 +1593,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R3x-d7-Lkc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4272" y="-512"/>
+            <point key="canvasLocation" x="4272" y="-470"/>
         </scene>
         <!--QuestionTrainingVC-->
         <scene sceneID="40I-Ky-VIs">
@@ -1643,6 +1643,7 @@
                                     </barButtonItem>
                                     <barButtonItem width="10" style="plain" systemItem="fixedSpace" id="fhI-j5-jyk"/>
                                     <barButtonItem image="markedBar" id="SXq-UU-6LM" userLabel="mark">
+                                        <color key="tintColor" red="0.30980393290000002" green="0.6549019814" blue="0.53725492949999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="markQuestion:" destination="BNI-lo-Tem" id="QqV-WP-CtL"/>
                                         </connections>
@@ -1695,6 +1696,7 @@
                         <outlet property="awardPointImage" destination="MmM-mY-hJL" id="kus-9A-Ll2"/>
                         <outlet property="calc" destination="csE-kF-ELV" id="itW-rT-7X8"/>
                         <outlet property="chapter" destination="dp8-K3-32C" id="Dqm-dY-G3f"/>
+                        <outlet property="markButton" destination="SXq-UU-6LM" id="kZd-WH-Qo9"/>
                         <outlet property="nextButton" destination="Fer-bE-i3u" id="Ufp-Yi-8zr"/>
                         <outlet property="previousButton" destination="YaD-y2-nOb" id="6Zy-fq-f9h"/>
                         <outlet property="questionNumber" destination="jVL-k9-dd8" id="mTh-cq-Rd3"/>
@@ -4661,14 +4663,14 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="9Zt-vc-ZPx"/>
-        <segue reference="Mzc-wZ-R5Z"/>
         <segue reference="dOb-Hk-MCF"/>
         <segue reference="X6A-Qp-egL"/>
+        <segue reference="Mzc-wZ-R5Z"/>
         <segue reference="pkL-Jx-0og"/>
+        <segue reference="78B-T2-OOj"/>
+        <segue reference="FJi-Sh-npJ"/>
         <segue reference="KwL-6O-QQR"/>
         <segue reference="C5u-vB-9sx"/>
-        <segue reference="4dk-zf-p2A"/>
-        <segue reference="FJi-Sh-npJ"/>
         <segue reference="F9M-0G-DBV"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.086274509803921567" green="0.62745098039215685" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>

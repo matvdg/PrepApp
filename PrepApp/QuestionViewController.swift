@@ -90,6 +90,7 @@ UIAdaptivePresentationControllerDelegate  {
     @IBOutlet weak var previousButton: UIBarButtonItem!
     @IBOutlet weak var awardPoint: UILabel!
     @IBOutlet weak var awardPointImage: UIImageView!
+    @IBOutlet weak var markButton: UIBarButtonItem!
     
     //@IBActions methods
     @IBAction func previous(sender: AnyObject) {
@@ -124,6 +125,7 @@ UIAdaptivePresentationControllerDelegate  {
             let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = Colors.green
             myAlert.addAction(UIAlertAction(title: "Supprimer le marquage", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+                self.markButton.tintColor = UIColor.grayColor()
                 let historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
                 historyQuestion.marked = false
@@ -147,6 +149,7 @@ UIAdaptivePresentationControllerDelegate  {
             if FactoryHistory.getHistory().isQuestionDone(self.currentQuestion!.id) {
                 Sound.playTrack("notif")
                 title = "Question marquée"
+                self.markButton.tintColor = Colors.greenLogo
                 message = "Retrouvez tous les marquages dans la section \"Marquages\""
                 let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = Colors.green
@@ -155,6 +158,7 @@ UIAdaptivePresentationControllerDelegate  {
                 historyQuestion.marked = true
                 FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
                 myAlert.addAction(UIAlertAction(title: "Supprimer le marquage", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+                    self.markButton.tintColor = UIColor.grayColor()
                     let historyQuestion = QuestionHistory()
                     historyQuestion.id = self.currentQuestion!.id
                     historyQuestion.marked = false
@@ -365,8 +369,21 @@ UIAdaptivePresentationControllerDelegate  {
             }
             numberAnswer++
         }
+        //mark button
+        if FactoryHistory.getHistory().isQuestionMarked(self.currentQuestion!.id){
+            self.markButton.tintColor = Colors.greenLogo
+        } else {
+            self.markButton.tintColor = UIColor.grayColor()
+        }
+        //calc button
+        if self.currentQuestion!.calculator {
+            self.calc.image = UIImage(named: "calc")
+            self.calc.tintColor = UIColor.grayColor()
+        } else {
+            self.calc.image = UIImage(named: "nocalc")
+            self.calc.tintColor = Colors.greenLogo
+        }
         print("Question n°\(self.currentQuestion!.id), bonne(s) réponse(s) = \(self.goodAnswers.answersPrepApp())")
-        self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "notif") : UIImage(named: "nocalc"))
         self.didLoadWording = false
         self.didLoadAnswers = false
         self.didLoadInfos = false

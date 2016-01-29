@@ -158,6 +158,7 @@ class QuestionDuoViewController: UIViewController,
             let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
             myAlert.view.tintColor = Colors.green
             myAlert.addAction(UIAlertAction(title: "Supprimer le marquage", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+                self.markButton.tintColor = UIColor.grayColor()
                 let historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
                 historyQuestion.marked = false
@@ -181,6 +182,7 @@ class QuestionDuoViewController: UIViewController,
             if FactoryHistory.getHistory().isQuestionDone(self.currentQuestion!.id) {
                 Sound.playTrack("notif")
                 title = "Question marquée"
+                self.markButton.tintColor = Colors.greenLogo
                 message = "Retrouvez tous les marquages dans la section \"Marquages\""
                 let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
                 myAlert.view.tintColor = Colors.green
@@ -189,6 +191,7 @@ class QuestionDuoViewController: UIViewController,
                 historyQuestion.marked = true
                 FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
                 myAlert.addAction(UIAlertAction(title: "Supprimer le marquage", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+                    self.markButton.tintColor = UIColor.grayColor()
                     let historyQuestion = QuestionHistory()
                     historyQuestion.id = self.currentQuestion!.id
                     historyQuestion.marked = false
@@ -353,9 +356,42 @@ class QuestionDuoViewController: UIViewController,
         }
         
         print("Question n°\(self.currentQuestion!.id), bonne(s) réponse(s) = \(self.goodAnswers.answersPrepApp())")
-        if self.mode == 0 {
-            self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "notif") : UIImage(named: "nocalc"))
+        
+        //mark button
+        if self.mode == 1 {
+            if FactoryHistory.getHistory().isQuestionMarked(self.currentQuestion!.id){
+                self.markButton.tintColor = Colors.greenLogo
+            } else {
+                self.markButton.tintColor = UIColor.grayColor()
+            }
+        } else {
+            switch self.currentQuestion!.chapter!.subject!.id {
+            case 1 : //biology
+                self.markButton.image = UIImage(named: "bioBar")
+                self.chapter.backgroundColor = Colors.bio
+            case 2 : //physics
+                self.markButton.image = UIImage(named: "phyBar")
+                self.chapter.backgroundColor = Colors.phy
+            case 3 : //chemistry
+                self.markButton.image = UIImage(named: "cheBar")
+                self.chapter.backgroundColor = Colors.che
+            default:
+                self.markButton.image = nil
+            }
         }
+        
+        //calc button
+        if self.mode == 0 {
+            if self.currentQuestion!.calculator {
+                self.calc.image = UIImage(named: "calc")
+                self.calc.tintColor = UIColor.grayColor()
+            } else {
+                self.calc.image = UIImage(named: "nocalc")
+                self.calc.tintColor = Colors.greenLogo
+            }
+        }
+
+        
         self.didLoadWording = false
         self.didLoadAnswers = false
         self.didLoadInfos = false
@@ -366,27 +402,6 @@ class QuestionDuoViewController: UIViewController,
         self.title = self.currentQuestion!.chapter!.subject!.name.uppercaseString
         //display the chapter
         self.chapter.text = "\(self.currentQuestion!.chapter!.subject!.name.capitalizedString) : \(self.currentQuestion!.chapter!.name)"
-        switch self.currentQuestion!.chapter!.subject!.id {
-        case 1 : //biology
-            if self.mode == 0 {
-                self.markButton.image = UIImage(named: "bioBar")
-            }
-            self.chapter.backgroundColor = Colors.bio
-        case 2 : //physics
-            if self.mode == 0 {
-                self.markButton.image = UIImage(named: "phyBar")
-            }
-            
-            self.chapter.backgroundColor = Colors.phy
-        case 3 : //chemistry
-            if self.mode == 0 {
-                self.markButton.image = UIImage(named: "cheBar")
-            }
-            
-            self.chapter.backgroundColor = Colors.che
-        default:
-            self.markButton.image = nil
-        }
         
         
     }

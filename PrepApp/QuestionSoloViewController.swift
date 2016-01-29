@@ -144,6 +144,7 @@ class QuestionSoloViewController: UIViewController,
                 let historyQuestion = QuestionHistory()
                 historyQuestion.id = self.currentQuestion!.id
                 historyQuestion.marked = false
+                self.markButton.tintColor = UIColor.grayColor()
                 FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
                 Sound.playTrack("notif")
                 let myAlert = UIAlertController(title: "Marquage supprimé", message: nil , preferredStyle: UIAlertControllerStyle.Alert)
@@ -163,6 +164,7 @@ class QuestionSoloViewController: UIViewController,
         } else {
             if FactoryHistory.getHistory().isQuestionDone(self.currentQuestion!.id) {
                 Sound.playTrack("notif")
+                self.markButton.tintColor = Colors.greenLogo
                 title = "Question marquée"
                 message = "Retrouvez tous les marquages dans la section \"Marquages\""
                 let myAlert = UIAlertController(title: title, message: message , preferredStyle: UIAlertControllerStyle.Alert)
@@ -175,6 +177,7 @@ class QuestionSoloViewController: UIViewController,
                     let historyQuestion = QuestionHistory()
                     historyQuestion.id = self.currentQuestion!.id
                     historyQuestion.marked = false
+                    self.markButton.tintColor = UIColor.grayColor()
                     FactoryHistory.getHistory().updateQuestionMark(historyQuestion)
                     Sound.playTrack("notif")
                     let myAlert = UIAlertController(title: "Marquage supprimé", message: nil , preferredStyle: UIAlertControllerStyle.Alert)
@@ -518,10 +521,43 @@ class QuestionSoloViewController: UIViewController,
             self.selectedAnswers = savedAnswers
         }
         
-        print("Question n°\(self.currentQuestion!.id), bonne(s) réponse(s) = \(self.goodAnswers.answersPrepApp())")
-        if self.mode == 0 {
-            self.calc.image = ( self.currentQuestion!.calculator ? UIImage(named: "notif") : UIImage(named: "nocalc"))
+        //mark button
+        if self.mode == 1 {
+            if FactoryHistory.getHistory().isQuestionMarked(self.currentQuestion!.id){
+                self.markButton.tintColor = Colors.greenLogo
+            } else {
+                self.markButton.tintColor = UIColor.grayColor()
+            }
+        } else {
+            switch self.currentQuestion!.chapter!.subject!.id {
+            case 1 : //biology
+                self.markButton.image = UIImage(named: "bioBar")
+                self.chapter.backgroundColor = Colors.bio
+            case 2 : //physics
+                self.markButton.image = UIImage(named: "phyBar")
+                self.chapter.backgroundColor = Colors.phy
+            case 3 : //chemistry
+                self.markButton.image = UIImage(named: "cheBar")
+                self.chapter.backgroundColor = Colors.che
+            default:
+                self.markButton.image = nil
+            }
         }
+        
+        //calc button
+        if self.mode == 0 {
+            if self.currentQuestion!.calculator {
+                self.calc.image = UIImage(named: "calc")
+                self.calc.tintColor = UIColor.grayColor()
+            } else {
+                self.calc.image = UIImage(named: "nocalc")
+                self.calc.tintColor = Colors.greenLogo
+            }
+        }
+        
+        
+        print("Question n°\(self.currentQuestion!.id), bonne(s) réponse(s) = \(self.goodAnswers.answersPrepApp())")
+        
         self.didLoadWording = false
         self.didLoadAnswers = false
         self.didLoadInfos = false
@@ -532,28 +568,7 @@ class QuestionSoloViewController: UIViewController,
         self.title = self.currentQuestion!.chapter!.subject!.name.uppercaseString
         //display the chapter
         self.chapter.text = "\(self.currentQuestion!.chapter!.subject!.name.capitalizedString) : \(self.currentQuestion!.chapter!.name)"
-        switch self.currentQuestion!.chapter!.subject!.id {
-        case 1 : //biology
-            if self.mode == 0 {
-                self.markButton.image = UIImage(named: "bioBar")
-            }
-            self.chapter.backgroundColor = Colors.bio
-        case 2 : //physics
-            if self.mode == 0 {
-                self.markButton.image = UIImage(named: "phyBar")
-            }
-
-            self.chapter.backgroundColor = Colors.phy
-        case 3 : //chemistry
-            if self.mode == 0 {
-                self.markButton.image = UIImage(named: "cheBar")
-            }
-
-            self.chapter.backgroundColor = Colors.che
-        default:
-            self.markButton.image = nil
-        }
-
+        
         
     }
     
@@ -820,6 +835,7 @@ class QuestionSoloViewController: UIViewController,
         self.chrono.hidden = true
         self.chronoImage.hidden = true
         self.calc.image = UIImage(named: "score")
+        self.calc.tintColor = Colors.greenLogo
         self.titleLabel.text = "Correction du défi duo"
         self.markButton.enabled = true
         self.markButton.image = UIImage(named: "markedBar")
