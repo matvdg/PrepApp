@@ -13,6 +13,8 @@ class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableVi
     var newsfeed = [News]()
     var pullToRefresh =  UIRefreshControl()
 
+    
+    @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var newsfeedTable: UITableView!
 
     override func viewDidLoad() {
@@ -37,24 +39,16 @@ class NewsfeedViewController: UIViewController, UITableViewDataSource, UITableVi
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
         self.navigationController!.navigationBar.tintColor = Colors.greenLogo
         self.title = "Fil d'actualités"
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: "swiped:")
-        swipeRight.direction = UISwipeGestureRecognizerDirection.Right
-        self.view.addGestureRecognizer(swipeRight)
+        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
+        self.navigationController!.navigationBar.tintColor = Colors.greenLogo
+        if self.revealViewController() != nil {
+            self.menuButton.target = self.revealViewController()
+            self.menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
         //notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logout", name: "failed", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "update", name: "update", object: nil)
-    }
-    
-    func swiped(gesture : UIGestureRecognizer) {
-        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-            switch swipeGesture.direction {
-            case UISwipeGestureRecognizerDirection.Right:
-                self.navigationController?.popToRootViewControllerAnimated(true)
-            default:
-                print("other")
-                break
-            }
-        }
     }
     
     func refresh(sender:AnyObject) {

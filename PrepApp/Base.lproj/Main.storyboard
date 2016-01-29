@@ -124,6 +124,7 @@
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
             <string>SegoeUI-Regular</string>
+            <string>SegoeUI-Regular</string>
         </mutableArray>
         <mutableArray key="timer.ttf">
             <string>Digital-7</string>
@@ -605,8 +606,32 @@
                                         <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="rqP-s5-cJe">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="0xY-Uv-WjH" userLabel="Newsfeed Cell">
                                         <rect key="frame" x="0.0" y="320" width="600" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0xY-Uv-WjH" id="2Eg-ba-RgI">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="newsfeed" translatesAutoresizingMaskIntoConstraints="NO" id="Npj-Rp-qiw">
+                                                    <rect key="frame" x="25" y="15" width="20" height="20"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Fil d'actualités" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OXk-jn-eQ1">
+                                                    <rect key="frame" x="65" y="9" width="99" height="31"/>
+                                                    <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="16"/>
+                                                    <color key="textColor" red="0.35864504419999998" green="0.35864504419999998" blue="0.35864504419999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <segue destination="i6D-en-1fh" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="Yxr-dH-K9G"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="rqP-s5-cJe">
+                                        <rect key="frame" x="0.0" y="370" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rqP-s5-cJe" id="Kyw-ig-xus">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
@@ -630,7 +655,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="VBu-aE-Fvn">
-                                        <rect key="frame" x="0.0" y="370" width="600" height="50"/>
+                                        <rect key="frame" x="0.0" y="420" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VBu-aE-Fvn" id="Cca-jk-NYP">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
@@ -654,7 +679,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="GCB-f6-03p">
-                                        <rect key="frame" x="0.0" y="420" width="600" height="50"/>
+                                        <rect key="frame" x="0.0" y="470" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GCB-f6-03p" id="QLZ-XV-mcJ">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
@@ -678,7 +703,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="10" id="gm9-6Z-1TK">
-                                        <rect key="frame" x="0.0" y="470" width="600" height="10"/>
+                                        <rect key="frame" x="0.0" y="520" width="600" height="10"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gm9-6Z-1TK" id="9o4-0n-kk1">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="10"/>
@@ -693,7 +718,7 @@
                                         <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="dqP-ZA-Uw1">
-                                        <rect key="frame" x="0.0" y="480" width="600" height="50"/>
+                                        <rect key="frame" x="0.0" y="530" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dqP-ZA-Uw1" id="5IY-9Z-R1H">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
@@ -717,7 +742,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="urm-2d-xgT" userLabel="Help Cell">
-                                        <rect key="frame" x="0.0" y="530" width="600" height="50"/>
+                                        <rect key="frame" x="0.0" y="580" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="urm-2d-xgT" id="t7b-hz-xhk">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
@@ -741,7 +766,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="B2t-hW-LIY" userLabel="Settings Cell">
-                                        <rect key="frame" x="0.0" y="580" width="600" height="50"/>
+                                        <rect key="frame" x="0.0" y="630" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="B2t-hW-LIY" id="5HQ-nX-Kxv">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
@@ -765,7 +790,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="10" id="E5k-lZ-qfa" userLabel="SeparatorD">
-                                        <rect key="frame" x="0.0" y="630" width="600" height="10"/>
+                                        <rect key="frame" x="0.0" y="680" width="600" height="10"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E5k-lZ-qfa" id="D8o-lA-Jhd">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="10"/>
@@ -780,7 +805,7 @@
                                         <color key="tintColor" red="0.10588235410000001" green="0.50588238240000005" blue="0.36862745879999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="5hG-7Y-2ez">
-                                        <rect key="frame" x="0.0" y="640" width="600" height="50"/>
+                                        <rect key="frame" x="0.0" y="690" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5hG-7Y-2ez" id="g12-sC-5xe">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
@@ -817,15 +842,19 @@
                         <outlet property="contestCell" destination="6UC-uP-T2p" id="bKX-t1-hOw"/>
                         <outlet property="duoCell" destination="gIe-5N-50d" id="0RB-7H-LXg"/>
                         <outlet property="feedbackCell" destination="dqP-ZA-Uw1" id="fHU-0W-Ob3"/>
+                        <outlet property="helpCell" destination="urm-2d-xgT" id="6OO-Tk-Rt2"/>
                         <outlet property="homeCell" destination="ua0-0M-Tbn" id="YAW-Ih-lOt"/>
                         <outlet property="leaderboardCell" destination="GCB-f6-03p" id="avm-0F-7Wx"/>
                         <outlet property="logoutCell" destination="5hG-7Y-2ez" id="tIb-UD-2Ml"/>
                         <outlet property="markedCell" destination="VBu-aE-Fvn" id="7og-NC-7cd"/>
                         <outlet property="menu" destination="dqd-0t-X6t" id="4nG-tV-hl7"/>
                         <outlet property="name" destination="qQ6-sy-vhF" id="3Jd-hb-4Zi"/>
+                        <outlet property="newsfeedCell" destination="0xY-Uv-WjH" id="sSd-QI-Tnh"/>
                         <outlet property="separatorA" destination="4Cz-zM-eTq" id="MeT-ou-63O"/>
                         <outlet property="separatorB" destination="3tw-fW-9Oe" id="Gap-VP-jQh"/>
                         <outlet property="separatorC" destination="gm9-6Z-1TK" id="lF0-ZG-F03"/>
+                        <outlet property="separatorD" destination="E5k-lZ-qfa" id="9c4-7e-X8t"/>
+                        <outlet property="settingsCell" destination="B2t-hW-LIY" id="aUo-5w-9CM"/>
                         <outlet property="soloCell" destination="Pdb-Um-RUK" id="m93-ut-3Rb"/>
                         <outlet property="statsCell" destination="rqP-s5-cJe" id="iLr-GX-GO0"/>
                         <outlet property="topCell" destination="Qal-pP-7x6" id="TSY-Re-bjc"/>
@@ -1075,7 +1104,6 @@
                         <outlet property="phyPieChart" destination="cKS-C0-uxG" id="2Ti-0y-IjA"/>
                         <outlet property="stats" destination="Hyq-jX-Cjm" id="m5K-s3-PZu"/>
                         <outlet property="target" destination="WEF-WD-hnQ" id="h1h-Iw-eKp"/>
-                        <segue destination="hmY-5I-27E" kind="show" identifier="showNews" id="kkr-JM-FGR"/>
                         <segue destination="byH-XQ-Yj9" kind="show" identifier="showStats" id="KwL-6O-QQR"/>
                         <segue destination="Q20-H2-akI" kind="show" identifier="goTraining" id="4qo-Th-Hym"/>
                         <segue destination="Z5P-zY-itP" kind="show" identifier="goSolo" id="OfB-Vj-V6r"/>
@@ -1146,7 +1174,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cVf-Sw-i3T">
-                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
+                                <rect key="frame" x="0.0" y="108" width="600" height="448"/>
                                 <color key="backgroundColor" red="0.94901961089999998" green="0.94901961089999998" blue="0.94901961089999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.086274512112140656" green="0.62745100259780884" blue="0.5215686559677124" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.94901961088180542" green="0.94901961088180542" blue="0.94901961088180542" alpha="1" colorSpace="calibratedRGB"/>
@@ -1197,13 +1225,21 @@
                             <constraint firstItem="cVf-Sw-i3T" firstAttribute="top" secondItem="Qvd-SZ-NUK" secondAttribute="bottom" id="zeO-Za-mL7"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="vrd-2i-aMg">
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="abO-Wk-Vuo">
+                            <color key="tintColor" red="0.25628075" green="0.59876227380000002" blue="0.4630164504" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="menuButton" destination="abO-Wk-Vuo" id="9al-Ig-Otk"/>
                         <outlet property="newsfeedTable" destination="cVf-Sw-i3T" id="FKR-ZJ-MYS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RhJ-29-qr9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3590" y="266"/>
+            <point key="canvasLocation" x="2939" y="962"/>
         </scene>
         <!--RevealVC-->
         <scene sceneID="raD-wH-oWo">
@@ -1733,7 +1769,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="pxt-Cy-sWV">
-                                <rect key="frame" x="20" y="116" width="560" height="464"/>
+                                <rect key="frame" x="20" y="116" width="560" height="420"/>
                                 <color key="backgroundColor" red="0.94901961089999998" green="0.94901961089999998" blue="0.94901961089999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" name="SegoeUI-Regular" family="Segoe UI" pointSize="16"/>
@@ -1758,7 +1794,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H0m-xA-A2V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4272" y="266"/>
+            <point key="canvasLocation" x="3656" y="962"/>
         </scene>
         <!--Solo-->
         <scene sceneID="koI-1l-ylW">
@@ -4626,6 +4662,24 @@
             </objects>
             <point key="canvasLocation" x="3617" y="-3354"/>
         </scene>
+        <!--Newsfeed-->
+        <scene sceneID="Gmt-sl-6ig">
+            <objects>
+                <navigationController title="Newsfeed" automaticallyAdjustsScrollViewInsets="NO" id="i6D-en-1fh" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DeI-cR-R4e">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="hmY-5I-27E" kind="relationship" relationship="rootViewController" id="O5V-6f-0av"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QFd-32-fmo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2229" y="962"/>
+        </scene>
     </scenes>
     <resources>
         <image name="AP" width="50" height="50"/>
@@ -4646,6 +4700,7 @@
         <image name="marked" width="22" height="22"/>
         <image name="markedBar" width="22" height="22"/>
         <image name="menu" width="22" height="22"/>
+        <image name="newsfeed" width="22" height="22"/>
         <image name="next" width="20" height="20"/>
         <image name="phy" width="512" height="512"/>
         <image name="previous" width="20" height="20"/>
@@ -4662,16 +4717,16 @@
         <image name="trimaskgreen" width="1317" height="1254"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="X6A-Qp-egL"/>
+        <segue reference="pkL-Jx-0og"/>
         <segue reference="9Zt-vc-ZPx"/>
         <segue reference="dOb-Hk-MCF"/>
-        <segue reference="X6A-Qp-egL"/>
         <segue reference="Mzc-wZ-R5Z"/>
-        <segue reference="pkL-Jx-0og"/>
-        <segue reference="78B-T2-OOj"/>
+        <segue reference="F9M-0G-DBV"/>
         <segue reference="FJi-Sh-npJ"/>
+        <segue reference="78B-T2-OOj"/>
         <segue reference="KwL-6O-QQR"/>
         <segue reference="C5u-vB-9sx"/>
-        <segue reference="F9M-0G-DBV"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.086274509803921567" green="0.62745098039215685" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
 </document>

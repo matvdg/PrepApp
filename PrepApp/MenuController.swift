@@ -26,6 +26,10 @@ class MenuController: UITableViewController {
         self.feedbackCell.backgroundColor = Colors.darkGrey
         self.separatorC.backgroundColor = Colors.darkGrey
         self.logoutCell.backgroundColor = Colors.darkGrey
+        self.separatorD.backgroundColor = Colors.darkGrey
+        self.newsfeedCell.backgroundColor = Colors.darkGrey
+        self.helpCell.backgroundColor = Colors.darkGrey
+        self.settingsCell.backgroundColor = Colors.darkGrey
     }
     
     //@IBAction
@@ -62,6 +66,10 @@ class MenuController: UITableViewController {
     @IBOutlet weak var feedbackCell: UITableViewCell!
     @IBOutlet weak var separatorC: UITableViewCell!
     @IBOutlet weak var logoutCell: UITableViewCell!
+    @IBOutlet weak var separatorD: UITableViewCell!
+    @IBOutlet weak var settingsCell: UITableViewCell!
+    @IBOutlet weak var helpCell: UITableViewCell!
+    @IBOutlet weak var newsfeedCell: UITableViewCell!
     
     
     //methods

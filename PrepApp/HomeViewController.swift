@@ -191,10 +191,6 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "goDuo", name: "goDuo", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "goContest", name: "goContest", object: nil)
         
-        //handling swipe gestures
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: "swiped:")
-        swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
-        self.view.addGestureRecognizer(swipeLeft)
         if self.revealViewController() != nil {
             self.menuButton.target = self.revealViewController()
             self.menuButton.action = "revealToggle:"
@@ -229,7 +225,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
         self.chePieChart.noDataText = ""
         self.chePieChart.noDataTextDescription = ""
         self.view!.backgroundColor = Colors.greyBackground
-        self.legend.text = "Inclinez en mode paysage pour voir votre graphe performance. Glissez à droite pour voir le fil d'actualités Prep'App."
+        self.legend.text = ""
         self.stats.hidden = true
         self.view.backgroundColor = Colors.greyBackground
         self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Segoe UI", size: 20)!]
@@ -399,18 +395,6 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
             }
         default :
             return "error"
-        }
-    }
-    
-    func swiped(gesture : UIGestureRecognizer) {
-        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-            switch swipeGesture.direction {
-            case UISwipeGestureRecognizerDirection.Left:
-                //self.hidePieCharts(true)
-                self.performSegueWithIdentifier("showNews", sender: self)
-            default:
-                print("other")
-            }
         }
     }
     
