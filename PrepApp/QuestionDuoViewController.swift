@@ -698,6 +698,7 @@ class QuestionDuoViewController: UIViewController,
         self.chrono.hidden = true
         self.chronoImage.hidden = true
         self.calc.image = UIImage(named: "score")
+        self.calc.tintColor = Colors.greenLogo
         self.titleLabel.text = "Correction du défi duo"
         self.markButton.enabled = true
         self.markButton.image = UIImage(named: "markedBar")
