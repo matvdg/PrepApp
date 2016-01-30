@@ -25,8 +25,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
 	
 	override func viewDidAppear(animated: Bool) {
-		//if user already logged in persistent data, load it
         print(FactorySync.path)
+        
+        UserPreferences.loadUserPreferences()
+        
+		//if user already logged in persistent data, load it
+        
         if User.instantiateUserStored() {
             if UserPreferences.touchId {
                 UserPreferences.touchID()
@@ -37,6 +41,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         if User.authenticated {
             self.performSegueWithIdentifier("loginDidSucceded", sender: self)
         } else {
+            
             if FactorySync.debugMode {
                 self.hideDebugButton(false)
                 self.mail.text = "matvdg@icloud.com"
@@ -73,46 +78,71 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 	}
 	
 	func connect() {
-		//online mode
-		User.login(mail.text!, pass: pass.text!){
-			(data, error) -> Void in
-			SwiftSpinner.hide()
-			if data == nil {
-				// create alert controller
-				let myAlert = UIAlertController(title: error, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-                myAlert.view.tintColor = Colors.green
-				// add "OK" button
-				myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-				// show the alert
-				self.presentViewController(myAlert, animated: true, completion: nil)
-			} else {
-				User.instantiateUser(data!, pass: self.pass.text!)
-				//we store the current user infos to avoid further login until he logs out
-				User.currentUser!.saveUser()
-                FactoryRealm.clearUserDB()
-                FactoryHistory.getHistory().retrieveHistory({ (result) -> Void in
-                    if result {
-                        self.performSegueWithIdentifier("loginDidSucceded", sender: self)
-                    } else {
-                        // create alert controller
-                        let myAlert = UIAlertController(title: "Erreur !", message: "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
-                        myAlert.view.tintColor = Colors.green
-                        // add "OK" button
-                        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                        // show the alert
-                        self.presentViewController(myAlert, animated: true, completion: nil)
-                    }
-                })
-			}
-		}
-	}
-    
-    func login() {
-        User.authenticated = true
-        if !User.background {
-            self.performSegueWithIdentifier("loginDidSucceded", sender: self)
+        //CGU consent
+        if !UserPreferences.cguConsent {
+            SwiftSpinner.hide()
+            self.consentCgu()
+        } else {
+            //online mode
+            User.login(mail.text!, pass: pass.text!){
+                (data, error) -> Void in
+                SwiftSpinner.hide()
+                if data == nil {
+                    // create alert controller
+                    let myAlert = UIAlertController(title: error, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                    myAlert.view.tintColor = Colors.green
+                    // add "OK" button
+                    myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                    // show the alert
+                    self.presentViewController(myAlert, animated: true, completion: nil)
+                } else {
+                    User.instantiateUser(data!, pass: self.pass.text!)
+                    //we store the current user infos to avoid further login until he logs out
+                    User.currentUser!.saveUser()
+                    FactoryRealm.clearUserDB()
+                    FactoryHistory.getHistory().retrieveHistory({ (result) -> Void in
+                        if result {
+                            self.performSegueWithIdentifier("loginDidSucceded", sender: self)
+                        } else {
+                            // create alert controller
+                            let myAlert = UIAlertController(title: "Erreur !", message: "Échec de la connexion. Veuillez vérifier que vous êtes connecté à internet avec une bonne couverture cellulaire ou WiFi, puis réessayez.", preferredStyle: UIAlertControllerStyle.Alert)
+                            myAlert.view.tintColor = Colors.green
+                            // add "OK" button
+                            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                            // show the alert
+                            self.presentViewController(myAlert, animated: true, completion: nil)
+                        }
+                    })
+                }
+            }
         }
     }
+    
+    func consentCgu() {
+            // create alert controller
+            let myAlert = UIAlertController(title: "CGU", message: HelpViewController.getCGU(), preferredStyle: UIAlertControllerStyle.Alert)
+            myAlert.view.tintColor = Colors.green
+            // add "agree/disagree" button
+            myAlert.addAction(UIAlertAction(title: "J'accepte les CGU", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                UserPreferences.cguConsent = true
+                UserPreferences.saveUserPreferences()
+                SwiftSpinner.show("")
+                self.connect()
+            }))
+            myAlert.addAction(UIAlertAction(title: "Je refuse les CGU", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+                // create alert controller
+                let myAlert = UIAlertController(title: "CGU", message: "Pour utiliser Prep'App, vous devez accepter les conditions générales d'utilisation", preferredStyle: UIAlertControllerStyle.Alert)
+                myAlert.view.tintColor = Colors.green
+                // add "OK" button
+                myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                // show the alert
+                self.presentViewController(myAlert, animated: true, completion: nil)
+                
+            }))
+            // show the alert
+            self.presentViewController(myAlert, animated: true, completion: nil)
+    }
+    
     
     //@IBOutlets
 	@IBOutlet weak var designButton: UIButton!

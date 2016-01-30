@@ -12,7 +12,6 @@ class User {
     
     static var currentUser: User?
     static var authenticated: Bool = false
-    static var background: Bool = false
     
     var id: Int
     var firstName: String

@@ -52,7 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func applicationDidEnterBackground(application: UIApplication) {
         // we first check if Touch ID protection is enabled
-        User.background = true
         if (User.instantiateUserStored()){
             if (UserPreferences.touchId) {
                 User.authenticated = false

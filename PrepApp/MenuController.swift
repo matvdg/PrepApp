@@ -79,6 +79,7 @@ class MenuController: UITableViewController {
             if result {
                 //Clear the local user
                 NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
+                NSUserDefaults.standardUserDefaults().removeObjectForKey("userPreferences")
                 NSUserDefaults.standardUserDefaults().synchronize()
                 User.authenticated = false
                 self.dismissViewControllerAnimated(true, completion: nil)
