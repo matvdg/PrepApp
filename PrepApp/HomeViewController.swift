@@ -242,8 +242,7 @@ class HomeViewController: UIViewController, ChartViewDelegate, UIViewControllerP
             FactorySync.getConfigManager().saveCurrentDay(currentDay)
             self.displayNotification(self.getWelcomeMessage(), refreshGraph: false)
         }
-        let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
-        UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
+        UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil))
         let notification = UILocalNotification()
         notification.fireDate = NSDate(timeIntervalSinceNow: 5)
         notification.alertBody = "Préparez-vous à réussir!"
